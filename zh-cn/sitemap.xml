@@ -2,6 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://example.com/posts/</loc><lastmod>2025-09-18T10:38:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/moban/</loc><lastmod>2025-09-18T10:38:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/moban2/</loc><lastmod>2025-09-18T10:38:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/page/</loc><lastmod>2025-09-17T17:35:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/page/archives/</loc><lastmod>2025-09-17T17:35:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/</loc><lastmod>2025-09-17T17:35:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
@@ -23,7 +26,6 @@
                     hreflang="zh-cn"
                     href="https://example.com/categories/"
                     /></url><url>
-            <loc>https://example.com/posts/</loc><lastmod>2025-09-18T09:48:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://example.com/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
