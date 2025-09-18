@@ -7,12 +7,14 @@
             <webMaster>1131821081@qq.com (Calendar)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>First\_post</title>
-    <link>https://example.com/first_post/</link>
-    <pubDate>Thu, 18 Sep 2025 07:26:23 &#43;0800</pubDate>
+    <title></title>
+    <link>https://example.com/test/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
     <author>Calendar</author>
-    <guid>https://example.com/first_post/</guid>
-    <description><![CDATA[<p>这是一个测试文档。</p>]]></description>
+    <guid>https://example.com/test/</guid>
+    <description><![CDATA[<p>这是一个测试文档
+这是一个图片：
+</p>]]></description>
 </item>
 </channel>
 </rss>
