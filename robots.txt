@@ -13,6 +13,7 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
+# Algolia-Crawler-Verif: 2DEC11B6C0116F25
 # Block SISTRIX
 User-agent: SISTRIX Crawler
 Disallow: /
