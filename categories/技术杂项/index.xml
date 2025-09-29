@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>技术 on Calendar&#39;s Blog</title>
-    <link>https://example.com/tags/%E6%8A%80%E6%9C%AF/</link>
-    <description>Recent content in 技术 on Calendar&#39;s Blog</description>
+    <title>技术杂项 on Calendar&#39;s Blog</title>
+    <link>https://example.com/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/</link>
+    <description>Recent content in 技术杂项 on Calendar&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <managingEditor>1131821081@qq.com (Calendar)</managingEditor>
     <webMaster>1131821081@qq.com (Calendar)</webMaster>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Mon, 29 Sep 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.com/tags/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.com/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>配置docker</title>
       <link>https://example.com/%E9%85%8D%E7%BD%AEdocker/</link>
       <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate><author>1131821081@qq.com (Calendar)</author>
       <guid>https://example.com/%E9%85%8D%E7%BD%AEdocker/</guid>
       <description>记录CentOS7配置docker的过程</description>
-    </item>
-    <item>
-      <title>SpringBoot简明教程</title>
-      <link>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
-      <pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><author>1131821081@qq.com (Calendar)</author>
-      <guid>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
-      <description>简要介绍SpringBoot使用</description>
     </item>
   </channel>
 </rss>

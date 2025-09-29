@@ -7,22 +7,20 @@
             <webMaster>1131821081@qq.com (Calendar)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>配置docker</title>
+    <link>https://example.com/%E9%85%8D%E7%BD%AEdocker/</link>
+    <pubDate>Mon, 29 Sep 2025 00:00:00 &#43;0000</pubDate>
+    <author>Calendar</author>
+    <guid>https://example.com/%E9%85%8D%E7%BD%AEdocker/</guid>
+    <description><![CDATA[记录CentOS7配置docker的过程]]></description>
+</item>
+<item>
     <title>SpringBoot简明教程</title>
     <link>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
     <pubDate>Mon, 22 Sep 2025 00:00:00 &#43;0000</pubDate>
     <author>Calendar</author>
     <guid>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
-    <description><![CDATA[<h2 id="springboot-的优势">SpringBoot 的优势</h2>
-<p>SpringBoot 是由Pivotal团队提供的全新框架，其设计目的是用来简化Spring应用的初始搭建以及开发过程。</p>
-<p>简化操作体现在四个方面</p>
-<ul>
-<li><strong>parent</strong> 统一控制版本，解决版本冲突问题</li>
-<li><strong>starter</strong> 整合依赖的固定搭配格式，减少依赖配置</li>
-<li><strong>引导类</strong> <code>@SpringBootApplication</code>，用于启动程序、初始化容器</li>
-<li><strong>内嵌 Tomcat</strong></li>
-</ul>
-<h2 id="配置">配置</h2>
-<p>首先，需要用 maven 来将 SpringBoot 的环境搭建好。也可以从官网下载源文件进行导入。</p>]]></description>
+    <description><![CDATA[简要介绍SpringBoot使用]]></description>
 </item>
 <item>
     <title>19岁</title>

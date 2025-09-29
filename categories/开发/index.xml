@@ -16,7 +16,7 @@
       <link>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
       <pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate><author>1131821081@qq.com (Calendar)</author>
       <guid>https://example.com/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
-      <description>&lt;h2 id=&#34;springboot-的优势&#34;&gt;SpringBoot 的优势&lt;/h2&gt;&#xA;&lt;p&gt;SpringBoot 是由Pivotal团队提供的全新框架，其设计目的是用来简化Spring应用的初始搭建以及开发过程。&lt;/p&gt;&#xA;&lt;p&gt;简化操作体现在四个方面&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;parent&lt;/strong&gt; 统一控制版本，解决版本冲突问题&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;starter&lt;/strong&gt; 整合依赖的固定搭配格式，减少依赖配置&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;引导类&lt;/strong&gt; &lt;code&gt;@SpringBootApplication&lt;/code&gt;，用于启动程序、初始化容器&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;内嵌 Tomcat&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;&#xA;&lt;p&gt;首先，需要用 maven 来将 SpringBoot 的环境搭建好。也可以从官网下载源文件进行导入。&lt;/p&gt;</description>
+      <description>简要介绍SpringBoot使用</description>
     </item>
   </channel>
 </rss>
