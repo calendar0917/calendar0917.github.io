@@ -1,22 +1,787 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>笔记 on Calendar&#39;s Blog</title>
-    <link>https://example.com/tags/%E7%AC%94%E8%AE%B0/</link>
-    <description>Recent content in 笔记 on Calendar&#39;s Blog</description>
-    <generator>Hugo</generator>
-    <language>zh-CN</language>
-    <managingEditor>1131821081@qq.com (Calendar)</managingEditor>
-    <webMaster>1131821081@qq.com (Calendar)</webMaster>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 03 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.com/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>计算机组成原理</title>
-      <link>https://example.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
-      <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate><author>1131821081@qq.com (Calendar)</author>
-      <guid>https://example.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
-      <description>计算机组成原理课程的笔记</description>
-    </item>
-  </channel>
+    <channel>
+        <title>笔记 on Calendar&#39;s Blog</title>
+        <link>https://example.com/tags/%E7%AC%94%E8%AE%B0/</link>
+        <description>Recent content in 笔记 on Calendar&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Calendar</copyright>
+        <lastBuildDate>Fri, 03 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>计算机组成原理</title>
+        <link>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+        <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
+        <description>&lt;h2 id=&#34;第一章-计算机系统概述&#34;&gt;第一章 计算机系统概述
+&lt;/h2&gt;&lt;h3 id=&#34;计算机系统的发展&#34;&gt;计算机系统的发展
+&lt;/h3&gt;&lt;p&gt;计算机系统 = 硬件 + 软件&lt;/p&gt;
+&lt;h4 id=&#34;软件&#34;&gt;软件
+&lt;/h4&gt;&lt;p&gt;系统软件：用来管理整个计算机系统&lt;/p&gt;
+&lt;p&gt;应用软件：按任务需要编制成的程序&lt;/p&gt;
+&lt;h4 id=&#34;硬件&#34;&gt;硬件
+&lt;/h4&gt;&lt;p&gt;第一台电子数字计算机：&lt;strong&gt;ENIAC&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;逻辑元件（用于处理电信号的最小单元）：电子管&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;十进制表示，手动编程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无冯 · 诺伊曼结构&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第二代：晶体管&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;元器件：逻辑元件（晶体管），内存（磁芯），外存（磁鼓，磁带）&lt;/li&gt;
+&lt;li&gt;特点：变址，浮点运算，多路存储器，I/O 处理机，中央交换结构（非总线）。&lt;/li&gt;
+&lt;li&gt;软件：使用高级语言，提供系统软件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;第三代：中小规模集成电路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;元器件：逻辑元件和主存储器均由&lt;strong&gt;集成电路&lt;/strong&gt;实现。&lt;/li&gt;
+&lt;li&gt;特点：微程序控制，Cache，虚拟存储器，流水线。&lt;/li&gt;
+&lt;li&gt;代表机种：IBM 360（大型机），DEC PDP-8（小型机），巨型机。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IBM 360（&lt;strong&gt;兼容机&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;相同/相似的指令集&amp;amp;操作系统。&lt;/p&gt;
+&lt;p&gt;好处： 原来机器上的程序可以不改动而在新机器上运行，但性能不同。&lt;/p&gt;
+&lt;p&gt;保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DEC PDP-8（&lt;strong&gt;采用总线结构&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;第四代：大规模、超大规模集成电路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;半导体存储器，微处理器发展迅速。&lt;/li&gt;
+&lt;li&gt;特点：共享存储器，分布式存储器以及大规模并行系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;组成&#34;&gt;组成
+&lt;/h3&gt;&lt;h4 id=&#34;冯诺依曼结构模型&#34;&gt;冯诺依曼结构模型
+&lt;/h4&gt;&lt;p&gt;冯诺依曼提出&lt;strong&gt;存储程序&lt;/strong&gt;，取代手动接线。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;冯诺依曼结构：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;计算机由运算器，控制器，存储器，输入设备和输出设备五个基本部件组成。&lt;/li&gt;
+&lt;li&gt;各基本部件功能：
+&lt;ol&gt;
+&lt;li&gt;存储器不仅能存放数据，而且也能存放指令，形式上两者没有区别，但计算机应能区分数据还是指令；&lt;/li&gt;
+&lt;li&gt;控制器应能自动执行指令；&lt;/li&gt;
+&lt;li&gt;运算器应能进行加/减/乘/除四种基本算术运算，并且也能进行一些逻辑运算和附加运算；&lt;/li&gt;
+&lt;li&gt;操作人员可以通过输入设备和输出设备与主机进行通信。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;内部以&lt;strong&gt;二进制数&lt;/strong&gt;表述指令和数据
+&lt;ol&gt;
+&lt;li&gt;每条指令由&lt;strong&gt;操作码&lt;/strong&gt;和&lt;strong&gt;地址码&lt;/strong&gt;两部分组成。操作码指出操作的类型，地址码指出操作数的地址。&lt;/li&gt;
+&lt;li&gt;由一串指令组成程序。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;采用&lt;strong&gt;存储程序&lt;/strong&gt;工作方式
+&lt;ol&gt;
+&lt;li&gt;将事先编好的程序和原始数据送入主存中；启动执行后，在不需操作人员干预下，自动完成逐条取出指令和执行指令的任务。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/20251003090538614.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;基本部件及其功能&#34;&gt;基本部件及其功能
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;运算器（数据运算）：ALU、GPRs、标志寄存器等。&lt;/li&gt;
+&lt;li&gt;存储器（数据存储）：存储阵列、地址译码器、读写控制电路&lt;/li&gt;
+&lt;li&gt;总线（数据传送）：数据线（MDR）、地址线（MAR）和控制线&lt;/li&gt;
+&lt;li&gt;控制器（控制）：对指令译码生成控制信号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CPU = 运算器 + 控制器&lt;/p&gt;
+&lt;p&gt;主机 = CPU + 主存&lt;/p&gt;
+&lt;h4 id=&#34;各硬件工作原理&#34;&gt;各硬件工作原理
+&lt;/h4&gt;&lt;h5 id=&#34;主存储器&#34;&gt;主存储器
+&lt;/h5&gt;&lt;p&gt;主存储器 = 存储体 + MAR + MDR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Memory Address Register 存储地址寄存器：指示位置，位数反应存储单元的个数&lt;/li&gt;
+&lt;li&gt;Memory Data Register 存储数据寄存器：指示存入、取出的具体数据（包括指令）&lt;/li&gt;
+&lt;li&gt;存储体：数据、指令在存储体内按地址存储，每个存储单元对应一个地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1B = 1 byte ; 1 b = 1 bit&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MAR、MDR 逻辑上属于主存，但被集成到 CPU&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h5 id=&#34;运算器&#34;&gt;运算器
+&lt;/h5&gt;&lt;p&gt;实现算数运算、逻辑运算&lt;/p&gt;
+&lt;p&gt;运算器 = ACC + ALU + MQ + X&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Accumulator：累加器，存放操作数或运算结果&lt;/li&gt;
+&lt;li&gt;Multiple-Quotient Register：乘商寄存器，乘除运算时，存放操作数或运算结果&lt;/li&gt;
+&lt;li&gt;Arithmetic and Logic Unit：算数逻辑单元，通过复杂电路实现算数运算、逻辑运算&lt;/li&gt;
+&lt;li&gt;X：通用的操作数寄存器，用于存放操作数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;控制器&#34;&gt;控制器
+&lt;/h5&gt;&lt;p&gt;控制器 = CU + IR +PC&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Control Unit:控制单元，分析指令，给出控制信号&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instruction Register:指令寄存器，存放当前执行的指令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Program Counter:程序计数器，存放下一条指令地址，有自动加1功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;配合&#34;&gt;配合
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003094316150.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003094316150&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h5 id=&#34;指令和数据&#34;&gt;指令和数据
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;程序启动前，指令和数据都存储在存储器中，&lt;strong&gt;形式上没有区别&lt;/strong&gt;，都是 0/1 序列。&lt;/li&gt;
+&lt;li&gt;采用&lt;strong&gt;存储程序&lt;/strong&gt;的工作方式，程序由指令组成，启动后计算机自动取出一条条指令并执行，无需人的干预。&lt;/li&gt;
+&lt;li&gt;指令执行过程中，指令和数据从存储器取到 CPU，&lt;strong&gt;指令存在 IR 中，数据在 GPR 中&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;指令需要给出的信息
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;操作码&lt;/strong&gt;：指令的操作，加减法等&lt;/li&gt;
+&lt;li&gt;一个或多个&lt;strong&gt;源操作数&lt;/strong&gt;：立即数、寄存器编号、存储地址&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目的操作数地址&lt;/strong&gt;：寄存器编号、存储地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;执行过程&#34;&gt;执行过程
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;程序执行前
+&lt;ul&gt;
+&lt;li&gt;数据和指令事先存放在存储器中，每条指令和每个数据都有地址，指令按序存放。指令由 OP、ADDR 字段组成，程序起始地址送入 PC。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;开始执行程序
+&lt;ul&gt;
+&lt;li&gt;根据 PC &lt;strong&gt;取指&lt;/strong&gt;令送 IR：PC -&amp;gt; MAR -&amp;gt;存储器 -&amp;gt; MDR -&amp;gt; IR&lt;/li&gt;
+&lt;li&gt;指令&lt;strong&gt;译码&lt;/strong&gt;：IR -&amp;gt; 控制器，控制器译码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;取操作数&lt;/strong&gt;：GPRs 或存储器 -&amp;gt; ALU&lt;/li&gt;
+&lt;li&gt;执行指令操作：ALU &lt;strong&gt;运算&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;回写&lt;/strong&gt;结果到 GPRs 或存储器&lt;/li&gt;
+&lt;li&gt;修改 &lt;strong&gt;PC&lt;/strong&gt; 的值，使其指向&lt;strong&gt;下一条指令&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;重复上述步骤直到程序完成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;软件-1&#34;&gt;软件
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;系统软件——简化编程，&lt;strong&gt;使硬件资源被有效利用&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;操作系统：硬件资源管理，用户接口&lt;/li&gt;
+&lt;li&gt;语言处理程序：翻译程序，Linker，Debug&amp;hellip;
+&lt;ul&gt;
+&lt;li&gt;翻译程序
+&lt;ul&gt;
+&lt;li&gt;汇编器（Assembler）：汇编语言源程序-&amp;gt;机器目标程序。或许叫汇编器更好理解？&lt;/li&gt;
+&lt;li&gt;编译器（Complier）：高级语言程序-&amp;gt;汇编/机器目标程序。或许叫编译器更好理解？&lt;/li&gt;
+&lt;li&gt;解释器（Interpreter）：将高级语言程序语句逐条翻译成机器指令并执行，不生成目标文件。（跳过汇编阶段）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;其他实用程序：磁盘碎片整理、备份程序&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;机器语言：二进制代码&lt;/p&gt;
+&lt;p&gt;汇编语言：助记符&lt;/p&gt;
+&lt;p&gt;高级语言：C、C++、……&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;应用软件——解决&lt;strong&gt;具体的应用&lt;/strong&gt;问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;层次结构&#34;&gt;层次结构
+&lt;/h3&gt;&lt;h4 id=&#34;语言层次&#34;&gt;语言层次
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;微指令系统：直接控制硬件执行&lt;/li&gt;
+&lt;li&gt;机器语言：传统机器M1，执行二进制机器指令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;操作系统机器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;汇编语言：虚拟机器M2，用汇编语言翻译成机器语言&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;高级语言：虚拟机器M3，需要编译成汇编、机器语言&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上两层视为硬件层&lt;/p&gt;
+&lt;p&gt;计算机体系结构：讨论如何设计硬件与软件之间的接口&lt;/p&gt;
+&lt;p&gt;计算机组成原理：讨论如何用硬件实现接口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003100912264.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003100912264&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;isa&#34;&gt;ISA
+&lt;/h4&gt;&lt;p&gt;指令集体系结构，其作为&lt;strong&gt;规约&lt;/strong&gt;，规定了&lt;strong&gt;如何使用硬件&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可执行的指令集合，包括&lt;strong&gt;指令格式&lt;/strong&gt;、&lt;strong&gt;操作种类&lt;/strong&gt;以及对应&lt;strong&gt;操作数&lt;/strong&gt;的规定。&lt;/li&gt;
+&lt;li&gt;可以接受的&lt;strong&gt;操作数类型&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;操作数存放的&lt;strong&gt;寄存器组结构&lt;/strong&gt;，例如寄存器名称、编号、长度和用途。&lt;/li&gt;
+&lt;li&gt;操作数存放的存储空间的&lt;strong&gt;大小和编址方式&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;操作数在存储空间中按&lt;strong&gt;大/小端&lt;/strong&gt;方式存放。&lt;/li&gt;
+&lt;li&gt;指令获得操作数的方式，即&lt;strong&gt;寻址方式&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;指令执行过程的&lt;strong&gt;控制方式&lt;/strong&gt;，例如程序计数器，条件码定义等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ISA 是计算机系统中&lt;strong&gt;必不可少的抽象层&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;性能指标&#34;&gt;性能指标
+&lt;/h3&gt;&lt;h4 id=&#34;存储器&#34;&gt;存储器
+&lt;/h4&gt;&lt;p&gt;总容量 = 存储单元个数 * 存储字长(bit)&lt;/p&gt;
+&lt;h4 id=&#34;cpu&#34;&gt;CPU
+&lt;/h4&gt;&lt;h5 id=&#34;基本概念&#34;&gt;基本概念
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主频：CPU内数字脉冲信号振荡的频率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;= 1 / 时钟周期&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CPI：执行一条指令需要多少个时钟周期（不同指令，CPI不同）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CPU执行时间：执行整个程序的耗时 = (条数 * CPI) / 主频&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IPS：每秒执行多少个命令 = 主频 / 平均CPI&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FLOPS：每秒执行多少次浮点运算&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;K=Kilo=千=10^3&lt;/p&gt;
+&lt;p&gt;M=Million=百万=10^6&lt;/p&gt;
+&lt;p&gt;G=Giga=十亿=10^9&lt;/p&gt;
+&lt;p&gt;T=Tera=万亿=10^12&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数据通路带宽：数据总线一次所能并行传送信息的位数（各硬件部件通过数据总线传输数据）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;吞吐量：单位时间内处理请求的数量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;相应时间：CPU时间 + 等待时间&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基准程序：用于测量的程序&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MIPS（Million Instructions Per Second）：每秒执行多少百万条指令，着重点在于&lt;strong&gt;单条指令&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;MIPS 为平均值，其并没有考虑以上三个属性，并且由于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不同机器指令集不同&lt;/li&gt;
+&lt;li&gt;程序由不同指令混合而成&lt;/li&gt;
+&lt;li&gt;指令的频率会动态变换&lt;/li&gt;
+&lt;li&gt;厂家给出峰值 MIPS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，MIPS 表示性能存在局限性。&lt;/p&gt;
+&lt;p&gt;MFLOPS：每秒执行浮点运算多少百万次，着重在于&lt;strong&gt;浮点操作&lt;/strong&gt;本身。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h5 id=&#34;计算&#34;&gt;计算
+&lt;/h5&gt;&lt;p&gt;CPU 执行时间=CPI×程序总指令条数×时钟周期&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003103925476.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003103925476&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;第二章-数据的机器级表示&#34;&gt;第二章 数据的机器级表示
+&lt;/h2&gt;&lt;h3 id=&#34;信息二进制编码&#34;&gt;信息二进制编码
+&lt;/h3&gt;&lt;p&gt;计算机内部数据：二进制表示&lt;/p&gt;
+&lt;p&gt;机器级数据：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数值数据，无符号/带符号整数，浮点数，十进制数&lt;/li&gt;
+&lt;li&gt;非数值数据，逻辑数，汉字&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;二进制编码原因：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;制造两个稳态的物理器件容易&lt;/li&gt;
+&lt;li&gt;二进制编码、计数、运算规则简单。&lt;/li&gt;
+&lt;li&gt;与逻辑命题对应，便于逻辑运算，方便地用逻辑电路实现算术运算。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;机器数：0/1 编码的 0/1 内部 0/1 序列。&lt;/p&gt;
+&lt;p&gt;真值：机器数真正的值&lt;/p&gt;
+&lt;h4 id=&#34;数值数据表示方法&#34;&gt;数值数据表示方法
+&lt;/h4&gt;&lt;p&gt;三要素：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进位计数制：十进制，二进制等转换。&lt;/li&gt;
+&lt;li&gt;定点浮点表示：定点整数/小数；浮点数（使用一个定点小数和一个定点整数表示）&lt;/li&gt;
+&lt;li&gt;编码：原码补码反码等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;若不知道三要素，那么便无法得知机器数的具体真值。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;进制转换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;二进制 -&amp;gt; 其他：划分位数，对应&lt;/li&gt;
+&lt;li&gt;十六、八 -&amp;gt; 二：位数对应，补全&lt;/li&gt;
+&lt;li&gt;十进制 -&amp;gt; 任意位数：求商取余&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;h4 id=&#34;定点数的表示&#34;&gt;定点数的表示
+&lt;/h4&gt;&lt;p&gt;常规计数，小数点位置固定。整数、小数分开存储。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;无符号数：没有符号位&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;原码：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有 +0、-0 两种表示形式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;反码：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正数与原码相同&lt;/li&gt;
+&lt;li&gt;若符号位为1，则数值位全部取反&lt;/li&gt;
+&lt;li&gt;依然有 +0、-0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;补码：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将减法抓换为等价的加法（加上补数）&lt;/li&gt;
+&lt;li&gt;= 原码除符号位外，取反后加一（即反码 + 1）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;移码： &lt;strong&gt;将每一个数值加上一个偏置常数（ bias）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一般来说，当编码位数为 n **时，bias 取 2^n 标准移码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么要用移码来表示阶码？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;便于浮点数加减运算时的对阶操作（比较大小）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;与补码的关系：&lt;strong&gt;最高位相反，其余位相同&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;c语言的解析&#34;&gt;C语言的解析
+&lt;/h4&gt;&lt;p&gt;无符号数变为有符号：不改变数据内容，改变解释方式&lt;/p&gt;
+&lt;p&gt;长变短：高位截断，保留地位&lt;/p&gt;
+&lt;p&gt;短变长：符号扩展&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负数补1，正数补0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ieee编码&#34;&gt;IEEE编码
+&lt;/h3&gt;&lt;p&gt;规定了二进制浮点数算数标准，类似科学计数法简化计数&lt;/p&gt;
+&lt;h4 id=&#34;二进制浮点数&#34;&gt;二进制浮点数
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;符号：决定数值的正负性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;尾数：影响数值的精度。尾数的位数越多，精度越高&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;阶码：反映小数点的实际位置&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基数：K进制通常默认基数为K&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;规格化：石确保尾数的最高位非0数位刚好在小数点之前&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;float型：32位单精度&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;符号 + 阶码 + 尾数：1 + 8 + 23&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;double型：64位双精度&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;符号 + 阶码 + 尾数：1 + 11 + 52&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;float单精度&#34;&gt;float单精度
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;默认存储规格化尾数，小数点前的1省略（隐含）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基数规定为 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;阶码用移码表示，规定偏置值为 127&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如何将十进制真值转换为偏置值为M的移码？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;将十进制真值+偏置值&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按“无符号整数”规则转换为指定位数&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;h4 id=&#34;double双精度&#34;&gt;double双精度
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;偏置值为1023&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;表示范围&#34;&gt;表示范围
+&lt;/h4&gt;&lt;h4 id=&#34;特殊状态&#34;&gt;特殊状态
+&lt;/h4&gt;&lt;p&gt;阶码全 0，或阶码全 1&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;阶码真值的取值范围为 -126 ~ 127（单精度）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003161255970.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003161255970&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;根据数轴，存在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正上溢、正下溢、负上溢，负下移&lt;/li&gt;
+&lt;li&gt;上溢置为无穷，下溢置为0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003160611584.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003160611584&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数据表示&#34;&gt;数据表示
+&lt;/h3&gt;&lt;h4 id=&#34;十进制数表示&#34;&gt;十进制数表示
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ASCII 码：就是把数字当作字符存储，&lt;strong&gt;0-9用30H-39H表示&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前分隔：&lt;strong&gt;正号用 2B  负号用 2D&lt;/strong&gt;  放在最前面&lt;/li&gt;
+&lt;li&gt;后嵌入：将符号嵌入最低位数字的 ASCII 码高 4 位中。
+&lt;ul&gt;
+&lt;li&gt;正数不变；负数高 4 位变为 0111。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;BCD 码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每 1 位十进制数用 4 位二进制表示。而 4 位二进制数可组合成 16 种状态，只需要选 10 种状态来表示十进制数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;西文字符表示&#34;&gt;西文字符表示：
+&lt;/h4&gt;&lt;p&gt;复习要点中未提到&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;十进制数字：0/1/2…/9             10 个&lt;/li&gt;
+&lt;li&gt;英文字母：A/B/…/Z/a/b/…/z    52 个&lt;/li&gt;
+&lt;li&gt;专用符号：+/-/%/*/&amp;amp;/……        33 个&lt;/li&gt;
+&lt;li&gt;控制字符（不可打印或显示）  33 个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;汉字表示&#34;&gt;汉字表示
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;输入码：用于输入汉字。&lt;/li&gt;
+&lt;li&gt;内码：用于在系统中进行存储、查找、传送等处理&lt;/li&gt;
+&lt;li&gt;字模点阵或轮廓描述：用于显示/打印&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;数据的宽度&#34;&gt;数据的宽度
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;bit&lt;/li&gt;
+&lt;li&gt;字节：
+&lt;ul&gt;
+&lt;li&gt;现代计算机中，存储器按字节编址&lt;/li&gt;
+&lt;li&gt;字节是最小可寻址单位 （addressable unit ）&lt;/li&gt;
+&lt;li&gt;LSB 表示最低有效字节，MSB 表示最高有效字节&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;字
+&lt;ul&gt;
+&lt;li&gt;表示被处理信息的单位，用来度量数据类型的宽度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;字长
+&lt;ul&gt;
+&lt;li&gt;指某特定机器定点运算时数据通路的宽度。&lt;/li&gt;
+&lt;li&gt;数据通路： CPU 内部进行数据运算、存储和传送的路径以及路径上的部件。&lt;/li&gt;
+&lt;li&gt;等于 CPU 内部总线的宽度，或运算器的位数，或通用寄存器的宽度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据的存储和排列顺序&#34;&gt;数据的存储和排列顺序
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;大小端
+&lt;ul&gt;
+&lt;li&gt;小端（ &lt;strong&gt;Little Endian&lt;/strong&gt;）:低字节放低地址&lt;/li&gt;
+&lt;li&gt;大端（ &lt;strong&gt;Big Endian&lt;/strong&gt;）:高字节放低地址&lt;/li&gt;
+&lt;li&gt;指令中，操作码和寄存器号的存放顺序不变，只需要考虑立即数的顺序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;对齐：要求数据存放的地址必须是相应的边界地址
+&lt;ul&gt;
+&lt;li&gt;每次访存只能读写一个字&lt;/li&gt;
+&lt;li&gt;浪费一定空间，换取存取时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003164347928.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003164347928&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数据的检错与纠错&#34;&gt;数据的检错与纠错
+&lt;/h3&gt;&lt;p&gt;大多采用“冗余校验”思想，即除原数据信息外，还增加若干位编码，这些新增的代码被称为校验位。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;奇偶校验码&lt;/li&gt;
+&lt;li&gt;海明校验码&lt;/li&gt;
+&lt;li&gt;循环冗余校验码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;第三章运算方法和运算部件&#34;&gt;第三章运算方法和运算部件
+&lt;/h2&gt;&lt;h3 id=&#34;加法器&#34;&gt;加法器
+&lt;/h3&gt;&lt;h4 id=&#34;串行进位&#34;&gt;串行进位
+&lt;/h4&gt;&lt;p&gt;传递速度慢&lt;/p&gt;
+&lt;h4 id=&#34;并行进位&#34;&gt;并行进位
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用先行进位优化，各进位之间无等待，相互独立并同时产生&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;但全先行电路复杂，成本高&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;局部先行进位加法器： &lt;strong&gt;组内并行、组间串行&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用多个位数较少的 n 位全先行进位加法器进行串联&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多级先行进位加法器： &lt;strong&gt;组内并行、组间并行&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;alu的构成&#34;&gt;ALU的构成
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;ALU 如何控制实现加、减、与、或等等各种功能；
+&lt;ol&gt;
+&lt;li&gt;无符号整数和带符号整数的加、减运算电路完全一样，这个运算电路称为整数加/减运算部件。&lt;/li&gt;
+&lt;li&gt;在整数加/减运算部件基础上，加上寄存器、移位器以及控制逻辑，就可实现 ALU、乘/除运算以及浮点运算。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;ALU 的 OF、SF、CF 和 ZF 标志信息如何产生。
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;零标志 ZF、&lt;strong&gt;&lt;strong&gt;溢出标志 OF&lt;/strong&gt;&lt;/strong&gt;、&lt;strong&gt;&lt;strong&gt;进/借位标志 CF&lt;/strong&gt;&lt;/strong&gt;、符号标志 SF&lt;/strong&gt; 称为&lt;strong&gt;条件标志。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;条件标志（Flag）在运算电路中产生，被记录到专门的寄存器中&lt;/li&gt;
+&lt;li&gt;存放标志的寄存器通常称为程序/状态字寄存器或标志寄存器。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003180007637.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003180007637&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;溢出条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无符号加、减溢出条件：CF=1&lt;/li&gt;
+&lt;li&gt;带符号加、减溢出条件：OF=1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;定点数运算&#34;&gt;定点数运算
+&lt;/h3&gt;&lt;h4 id=&#34;移位&#34;&gt;移位
+&lt;/h4&gt;&lt;p&gt;逻辑移位&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;针对无符号数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;左移 n 位，即乘上位权的 n 次方。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;高位溢出丢弃，低位补 0&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;算数移位&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;左移与逻辑移位类似，但移到符号位结果更改&lt;/li&gt;
+&lt;li&gt;右移：低位移出丢弃，但高位补符号位，若移出 1，则发生精度丢失&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;加减&#34;&gt;加减
+&lt;/h4&gt;&lt;p&gt;原码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;减法用减法器实现，1 变 0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;补码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;符号位可以一起参与运算&lt;/li&gt;
+&lt;li&gt;[A+B]补=[A]补+ [B]补&lt;/li&gt;
+&lt;li&gt;[A-B]补=[A]补+[-B]补&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;溢出判断：上溢正变负；只有可能同号运算出现；判断是否在合法表示范围内即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;乘法&#34;&gt;乘法
+&lt;/h4&gt;&lt;h5 id=&#34;无符号整数&#34;&gt;无符号整数：
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;模拟手算乘法即可，计算机还需拆分部分积&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体实现：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003165328818.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251003165328818&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h5 id=&#34;带符号整数&#34;&gt;带符号整数
+&lt;/h5&gt;&lt;p&gt;给无符号整数乘法电路添加一辅助位，让符号位参与运算。&lt;/p&gt;
+&lt;p&gt;计算机底层判断溢出：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若 2n 位的高 n + 1 位不均相同，则溢出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;实现方式&#34;&gt;实现方式
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;ALU + 移位器 + 寄存器 + 控制逻辑&lt;/li&gt;
+&lt;li&gt;阵列乘法器&lt;/li&gt;
+&lt;li&gt;逻辑运算模拟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;浮点数运算&#34;&gt;浮点数运算
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;浮点数加减运算的对阶原则和方法；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;原则：小阶向大阶看齐&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;方法：阶小的那个数的尾数右移，右移位数等于两个阶码差的绝对值&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IEEE 754 尾数右移时，要将隐含的“1”移到小数部分，高位补 0，移出的低位保留到特定的“附加位”上&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如何计算移码表示的阶码的和与差（标准移码与 IEEE754 移码有什么差别）；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;阶码加法公式为： Eb ← Ex + Ey + 129 （ mod 2^8）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;阶码减法公式为： Eb ← Ex + [–Ey]补 + 127 （ mod 2^8）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如何计算一个移码数减 1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;尾数规格化中的右规和左规方法；&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当尾数高位为 0，则需左规：尾数左移一次，阶码减 1，直到 MSB 为 1
+&lt;ul&gt;
+&lt;li&gt;每次阶码减 1 后要判断阶码是否下溢&lt;/li&gt;
+&lt;li&gt;先判断阶码是否为全 0，若是，则直接置阶码下溢；否则，阶码减 1 后判断阶码是否为全 0，若是，则阶码下溢。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;当尾数最高位有进位，需右规：尾数右移一位，阶码加 1，直到 MSB 为 1
+&lt;ul&gt;
+&lt;li&gt;每次阶码加 1 后要判断阶码是否上溢&lt;/li&gt;
+&lt;li&gt;先判断阶码是否为全 1，若是，则直接置阶码上溢；否则，阶码加 1 后判断阶码是否为全 1，若是，则阶码上溢。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;阶码溢出异常处理：
+&lt;ul&gt;
+&lt;li&gt;阶码上溢，则结果溢出；&lt;/li&gt;
+&lt;li&gt;阶码下溢，则结果为 0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;乘法运算结果不需左规！最多右规 1 次！&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;除法最多左规 1 次！不需右规！&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;尾数的舍入处理常用方法；&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;就近舍入：舍入为最近可表示的数
+&lt;ul&gt;
+&lt;li&gt;若为非中间值：LSB 后 1 位 0 舍 1 入&lt;/li&gt;
+&lt;li&gt;若为中间值：强迫结果为偶数， LSB=
+&lt;ul&gt;
+&lt;li&gt;1.1101110 → 1.1110       (1.1101110 → 1.1110,  110&amp;gt;100, 1.1101+0.0001 = 1.1110)&lt;/li&gt;
+&lt;li&gt;1.1101011 → 1.1101       (1.1101011 → 1.1101,  011&amp;lt;100, 1.1101+    0     = 1.1101)&lt;/li&gt;
+&lt;li&gt;1.1101101 → 1.1110&lt;/li&gt;
+&lt;li&gt;1.1111100 → 10.0000     (1.1111100 → 10.0000, 100=100, 1.1111+0.0001 = 10.0000)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;朝+∞方向舍入：舍入为右边最近可表示数 （正向舍入）
+&lt;ul&gt;
+&lt;li&gt;例：-1.1101101 →-1.1101 ；  1.1101101 →1.1110&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;朝-∞方向舍入：舍入为左边最近可表示数 （负向舍入）
+&lt;ul&gt;
+&lt;li&gt;例：-1.1101101 →-1.1110 ；  1.1101101 →1.1101&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;朝 0 方向舍入：直接截取所需位，后面的位丢弃。这种方法最简单&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如何判断结果溢出（上溢和下溢）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>
