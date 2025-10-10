@@ -7,7 +7,314 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>JavaWeb-Servlet</title>
+        <link>https://example.com/posts/javaweb-servlet/</link>
+        <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/posts/javaweb-servlet/</guid>
+        <description>&lt;h2 id=&#34;tomcat&#34;&gt;Tomcat
+&lt;/h2&gt;&lt;p&gt;服务器容器，将服务部署（deploy）到容器内&lt;/p&gt;
+&lt;p&gt;目录结构：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bin 可执行文件目录&lt;/li&gt;
+&lt;li&gt;conf 配置文件目录&lt;/li&gt;
+&lt;li&gt;webapps 项目部署的目录
+&lt;ul&gt;
+&lt;li&gt;项目内容存放到 webapps-name-WEBINF 文件夹下，即可访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;work 工作目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;servlet&#34;&gt;Servlet
+&lt;/h2&gt;&lt;h3 id=&#34;获取参数&#34;&gt;获取参数
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在 web.xml 中定义 &lt;code&gt;servlet-mapping&lt;/code&gt;，指定接收 url 请求对应的类
+&lt;ol&gt;
+&lt;li&gt;现在支持注解注册 &lt;code&gt;@WebServlet(&amp;quot;\...&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;定义类，继承 &lt;code&gt;HttpServlet&lt;/code&gt; ，实现 &lt;code&gt;doPost&lt;/code&gt; 方法&lt;/li&gt;
+&lt;li&gt;再调用 DAO、DAOImpl 更改数据库&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;继承关系&#34;&gt;继承关系
+&lt;/h3&gt;&lt;p&gt;Servlet 接口&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;void init（config） 初始化方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;void service(request,response) 服务方法 （收到请求自动调用）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;void destory() 销毁方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Servlet 父类、抽象类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;genericServlet 抽象类，用于处理子类没有实现的方法（抛错误）
+&lt;ul&gt;
+&lt;li&gt;httpServlet 实现类，具体处理逻辑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;生命周期&#34;&gt;生命周期
+&lt;/h3&gt;&lt;p&gt;默认情况下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一次接收请求时，这个servlet会进行实例化（调用构造方法）、初始化（调用&lt;code&gt;init())&lt;/code&gt;）、然后服务（调用&lt;code&gt;service()&lt;/code&gt;）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;默认只会有一个 Servlet 示例&lt;/li&gt;
+&lt;li&gt;单例的，线程不安全的 &amp;ndash;&amp;gt; 尽量不在 Servlet 中定义、修改成员变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二次请求开始，每一次都是服务&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当容器关闭时，其中的所有的 servlet 实例会被销毁，调用销毁方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;http-协议&#34;&gt;Http 协议
+&lt;/h3&gt;&lt;p&gt;超文本传输协议，是无状态的&lt;/p&gt;
+&lt;p&gt;请求内容&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;请求行
+&lt;ul&gt;
+&lt;li&gt;方式、URL、HTTP版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;请求头
+&lt;ul&gt;
+&lt;li&gt;Host、Referer、Cookie……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;请求体&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;响应内容&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;响应行
+&lt;ul&gt;
+&lt;li&gt;协议、状态码（200）、响应状态（ok）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;响应消息头
+&lt;ul&gt;
+&lt;li&gt;Server、Content-type……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;响应体&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;session&#34;&gt;Session
+&lt;/h3&gt;&lt;p&gt;会话跟踪技术，解决 http 的无状态问题。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;request.getSession&lt;/code&gt;，获取、自动分配 Session&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;session.setAttribute&lt;/code&gt;，保存 session 作用域&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;服务器端内部转发和客户端重定向&#34;&gt;服务器端内部转发和客户端重定向
+&lt;/h3&gt;&lt;p&gt;内部转发：同一请求、不同服务组件之间转发处理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;getdepatcher&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;重定向：返回客户端一个新的服务，使其重新请求&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;redirect&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;thymeleaf-视图模板技术&#34;&gt;Thymeleaf 视图模板技术
+&lt;/h3&gt;&lt;p&gt;辅助渲染从 DAO 获取的数据到前端&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;引入模板&lt;/li&gt;
+&lt;li&gt;将查询的数据动态显示&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;th: if... unless... each... text...&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;保存作用域&#34;&gt;保存作用域
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;request：一次请求有效&lt;/li&gt;
+&lt;li&gt;session：一次会话范围有效&lt;/li&gt;
+&lt;li&gt;application：一次应用程序范围内有效（上下文）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;小项目&#34;&gt;小项目
+&lt;/h3&gt;&lt;p&gt;编辑、修改特定信息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;变量的获取 &lt;code&gt;url/(fid=${name.fid})&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;跳转到编辑页面，获取数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mvc-servlet优化&#34;&gt;MVC Servlet优化
+&lt;/h2&gt;&lt;h3 id=&#34;servlet-整合&#34;&gt;Servlet 整合
+&lt;/h3&gt;&lt;p&gt;问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Servlet 组件过多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将各种 Servlet 整合到一个 &lt;code&gt;Controller&lt;/code&gt; 中，作为方法&lt;/li&gt;
+&lt;li&gt;用路径区分操作要求&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;Switch ... case ...&lt;/code&gt; 进行跳转，执行 DAO
+&lt;ul&gt;
+&lt;li&gt;再用反射优化，&lt;code&gt;this.getClass().getDeclaredMethods();&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dispatcherservlet-中央控制器&#34;&gt;DispatcherServlet 中央控制器
+&lt;/h3&gt;&lt;h5 id=&#34;抽取路径反射代码&#34;&gt;抽取路径、反射代码
+&lt;/h5&gt;&lt;p&gt;拦截、处理指定请求，修改路径再传输到 Controller&lt;/p&gt;
+&lt;p&gt;将每个 Controller 的反射代码再抽取到父类&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意，这样的 Controller 继承 DispatcherServlet，不能再自动调用 Init（），需要另外处理&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;解析 xml 配置文件&lt;/li&gt;
+&lt;li&gt;定位指定 Controller&lt;/li&gt;
+&lt;li&gt;读取 bean 配置，整合为 &lt;code&gt;map&amp;lt;id,object&amp;gt;&lt;/code&gt;，寻找指定方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;抽取重定向&#34;&gt;抽取重定向
+&lt;/h5&gt;&lt;p&gt;Controller处理后，return 一个字符串，再交给 DispatcherServlet 处理&lt;/p&gt;
+&lt;h5 id=&#34;抽取传入参数&#34;&gt;抽取传入参数
+&lt;/h5&gt;&lt;p&gt;获取参数的过程同一抽取到 DispatcherServlet&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jdk 8 新特性，通过反射获取方法参数的方法名&lt;/li&gt;
+&lt;li&gt;将得到的参数拆包、赋值、类型转换后，再传递给 Controller&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;初始化&#34;&gt;初始化
+&lt;/h3&gt;&lt;p&gt;重写 init（）方法，通过注解或 xml，向初始化方法中添加参数&lt;/p&gt;
+&lt;h3 id=&#34;service&#34;&gt;Service
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;model：模型层
+&lt;ul&gt;
+&lt;li&gt;pojo/vo、DAO（数据访问对象，单精度方法）、BO（业务对象）&lt;/li&gt;
+&lt;li&gt;在 Controller 与 DAO 间添加 Service 层&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;controller：控制&lt;/li&gt;
+&lt;li&gt;view：视图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ioc-控制反转&#34;&gt;IOC 控制反转
+&lt;/h3&gt;&lt;p&gt;实现 Bean 的自动装配，整理 xml 映射文件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将解析出的实例创建并存放在 beanmap 中，beanmap 存放在 BeanFactory 中，改变示例生命周期（存放到 IOC 容器中），需要时取用即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Java&#34; data-lang=&#34;Java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;propertyField&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;beanClazz&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;propertyName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;propertyField&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;propertyField&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;beanobj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;refobj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;filter-过滤器&#34;&gt;Filter 过滤器
+&lt;/h3&gt;&lt;p&gt;拦截请求、响应&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;实现 Filter 接口，&lt;code&gt;@WebFilter(&amp;quot;...&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;改写 &lt;code&gt;doFilter&lt;/code&gt;，后放行（执行 Service）&lt;code&gt;filterchain.doFilter(...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接收到 Service 后，继续执行完 doFilter&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;过滤器链&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行顺序：根据全类名、xml 配置的顺序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;事务管理&#34;&gt;事务管理
+&lt;/h4&gt;&lt;p&gt;一个 Service 需要作为一个整体，操作多个数据库时要保证同时成功或失败&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 try …… catch 放到 Filter 当中处理，统一回滚&lt;/li&gt;
+&lt;li&gt;用 &lt;code&gt;ThreadLocal&lt;/code&gt; 来保证对象、线程（Connection）的同一性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;opensessioninviewfilter-的实现&#34;&gt;OpenSessionInViewFilter 的实现
+&lt;/h5&gt;&lt;p&gt;事务管理封装为 TransactionManager，实现开启、提交、回滚事务的方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;本来分开的 commit、rollback 等，手动进行管理&lt;/li&gt;
+&lt;li&gt;注意内部不能 catch 异常，需要都交给 Filter 处理
+&lt;ul&gt;
+&lt;li&gt;或者 catch 为新的异常抛出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;threadlocal-的实现源码&#34;&gt;ThreadLocal 的实现源码
+&lt;/h5&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Java&#34; data-lang=&#34;Java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//获取当前的线程&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ThreadLocalMap&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//每一个线程都维护各自的一个容器(ThreadLocalMap)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iff&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//用map，支持多个对象存储&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;createMap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;listener-监听器&#34;&gt;Listener 监听器
+&lt;/h3&gt;&lt;p&gt;监听各种对象的创建、销毁；保存作用域的变化；对象在 Session 中的创建与移除、序列化与反序列化&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 IOC 整合到 Listener 中（监听上下文启动），提前初始化，提高响应速度（减慢启动速度）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;qqzone-笔记&#34;&gt;QQZone 笔记
+&lt;/h2&gt;&lt;h3 id=&#34;数据库&#34;&gt;数据库
+&lt;/h3&gt;&lt;h4 id=&#34;设计&#34;&gt;设计
+&lt;/h4&gt;&lt;p&gt;先写出功能，再分析：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;抽取实体：用户登录信息、用户详情信息、日志、回贴、主人回复&lt;/li&gt;
+&lt;li&gt;分析其中属性
+&lt;ol&gt;
+&lt;li&gt;用户登录信息：账号、密码、头像、昵称&lt;/li&gt;
+&lt;li&gt;用户详情信息：真实姓名、星座、血型、邮箱、手机号&lt;/li&gt;
+&lt;li&gt;日志：标题、内容、日期、作者&lt;/li&gt;
+&lt;li&gt;回复：内容、日期、作者、日志&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;分析实体之间关系
+&lt;ul&gt;
+&lt;li&gt;一对一 or 一对多 or 多对多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;范式&#34;&gt;范式
+&lt;/h4&gt;&lt;p&gt;第一范式：列不可再分（空间尽量小）&lt;/p&gt;
+&lt;p&gt;第二范式：一张表只表达一层含义&lt;/p&gt;
+&lt;p&gt;第三范式：表中每一列和逐渐都是&lt;strong&gt;直接&lt;/strong&gt;依赖关系（与多表连接查询权衡）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根据数据库查询频次、量，调整规范性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;主键尽量不与业务产生联系&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接用自增组件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;实体类---pojo&#34;&gt;实体类 - POJO
+&lt;/h3&gt;&lt;p&gt;定义对应属性，有关系的要对应&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserDetail&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userDetail&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//1:1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;topiqList&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//1:N&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;数据层---dao&#34;&gt;数据层 - DAO
+&lt;/h3&gt;&lt;p&gt;接口、impl，实现查询&lt;/p&gt;
+&lt;h3 id=&#34;业务层---service&#34;&gt;业务层 - Service
+&lt;/h3&gt;&lt;p&gt;接口、impl，整合 DAO 层&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>学成在线-面试</title>
         <link>https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</link>
         <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
