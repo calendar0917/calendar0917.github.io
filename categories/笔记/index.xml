@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Fri, 03 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 11 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>计算机组成原理</title>
         <link>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
         <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
@@ -576,7 +576,7 @@
 &lt;li&gt;海明校验码&lt;/li&gt;
 &lt;li&gt;循环冗余校验码&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;第三章运算方法和运算部件&#34;&gt;第三章运算方法和运算部件
+&lt;h2 id=&#34;第三章-运算方法和运算部件&#34;&gt;第三章 运算方法和运算部件
 &lt;/h2&gt;&lt;h3 id=&#34;加法器&#34;&gt;加法器
 &lt;/h3&gt;&lt;h4 id=&#34;串行进位&#34;&gt;串行进位
 &lt;/h4&gt;&lt;p&gt;传递速度慢&lt;/p&gt;
@@ -780,6 +780,263 @@
 &lt;p&gt;如何判断结果溢出（上溢和下溢）。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;h2 id=&#34;第四章&#34;&gt;第四章
+&lt;/h2&gt;&lt;h3 id=&#34;指令格式&#34;&gt;指令格式
+&lt;/h3&gt;&lt;p&gt;指令：是指示计算机执行某种操作的命令，是计算机运行的最小功能单位。&lt;/p&gt;
+&lt;h4 id=&#34;根据地址码数不同&#34;&gt;根据地址码数不同
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;零地址指令：
+&lt;ul&gt;
+&lt;li&gt;不需要操作数，如停机、关中断等&lt;/li&gt;
+&lt;li&gt;堆栈计算机，操作数隐藏在栈顶&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;一地址指令：
+&lt;ul&gt;
+&lt;li&gt;只需单操作数，如加一、取反&lt;/li&gt;
+&lt;li&gt;需两个操作数，但其中一个存储在某个寄存器内&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;二地址指令：
+&lt;ul&gt;
+&lt;li&gt;用于需要两个操作数的算术运算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;三地址指令：
+&lt;ul&gt;
+&lt;li&gt;多一个地址存储结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;四地址指令：
+&lt;ul&gt;
+&lt;li&gt;再多一个地址存储下一个指令地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;指令位数不变时，地址码数越多，寻址能力越差&lt;/p&gt;
+&lt;h4 id=&#34;按指令长度分类&#34;&gt;按指令长度分类
+&lt;/h4&gt;&lt;p&gt;指令字长：一条指令的总长度(可能会变)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;影响取指令所需时间&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;机器字长：CPU进行一次整数运算所能处理的二进制数据的位数(通常和ALU直接相关)&lt;/p&gt;
+&lt;p&gt;存储字长：一个存储单元中的二进制代码位数（通常和MDR位数相同)&lt;/p&gt;
+&lt;h4 id=&#34;按操作码长度分类&#34;&gt;按操作码长度分类
+&lt;/h4&gt;&lt;p&gt;定长：译码电路设计简单，但复杂性低&lt;/p&gt;
+&lt;h4 id=&#34;按操作类型分类&#34;&gt;按操作类型分类
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;数据传送&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;LOAD：把存储器中的数据放到寄存器中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;STORE： 把寄存器中的数据放到存储器中&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;算数逻辑操作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算数、逻辑（与或非、位操作）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;移位操作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算数、逻辑、循环移位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;转移操作（改变程序执行流，PC指针改变）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;无条件转移 JMP&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;条件转移JZ：结果为0；JO：结果溢出；JC：结果有进位&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调用和返回 CALL和RETURN&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;陷阱(Trap)与陷阱指令&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入输出操作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU寄存器与IO端口之间的数据传送(端口即IO接口中的寄存器)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;设计&#34;&gt;设计
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;指令格式的选择应遵循的几条基本原则
+&lt;ul&gt;
+&lt;li&gt;应尽量短&lt;/li&gt;
+&lt;li&gt;要有足够的操作码位数&lt;/li&gt;
+&lt;li&gt;指令编码必须有唯一的解释，否则是不合法的指令&lt;/li&gt;
+&lt;li&gt;指令字长应是&lt;strong&gt;字节的整数倍&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;合理地选择地址字段的个数&lt;/li&gt;
+&lt;li&gt;指令尽量规整&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;一条指令必须&lt;strong&gt;明显或隐含&lt;/strong&gt;包含以下信息：
+&lt;ul&gt;
+&lt;li&gt;操作码：指定操作类型&lt;/li&gt;
+&lt;li&gt;源操作数或其地址：一个或多个源操作数所在的地址&lt;/li&gt;
+&lt;li&gt;结果的地址：产生的结果存放何处（目的操作数）&lt;/li&gt;
+&lt;li&gt;下一条指令地址：下条指令存放何处&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;指令的寻址方式&amp;mdash;-简单
+&lt;ul&gt;
+&lt;li&gt;顺序执行：PC增值&lt;/li&gt;
+&lt;li&gt;跳转 （ jump / branch / call / return ）：同操作数寻址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;操作数的寻址方式&amp;mdash;-复杂
+&lt;ul&gt;
+&lt;li&gt;操作数来源：寄存器 / 主（虚）存 /外设端口 /  栈顶&lt;/li&gt;
+&lt;li&gt;操作数结构：位 / 字节 / 半字 / 字 / 双字 / 一维表 / 二维表 /…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;通常寻址方式特指“操作数的寻址”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;扩展操作码&#34;&gt;扩展操作码
+&lt;/h4&gt;&lt;p&gt;格式：定长指令字结构 + 可边长操作码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;即不同地址数的指令使用不同的操作码，便于判断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通常情况下，对使用频率较高的指令，分配较短的操作码；对使用
+频率较低的指令，分配较长的操作码，从而尽可能减少指令译码和
+分析的时间。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011090538497.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251011090538497&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设地址长度为n，上一层留出m种状态，下一层可扩展出mx2^n种状态&lt;/p&gt;
+&lt;p&gt;注意短的操作码不能是长操作码的前缀&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;寻址方式&#34;&gt;寻址方式
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;PC：程序计数器，取址后会自动加一&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h4 id=&#34;指令寻址&#34;&gt;指令寻址
+&lt;/h4&gt;&lt;p&gt;确定下一条指令的存放地址，由 PC 指明&lt;/p&gt;
+&lt;p&gt;顺序寻址：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PC + ”1“
+&lt;ul&gt;
+&lt;li&gt;1 理解为一个指令字长，根据指令字长变化字节编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;跳跃寻址&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行转移指令导致 PC 值改变（直接修改）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;数据寻址&#34;&gt;数据寻址
+&lt;/h4&gt;&lt;p&gt;确定本条指令的地址码指明的&lt;strong&gt;真实地址&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;程序存储位置是相对的，需要用偏移量解读&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在地址码中划分出&lt;strong&gt;寻址特征&lt;/strong&gt;，规定该地址需要用何种方式寻址&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;直接寻址：存储 = 真实，即 EA = A&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;间接寻址：存储的是真实值的地址，即 EA = （A）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;寄存器寻址：指令字中直接给出操作数所在寄存器编号&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;寄存器间接寻址：寄存器存储的是操作数所在储存单元的地址，即 EA = （R）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;隐含寻址：非显示给出的操作数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;立即寻址：地址就是操作数本身，又称立即数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基址寻址：以程序的起始存放地址作为起点，EA = （BR）+ A&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;BR 为基址寄存器，由操作系统决定，不可更改&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;变址寻址：程序员自己决定从哪里作为起点，EA = （IX）+ A&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;相对寻址：程序计数器PC所指地址作为起点，EA = （PC）+ A&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;堆栈寻址：操作数存放在堆栈中，隐含使用堆栈指针(SP)作为操作数地址。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h5 id=&#34;优缺点&#34;&gt;优缺点
+&lt;/h5&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011095613851.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251011095613851&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;条件测试方式&#34;&gt;条件测试方式(?)
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011100211358.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251011100211358&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于带符号数和无符号数运算，标志生成方式有没有不同？&lt;/p&gt;
+&lt;p&gt;答：没有，因为加法电路不知道是无符号数还是带符号整数！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;指令系统设计风格&#34;&gt;指令系统设计风格
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;累加器型： （earliest machines）
+&lt;ul&gt;
+&lt;li&gt;特点：其中一个操作数（源操作数 1）和目的操作数总在累加器中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;堆栈型： （e.g. HP calculator, Java virtual machines)
+&lt;ul&gt;
+&lt;li&gt;特点：总是将栈顶两个操作数进行运算，指令无需指定操作数地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;通用寄存器型： （e.g. IA-32, Motorola 68xxx)
+&lt;ul&gt;
+&lt;li&gt;特点：操作数可以是寄存器或存储器数据（即 A、B 和 C 可以是寄存器或存储单元）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;装入/存储型： （e.g. SPARC, MIPS, PowerPC)
+&lt;ul&gt;
+&lt;li&gt;特点：运算指令的操作数只能是寄存器数据，只有 load/store 能访问存储器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         

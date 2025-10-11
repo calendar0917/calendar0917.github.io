@@ -207,6 +207,25 @@
         </li>
       </ol>
     </li>
+    <li><a href="#滑动窗口">滑动窗口</a>
+      <ol>
+        <li><a href="#例题-2">例题</a>
+          <ol>
+            <li><a href="#无重复字符的最长字串">无重复字符的最长字串</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#前缀和">前缀和</a>
+      <ol>
+        <li><a href="#例题-3">例题</a>
+          <ol>
+            <li><a href="#和为-k-的子数组">和为 K 的子数组</a></li>
+            <li><a href="#最大子数组和">最大子数组和</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -369,6 +388,134 @@
 </span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">思考</span><span class="err">：</span><span class="s2">&#34;不能重复&#34;</span><span class="n">这一要求能不能转化</span><span class="err">？</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">优化</span><span class="err">：</span><span class="n">不妨将数组重新排序</span><span class="err">，</span><span class="n">从而让三个数也排序地输出</span><span class="err">，</span><span class="n">免去了去重的麻烦</span><span class="err">。</span><span class="n">更进一步</span><span class="err">，</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="n">是等式关系</span><span class="err">，</span><span class="n">而a确定后</span><span class="err">，</span><span class="n">b是递增的</span><span class="err">，</span><span class="n">c又是由a</span><span class="err">、</span><span class="n">b决定的</span><span class="err">，</span><span class="n">故可以将b</span><span class="err">、</span><span class="n">c用双指针遍历</span><span class="err">，</span><span class="n">一增一减</span><span class="err">，</span><span class="n">完全符合要求</span><span class="err">。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="滑动窗口">滑动窗口
+</h2><p>适用情景：</p>
+<ol>
+<li>连续子数组、子序列</li>
+<li>在一个范围内进行条件统计</li>
+<li>具有单调性，随窗口移动时不必全部更新</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 定义窗口的左右边界，初始时都指向序列的起始位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span> <span class="c1"># 改成 for 循环枚举可能更好。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 扩大窗口，将右边界元素加入到窗口内的计算（如加入到集合、计算和等）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 例如在求最长无重复子串中，将字符加入集合判断是否重复</span>
+</span></span><span class="line"><span class="cl">    <span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="n">right</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1"># 根据具体问题进行判断，如果窗口内不满足条件</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 缩小窗口，将左边界元素移除窗口内的计算</span>
+</span></span><span class="line"><span class="cl">        <span class="n">window</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="n">left</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1"># 扩大窗口，右边界右移</span>
+</span></span><span class="line"><span class="cl">    <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span> 
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">result</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="例题-2">例题
+</h3><h4 id="无重复字符的最长字串">无重复字符的最长字串
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 先模拟，右指针移动到发现重复字符时为边界
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 边界处理：发现移动左指针时，无需将右指针移动回来（单调性），移动左指针即可
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 注意：边界要分清楚！！right - left 的相对关系不能错
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4. Counter(str) 方法，统计各个字符出现的次数
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="前缀和">前缀和
+</h2><p>适用情景：</p>
+<ul>
+<li>连续子数组求和问题，数组不单调时，考虑用前缀和</li>
+<li>任意子数组都是一个前缀去掉前缀后的结果。所以<strong>任意子数组的和，都可以表示为两个前缀和的差</strong>。</li>
+<li>定义 <code>s[0] = 0</code> ，提高适用性</li>
+</ul>
+<p>初始化模板：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="例题-3">例题
+</h3><h4 id="和为-k-的子数组">和为 K 的子数组
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 连续数组求和，考虑前缀和
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 继续分析，发现要求 s[i] + s[j] == k，暴力写法要 O(n^2)，考虑转换
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 想到哈希表，空间换时间，遍历一遍后存储到表中，可以直接查询 s[j] - k
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4. 注意：哈希表的遍历顺序和数组顺序要对应！先寻找，再加入哈希表，不能一次性往里添加
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="最大子数组和">最大子数组和
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 考虑前缀和
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 发现边缘条件：需要考虑负数！前缀和求的是区间加法，所以要用当前前缀减去前面的最小前缀（需要维护）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 还可以用动态规划
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
