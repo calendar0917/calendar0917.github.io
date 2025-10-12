@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简要介绍SpringBoot使用">
-<title>SpringBoot简明教程</title>
+<title>SpringBoot</title>
 
 <link rel='canonical' href='https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="SpringBoot简明教程">
+<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="SpringBoot">
 <meta property='og:description' content="简要介绍SpringBoot使用">
 <meta property='og:url' content='https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-09-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-22T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="SpringBoot简明教程">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-10-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="SpringBoot">
 <meta name="twitter:description" content="简要介绍SpringBoot使用">
     </head>
     <body class="
@@ -186,30 +186,35 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#springboot-的优势">SpringBoot 的优势</a></li>
-    <li><a href="#配置">配置</a>
+    <li><a href="#springboot">SpringBoot</a>
       <ol>
-        <li><a href="#技术整合">技术整合</a>
+        <li><a href="#简介">简介</a>
+          <ol>
+            <li><a href="#parent-管理版本">parent 管理版本</a></li>
+            <li><a href="#starter-依赖组合">starter 依赖组合</a></li>
+            <li><a href="#引导类">引导类</a></li>
+            <li><a href="#内嵌-tomcat">内嵌 Tomcat</a></li>
+          </ol>
+        </li>
+        <li><a href="#基础配置">基础配置</a>
+          <ol>
+            <li><a href="#yml-数据读取">YML 数据读取</a></li>
+          </ol>
+        </li>
+        <li><a href="#ssmp-整合">SSMP 整合</a>
           <ol>
             <li><a href="#junit">JUnit</a></li>
             <li><a href="#mybatis">Mybatis</a></li>
+            <li><a href="#mybatis-plus">Mybatis-plus</a></li>
+          </ol>
+        </li>
+        <li><a href="#其他">其他</a>
+          <ol>
             <li><a href="#lombok">Lombok</a></li>
           </ol>
         </li>
       </ol>
     </li>
-    <li><a href="#基本开发流程">基本开发流程</a>
-      <ol>
-        <li><a href="#架构">架构</a>
-          <ol>
-            <li><a href="#controller层">Controller层</a></li>
-            <li><a href="#service层">Service层</a></li>
-            <li><a href="#mapper层">Mapper层</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#未完待续">未完待续</a></li>
   </ol>
 </nav>
         </div>
@@ -237,7 +242,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/">SpringBoot简明教程</a>
+            <a href="/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/">SpringBoot</a>
         </h2>
     
         
@@ -263,7 +268,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Sep 22, 2025</time>
+                <time class="article-time--published">Oct 12, 2025</time>
             </div>
         
 
@@ -279,22 +284,62 @@
     <section class="article-content">
     
     
-    <h2 id="springboot-的优势">SpringBoot 的优势
-</h2><p>SpringBoot 是由Pivotal团队提供的全新框架，其设计目的是用来简化Spring应用的初始搭建以及开发过程。</p>
-<p>简化操作体现在四个方面</p>
+    <h2 id="springboot">SpringBoot
+</h2><h3 id="简介">简介
+</h3><p>设计目的：<strong>简化Spring应用的初始搭建以及开发过程</strong></p>
+<p>Spring 程序缺点</p>
 <ul>
-<li><strong>parent</strong> 统一控制版本，解决版本冲突问题</li>
-<li><strong>starter</strong> 整合依赖的固定搭配格式，减少依赖配置</li>
-<li><strong>引导类</strong> <code>@SpringBootApplication</code>，用于启动程序、初始化容器</li>
-<li><strong>内嵌 Tomcat</strong></li>
+<li>依赖设置繁琐
+<ul>
+<li>去除 spring-web 和 spring-webmvc 坐标</li>
 </ul>
-<h2 id="配置">配置
-</h2><p>首先，需要用 maven 来将 SpringBoot 的环境搭建好。也可以从官网下载源文件进行导入。</p>
-<p>在 <code>application.properties</code> 中可以更改已导入 starter 的配置。更进一步，可以在 <code>.yml</code> 以及 <code>.yaml</code> 中进行配置，简化书写。</p>
-<p>配置中的数据也是可以被使用的，用Spring中的注解@Value读取单个数据，如 <code>@Value(&quot;{$server.port}&quot;)</code> ，同时，所有的数据封装到了一个 Environment 对象当中，可以调用。</p>
-<h3 id="技术整合">技术整合
-</h3><h4 id="junit">JUnit
-</h4><div class="highlight"><div class="chroma">
+</li>
+<li>配置繁琐</li>
+</ul>
+<p>SpringBoot 核心功能及优点：</p>
+<ul>
+<li>
+<p>起步依赖（简化依赖配置）</p>
+</li>
+<li>
+<p>自动配置</p>
+</li>
+<li>
+<p>辅助功能（内置服务器）</p>
+</li>
+</ul>
+<h4 id="parent-管理版本">parent 管理版本
+</h4><p>由 <strong>parent</strong> 帮助开发者统一的进行各种技术的版本管理</p>
+<ul>
+<li>只控制版本，不负责导入坐标</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;parent&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>2.5.4<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/parent&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="starter-依赖组合">starter 依赖组合
+</h4><p>starter定义了使用某种技术时对于依赖的<strong>固定搭配格式</strong>，使用starter可以帮助开发者减少依赖配置。</p>
+<h4 id="引导类">引导类
+</h4><p>这个类在SpringBoot程序中是所有功能的入口，称为<strong>引导类</strong>，最典型的特征就是当前类上方声明了一个注解 <code>@SpringBootApplication。</code></p>
+<ul>
+<li>用于启动程序</li>
+<li>创建并初始化 Spring 容器</li>
+</ul>
+<h4 id="内嵌-tomcat">内嵌 Tomcat
+</h4><p>整合到了：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -310,7 +355,125 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="nd">@SpringBootTest</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;exclusions&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;exclusion&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-tomcat<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/exclusion&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/exclusions&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="基础配置">基础配置
+</h3><p>默认配置文件：<code>application.properties</code>，配置指定属性即可</p>
+<ol>
+<li>配置文件间的加载优先级 properties（最高）&gt; yml &gt; yaml（最低）</li>
+<li>不同配置文件中相同配置按照加载优先级相互覆盖，不同配置文件中不同配置全部保留</li>
+</ol>
+<p>指定SpringBoot配置文件</p>
+<ul>
+<li>Setting → Project Structure → Facets</li>
+<li>选中对应项目/工程</li>
+<li>Customize Spring Boot</li>
+<li>选择配置文件</li>
+</ul>
+<h4 id="yml-数据读取">YML 数据读取
+</h4><h5 id="使用spring中的注解">使用Spring中的注解
+</h5><p>@Value读取单个数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Value</span><span class="p">(</span><span class="s">&#34;${server.port}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="使用默认配置类">使用默认配置类
+</h5><p>SpringBoot 提供了一个对象，能够把所有的数据都封装到这一个对象中，这个对象叫做 Environment，使用自动装配注解可以将所有的yaml数据封装到这个对象中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="n">env</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">env</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;...&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="使用自定义配置类">使用自定义配置类
+</h5><p>SpringBoot 也提供了可以将一组 yaml 对象数据封装一个 Java 对象的操作</p>
+<p>enterprise 指定加载某一组 yaml 配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;enterprise&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Enterprise</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">subject</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="数据引用">数据引用
+</h5><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">baseDir</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/local/fire</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">center</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">dataDir</span><span class="p">:</span><span class="w"> </span><span class="l">${baseDir}/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tmpDir</span><span class="p">:</span><span class="w"> </span><span class="l">${baseDir}/tmp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">logDir</span><span class="p">:</span><span class="w"> </span><span class="l">${baseDir}/log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">msgDir</span><span class="p">:</span><span class="w"> </span><span class="l">${baseDir}/msgDir</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ssmp-整合">SSMP 整合
+</h3><h4 id="junit">JUnit
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootTest</span><span class="p">(</span><span class="n">classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Springboot04JunitApplication</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// @ContextConfiguration(classes = Springboot04JunitApplication.class)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Springboot04JunitApplicationTests</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//注入你要测试的对象</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
@@ -324,9 +487,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>简化了测试类的编写，自动装配要测试的对象。</p>
-<h4 id="mybatis">Mybatis
-</h4><div class="highlight"><div class="chroma">
+</div><h4 id="mybatis">Mybatis
+</h4><p>在配置、引入依赖时已经整合</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -342,9 +505,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>导入、配置以后，用一个 Dao 映射端口即可实现 Mybatis 的功能。</p>
-<h4 id="lombok">Lombok
-</h4><div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -353,70 +514,77 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">lombok.Data</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c">#2.配置相关信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">driver-class-name</span><span class="p">:</span><span class="w"> </span><span class="l">com.mysql.cj.jdbc.Driver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">jdbc:mysql://localhost:3306/ssm_db?serverTimezone=Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>直接通过注解实现 getter、setter 等操作的自动添加。</p>
-<h2 id="基本开发流程">基本开发流程
-</h2><h3 id="架构">架构
-</h3><p>JavaWeb 的开发一般为前后端分离开发，此处说明后端开发的架构。</p>
-<h4 id="controller层">Controller层
-</h4><p>接收前端传输过来的数据，并将后端处理后的数据返回给前端，作为前后端联通的桥梁。</p>
+</div><h4 id="mybatis-plus">Mybatis-plus
+</h4><p>需要用阿里云的 url 导入</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestController</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/books&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookController2</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">IBookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/...&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getAll</span><span class="p">(){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">bookService</span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>com.baomidou<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>mybatis-plus-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>3.4.3<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置所有数据库表名的前缀名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">mybatis-plus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">global-config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">db-config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">table-prefix</span><span class="p">:</span><span class="w"> </span><span class="l">tbl_		#设置所有表的通用前缀名称为tbl_</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>指定接收路径、接收参数的格式。</p>
-<p>路径变量用 <code>@PathVariable</code> 接收，Json 变量用 <code>@RequestBody</code> 接收，并自动封装到对应的对象中。（如果参数差别过大，可能需要用DTO对象来进行中介，然后再用 BeanUtils 方法来克隆到实体对象）</p>
-<p>返回的变量一般封装为 Result 对象传输到前端。</p>
-<h4 id="service层">Service层
-</h4><p>作为后端逻辑处理的核心，在 Controller 层调用以后，进行一定的加工，调用 Mapper 并把结果再返回给 Controller。</p>
-<p>需要先定义一个接口，然后根据接口实现 Impl    类，后续直接 <code>@Autowired</code>即可自动调用。</p>
-<h4 id="mapper层">Mapper层
-</h4><p>处理数据库的枢纽，执行指定 SQL 。</p>
-<p>复杂的 、动态SQL 语句可映射到 Mapper.xml 文件当中进行编写。</p>
-<h2 id="未完待续">未完待续
-</h2><ul>
-<li><input disabled="" type="checkbox"> Aspect 切面类，公共字段填充</li>
-<li><input disabled="" type="checkbox"> 消息扩展器统一日期格式</li>
-<li><input disabled="" type="checkbox"> Redis + 自动缓存</li>
-<li><input disabled="" type="checkbox"> ……</li>
+</div><h3 id="其他">其他
+</h3><h4 id="lombok">Lombok
+</h4><p>简化POJO实体类开发，SpringBoot 目前默认集成了 lombok 技术</p>
+<ul>
+<li>可以通过一个注解@Data完成一个实体类对应的getter，setter，toString，equals，hashCode等操作的快速添加</li>
 </ul>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--lombok--&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
