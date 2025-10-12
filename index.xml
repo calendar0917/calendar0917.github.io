@@ -13,7 +13,7 @@
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
-        <description>&lt;h2 id=&#34;springboot&#34;&gt;SpringBoot
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png" alt="Featured image of post SpringBoot" /&gt;&lt;h2 id=&#34;springboot&#34;&gt;SpringBoot
 &lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;简介
 &lt;/h3&gt;&lt;p&gt;设计目的：&lt;strong&gt;简化Spring应用的初始搭建以及开发过程&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Spring 程序缺点&lt;/p&gt;
@@ -4831,6 +4831,14 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
 &lt;li&gt;对每个服务创建一个 &lt;code&gt;undo_log&lt;/code&gt; 表&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+        </item>
+        <item>
+        <title>归档</title>
+        <link>https://example.com/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://example.com/archives/</guid>
+        <description></description>
         </item>
         <item>
         <title>关于</title>
