@@ -3,24 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://example.com/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/categories/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/posts/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/spring/</loc>
-    <lastmod>2025-10-10T00:00:00+00:00</lastmod>
+    <loc>https://example.com/posts/springmvc/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-10-10T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/categories/%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/posts/spring/</loc>
     <lastmod>2025-10-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/posts/javaweb-servlet/</loc>
