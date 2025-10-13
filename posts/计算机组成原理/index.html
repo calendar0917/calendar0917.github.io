@@ -10,7 +10,7 @@
 <meta property='og:description' content="计算机组成原理课程的笔记">
 <meta property='og:url' content='https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-11T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-13T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="计算机组成原理">
 <meta name="twitter:description" content="计算机组成原理课程的笔记">
     </head>
@@ -306,6 +306,27 @@
         </li>
         <li><a href="#条件测试方式">条件测试方式(?)</a></li>
         <li><a href="#指令系统设计风格">指令系统设计风格</a></li>
+        <li><a href="#指令集cisc-和-risc">指令集：CISC 和 RISC</a></li>
+        <li><a href="#mips-的指令格式">MIPS 的指令格式</a>
+          <ol>
+            <li><a href="#r-型">R 型</a></li>
+            <li><a href="#i-型">I 型</a></li>
+            <li><a href="#j-型">J 型</a></li>
+            <li><a href="#整合">整合</a></li>
+          </ol>
+        </li>
+        <li><a href="#mips-的通用寄存器">MIPS 的通用寄存器</a>
+          <ol>
+            <li><a href="#mips-的寻址方式">MIPS 的寻址方式</a></li>
+          </ol>
+        </li>
+        <li><a href="#机器语言的解码反汇编">机器语言的解码（反汇编）？</a></li>
+        <li><a href="#高级语言汇编语言机器语言之间的转换-">高级语言、汇编语言、机器语言之间的转换 ？</a></li>
+        <li><a href="#risc-v-指令系统">RISC-V 指令系统</a>
+          <ol>
+            <li><a href="#指令格式-1">指令格式</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -1401,6 +1422,273 @@
 </ul>
 </li>
 </ul>
+<h3 id="指令集cisc-和-risc">指令集：CISC 和 RISC
+</h3><p>CISC（Complex Instruction Set Computer）：</p>
+<ul>
+<li>一条指令完成一个复杂的基本功能。</li>
+<li>x86 架构</li>
+</ul>
+<p>RISC（Reduced Instruction Set Computer）：</p>
+<ul>
+<li>
+<p>一条指令完成一个基本“动作”；多条指令组合完成一个复杂的基本功能。</p>
+</li>
+<li>
+<p>电路简单，功耗小，寄存器多</p>
+</li>
+<li>
+<p>只有 LOAD、STORE 指令可以访存</p>
+</li>
+<li>
+<p>ARM 架构，主要用于手机、平板</p>
+</li>
+</ul>
+<blockquote>
+<p>在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。</p></blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013194838713.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013194838713"
+	
+	
+></p>
+<h3 id="mips-的指令格式">MIPS 的指令格式
+</h3><p>所有指令都是32位宽（字长），按字地址对齐存储，字地址为4的倍数</p>
+<p>分为 R、I、J 型</p>
+<h4 id="r-型">R 型
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195437859.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013195437859"
+	
+	
+></p>
+<ul>
+<li>参与运算的操作数和结果都在寄存器，R 型指令的寻址方式<strong>只有寄存器寻址</strong>一种；</li>
+<li>R 型指令<strong>的 op 全为 0</strong>，具体功能由 func 部分确定；</li>
+<li>rs：第一个源操作数（source register）</li>
+<li>rt：第 2 个源操作数（target register）</li>
+<li>rd：目的寄存器（destination register）</li>
+<li>shamt：对非移位指令为 00000。移位指令为移位次数。</li>
+</ul>
+<h4 id="i-型">I 型
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195709806.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013195709806"
+	
+	
+></p>
+<ul>
+<li>指令中包含了一个<strong>立即数</strong>，所以称为 I 型指令。</li>
+<li>op：确定指令的功能；</li>
+<li>rs：可以是一个源操作数，<strong>寄存器寻址</strong>；或者在存取指令中用作基址寄存器，<strong>偏移寻址</strong>。</li>
+<li>rt：目的寄存器</li>
+<li>Immediate：长度为 16 位的立即数，指令执行时需扩展为 32 位。根据指令的不同，可以有以下三种用法：
+<ul>
+<li>运算类指令（ori）：以立即寻址方式提供的一个源操作数。</li>
+<li>存取指令（lw/sw）：作为偏移量，与寄存器 rs 组成偏移寻址方式，提供一个存储器操作数。</li>
+<li><strong>条件转移</strong>指令（bne）：作为偏移量，与 PC 寄存器组成<strong>相对寻址</strong>方式，提供一个转移目的地址。</li>
+</ul>
+</li>
+</ul>
+<h4 id="j-型">J 型
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195925675.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013195925675"
+	
+	
+></p>
+<ul>
+<li>op：确定指令的功能</li>
+<li>address：转移地址</li>
+</ul>
+<h4 id="整合">整合
+</h4><ul>
+<li>三种指令     <strong>汇编格式   a=b op c   把=和op变成逗号</strong>
+<ul>
+<li>R型指令格式是op+rs+rt+rd+shamt+func   汇编格式是  xxx $rs, $rt, $rd</li>
+<li>I型指令格式是op+rs+rt+imm   汇编格式是  xxx $rt, $rs, imm</li>
+<li>J型指令格式是op+addr   汇编格式是  xxx addr</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200210127.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013200210127"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200238754.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013200238754"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200751544.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013200751544"
+	
+	
+></p></blockquote>
+<h3 id="mips-的通用寄存器">MIPS 的通用寄存器
+</h3><ul>
+<li>0 号寄存器$zero 为固定值零，不能改变</li>
+<li>MIPS还提供了32个32位的单精度浮点寄存器$f0∽$f31,用于浮点数指令。它们可配对成16个64位的双精度浮点寄存器。</li>
+<li>在汇编语言中使用寄存器时可以用寄存器名，也可以用寄存器号，前面加上“$”,例如，$8或$t0。</li>
+<li>寄存器
+<ul>
+<li>长度：32 位</li>
+<li>个数：32 个</li>
+</ul>
+</li>
+</ul>
+<h4 id="mips-的寻址方式">MIPS 的寻址方式
+</h4><ul>
+<li>寄存器寻址
+<ul>
+<li>可以出现在 R 型和 I 型格式中</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202438436.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013202438436"
+	
+	
+></p>
+<ul>
+<li>立即数寻址</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202455236.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013202455236"
+	
+	
+></p>
+<ul>
+<li>偏移寻址</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202517572.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013202517572"
+	
+	
+></p>
+<ul>
+<li>PC 相对寻址
+<ul>
+<li>PC&lt;&ndash; PC+4+imm*4</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202535509.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013202535509"
+	
+	
+></p>
+<ul>
+<li>伪直接寻址
+<ul>
+<li>为什么称伪直接？</li>
+<li>最终地址：PC 高四位+addr+两个 0，+表示拼接</li>
+<li>位数：4+26+2=32</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202548351.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013202548351"
+	
+	
+></p>
+<h3 id="机器语言的解码反汇编">机器语言的解码（反汇编）？
+</h3><h3 id="高级语言汇编语言机器语言之间的转换-">高级语言、汇编语言、机器语言之间的转换 ？
+</h3><h3 id="risc-v-指令系统">RISC-V 指令系统
+</h3><p>具有模块化结构，稳定性和可扩展性好，在简洁性、实现成本、功耗、性能和程序代码量等各方面具有显著优势。</p>
+<p>模块化结构：</p>
+<ul>
+<li>核心：RV32I + 标准扩展集：RV32M、RV32F、RV32D、RV32A = RV32G</li>
+<li>32位架构RV32G = RV32IMAFD，其压缩指令集RV32C（指令长度16位）</li>
+<li>64位架构RV64G = RV64IMAFD，其压缩指令集RV64C（指令长度16位）</li>
+<li>向量计算RV32V和RV64V；嵌入式RV32E（RV32I的子集，16个通用寄存器）</li>
+</ul>
+<h4 id="指令格式-1">指令格式
+</h4><h5 id="32位">32位
+</h5><p>R-型为寄存器操作数指令</p>
+<p>I-型为短立即数或装入（Load）指令</p>
+<p>S-型为存储（Store）指令</p>
+<p>B-型为条件跳转指令</p>
+<p>U-型为长立即数操作指令</p>
+<p>J-型为无条件跳转指令</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013204153653.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013204153653"
+	
+	
+></p>
+<h5 id="16位压缩">16位压缩
+</h5><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013204333864.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251013204333864"
+	
+	
+></p>
 
 </section>
 
@@ -1436,7 +1724,7 @@
 
 
         <span>
-            最后更新于 Oct 11, 2025 00:00 UTC
+            最后更新于 Oct 13, 2025 00:00 UTC
         </span>
     </section></footer>
 

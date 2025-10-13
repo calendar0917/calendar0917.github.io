@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Sat, 11 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 13 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>计算机组成原理</title>
         <link>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
         <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
@@ -1037,6 +1037,273 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;指令集cisc-和-risc&#34;&gt;指令集：CISC 和 RISC
+&lt;/h3&gt;&lt;p&gt;CISC（Complex Instruction Set Computer）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一条指令完成一个复杂的基本功能。&lt;/li&gt;
+&lt;li&gt;x86 架构&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RISC（Reduced Instruction Set Computer）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一条指令完成一个基本“动作”；多条指令组合完成一个复杂的基本功能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;电路简单，功耗小，寄存器多&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;只有 LOAD、STORE 指令可以访存&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ARM 架构，主要用于手机、平板&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013194838713.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013194838713&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;mips-的指令格式&#34;&gt;MIPS 的指令格式
+&lt;/h3&gt;&lt;p&gt;所有指令都是32位宽（字长），按字地址对齐存储，字地址为4的倍数&lt;/p&gt;
+&lt;p&gt;分为 R、I、J 型&lt;/p&gt;
+&lt;h4 id=&#34;r-型&#34;&gt;R 型
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195437859.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013195437859&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参与运算的操作数和结果都在寄存器，R 型指令的寻址方式&lt;strong&gt;只有寄存器寻址&lt;/strong&gt;一种；&lt;/li&gt;
+&lt;li&gt;R 型指令&lt;strong&gt;的 op 全为 0&lt;/strong&gt;，具体功能由 func 部分确定；&lt;/li&gt;
+&lt;li&gt;rs：第一个源操作数（source register）&lt;/li&gt;
+&lt;li&gt;rt：第 2 个源操作数（target register）&lt;/li&gt;
+&lt;li&gt;rd：目的寄存器（destination register）&lt;/li&gt;
+&lt;li&gt;shamt：对非移位指令为 00000。移位指令为移位次数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;i-型&#34;&gt;I 型
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195709806.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013195709806&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指令中包含了一个&lt;strong&gt;立即数&lt;/strong&gt;，所以称为 I 型指令。&lt;/li&gt;
+&lt;li&gt;op：确定指令的功能；&lt;/li&gt;
+&lt;li&gt;rs：可以是一个源操作数，&lt;strong&gt;寄存器寻址&lt;/strong&gt;；或者在存取指令中用作基址寄存器，&lt;strong&gt;偏移寻址&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;rt：目的寄存器&lt;/li&gt;
+&lt;li&gt;Immediate：长度为 16 位的立即数，指令执行时需扩展为 32 位。根据指令的不同，可以有以下三种用法：
+&lt;ul&gt;
+&lt;li&gt;运算类指令（ori）：以立即寻址方式提供的一个源操作数。&lt;/li&gt;
+&lt;li&gt;存取指令（lw/sw）：作为偏移量，与寄存器 rs 组成偏移寻址方式，提供一个存储器操作数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;条件转移&lt;/strong&gt;指令（bne）：作为偏移量，与 PC 寄存器组成&lt;strong&gt;相对寻址&lt;/strong&gt;方式，提供一个转移目的地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;j-型&#34;&gt;J 型
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013195925675.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013195925675&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;op：确定指令的功能&lt;/li&gt;
+&lt;li&gt;address：转移地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;整合&#34;&gt;整合
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;三种指令     &lt;strong&gt;汇编格式   a=b op c   把=和op变成逗号&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;R型指令格式是op+rs+rt+rd+shamt+func   汇编格式是  xxx $rs, $rt, $rd&lt;/li&gt;
+&lt;li&gt;I型指令格式是op+rs+rt+imm   汇编格式是  xxx $rt, $rs, imm&lt;/li&gt;
+&lt;li&gt;J型指令格式是op+addr   汇编格式是  xxx addr&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200210127.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013200210127&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200238754.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013200238754&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013200751544.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013200751544&#34;
+	
+	
+&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;mips-的通用寄存器&#34;&gt;MIPS 的通用寄存器
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;0 号寄存器$zero 为固定值零，不能改变&lt;/li&gt;
+&lt;li&gt;MIPS还提供了32个32位的单精度浮点寄存器$f0∽$f31,用于浮点数指令。它们可配对成16个64位的双精度浮点寄存器。&lt;/li&gt;
+&lt;li&gt;在汇编语言中使用寄存器时可以用寄存器名，也可以用寄存器号，前面加上“$”,例如，$8或$t0。&lt;/li&gt;
+&lt;li&gt;寄存器
+&lt;ul&gt;
+&lt;li&gt;长度：32 位&lt;/li&gt;
+&lt;li&gt;个数：32 个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;mips-的寻址方式&#34;&gt;MIPS 的寻址方式
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;寄存器寻址
+&lt;ul&gt;
+&lt;li&gt;可以出现在 R 型和 I 型格式中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202438436.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013202438436&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;立即数寻址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202455236.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013202455236&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;偏移寻址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202517572.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013202517572&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PC 相对寻址
+&lt;ul&gt;
+&lt;li&gt;PC&amp;lt;&amp;ndash; PC+4+imm*4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202535509.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013202535509&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;伪直接寻址
+&lt;ul&gt;
+&lt;li&gt;为什么称伪直接？&lt;/li&gt;
+&lt;li&gt;最终地址：PC 高四位+addr+两个 0，+表示拼接&lt;/li&gt;
+&lt;li&gt;位数：4+26+2=32&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013202548351.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013202548351&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;机器语言的解码反汇编&#34;&gt;机器语言的解码（反汇编）？
+&lt;/h3&gt;&lt;h3 id=&#34;高级语言汇编语言机器语言之间的转换-&#34;&gt;高级语言、汇编语言、机器语言之间的转换 ？
+&lt;/h3&gt;&lt;h3 id=&#34;risc-v-指令系统&#34;&gt;RISC-V 指令系统
+&lt;/h3&gt;&lt;p&gt;具有模块化结构，稳定性和可扩展性好，在简洁性、实现成本、功耗、性能和程序代码量等各方面具有显著优势。&lt;/p&gt;
+&lt;p&gt;模块化结构：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;核心：RV32I + 标准扩展集：RV32M、RV32F、RV32D、RV32A = RV32G&lt;/li&gt;
+&lt;li&gt;32位架构RV32G = RV32IMAFD，其压缩指令集RV32C（指令长度16位）&lt;/li&gt;
+&lt;li&gt;64位架构RV64G = RV64IMAFD，其压缩指令集RV64C（指令长度16位）&lt;/li&gt;
+&lt;li&gt;向量计算RV32V和RV64V；嵌入式RV32E（RV32I的子集，16个通用寄存器）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;指令格式-1&#34;&gt;指令格式
+&lt;/h4&gt;&lt;h5 id=&#34;32位&#34;&gt;32位
+&lt;/h5&gt;&lt;p&gt;R-型为寄存器操作数指令&lt;/p&gt;
+&lt;p&gt;I-型为短立即数或装入（Load）指令&lt;/p&gt;
+&lt;p&gt;S-型为存储（Store）指令&lt;/p&gt;
+&lt;p&gt;B-型为条件跳转指令&lt;/p&gt;
+&lt;p&gt;U-型为长立即数操作指令&lt;/p&gt;
+&lt;p&gt;J-型为无条件跳转指令&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013204153653.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013204153653&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h5 id=&#34;16位压缩&#34;&gt;16位压缩
+&lt;/h5&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013204333864.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251013204333864&#34;
+	
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         
