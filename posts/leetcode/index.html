@@ -232,6 +232,7 @@
         <li><a href="#例题-2">例题</a>
           <ol>
             <li><a href="#无重复字符的最长字串">无重复字符的最长字串</a></li>
+            <li><a href="#几乎唯一子数组的最大和">几乎唯一子数组的最大和</a></li>
           </ol>
         </li>
       </ol>
@@ -483,6 +484,29 @@
 </span></span><span class="line"><span class="cl">3. 注意：边界要分清楚！！right - left 的相对关系不能错
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">4. Counter(str) 方法，统计各个字符出现的次数
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="几乎唯一子数组的最大和">几乎唯一子数组的最大和
+</h4><blockquote>
+<p>如果 <code>nums</code> 的一个子数组有至少 <code>m</code> 个互不相同的元素，我们称它是 <strong>几乎唯一</strong> 子数组。</p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 区间求和，考虑用滑动窗口
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 有两个变量 m,k 分别维护即可。用一个字典来标记是否有重复！
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 注意：当 defaultdict(int) 为空时，需要将元素删去！否则统计长度时会出错。
+</span></span><span class="line"><span class="cl">	if cnt[out] == 0:
+</span></span><span class="line"><span class="cl">    	del cnt[out]
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="前缀和">前缀和
