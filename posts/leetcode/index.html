@@ -229,17 +229,24 @@
     </li>
     <li><a href="#滑动窗口">滑动窗口</a>
       <ol>
-        <li><a href="#例题-2">例题</a>
+        <li><a href="#定长">定长</a>
           <ol>
             <li><a href="#无重复字符的最长字串">无重复字符的最长字串</a></li>
             <li><a href="#几乎唯一子数组的最大和">几乎唯一子数组的最大和</a></li>
           </ol>
         </li>
+        <li><a href="#不定长--越长越合法">不定长 + 越长越合法</a>
+          <ol>
+            <li><a href="#每个字符最多出现两次">每个字符最多出现两次</a></li>
+            <li><a href="#使数组平衡的最少移出数目">使数组平衡的最少移出数目</a></li>
+          </ol>
+        </li>
+        <li><a href="#不定长--越短越合法">不定长 + 越短越合法</a></li>
       </ol>
     </li>
     <li><a href="#前缀和">前缀和</a>
       <ol>
-        <li><a href="#例题-3">例题</a>
+        <li><a href="#例题-2">例题</a>
           <ol>
             <li><a href="#和为-k-的子数组">和为 K 的子数组</a></li>
             <li><a href="#最大子数组和">最大子数组和</a></li>
@@ -417,6 +424,7 @@
 <li>连续子数组、子序列</li>
 <li>在一个范围内进行条件统计</li>
 <li>具有单调性，随窗口移动时不必全部更新</li>
+<li>要点在于，将问题放到窗口中讨论，控制窗口来控制遍历所有可能情况</li>
 </ol>
 <p>模板：</p>
 <p>右入（直到装满窗口） - 判断 -  更新 - 左出</p>
@@ -464,7 +472,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">ans</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="例题-2">例题
+</div><h3 id="定长">定长
 </h3><h4 id="无重复字符的最长字串">无重复字符的最长字串
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -509,6 +517,60 @@
 </span></span><span class="line"><span class="cl">    	del cnt[out]
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="不定长--越长越合法">不定长 + 越长越合法
+</h3><h4 id="每个字符最多出现两次">每个字符最多出现两次
+</h4><blockquote>
+<p>给你一个字符串 <code>s</code> ，请找出满足每个字符最多出现两次的最长子字符串，并返回该子字符串的 <strong>最大</strong> 长度。</p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 区间判断，仍然是滑动窗口，不同之处在于变成了不定长滑窗
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 不定长的判断逻辑修改一下即可
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="使数组平衡的最少移出数目">使数组平衡的最少移出数目
+</h4><blockquote>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code>。</p>
+<p>如果一个数组的 <strong>最大</strong> 元素的值 <strong>至多</strong> 是其 <strong>最小</strong> 元素的 <code>k</code> 倍，则该数组被称为是 <strong>平衡</strong> 的。</p>
+<p>你可以从 <code>nums</code> 中移除 <strong>任意</strong> 数量的元素，但不能使其变为 <strong>空</strong> 数组。</p>
+<p>返回为了使剩余数组平衡，需要移除的元素的 <strong>最小</strong> 数量。</p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 能看出是滑动窗口吗？问题转化为：求一个窗口，使得其最小元素最小值*k &gt;= 最大值！
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="不定长--越短越合法">不定长 + 越短越合法
+</h3><blockquote>
+<p>给二进制字符串<code>s</code>和正整数<code>k</code>，找到满足以下条件的子字符串：</p>
+<ol>
+<li>子字符串中<code>1</code>的个数恰好是<code>k</code>（即美丽子字符串）；</li>
+<li>该子字符串是所有美丽子字符串中<strong>最短</strong>的；</li>
+<li>若有多个最短的，选字典序最小的；若没有美丽子字符串，返回空字符串。</li>
+</ol></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 如何保证最短？ --&gt; 最前端如果有 0，需要继续向后
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 当达到筛选条件后，需要进一步收缩边界！
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 字符串字典序直接比较即可
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h2 id="前缀和">前缀和
 </h2><p>适用情景：</p>
 <ul>
@@ -529,7 +591,7 @@
 </span></span><span class="line"><span class="cl">            <span class="n">s</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="例题-3">例题
+</div><h3 id="例题-2">例题
 </h3><h4 id="和为-k-的子数组">和为 K 的子数组
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
