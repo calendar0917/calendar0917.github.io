@@ -241,7 +241,17 @@
             <li><a href="#使数组平衡的最少移出数目">使数组平衡的最少移出数目</a></li>
           </ol>
         </li>
-        <li><a href="#不定长--越短越合法">不定长 + 越短越合法</a></li>
+        <li><a href="#不定长--越短越合法">不定长 + 越短越合法</a>
+          <ol>
+            <li><a href="#最短美丽字串">最短美丽字串</a></li>
+          </ol>
+        </li>
+        <li><a href="#求子数组个数--越短越合法">求子数组个数 + 越短越合法</a>
+          <ol>
+            <li><a href="#元素乘积小于-k-的子数组数目">元素乘积小于 k 的子数组数目</a></li>
+            <li><a href="#不间断子数组数目">不间断子数组数目</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
     <li><a href="#前缀和">前缀和</a>
@@ -548,7 +558,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="不定长--越短越合法">不定长 + 越短越合法
-</h3><blockquote>
+</h3><h4 id="最短美丽字串">最短美丽字串
+</h4><blockquote>
 <p>给二进制字符串<code>s</code>和正整数<code>k</code>，找到满足以下条件的子字符串：</p>
 <ol>
 <li>子字符串中<code>1</code>的个数恰好是<code>k</code>（即美丽子字符串）；</li>
@@ -569,6 +580,42 @@
 </span></span><span class="line"><span class="cl">2. 当达到筛选条件后，需要进一步收缩边界！
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">3. 字符串字典序直接比较即可
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="求子数组个数--越短越合法">求子数组个数 + 越短越合法
+</h3><h4 id="元素乘积小于-k-的子数组数目">元素乘积小于 k 的子数组数目
+</h4><blockquote>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你返回子数组内所有元素的乘积严格小于 <code>k</code> 的连续子数组的数目。</p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 要求连续子数组，发现缩短以后一样符合条件，所以是滑窗的变式
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 小于当前窗口的都符合，所以要 res += right - left + 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="不间断子数组数目">不间断子数组数目
+</h4><blockquote>
+<p>给你一个下标从 <strong>0</strong> 开始的整数数组 <code>nums</code> 。<code>nums</code> 的一个子数组如果满足以下条件，那么它是 <strong>不间断</strong> 的：</p>
+<ul>
+<li><code>i</code>，<code>i + 1</code> ，&hellip;，<code>j</code> 表示子数组中的下标。对于所有满足 <code>i &lt;= i1, i2 &lt;= j</code> 的下标对，都有 <code>0 &lt;= |nums[i1] - nums[i2]| &lt;= 2</code> 。</li>
+</ul>
+<p>请你返回 <strong>不间断</strong> 子数组的总数目。</p>
+<p>子数组是一个数组中一段连续 <strong>非空</strong> 的元素序列。</p></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 用哈希表维护的判断条件！
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 还是滑窗的思路，依次控制窗口枚举
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="前缀和">前缀和

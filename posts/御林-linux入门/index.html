@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="考察 Linux 的入门操作">
+<title>御林招新题：DevOps-Linux入门</title>
+
+<link rel='canonical' href='https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="御林招新题：DevOps-Linux入门">
+<meta property='og:description' content="考察 Linux 的入门操作">
+<meta property='og:url' content='https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-16T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：DevOps-Linux入门">
+<meta name="twitter:description" content="考察 Linux 的入门操作">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#获得一个linux操作系统">获得一个Linux操作系统</a></li>
+    <li><a href="#命令基础">命令基础</a></li>
+    <li><a href="#文件与目录">文件与目录</a></li>
+    <li><a href="#修改文件和目录权限">修改文件和目录权限</a></li>
+    <li><a href="#vi-编辑器">vi 编辑器</a></li>
+    <li><a href="#文件操作进阶">文件操作进阶</a></li>
+    <li><a href="#文件权限进阶">文件权限进阶</a></li>
+    <li><a href="#vi-编辑器进阶">vi 编辑器进阶</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/">御林招新题：DevOps-Linux入门</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            考察 Linux 的入门操作
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 16, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="获得一个linux操作系统">获得一个Linux操作系统
+</h2><p>服务器 + 云服务器均尝试，已完成。</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251016181737313.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251016181737313"
+	
+	
+></p>
+<h2 id="命令基础">命令基础
+</h2><ul>
+<li>登录Linux系统，更改自己的用户口令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># passwd</span>
+</span></span><span class="line"><span class="cl">Changing password <span class="k">for</span> user root.
+</span></span><span class="line"><span class="cl">New password:
+</span></span><span class="line"><span class="cl">Retype new password:
+</span></span><span class="line"><span class="cl">passwd: all authentication tokens updated successfully.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>执行常用的Linux命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls</span>
+</span></span><span class="line"><span class="cl">anaconda-ks.cfg  original-ks.cfg
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># mkdir hello</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># cd ..</span>
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>man</code> 命令，来查找特定命令的帮助信息 。
+<ul>
+<li><code>man ls</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251016182240749.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251016182240749"
+	
+	
+></p>
+<h2 id="文件与目录">文件与目录
+</h2><ul>
+<li>显示和改变当前目录 。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># pwd</span>
+</span></span><span class="line"><span class="cl">/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># cd home</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>ls</code> 命令的不同选项来查看文件与目录的属性 。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">24</span>
+</span></span><span class="line"><span class="cl">lrwxrwxrwx.   <span class="m">1</span> root root    <span class="m">7</span> Sep <span class="m">28</span> 08:05 bin -&gt; usr/bin
+</span></span><span class="line"><span class="cl">dr-xr-xr-x.   <span class="m">5</span> root root <span class="m">4096</span> Sep <span class="m">28</span> 16:34 boot
+</span></span><span class="line"><span class="cl">drwxr-xr-x.  <span class="m">19</span> root root <span class="m">3260</span> Oct <span class="m">16</span> 03:17 dev
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ls -lh</span>
+</span></span><span class="line"><span class="cl">total 24K
+</span></span><span class="line"><span class="cl">lrwxrwxrwx.   <span class="m">1</span> root root    <span class="m">7</span> Sep <span class="m">28</span> 08:05 bin -&gt; usr/bin
+</span></span><span class="line"><span class="cl">dr-xr-xr-x.   <span class="m">5</span> root root 4.0K Sep <span class="m">28</span> 16:34 boot
+</span></span><span class="line"><span class="cl">drwxr-xr-x.  <span class="m">19</span> root root 3.2K Oct <span class="m">16</span> 03:17 dev
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ls -t</span>
+</span></span><span class="line"><span class="cl">root  etc  tmp  run  dev  sys  proc  opt  boot ...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ls -a</span>
+</span></span><span class="line"><span class="cl">.   bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+</span></span><span class="line"><span class="cl">..  boot  etc  lib   media  opt  root  sbin  sys  usr
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>创建和删除目录 。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># mkdir test</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># rmdir test</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>创建零长度的文件 。</p>
+<ul>
+<li><code>touch test.txt</code></li>
+</ul>
+</li>
+<li>
+<p>拷贝、移动、重命名、链接及删除文件 。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># mkdir test</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># rmdir test</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># touch test.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># cp test.txt test_cp.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># mv test.txt text_rename.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ln test_cp.txt test_cp_hardlink.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ln -s test_cp</span>
+</span></span><span class="line"><span class="cl">test_cp_hardlink.txt  test_cp.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># ln -s test_rename_softlink.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># rm test*</span>
+</span></span><span class="line"><span class="cl">rm: remove regular empty file ‘test_cp_hardlink.txt’? y
+</span></span><span class="line"><span class="cl">rm: remove regular empty file ‘test_cp.txt’? y
+</span></span><span class="line"><span class="cl">rm: remove symbolic link ‘test_rename_softlink.txt’? y
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li><strong>软链接</strong>：适合需要跨分区或对目录建立快捷方式的场景。</li>
+<li><strong>硬链接</strong>：适合在同一分区内共享文件内容且不希望因删除源文件而失效的场景。</li>
+</ul></blockquote>
+<ul>
+<li>查看文件内容 。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost /<span class="o">]</span><span class="c1"># cat bin</span>
+</span></span><span class="line"><span class="cl">cat: bin: Is a directory
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改文件和目录权限">修改文件和目录权限
+</h2><ul>
+<li>使用长列表命令来查看文件与目录的信息</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># mkdir test1</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># touch test.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># echo &#34;hello&#34; &gt;&gt; test.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">4</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x. <span class="m">2</span> root root <span class="m">6</span> Oct <span class="m">16</span> 03:43 test1
+</span></span><span class="line"><span class="cl">-rw-r--r--. <span class="m">1</span> root root <span class="m">6</span> Oct <span class="m">16</span> 03:44 test.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>-rw-r--r--</code> ,共 10 个字符：</p>
+<ul>
+<li>
+<p>第 1 位：文件类型（<code>-</code> 普通文件，<code>d</code> 目录，<code>l</code> 链接）</p>
+</li>
+<li>
+<p>第 2-4 位：所有者（User）权限</p>
+</li>
+<li>
+<p>第 5-7 位：所属组（Group）权限</p>
+</li>
+<li>
+<p>第 8-10 位：其他用户（Others）权限</p>
+</li>
+</ul>
+<p>权限字符：</p>
+<ul>
+<li><code>r</code> (Read)：读取权限（4）</li>
+<li><code>w</code> (Write)：写入权限（2）</li>
+<li><code>x</code> (Execute)：执行权限（1）</li>
+<li><code>-</code>：无对应权限（0）</li>
+</ul></blockquote>
+<ul>
+<li>对普通文件与目录的权限进行操作</li>
+</ul>
+<blockquote>
+<p>格式：<code>chmod [用户][操作][权限] 文件名</code></p>
+<ul>
+<li>用户：<code>u</code>(所有者)、<code>g</code>(所属组)、<code>o</code>(其他)、<code>a</code>(所有)</li>
+<li>操作：<code>+</code>(添加)、<code>-</code>(移除)、<code>=</code>(设置)</li>
+</ul></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">4</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x. <span class="m">2</span> root root <span class="m">6</span> Oct <span class="m">16</span> 03:43 test1
+</span></span><span class="line"><span class="cl">-r--r--r--. <span class="m">1</span> root root <span class="m">6</span> Oct <span class="m">16</span> 03:44 test.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="vi-编辑器">vi 编辑器
+</h2><ul>
+<li>
+<p>创建一个文件 。<code>vi filename</code></p>
+</li>
+<li>
+<p>保存并退出一个文件及不保存退出一个文件 。</p>
+</li>
+</ul>
+<blockquote>
+<p>命令模式下，<code>:wq</code> 保存退出，<code>:q!</code> 直接退出</p></blockquote>
+<ul>
+<li>在文本中使用不同的键进行光标的移动 。</li>
+</ul>
+<blockquote>
+<p>上下左右：kjhl</p>
+<p>单词：<code>w</code> 移动到下一个单词开头；<code>b</code> 移动到上一个单词开头</p>
+<p>行首 <code>^</code>，行尾 <code>$</code></p>
+<p>文首 <code>gg</code> ,文尾 <code>G</code></p></blockquote>
+<ul>
+<li>在一个文件中加入、删除与修改文本 。</li>
+</ul>
+<blockquote>
+<ul>
+<li>新增</li>
+</ul>
+<p>光标前：<code>i</code>  行首<code>I</code></p>
+<p>光标后：<code>a</code>  行尾<code>A</code></p>
+<p>下一行：<code>o</code>  上一行<code>O</code></p>
+<ul>
+<li>删除</li>
+</ul>
+<p>所在字符：<code>nx</code></p>
+<p>所在行：<code>ndd</code></p>
+<p>到行首 <code>d^</code> 到行尾 <code>d$</code></p>
+<ul>
+<li>修改</li>
+</ul>
+<p>当前字符：<code>r</code></p>
+<p>到行尾：<code>R</code></p></blockquote>
+<ul>
+<li>设定选项以自定义编辑环境 。</li>
+</ul>
+<blockquote>
+<p><code>:set number</code> 设置行号</p></blockquote>
+<ul>
+<li>调用命令行编辑功能 。</li>
+</ul>
+<blockquote>
+<p><code>:!command</code> 执行</p>
+<p>替换：<code>:%s/old/new/g</code>（<code>old</code> 为要替换的旧内容，<code>new</code> 为新内容，<code>%</code> 表示整个文件，<code>g</code> 表示全局替换）</p>
+<p>查找：<code>/pattern</code>，n下一个，N上一个</p></blockquote>
+<h2 id="文件操作进阶">文件操作进阶
+</h2><ul>
+<li><strong>通配符应用</strong>：在 <code>/usr/bin</code> 目录下，使用通配符查找所有以字母 <code>a</code> 开头的文件名，并仅列出文件名。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost bin<span class="o">]</span><span class="c1"># ls a*</span>
+</span></span><span class="line"><span class="cl">a2p                                  abrt-merge-pstoreoops            appstream-compose
+</span></span><span class="line"><span class="cl">abrt-action-analyze-backtrace        abrt-retrace-client              appstream-util
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>查找文件</strong>：在 <code>/tmp</code> 目录中找到所有文件名。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost bin<span class="o">]</span><span class="c1"># find /tmp -type f -printf &#34;%f\n&#34;</span>
+</span></span><span class="line"><span class="cl">.X0-lock
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>文件内容排序</strong>：将 <code>/etc/passwd</code> 文件中的内容按字母顺序和逆序分别显示。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost tmp<span class="o">]</span><span class="c1"># sort /etc/passwd</span>
+</span></span><span class="line"><span class="cl">abrt:x:173:173::/etc/abrt:/sbin/nologin
+</span></span><span class="line"><span class="cl">adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost tmp<span class="o">]</span><span class="c1"># sort -r /etc/passwd</span>
+</span></span><span class="line"><span class="cl">usbmuxd:x:113:113:usbmuxd user:/:/sbin/nologin
+</span></span><span class="line"><span class="cl">unbound:x:991:986:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>头部和尾部显示</strong>：显示 <code>/etc/passwd</code> 文件的前5行和后10行的内容。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost tmp<span class="o">]</span><span class="c1"># head -n 5 /etc/passwd</span>
+</span></span><span class="line"><span class="cl">root:x:0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">bin:x:1:1:bin:/bin:/sbin/nologin
+</span></span><span class="line"><span class="cl">daemon:x:2:2:daemon:/sbin:/sbin/nologin
+</span></span><span class="line"><span class="cl">adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span class="line"><span class="cl">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost tmp<span class="o">]</span><span class="c1"># tail -n 10 /etc/passwd</span>
+</span></span><span class="line"><span class="cl">......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="文件权限进阶">文件权限进阶
+</h2><ul>
+<li><strong>软链接与硬链接</strong>：在你的用户主目录下，为 <code>/usr/bin/cat</code> 文件分别创建软链接和硬链接，并解释两者的区别。</li>
+</ul>
+<blockquote>
+<p>见上</p></blockquote>
+<ul>
+<li><strong>权限恢复</strong>：如何将某个目录的权限恢复到默认的 <code>rwxr-xr-x</code> 形式？请使用两种不同的 <code>chmod</code> 语法来实现。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># chmod u=rwx,g=rx,o=rx test1</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost test<span class="o">]</span><span class="c1"># chmod 755 test1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>r-4 ; w-2 ; x-1</p></blockquote>
+<h2 id="vi-编辑器进阶">vi 编辑器进阶
+</h2><ul>
+<li><strong>复制与粘贴</strong>：在 <code>vi</code> 中，一次性将一段文本（例如三行）复制到文件的末尾。</li>
+</ul>
+<blockquote>
+<p>命令行 nyy 复制n行</p>
+<p>命令行 p 粘贴</p></blockquote>
+<ul>
+<li><strong>撤销与重做</strong>：掌握在 <code>vi</code> 中撤销（undo）和重做（redo）操作的方法。</li>
+</ul>
+<blockquote>
+<p>撤销：u</p>
+<p>重做：ctrl+r</p></blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：雪王生擒明珠塔</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-ipv4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：ipv4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：御图网</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：档案馆的回响</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://example.com/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
