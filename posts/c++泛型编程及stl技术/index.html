@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/'>
 
-<link rel="stylesheet" href="/scss/style.min.6a692fd055deae459f2a9767f57f3855ba80cafd5041317f24f7360f6ca47cdf.css"><meta property='og:title' content="C++ 模板及STL技术">
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="C++ 模板及STL技术">
 <meta property='og:description' content="记录 C++ 模板及STL技术的学习">
 <meta property='og:url' content='https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
@@ -227,7 +227,11 @@
     </li>
     <li><a href="#stl">STL</a>
       <ol>
-        <li><a href="#初始">初始</a></li>
+        <li><a href="#初识">初识</a>
+          <ol>
+            <li><a href="#vector-使用">vector 使用</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -479,8 +483,91 @@
 </li>
 </ul>
 <h2 id="stl">STL
-</h2><h3 id="初始">初始
-</h3>
+</h2><h3 id="初识">初识
+</h3><p>Standard Template Library：标准模板库</p>
+<ul>
+<li>主要组件：容器、算法、迭代器</li>
+<li>容器和算法通过迭代器连接</li>
+<li>STL 采用模板实现</li>
+</ul>
+<p>六大组件：容器、算法、迭代器、仿函数、适配器（配接器）、空间配置器</p>
+<ul>
+<li>容器：数据结构
+<ul>
+<li>序列式：强调值的排序</li>
+<li>关联式：如树，没有严格的物理联系</li>
+</ul>
+</li>
+<li>算法 Algorithms：实现常用算法
+<ul>
+<li>质变：与原来不同</li>
+<li>非质变：查找、计数、遍历等</li>
+</ul>
+</li>
+<li>迭代器：胶合容器和算法
+<ul>
+<li>类似指针，提供访问容器的接口</li>
+<li>双向、随机访问</li>
+</ul>
+</li>
+<li>仿函数：行为类似函数，可所谓算法的某种策略</li>
+<li>适配器（配接器）：用于修饰容器、算法、迭代器或接口</li>
+<li>空间配置器：负责空间的配置和管理</li>
+</ul>
+<h4 id="vector-使用">vector 使用
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">v</span><span class="p">.</span><span class="n">pushback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="c1">// 返回迭代器，指向容器中第一个数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="c1">// 指向容器最后一个数据的下一个位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">pBegin</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="c1">// 接收
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl"><span class="c1">//第一种遍历方式:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">while</span> <span class="p">(</span><span class="n">pBegin</span> <span class="o">!=</span> <span class="n">pEnd</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">pBegin</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pBegin</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//第二种遍历方式:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//第三种遍历方式:
+</span></span></span><span class="line"><span class="cl"><span class="c1">//使用STL提供标准遍历算法 头文件 algorithm
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">MyPrint</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
