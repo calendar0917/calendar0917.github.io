@@ -10,9 +10,10 @@
 <meta property='og:description' content="记录力扣题目的题解">
 <meta property='og:url' content='https://example.com/posts/leetcode/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='算法' /><meta property='article:published_time' content='2025-09-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-30T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='算法' /><meta property='article:published_time' content='2025-09-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251017094519413.png' />
 <meta name="twitter:title" content="LeetCod Hot100">
-<meta name="twitter:description" content="记录力扣题目的题解">
+<meta name="twitter:description" content="记录力扣题目的题解"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251017094519413.png' />
     </head>
     <body class="
     article-page
@@ -252,6 +253,16 @@
             <li><a href="#不间断子数组数目">不间断子数组数目</a></li>
           </ol>
         </li>
+        <li><a href="#求子数组个数--越长越合法">求子数组个数 + 越长越合法</a>
+          <ol>
+            <li><a href="#包含所有三种字符的子字符串数目">包含所有三种字符的子字符串数目</a></li>
+          </ol>
+        </li>
+        <li><a href="#恰好型滑窗">恰好型滑窗</a>
+          <ol>
+            <li><a href="#和相同的二元子数组">和相同的二元子数组</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
     <li><a href="#前缀和">前缀和</a>
@@ -275,8 +286,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/posts/leetcode/">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017094519413.png" loading="lazy" alt="Featured image of post LeetCod Hot100" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -506,7 +525,8 @@
 </div>
 </div><h4 id="几乎唯一子数组的最大和">几乎唯一子数组的最大和
 </h4><blockquote>
-<p>如果 <code>nums</code> 的一个子数组有至少 <code>m</code> 个互不相同的元素，我们称它是 <strong>几乎唯一</strong> 子数组。</p></blockquote>
+<p>如果 <code>nums</code> 的一个子数组有至少 <code>m</code> 个互不相同的元素，我们称它是 <strong>几乎唯一</strong> 子数组。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -530,7 +550,8 @@
 </div><h3 id="不定长--越长越合法">不定长 + 越长越合法
 </h3><h4 id="每个字符最多出现两次">每个字符最多出现两次
 </h4><blockquote>
-<p>给你一个字符串 <code>s</code> ，请找出满足每个字符最多出现两次的最长子字符串，并返回该子字符串的 <strong>最大</strong> 长度。</p></blockquote>
+<p>给你一个字符串 <code>s</code> ，请找出满足每个字符最多出现两次的最长子字符串，并返回该子字符串的 <strong>最大</strong> 长度。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -548,7 +569,8 @@
 <p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code>。</p>
 <p>如果一个数组的 <strong>最大</strong> 元素的值 <strong>至多</strong> 是其 <strong>最小</strong> 元素的 <code>k</code> 倍，则该数组被称为是 <strong>平衡</strong> 的。</p>
 <p>你可以从 <code>nums</code> 中移除 <strong>任意</strong> 数量的元素，但不能使其变为 <strong>空</strong> 数组。</p>
-<p>返回为了使剩余数组平衡，需要移除的元素的 <strong>最小</strong> 数量。</p></blockquote>
+<p>返回为了使剩余数组平衡，需要移除的元素的 <strong>最小</strong> 数量。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -565,7 +587,8 @@
 <li>子字符串中<code>1</code>的个数恰好是<code>k</code>（即美丽子字符串）；</li>
 <li>该子字符串是所有美丽子字符串中<strong>最短</strong>的；</li>
 <li>若有多个最短的，选字典序最小的；若没有美丽子字符串，返回空字符串。</li>
-</ol></blockquote>
+</ol>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -585,7 +608,8 @@
 </div><h3 id="求子数组个数--越短越合法">求子数组个数 + 越短越合法
 </h3><h4 id="元素乘积小于-k-的子数组数目">元素乘积小于 k 的子数组数目
 </h4><blockquote>
-<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你返回子数组内所有元素的乘积严格小于 <code>k</code> 的连续子数组的数目。</p></blockquote>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你返回子数组内所有元素的乘积严格小于 <code>k</code> 的连续子数组的数目。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -605,7 +629,8 @@
 <li><code>i</code>，<code>i + 1</code> ，&hellip;，<code>j</code> 表示子数组中的下标。对于所有满足 <code>i &lt;= i1, i2 &lt;= j</code> 的下标对，都有 <code>0 &lt;= |nums[i1] - nums[i2]| &lt;= 2</code> 。</li>
 </ul>
 <p>请你返回 <strong>不间断</strong> 子数组的总数目。</p>
-<p>子数组是一个数组中一段连续 <strong>非空</strong> 的元素序列。</p></blockquote>
+<p>子数组是一个数组中一段连续 <strong>非空</strong> 的元素序列。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -616,6 +641,58 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 用哈希表维护的判断条件！
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">2. 还是滑窗的思路，依次控制窗口枚举
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="求子数组个数--越长越合法">求子数组个数 + 越长越合法
+</h3><h4 id="包含所有三种字符的子字符串数目">包含所有三种字符的子字符串数目
+</h4><blockquote>
+<p>给你一个字符串 <code>s</code> ，它只包含三种字符 a, b 和 c 。</p>
+<p>请你返回 a，b 和 c 都 <strong>至少</strong> 出现过一次的子字符串数目。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 先找至少出现过一次的情况，想到滑动窗口
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. “至少”意味着只能找最短，所以在更新时要将更长的字符串加上，即 res += left
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 注意：不能写 if len(cnt) &lt; 3: continue 的判断，边界条件要考虑清楚！
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="恰好型滑窗">恰好型滑窗
+</h3><blockquote>
+<p>要计算有多少个元素和<strong>恰好等于</strong> <em>k</em> 的子数组，可以把问题变成：</p>
+<ul>
+<li>计算有多少个元素和 ≥<em>k</em> 的子数组。</li>
+<li>计算有多少个元素和 &gt;<em>k</em>，也就是 ≥<em>k</em>+1 的子数组。</li>
+</ul>
+<p>因为滑动窗口比较难解决“等于”问题，故尝试转化成不等于问题，即越&hellip;越合法</p>
+<p>答案就是元素和 ≥<em>k</em> 的子数组个数，减去元素和 ≥<em>k</em>+1 的子数组个数。</p>
+<ul>
+<li>也可以把问题变成 ≤<em>k</em> 减去 ≤<em>k</em>−1，即两个「至多」。可根据题目选择合适的变形方式。</li>
+</ul>
+</blockquote>
+<h4 id="和相同的二元子数组">和相同的二元子数组
+</h4><blockquote>
+<p>给你一个二元数组 <code>nums</code> ，和一个整数 <code>goal</code> ，请你统计并返回有多少个和为 <code>goal</code> 的 <strong>非空</strong> 子数组。</p>
+<p><strong>子数组</strong> 是数组的一段连续部分。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 求区间和，可以用前缀和，但是这里考虑滑窗
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 转为求 res1 - res2，需要用两个 left1，2、sum1，2 来分别求边界
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="前缀和">前缀和
@@ -702,7 +779,19 @@
 
         <span>Licensed under Calendar</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Oct 17, 2025 00:00 UTC
+        </span>
+    </section></footer>
 
 
     

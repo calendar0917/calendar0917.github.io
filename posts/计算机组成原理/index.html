@@ -433,10 +433,12 @@
 <p>IBM 360（<strong>兼容机</strong>）</p>
 <p>相同/相似的指令集&amp;操作系统。</p>
 <p>好处： 原来机器上的程序可以不改动而在新机器上运行，但性能不同。</p>
-<p>保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。</p></blockquote>
+<p>保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。</p>
+</blockquote>
 <blockquote>
 <p>DEC PDP-8（<strong>采用总线结构</strong>）</p>
-<p>总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜</p></blockquote>
+<p>总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜</p>
+</blockquote>
 <p>第四代：大规模、超大规模集成电路</p>
 <ul>
 <li>半导体存储器，微处理器发展迅速。</li>
@@ -468,7 +470,8 @@
 <li>将事先编好的程序和原始数据送入主存中；启动执行后，在不需操作人员干预下，自动完成逐条取出指令和执行指令的任务。</li>
 </ol>
 </li>
-</ol></blockquote>
+</ol>
+</blockquote>
 <p><img src="https://raw.githubusercontent.com/calendar0917/images/master/20251003090538614.png"
 	
 	
@@ -495,9 +498,11 @@
 <li>存储体：数据、指令在存储体内按地址存储，每个存储单元对应一个地址</li>
 </ul>
 <blockquote>
-<p>1B = 1 byte ; 1 b = 1 bit</p></blockquote>
+<p>1B = 1 byte ; 1 b = 1 bit</p>
+</blockquote>
 <blockquote>
-<p>MAR、MDR 逻辑上属于主存，但被集成到 CPU</p></blockquote>
+<p>MAR、MDR 逻辑上属于主存，但被集成到 CPU</p>
+</blockquote>
 <h5 id="运算器">运算器
 </h5><p>实现算数运算、逻辑运算</p>
 <p>运算器 = ACC + ALU + MQ + X</p>
@@ -586,7 +591,8 @@
 <blockquote>
 <p>机器语言：二进制代码</p>
 <p>汇编语言：助记符</p>
-<p>高级语言：C、C++、……</p></blockquote>
+<p>高级语言：C、C++、……</p>
+</blockquote>
 <ul>
 <li>应用软件——解决<strong>具体的应用</strong>问题</li>
 </ul>
@@ -664,7 +670,8 @@
 <p>K=Kilo=千=10^3</p>
 <p>M=Million=百万=10^6</p>
 <p>G=Giga=十亿=10^9</p>
-<p>T=Tera=万亿=10^12</p></blockquote>
+<p>T=Tera=万亿=10^12</p>
+</blockquote>
 <ul>
 <li>
 <p>数据通路带宽：数据总线一次所能并行传送信息的位数（各硬件部件通过数据总线传输数据）</p>
@@ -689,7 +696,8 @@
 <li>厂家给出峰值 MIPS</li>
 </ul>
 <p>因此，MIPS 表示性能存在局限性。</p>
-<p>MFLOPS：每秒执行浮点运算多少百万次，着重在于<strong>浮点操作</strong>本身。</p></blockquote>
+<p>MFLOPS：每秒执行浮点运算多少百万次，着重在于<strong>浮点操作</strong>本身。</p>
+</blockquote>
 <h5 id="计算">计算
 </h5><p>CPU 执行时间=CPI×程序总指令条数×时钟周期</p>
 <p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251003103925476.png"
@@ -732,7 +740,8 @@
 <li>二进制 -&gt; 其他：划分位数，对应</li>
 <li>十六、八 -&gt; 二：位数对应，补全</li>
 <li>十进制 -&gt; 任意位数：求商取余</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <h4 id="定点数的表示">定点数的表示
 </h4><p>常规计数，小数点位置固定。整数、小数分开存储。</p>
 <ul>
@@ -834,7 +843,8 @@
 <li>
 <p>按“无符号整数”规则转换为指定位数</p>
 </li>
-</ol></blockquote>
+</ol>
+</blockquote>
 <h4 id="double双精度">double双精度
 </h4><ul>
 <li>偏置值为1023</li>
@@ -1045,7 +1055,8 @@
 <li>[A-B]补=[A]补+[-B]补</li>
 </ul>
 <blockquote>
-<p>[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反</p></blockquote>
+<p>[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反</p>
+</blockquote>
 <ul>
 <li>溢出判断：上溢正变负；只有可能同号运算出现；判断是否在合法表示范围内即可</li>
 </ul>
@@ -1202,7 +1213,8 @@
 <h4 id="按指令长度分类">按指令长度分类
 </h4><p>指令字长：一条指令的总长度(可能会变)</p>
 <blockquote>
-<p>影响取指令所需时间</p></blockquote>
+<p>影响取指令所需时间</p>
+</blockquote>
 <p>机器字长：CPU进行一次整数运算所能处理的二进制数据的位数(通常和ALU直接相关)</p>
 <p>存储字长：一个存储单元中的二进制代码位数（通常和MDR位数相同)</p>
 <h4 id="按操作码长度分类">按操作码长度分类
@@ -1298,7 +1310,8 @@
 <blockquote>
 <p>通常情况下，对使用频率较高的指令，分配较短的操作码；对使用
 频率较低的指令，分配较长的操作码，从而尽可能减少指令译码和
-分析的时间。</p></blockquote>
+分析的时间。</p>
+</blockquote>
 <p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251011090538497.png"
 	
 	
@@ -1311,10 +1324,12 @@
 ></p>
 <blockquote>
 <p>设地址长度为n，上一层留出m种状态，下一层可扩展出mx2^n种状态</p>
-<p>注意短的操作码不能是长操作码的前缀</p></blockquote>
+<p>注意短的操作码不能是长操作码的前缀</p>
+</blockquote>
 <h3 id="寻址方式">寻址方式
 </h3><blockquote>
-<p>PC：程序计数器，取址后会自动加一</p></blockquote>
+<p>PC：程序计数器，取址后会自动加一</p>
+</blockquote>
 <h4 id="指令寻址">指令寻址
 </h4><p>确定下一条指令的存放地址，由 PC 指明</p>
 <p>顺序寻址：</p>
@@ -1332,7 +1347,8 @@
 <h4 id="数据寻址">数据寻址
 </h4><p>确定本条指令的地址码指明的<strong>真实地址</strong></p>
 <blockquote>
-<p>程序存储位置是相对的，需要用偏移量解读</p></blockquote>
+<p>程序存储位置是相对的，需要用偏移量解读</p>
+</blockquote>
 <p>在地址码中划分出<strong>寻址特征</strong>，规定该地址需要用何种方式寻址</p>
 <ol>
 <li>
@@ -1358,12 +1374,14 @@
 </li>
 </ol>
 <blockquote>
-<p>BR 为基址寄存器，由操作系统决定，不可更改</p></blockquote>
+<p>BR 为基址寄存器，由操作系统决定，不可更改</p>
+</blockquote>
 <ol start="8">
 <li>变址寻址：程序员自己决定从哪里作为起点，EA = （IX）+ A</li>
 </ol>
 <blockquote>
-<p>IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等</p></blockquote>
+<p>IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等</p>
+</blockquote>
 <ol start="9">
 <li>
 <p>相对寻址：程序计数器PC所指地址作为起点，EA = （PC）+ A</p>
@@ -1373,7 +1391,8 @@
 </li>
 </ol>
 <blockquote>
-<p>堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快</p></blockquote>
+<p>堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快</p>
+</blockquote>
 <h5 id="优缺点">优缺点
 </h5><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251011095613851.png"
 	
@@ -1398,7 +1417,8 @@
 ></p>
 <blockquote>
 <p>对于带符号数和无符号数运算，标志生成方式有没有不同？</p>
-<p>答：没有，因为加法电路不知道是无符号数还是带符号整数！</p></blockquote>
+<p>答：没有，因为加法电路不知道是无符号数还是带符号整数！</p>
+</blockquote>
 <h3 id="指令系统设计风格">指令系统设计风格
 </h3><ul>
 <li>累加器型： （earliest machines）
@@ -1444,7 +1464,8 @@
 </li>
 </ul>
 <blockquote>
-<p>在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。</p></blockquote>
+<p>在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。</p>
+</blockquote>
 <p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251013194838713.png"
 	
 	
@@ -1556,7 +1577,8 @@
 		alt="image-20251013200751544"
 	
 	
-></p></blockquote>
+></p>
+</blockquote>
 <h3 id="mips-的通用寄存器">MIPS 的通用寄存器
 </h3><ul>
 <li>0 号寄存器$zero 为固定值零，不能改变</li>

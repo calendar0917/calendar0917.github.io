@@ -470,7 +470,8 @@
 <ul>
 <li><strong>软链接</strong>：适合需要跨分区或对目录建立快捷方式的场景。</li>
 <li><strong>硬链接</strong>：适合在同一分区内共享文件内容且不希望因删除源文件而失效的场景。</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <ul>
 <li>查看文件内容 。</li>
 </ul>
@@ -530,7 +531,8 @@
 <li><code>w</code> (Write)：写入权限（2）</li>
 <li><code>x</code> (Execute)：执行权限（1）</li>
 <li><code>-</code>：无对应权限（0）</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <ul>
 <li>对普通文件与目录的权限进行操作</li>
 </ul>
@@ -539,7 +541,8 @@
 <ul>
 <li>用户：<code>u</code>(所有者)、<code>g</code>(所属组)、<code>o</code>(其他)、<code>a</code>(所有)</li>
 <li>操作：<code>+</code>(添加)、<code>-</code>(移除)、<code>=</code>(设置)</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -564,7 +567,8 @@
 </li>
 </ul>
 <blockquote>
-<p>命令模式下，<code>:wq</code> 保存退出，<code>:q!</code> 直接退出</p></blockquote>
+<p>命令模式下，<code>:wq</code> 保存退出，<code>:q!</code> 直接退出</p>
+</blockquote>
 <ul>
 <li>在文本中使用不同的键进行光标的移动 。</li>
 </ul>
@@ -572,7 +576,8 @@
 <p>上下左右：kjhl</p>
 <p>单词：<code>w</code> 移动到下一个单词开头；<code>b</code> 移动到上一个单词开头</p>
 <p>行首 <code>^</code>，行尾 <code>$</code></p>
-<p>文首 <code>gg</code> ,文尾 <code>G</code></p></blockquote>
+<p>文首 <code>gg</code> ,文尾 <code>G</code></p>
+</blockquote>
 <ul>
 <li>在一个文件中加入、删除与修改文本 。</li>
 </ul>
@@ -593,19 +598,22 @@
 <li>修改</li>
 </ul>
 <p>当前字符：<code>r</code></p>
-<p>到行尾：<code>R</code></p></blockquote>
+<p>到行尾：<code>R</code></p>
+</blockquote>
 <ul>
 <li>设定选项以自定义编辑环境 。</li>
 </ul>
 <blockquote>
-<p><code>:set number</code> 设置行号</p></blockquote>
+<p><code>:set number</code> 设置行号</p>
+</blockquote>
 <ul>
 <li>调用命令行编辑功能 。</li>
 </ul>
 <blockquote>
 <p><code>:!command</code> 执行</p>
 <p>替换：<code>:%s/old/new/g</code>（<code>old</code> 为要替换的旧内容，<code>new</code> 为新内容，<code>%</code> 表示整个文件，<code>g</code> 表示全局替换）</p>
-<p>查找：<code>/pattern</code>，n下一个，N上一个</p></blockquote>
+<p>查找：<code>/pattern</code>，n下一个，N上一个</p>
+</blockquote>
 <h2 id="文件操作进阶">文件操作进阶
 </h2><ul>
 <li><strong>通配符应用</strong>：在 <code>/usr/bin</code> 目录下，使用通配符查找所有以字母 <code>a</code> 开头的文件名，并仅列出文件名。</li>
@@ -694,7 +702,8 @@
 <li><strong>软链接与硬链接</strong>：在你的用户主目录下，为 <code>/usr/bin/cat</code> 文件分别创建软链接和硬链接，并解释两者的区别。</li>
 </ul>
 <blockquote>
-<p>见上</p></blockquote>
+<p>见上</p>
+</blockquote>
 <ul>
 <li><strong>权限恢复</strong>：如何将某个目录的权限恢复到默认的 <code>rwxr-xr-x</code> 形式？请使用两种不同的 <code>chmod</code> 语法来实现。</li>
 </ul>
@@ -709,20 +718,23 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>r-4 ; w-2 ; x-1</p></blockquote>
+<p>r-4 ; w-2 ; x-1</p>
+</blockquote>
 <h2 id="vi-编辑器进阶">vi 编辑器进阶
 </h2><ul>
 <li><strong>复制与粘贴</strong>：在 <code>vi</code> 中，一次性将一段文本（例如三行）复制到文件的末尾。</li>
 </ul>
 <blockquote>
 <p>命令行 nyy 复制n行</p>
-<p>命令行 p 粘贴</p></blockquote>
+<p>命令行 p 粘贴</p>
+</blockquote>
 <ul>
 <li><strong>撤销与重做</strong>：掌握在 <code>vi</code> 中撤销（undo）和重做（redo）操作的方法。</li>
 </ul>
 <blockquote>
 <p>撤销：u</p>
-<p>重做：ctrl+r</p></blockquote>
+<p>重做：ctrl+r</p>
+</blockquote>
 
 </section>
 

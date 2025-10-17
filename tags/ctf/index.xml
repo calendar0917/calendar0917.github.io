@@ -200,7 +200,8 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;软链接&lt;/strong&gt;：适合需要跨分区或对目录建立快捷方式的场景。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;硬链接&lt;/strong&gt;：适合在同一分区内共享文件内容且不希望因删除源文件而失效的场景。&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;查看文件内容 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -260,7 +261,8 @@
 &lt;li&gt;&lt;code&gt;w&lt;/code&gt; (Write)：写入权限（2）&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;x&lt;/code&gt; (Execute)：执行权限（1）&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-&lt;/code&gt;：无对应权限（0）&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;对普通文件与目录的权限进行操作&lt;/li&gt;
 &lt;/ul&gt;
@@ -269,7 +271,8 @@
 &lt;ul&gt;
 &lt;li&gt;用户：&lt;code&gt;u&lt;/code&gt;(所有者)、&lt;code&gt;g&lt;/code&gt;(所属组)、&lt;code&gt;o&lt;/code&gt;(其他)、&lt;code&gt;a&lt;/code&gt;(所有)&lt;/li&gt;
 &lt;li&gt;操作：&lt;code&gt;+&lt;/code&gt;(添加)、&lt;code&gt;-&lt;/code&gt;(移除)、&lt;code&gt;=&lt;/code&gt;(设置)&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -294,7 +297,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;命令模式下，&lt;code&gt;:wq&lt;/code&gt; 保存退出，&lt;code&gt;:q!&lt;/code&gt; 直接退出&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;命令模式下，&lt;code&gt;:wq&lt;/code&gt; 保存退出，&lt;code&gt;:q!&lt;/code&gt; 直接退出&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;在文本中使用不同的键进行光标的移动 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -302,7 +306,8 @@
 &lt;p&gt;上下左右：kjhl&lt;/p&gt;
 &lt;p&gt;单词：&lt;code&gt;w&lt;/code&gt; 移动到下一个单词开头；&lt;code&gt;b&lt;/code&gt; 移动到上一个单词开头&lt;/p&gt;
 &lt;p&gt;行首 &lt;code&gt;^&lt;/code&gt;，行尾 &lt;code&gt;$&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;文首 &lt;code&gt;gg&lt;/code&gt; ,文尾 &lt;code&gt;G&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;文首 &lt;code&gt;gg&lt;/code&gt; ,文尾 &lt;code&gt;G&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;在一个文件中加入、删除与修改文本 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -323,19 +328,22 @@
 &lt;li&gt;修改&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;当前字符：&lt;code&gt;r&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;到行尾：&lt;code&gt;R&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;到行尾：&lt;code&gt;R&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;设定选项以自定义编辑环境 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;:set number&lt;/code&gt; 设置行号&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;:set number&lt;/code&gt; 设置行号&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;调用命令行编辑功能 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;:!command&lt;/code&gt; 执行&lt;/p&gt;
 &lt;p&gt;替换：&lt;code&gt;:%s/old/new/g&lt;/code&gt;（&lt;code&gt;old&lt;/code&gt; 为要替换的旧内容，&lt;code&gt;new&lt;/code&gt; 为新内容，&lt;code&gt;%&lt;/code&gt; 表示整个文件，&lt;code&gt;g&lt;/code&gt; 表示全局替换）&lt;/p&gt;
-&lt;p&gt;查找：&lt;code&gt;/pattern&lt;/code&gt;，n下一个，N上一个&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;查找：&lt;code&gt;/pattern&lt;/code&gt;，n下一个，N上一个&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;文件操作进阶&#34;&gt;文件操作进阶
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;通配符应用&lt;/strong&gt;：在 &lt;code&gt;/usr/bin&lt;/code&gt; 目录下，使用通配符查找所有以字母 &lt;code&gt;a&lt;/code&gt; 开头的文件名，并仅列出文件名。&lt;/li&gt;
@@ -424,7 +432,8 @@
 &lt;li&gt;&lt;strong&gt;软链接与硬链接&lt;/strong&gt;：在你的用户主目录下，为 &lt;code&gt;/usr/bin/cat&lt;/code&gt; 文件分别创建软链接和硬链接，并解释两者的区别。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;见上&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;见上&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;权限恢复&lt;/strong&gt;：如何将某个目录的权限恢复到默认的 &lt;code&gt;rwxr-xr-x&lt;/code&gt; 形式？请使用两种不同的 &lt;code&gt;chmod&lt;/code&gt; 语法来实现。&lt;/li&gt;
 &lt;/ul&gt;
@@ -439,20 +448,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;r-4 ; w-2 ; x-1&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;r-4 ; w-2 ; x-1&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;vi-编辑器进阶&#34;&gt;vi 编辑器进阶
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;复制与粘贴&lt;/strong&gt;：在 &lt;code&gt;vi&lt;/code&gt; 中，一次性将一段文本（例如三行）复制到文件的末尾。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;命令行 nyy 复制n行&lt;/p&gt;
-&lt;p&gt;命令行 p 粘贴&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;命令行 p 粘贴&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;撤销与重做&lt;/strong&gt;：掌握在 &lt;code&gt;vi&lt;/code&gt; 中撤销（undo）和重做（redo）操作的方法。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;撤销：u&lt;/p&gt;
-&lt;p&gt;重做：ctrl+r&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;重做：ctrl+r&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>
@@ -1091,7 +1103,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;参考 &lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_59872639/article/details/123206712&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Struts2 S2-057远程执行代码漏洞（CVE-2018-11776）_apache struts 2 安全漏洞(cve-2018-11776)-CSDN博客&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;区别在于上面靶场的网址是 /showcase&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;区别在于上面靶场的网址是 /showcase&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;漏洞判断&lt;/li&gt;
 &lt;/ol&gt;
@@ -1119,7 +1132,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！&lt;code&gt;..&lt;/code&gt;也不需要编码&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！&lt;code&gt;..&lt;/code&gt;也不需要编码&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;最终 payload：&lt;/li&gt;
 &lt;/ol&gt;
@@ -1142,7 +1156,8 @@
         <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;御林娘图片_御林娘素材_御林娘高清图片_御林网图片下载_306万 御林娘 免版税图片、库存照片和图像 | Yulinsec&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;御林娘小时候上网找素材做海报，意外发现了一个用python编写的盗版图片网站。她一顿操作猛如虎，行云流水地黑入网站获取管理员权限，狠狠报复了这个盗版网站。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;御林娘小时候上网找素材做海报，意外发现了一个用python编写的盗版图片网站。她一顿操作猛如虎，行云流水地黑入网站获取管理员权限，狠狠报复了这个盗版网站。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -1404,7 +1419,8 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;权限&lt;/strong&gt;：如 &lt;code&gt;r--p&lt;/code&gt;、&lt;code&gt;r-xp&lt;/code&gt;、&lt;code&gt;rw-p&lt;/code&gt; 等，&lt;code&gt;r&lt;/code&gt; 表示可读（read）、&lt;code&gt;w&lt;/code&gt; 表示可写（write）、&lt;code&gt;x&lt;/code&gt; 表示可执行（execute）、&lt;code&gt;p&lt;/code&gt; 表示私有（private，即进程间不共享）。&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;由于数据段通常是可读可写的，所以考虑遍历读取 &lt;code&gt;rw&lt;/code&gt; 的区域，&lt;strong&gt;编写脚本&lt;/strong&gt;&lt;/p&gt;
 &lt;h4 id=&#34;写脚本&#34;&gt;写脚本
 &lt;/h4&gt;&lt;p&gt;&lt;del&gt;不会写，问 AI&lt;/del&gt;&lt;/p&gt;
@@ -1574,7 +1590,8 @@
 &lt;/ul&gt;
 &lt;p&gt;于是使用 &lt;code&gt;flask-session-cookie-manager&lt;/code&gt; 来构造&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;还顺便配置了 py2、py3&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;还顺便配置了 py2、py3&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1

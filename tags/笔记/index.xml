@@ -48,10 +48,12 @@
 &lt;p&gt;IBM 360（&lt;strong&gt;兼容机&lt;/strong&gt;）&lt;/p&gt;
 &lt;p&gt;相同/相似的指令集&amp;amp;操作系统。&lt;/p&gt;
 &lt;p&gt;好处： 原来机器上的程序可以不改动而在新机器上运行，但性能不同。&lt;/p&gt;
-&lt;p&gt;保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;DEC PDP-8（&lt;strong&gt;采用总线结构&lt;/strong&gt;）&lt;/p&gt;
-&lt;p&gt;总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;第四代：大规模、超大规模集成电路&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;半导体存储器，微处理器发展迅速。&lt;/li&gt;
@@ -83,7 +85,8 @@
 &lt;li&gt;将事先编好的程序和原始数据送入主存中；启动执行后，在不需操作人员干预下，自动完成逐条取出指令和执行指令的任务。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/20251003090538614.png&#34;
 	
 	
@@ -110,9 +113,11 @@
 &lt;li&gt;存储体：数据、指令在存储体内按地址存储，每个存储单元对应一个地址&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;1B = 1 byte ; 1 b = 1 bit&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;1B = 1 byte ; 1 b = 1 bit&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;MAR、MDR 逻辑上属于主存，但被集成到 CPU&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;MAR、MDR 逻辑上属于主存，但被集成到 CPU&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;运算器&#34;&gt;运算器
 &lt;/h5&gt;&lt;p&gt;实现算数运算、逻辑运算&lt;/p&gt;
 &lt;p&gt;运算器 = ACC + ALU + MQ + X&lt;/p&gt;
@@ -201,7 +206,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;机器语言：二进制代码&lt;/p&gt;
 &lt;p&gt;汇编语言：助记符&lt;/p&gt;
-&lt;p&gt;高级语言：C、C++、……&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;高级语言：C、C++、……&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;应用软件——解决&lt;strong&gt;具体的应用&lt;/strong&gt;问题&lt;/li&gt;
 &lt;/ul&gt;
@@ -279,7 +285,8 @@
 &lt;p&gt;K=Kilo=千=10^3&lt;/p&gt;
 &lt;p&gt;M=Million=百万=10^6&lt;/p&gt;
 &lt;p&gt;G=Giga=十亿=10^9&lt;/p&gt;
-&lt;p&gt;T=Tera=万亿=10^12&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;T=Tera=万亿=10^12&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;数据通路带宽：数据总线一次所能并行传送信息的位数（各硬件部件通过数据总线传输数据）&lt;/p&gt;
@@ -304,7 +311,8 @@
 &lt;li&gt;厂家给出峰值 MIPS&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，MIPS 表示性能存在局限性。&lt;/p&gt;
-&lt;p&gt;MFLOPS：每秒执行浮点运算多少百万次，着重在于&lt;strong&gt;浮点操作&lt;/strong&gt;本身。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;MFLOPS：每秒执行浮点运算多少百万次，着重在于&lt;strong&gt;浮点操作&lt;/strong&gt;本身。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;计算&#34;&gt;计算
 &lt;/h5&gt;&lt;p&gt;CPU 执行时间=CPI×程序总指令条数×时钟周期&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003103925476.png&#34;
@@ -347,7 +355,8 @@
 &lt;li&gt;二进制 -&amp;gt; 其他：划分位数，对应&lt;/li&gt;
 &lt;li&gt;十六、八 -&amp;gt; 二：位数对应，补全&lt;/li&gt;
 &lt;li&gt;十进制 -&amp;gt; 任意位数：求商取余&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;定点数的表示&#34;&gt;定点数的表示
 &lt;/h4&gt;&lt;p&gt;常规计数，小数点位置固定。整数、小数分开存储。&lt;/p&gt;
 &lt;ul&gt;
@@ -449,7 +458,8 @@
 &lt;li&gt;
 &lt;p&gt;按“无符号整数”规则转换为指定位数&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;double双精度&#34;&gt;double双精度
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;偏置值为1023&lt;/li&gt;
@@ -660,7 +670,8 @@
 &lt;li&gt;[A-B]补=[A]补+[-B]补&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;溢出判断：上溢正变负；只有可能同号运算出现；判断是否在合法表示范围内即可&lt;/li&gt;
 &lt;/ul&gt;
@@ -817,7 +828,8 @@
 &lt;h4 id=&#34;按指令长度分类&#34;&gt;按指令长度分类
 &lt;/h4&gt;&lt;p&gt;指令字长：一条指令的总长度(可能会变)&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;影响取指令所需时间&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;影响取指令所需时间&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;机器字长：CPU进行一次整数运算所能处理的二进制数据的位数(通常和ALU直接相关)&lt;/p&gt;
 &lt;p&gt;存储字长：一个存储单元中的二进制代码位数（通常和MDR位数相同)&lt;/p&gt;
 &lt;h4 id=&#34;按操作码长度分类&#34;&gt;按操作码长度分类
@@ -913,7 +925,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;通常情况下，对使用频率较高的指令，分配较短的操作码；对使用
 频率较低的指令，分配较长的操作码，从而尽可能减少指令译码和
-分析的时间。&lt;/p&gt;&lt;/blockquote&gt;
+分析的时间。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011090538497.png&#34;
 	
 	
@@ -926,10 +939,12 @@
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;设地址长度为n，上一层留出m种状态，下一层可扩展出mx2^n种状态&lt;/p&gt;
-&lt;p&gt;注意短的操作码不能是长操作码的前缀&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意短的操作码不能是长操作码的前缀&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;寻址方式&#34;&gt;寻址方式
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;PC：程序计数器，取址后会自动加一&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;PC：程序计数器，取址后会自动加一&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;指令寻址&#34;&gt;指令寻址
 &lt;/h4&gt;&lt;p&gt;确定下一条指令的存放地址，由 PC 指明&lt;/p&gt;
 &lt;p&gt;顺序寻址：&lt;/p&gt;
@@ -947,7 +962,8 @@
 &lt;h4 id=&#34;数据寻址&#34;&gt;数据寻址
 &lt;/h4&gt;&lt;p&gt;确定本条指令的地址码指明的&lt;strong&gt;真实地址&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;程序存储位置是相对的，需要用偏移量解读&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;程序存储位置是相对的，需要用偏移量解读&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;在地址码中划分出&lt;strong&gt;寻址特征&lt;/strong&gt;，规定该地址需要用何种方式寻址&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -973,12 +989,14 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;BR 为基址寄存器，由操作系统决定，不可更改&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;BR 为基址寄存器，由操作系统决定，不可更改&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;8&#34;&gt;
 &lt;li&gt;变址寻址：程序员自己决定从哪里作为起点，EA = （IX）+ A&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;9&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;相对寻址：程序计数器PC所指地址作为起点，EA = （PC）+ A&lt;/p&gt;
@@ -988,7 +1006,8 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;优缺点&#34;&gt;优缺点
 &lt;/h5&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011095613851.png&#34;
 	
@@ -1013,7 +1032,8 @@
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于带符号数和无符号数运算，标志生成方式有没有不同？&lt;/p&gt;
-&lt;p&gt;答：没有，因为加法电路不知道是无符号数还是带符号整数！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;答：没有，因为加法电路不知道是无符号数还是带符号整数！&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;指令系统设计风格&#34;&gt;指令系统设计风格
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;累加器型： （earliest machines）
@@ -1059,7 +1079,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013194838713.png&#34;
 	
 	
@@ -1171,7 +1192,8 @@
 		alt=&#34;image-20251013200751544&#34;
 	
 	
-&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;mips-的通用寄存器&#34;&gt;MIPS 的通用寄存器
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;0 号寄存器$zero 为固定值零，不能改变&lt;/li&gt;

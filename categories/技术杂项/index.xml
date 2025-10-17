@@ -62,7 +62,8 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;错误：yum-config-manager：找不到命令&lt;/p&gt;
-&lt;p&gt;yum -y install yum-utils&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;yum -y install yum-utils&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;错误：更新 yum 报错&lt;/p&gt;
 &lt;p&gt;sudo tee /etc/yum.repos.d/CentOS-Base.repo &amp;laquo;-&amp;lsquo;EOF&amp;rsquo;
@@ -81,7 +82,8 @@ name=CentOS-$releasever - Extras
 baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
 gpgcheck=1
 gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
-&lt;p&gt;EOF&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;EOF&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;安装docker&#34;&gt;安装docker
 &lt;/h2&gt;&lt;p&gt;添加 docker 官方仓库&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

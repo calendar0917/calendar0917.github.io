@@ -10,7 +10,7 @@
 <meta property='og:description' content="记录 C++ 模板及STL技术的学习">
 <meta property='og:url' content='https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-14T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-16T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png' />
 <meta name="twitter:title" content="C++ 模板及STL技术">
 <meta name="twitter:description" content="记录 C++ 模板及STL技术的学习"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png' />
@@ -212,6 +212,22 @@
         <li><a href="#函数模板">函数模板</a></li>
         <li><a href="#普通函数和模板函数的区别">普通函数和模板函数的区别</a></li>
         <li><a href="#局限性">局限性</a></li>
+        <li><a href="#类模板">类模板</a>
+          <ol>
+            <li><a href="#与函数模板的区别">与函数模板的区别</a></li>
+            <li><a href="#成员函数创建时机">成员函数创建时机</a></li>
+            <li><a href="#类模板对象作参数">类模板对象作参数</a></li>
+            <li><a href="#类模板与继承">类模板与继承</a></li>
+            <li><a href="#类模板成员的类外实现">类模板成员的类外实现</a></li>
+            <li><a href="#类模板分文件编写">类模板分文件编写</a></li>
+            <li><a href="#类模板与友元">类模板与友元</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#stl">STL</a>
+      <ol>
+        <li><a href="#初始">初始</a></li>
       </ol>
     </li>
   </ol>
@@ -368,7 +384,103 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="类模板">类模板
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">teplate</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="err">...</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><h4 id="与函数模板的区别">与函数模板的区别
+</h4><ul>
+<li>没有自动类型推导</li>
+<li>可以有默认参数类型</li>
+</ul>
+<h4 id="成员函数创建时机">成员函数创建时机
+</h4><p>在模板调用（可以确定类型）时，才创建</p>
+<h4 id="类模板对象作参数">类模板对象作参数
+</h4><ul>
+<li>指定传入类型</li>
+<li>参数模板化
+<ul>
+<li>对象中的参数变为模板进行传递</li>
+</ul>
+</li>
+<li>整个类模板化</li>
+</ul>
+<h4 id="类模板与继承">类模板与继承
+</h4><ul>
+<li>
+<p>类继承的父类是一个类模板时，子类在声明的时候，要指定出父类中T的类型</p>
+<ul>
+<li>若不指定，编译器无法给子类分配内存</li>
+</ul>
+</li>
+<li>
+<p>如果想灵活指定出父类中T的类型，子类也需变为类模板</p>
+</li>
+</ul>
+<h4 id="类模板成员的类外实现">类模板成员的类外实现
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//构造函数类外实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span><span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&gt;::</span><span class="n">Person</span><span class="p">(</span><span class="n">T1</span> <span class="n">name</span><span class="p">,</span> <span class="n">T2</span> <span class="n">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_Name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_Age</span> <span class="o">=</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//成员函数类外实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Person</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&gt;::</span><span class="n">showPerson</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="类模板分文件编写">类模板分文件编写
+</h4><p>问题：</p>
+<ul>
+<li>模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到</li>
+</ul>
+<p>解决：</p>
+<ul>
+<li>解决方式1：直接包含.cpp源文件</li>
+<li>解决方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</li>
+</ul>
+<h4 id="类模板与友元">类模板与友元
+</h4><ul>
+<li>
+<p>类内实现：直接在类内声明友元即可</p>
+</li>
+<li>
+<p>类外实现：需要提前让编译器知道全局函数的存在</p>
+</li>
+</ul>
+<h2 id="stl">STL
+</h2><h3 id="初始">初始
+</h3>
 </section>
 
 
@@ -393,7 +505,19 @@
 
         <span>Licensed under Calendar</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Oct 16, 2025 00:00 UTC
+        </span>
+    </section></footer>
 
 
     

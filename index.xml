@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>御林招新题：DevOps-Linux入门</title>
         <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</link>
         <pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate>
@@ -200,7 +200,8 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;软链接&lt;/strong&gt;：适合需要跨分区或对目录建立快捷方式的场景。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;硬链接&lt;/strong&gt;：适合在同一分区内共享文件内容且不希望因删除源文件而失效的场景。&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;查看文件内容 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -260,7 +261,8 @@
 &lt;li&gt;&lt;code&gt;w&lt;/code&gt; (Write)：写入权限（2）&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;x&lt;/code&gt; (Execute)：执行权限（1）&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-&lt;/code&gt;：无对应权限（0）&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;对普通文件与目录的权限进行操作&lt;/li&gt;
 &lt;/ul&gt;
@@ -269,7 +271,8 @@
 &lt;ul&gt;
 &lt;li&gt;用户：&lt;code&gt;u&lt;/code&gt;(所有者)、&lt;code&gt;g&lt;/code&gt;(所属组)、&lt;code&gt;o&lt;/code&gt;(其他)、&lt;code&gt;a&lt;/code&gt;(所有)&lt;/li&gt;
 &lt;li&gt;操作：&lt;code&gt;+&lt;/code&gt;(添加)、&lt;code&gt;-&lt;/code&gt;(移除)、&lt;code&gt;=&lt;/code&gt;(设置)&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -294,7 +297,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;命令模式下，&lt;code&gt;:wq&lt;/code&gt; 保存退出，&lt;code&gt;:q!&lt;/code&gt; 直接退出&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;命令模式下，&lt;code&gt;:wq&lt;/code&gt; 保存退出，&lt;code&gt;:q!&lt;/code&gt; 直接退出&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;在文本中使用不同的键进行光标的移动 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -302,7 +306,8 @@
 &lt;p&gt;上下左右：kjhl&lt;/p&gt;
 &lt;p&gt;单词：&lt;code&gt;w&lt;/code&gt; 移动到下一个单词开头；&lt;code&gt;b&lt;/code&gt; 移动到上一个单词开头&lt;/p&gt;
 &lt;p&gt;行首 &lt;code&gt;^&lt;/code&gt;，行尾 &lt;code&gt;$&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;文首 &lt;code&gt;gg&lt;/code&gt; ,文尾 &lt;code&gt;G&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;文首 &lt;code&gt;gg&lt;/code&gt; ,文尾 &lt;code&gt;G&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;在一个文件中加入、删除与修改文本 。&lt;/li&gt;
 &lt;/ul&gt;
@@ -323,19 +328,22 @@
 &lt;li&gt;修改&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;当前字符：&lt;code&gt;r&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;到行尾：&lt;code&gt;R&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;到行尾：&lt;code&gt;R&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;设定选项以自定义编辑环境 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;:set number&lt;/code&gt; 设置行号&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;:set number&lt;/code&gt; 设置行号&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;调用命令行编辑功能 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;:!command&lt;/code&gt; 执行&lt;/p&gt;
 &lt;p&gt;替换：&lt;code&gt;:%s/old/new/g&lt;/code&gt;（&lt;code&gt;old&lt;/code&gt; 为要替换的旧内容，&lt;code&gt;new&lt;/code&gt; 为新内容，&lt;code&gt;%&lt;/code&gt; 表示整个文件，&lt;code&gt;g&lt;/code&gt; 表示全局替换）&lt;/p&gt;
-&lt;p&gt;查找：&lt;code&gt;/pattern&lt;/code&gt;，n下一个，N上一个&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;查找：&lt;code&gt;/pattern&lt;/code&gt;，n下一个，N上一个&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;文件操作进阶&#34;&gt;文件操作进阶
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;通配符应用&lt;/strong&gt;：在 &lt;code&gt;/usr/bin&lt;/code&gt; 目录下，使用通配符查找所有以字母 &lt;code&gt;a&lt;/code&gt; 开头的文件名，并仅列出文件名。&lt;/li&gt;
@@ -424,7 +432,8 @@
 &lt;li&gt;&lt;strong&gt;软链接与硬链接&lt;/strong&gt;：在你的用户主目录下，为 &lt;code&gt;/usr/bin/cat&lt;/code&gt; 文件分别创建软链接和硬链接，并解释两者的区别。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;见上&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;见上&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;权限恢复&lt;/strong&gt;：如何将某个目录的权限恢复到默认的 &lt;code&gt;rwxr-xr-x&lt;/code&gt; 形式？请使用两种不同的 &lt;code&gt;chmod&lt;/code&gt; 语法来实现。&lt;/li&gt;
 &lt;/ul&gt;
@@ -439,20 +448,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;r-4 ; w-2 ; x-1&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;r-4 ; w-2 ; x-1&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;vi-编辑器进阶&#34;&gt;vi 编辑器进阶
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;复制与粘贴&lt;/strong&gt;：在 &lt;code&gt;vi&lt;/code&gt; 中，一次性将一段文本（例如三行）复制到文件的末尾。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;命令行 nyy 复制n行&lt;/p&gt;
-&lt;p&gt;命令行 p 粘贴&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;命令行 p 粘贴&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;撤销与重做&lt;/strong&gt;：掌握在 &lt;code&gt;vi&lt;/code&gt; 中撤销（undo）和重做（redo）操作的方法。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;撤销：u&lt;/p&gt;
-&lt;p&gt;重做：ctrl+r&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;重做：ctrl+r&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>
@@ -815,7 +827,103 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;h3 id=&#34;类模板&#34;&gt;类模板
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;teplate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;typename&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;与函数模板的区别&#34;&gt;与函数模板的区别
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;没有自动类型推导&lt;/li&gt;
+&lt;li&gt;可以有默认参数类型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;成员函数创建时机&#34;&gt;成员函数创建时机
+&lt;/h4&gt;&lt;p&gt;在模板调用（可以确定类型）时，才创建&lt;/p&gt;
+&lt;h4 id=&#34;类模板对象作参数&#34;&gt;类模板对象作参数
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;指定传入类型&lt;/li&gt;
+&lt;li&gt;参数模板化
+&lt;ul&gt;
+&lt;li&gt;对象中的参数变为模板进行传递&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;整个类模板化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;类模板与继承&#34;&gt;类模板与继承
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;类继承的父类是一个类模板时，子类在声明的时候，要指定出父类中T的类型&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若不指定，编译器无法给子类分配内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果想灵活指定出父类中T的类型，子类也需变为类模板&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;类模板成员的类外实现&#34;&gt;类模板成员的类外实现
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//构造函数类外实现
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T1&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T2&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m_Name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m_Age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//成员函数类外实现
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;showPerson&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;类模板分文件编写&#34;&gt;类模板分文件编写
+&lt;/h4&gt;&lt;p&gt;问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;解决：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;解决方式1：直接包含.cpp源文件&lt;/li&gt;
+&lt;li&gt;解决方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;类模板与友元&#34;&gt;类模板与友元
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;类内实现：直接在类内声明友元即可&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;类外实现：需要提前让编译器知道全局函数的存在&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;stl&#34;&gt;STL
+&lt;/h2&gt;&lt;h3 id=&#34;初始&#34;&gt;初始
+&lt;/h3&gt;</description>
         </item>
         <item>
         <title>御林招新题：ipv4</title>
@@ -1176,7 +1284,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;参考 &lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_59872639/article/details/123206712&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Struts2 S2-057远程执行代码漏洞（CVE-2018-11776）_apache struts 2 安全漏洞(cve-2018-11776)-CSDN博客&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;区别在于上面靶场的网址是 /showcase&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;区别在于上面靶场的网址是 /showcase&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;漏洞判断&lt;/li&gt;
 &lt;/ol&gt;
@@ -1204,7 +1313,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！&lt;code&gt;..&lt;/code&gt;也不需要编码&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！&lt;code&gt;..&lt;/code&gt;也不需要编码&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;最终 payload：&lt;/li&gt;
 &lt;/ol&gt;
@@ -1227,7 +1337,8 @@
         <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;御林娘图片_御林娘素材_御林娘高清图片_御林网图片下载_306万 御林娘 免版税图片、库存照片和图像 | Yulinsec&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;御林娘小时候上网找素材做海报，意外发现了一个用python编写的盗版图片网站。她一顿操作猛如虎，行云流水地黑入网站获取管理员权限，狠狠报复了这个盗版网站。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;御林娘小时候上网找素材做海报，意外发现了一个用python编写的盗版图片网站。她一顿操作猛如虎，行云流水地黑入网站获取管理员权限，狠狠报复了这个盗版网站。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -1489,7 +1600,8 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;权限&lt;/strong&gt;：如 &lt;code&gt;r--p&lt;/code&gt;、&lt;code&gt;r-xp&lt;/code&gt;、&lt;code&gt;rw-p&lt;/code&gt; 等，&lt;code&gt;r&lt;/code&gt; 表示可读（read）、&lt;code&gt;w&lt;/code&gt; 表示可写（write）、&lt;code&gt;x&lt;/code&gt; 表示可执行（execute）、&lt;code&gt;p&lt;/code&gt; 表示私有（private，即进程间不共享）。&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;由于数据段通常是可读可写的，所以考虑遍历读取 &lt;code&gt;rw&lt;/code&gt; 的区域，&lt;strong&gt;编写脚本&lt;/strong&gt;&lt;/p&gt;
 &lt;h4 id=&#34;写脚本&#34;&gt;写脚本
 &lt;/h4&gt;&lt;p&gt;&lt;del&gt;不会写，问 AI&lt;/del&gt;&lt;/p&gt;
@@ -1659,7 +1771,8 @@
 &lt;/ul&gt;
 &lt;p&gt;于是使用 &lt;code&gt;flask-session-cookie-manager&lt;/code&gt; 来构造&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;还顺便配置了 py2、py3&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;还顺便配置了 py2、py3&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2124,7 +2237,8 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;定义有参构造函数，C++ 不再提供默认无参构造，但是会提供默认拷贝构造&lt;/p&gt;
-&lt;p&gt;定义拷贝构造函数，C++ 不会再提供其他构造函数&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;定义拷贝构造函数，C++ 不会再提供其他构造函数&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;深浅拷贝&#34;&gt;深浅拷贝
 &lt;/h4&gt;&lt;p&gt;浅：简单的赋值拷贝&lt;/p&gt;
 &lt;ul&gt;
@@ -2213,7 +2327,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意返回 Person**&amp;amp;**，值返回会调用拷贝函数创建一个新的对象&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意返回 Person**&amp;amp;**，值返回会调用拷贝函数创建一个新的对象&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;空指针访问成员函数&#34;&gt;空指针访问成员函数
 &lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2429,7 +2544,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：返回引用，可以操作自身；返回值，会拷贝出一个对象。目的是为了实现连等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意：返回引用，可以操作自身；返回值，会拷贝出一个对象。目的是为了实现连等&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;关系&#34;&gt;关系
 &lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2511,7 +2627,8 @@
 	
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;向下压级，私有被隐藏，但还是会继承&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;向下压级，私有被隐藏，但还是会继承&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;继承的对象模型&#34;&gt;继承的对象模型
 &lt;/h4&gt;&lt;p&gt;父类中所有非静态成员属性都会被子类继承下去&lt;/p&gt;
 &lt;h4 id=&#34;构造析构顺序&#34;&gt;构造、析构顺序
@@ -2637,7 +2754,8 @@
 &lt;li&gt;满足“开闭原则”&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;扩展对外开放，修改对外关闭&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;扩展对外开放，修改对外关闭&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;组织结构清晰，可读性强&lt;/li&gt;
 &lt;li&gt;可维护性强&lt;/li&gt;
@@ -2815,7 +2933,8 @@
 		alt=&#34;image-20251012210220307&#34;
 	
 	
-&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;修改&#34;&gt;修改
 &lt;/h5&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2942,7 +3061,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：AND 不能省！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意：AND 不能省！&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;where&#34;&gt;WHERE
 &lt;/h5&gt;&lt;p&gt;where 会检索语句，它会将 where 后的第一个 SQL 条件语句的 AND 或者 OR 关键词去掉。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -3956,7 +4076,8 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;是不是只能注入默认值？&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;是不是只能注入默认值？&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;特殊值注入&lt;/p&gt;
@@ -4696,7 +4817,8 @@
 &lt;/h5&gt;&lt;p&gt;拦截、处理指定请求，修改路径再传输到 Controller&lt;/p&gt;
 &lt;p&gt;将每个 Controller 的反射代码再抽取到父类&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;注意，这样的 Controller 继承 DispatcherServlet，不能再自动调用 Init（），需要另外处理&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意，这样的 Controller 继承 DispatcherServlet，不能再自动调用 Init（），需要另外处理&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;解析 xml 配置文件&lt;/li&gt;
 &lt;li&gt;定位指定 Controller&lt;/li&gt;
@@ -5564,10 +5686,12 @@
 &lt;p&gt;IBM 360（&lt;strong&gt;兼容机&lt;/strong&gt;）&lt;/p&gt;
 &lt;p&gt;相同/相似的指令集&amp;amp;操作系统。&lt;/p&gt;
 &lt;p&gt;好处： 原来机器上的程序可以不改动而在新机器上运行，但性能不同。&lt;/p&gt;
-&lt;p&gt;保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;保持兼容的关键：低端机指令集是高端机的一个子集，称为“向后兼容”。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;DEC PDP-8（&lt;strong&gt;采用总线结构&lt;/strong&gt;）&lt;/p&gt;
-&lt;p&gt;总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;总线结构好处：可扩充性好（允许将新的符合标准的模块插入总线，形成各种配置），节省器件，体积小，价格便宜&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;第四代：大规模、超大规模集成电路&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;半导体存储器，微处理器发展迅速。&lt;/li&gt;
@@ -5599,7 +5723,8 @@
 &lt;li&gt;将事先编好的程序和原始数据送入主存中；启动执行后，在不需操作人员干预下，自动完成逐条取出指令和执行指令的任务。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/20251003090538614.png&#34;
 	
 	
@@ -5626,9 +5751,11 @@
 &lt;li&gt;存储体：数据、指令在存储体内按地址存储，每个存储单元对应一个地址&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;1B = 1 byte ; 1 b = 1 bit&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;1B = 1 byte ; 1 b = 1 bit&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;MAR、MDR 逻辑上属于主存，但被集成到 CPU&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;MAR、MDR 逻辑上属于主存，但被集成到 CPU&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;运算器&#34;&gt;运算器
 &lt;/h5&gt;&lt;p&gt;实现算数运算、逻辑运算&lt;/p&gt;
 &lt;p&gt;运算器 = ACC + ALU + MQ + X&lt;/p&gt;
@@ -5717,7 +5844,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;机器语言：二进制代码&lt;/p&gt;
 &lt;p&gt;汇编语言：助记符&lt;/p&gt;
-&lt;p&gt;高级语言：C、C++、……&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;高级语言：C、C++、……&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;应用软件——解决&lt;strong&gt;具体的应用&lt;/strong&gt;问题&lt;/li&gt;
 &lt;/ul&gt;
@@ -5795,7 +5923,8 @@
 &lt;p&gt;K=Kilo=千=10^3&lt;/p&gt;
 &lt;p&gt;M=Million=百万=10^6&lt;/p&gt;
 &lt;p&gt;G=Giga=十亿=10^9&lt;/p&gt;
-&lt;p&gt;T=Tera=万亿=10^12&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;T=Tera=万亿=10^12&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;数据通路带宽：数据总线一次所能并行传送信息的位数（各硬件部件通过数据总线传输数据）&lt;/p&gt;
@@ -5820,7 +5949,8 @@
 &lt;li&gt;厂家给出峰值 MIPS&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因此，MIPS 表示性能存在局限性。&lt;/p&gt;
-&lt;p&gt;MFLOPS：每秒执行浮点运算多少百万次，着重在于&lt;strong&gt;浮点操作&lt;/strong&gt;本身。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;MFLOPS：每秒执行浮点运算多少百万次，着重在于&lt;strong&gt;浮点操作&lt;/strong&gt;本身。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;计算&#34;&gt;计算
 &lt;/h5&gt;&lt;p&gt;CPU 执行时间=CPI×程序总指令条数×时钟周期&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251003103925476.png&#34;
@@ -5863,7 +5993,8 @@
 &lt;li&gt;二进制 -&amp;gt; 其他：划分位数，对应&lt;/li&gt;
 &lt;li&gt;十六、八 -&amp;gt; 二：位数对应，补全&lt;/li&gt;
 &lt;li&gt;十进制 -&amp;gt; 任意位数：求商取余&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;定点数的表示&#34;&gt;定点数的表示
 &lt;/h4&gt;&lt;p&gt;常规计数，小数点位置固定。整数、小数分开存储。&lt;/p&gt;
 &lt;ul&gt;
@@ -5965,7 +6096,8 @@
 &lt;li&gt;
 &lt;p&gt;按“无符号整数”规则转换为指定位数&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;double双精度&#34;&gt;double双精度
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;偏置值为1023&lt;/li&gt;
@@ -6176,7 +6308,8 @@
 &lt;li&gt;[A-B]补=[A]补+[-B]补&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;[-B] 补 = [B] 补的 “取反加 1”，符号位也参与取反&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;溢出判断：上溢正变负；只有可能同号运算出现；判断是否在合法表示范围内即可&lt;/li&gt;
 &lt;/ul&gt;
@@ -6333,7 +6466,8 @@
 &lt;h4 id=&#34;按指令长度分类&#34;&gt;按指令长度分类
 &lt;/h4&gt;&lt;p&gt;指令字长：一条指令的总长度(可能会变)&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;影响取指令所需时间&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;影响取指令所需时间&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;机器字长：CPU进行一次整数运算所能处理的二进制数据的位数(通常和ALU直接相关)&lt;/p&gt;
 &lt;p&gt;存储字长：一个存储单元中的二进制代码位数（通常和MDR位数相同)&lt;/p&gt;
 &lt;h4 id=&#34;按操作码长度分类&#34;&gt;按操作码长度分类
@@ -6429,7 +6563,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;通常情况下，对使用频率较高的指令，分配较短的操作码；对使用
 频率较低的指令，分配较长的操作码，从而尽可能减少指令译码和
-分析的时间。&lt;/p&gt;&lt;/blockquote&gt;
+分析的时间。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011090538497.png&#34;
 	
 	
@@ -6442,10 +6577,12 @@
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;设地址长度为n，上一层留出m种状态，下一层可扩展出mx2^n种状态&lt;/p&gt;
-&lt;p&gt;注意短的操作码不能是长操作码的前缀&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;注意短的操作码不能是长操作码的前缀&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;寻址方式&#34;&gt;寻址方式
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;PC：程序计数器，取址后会自动加一&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;PC：程序计数器，取址后会自动加一&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;指令寻址&#34;&gt;指令寻址
 &lt;/h4&gt;&lt;p&gt;确定下一条指令的存放地址，由 PC 指明&lt;/p&gt;
 &lt;p&gt;顺序寻址：&lt;/p&gt;
@@ -6463,7 +6600,8 @@
 &lt;h4 id=&#34;数据寻址&#34;&gt;数据寻址
 &lt;/h4&gt;&lt;p&gt;确定本条指令的地址码指明的&lt;strong&gt;真实地址&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;程序存储位置是相对的，需要用偏移量解读&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;程序存储位置是相对的，需要用偏移量解读&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;在地址码中划分出&lt;strong&gt;寻址特征&lt;/strong&gt;，规定该地址需要用何种方式寻址&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -6489,12 +6627,14 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;BR 为基址寄存器，由操作系统决定，不可更改&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;BR 为基址寄存器，由操作系统决定，不可更改&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;8&#34;&gt;
 &lt;li&gt;变址寻址：程序员自己决定从哪里作为起点，EA = （IX）+ A&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;IX 为变址寄存器，可由用户决定。类似一个指针，设置为数组首地址等&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;9&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;相对寻址：程序计数器PC所指地址作为起点，EA = （PC）+ A&lt;/p&gt;
@@ -6504,7 +6644,8 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;堆栈可以用寄存器实现（硬堆栈）或主存实现，硬堆栈不妨存，速度快&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h5 id=&#34;优缺点&#34;&gt;优缺点
 &lt;/h5&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251011095613851.png&#34;
 	
@@ -6529,7 +6670,8 @@
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于带符号数和无符号数运算，标志生成方式有没有不同？&lt;/p&gt;
-&lt;p&gt;答：没有，因为加法电路不知道是无符号数还是带符号整数！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;答：没有，因为加法电路不知道是无符号数还是带符号整数！&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;指令系统设计风格&#34;&gt;指令系统设计风格
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;累加器型： （earliest machines）
@@ -6575,7 +6717,8 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在程序中各种指令出现的频率悬殊很大，最常使用的是一些简单指令，这些指令占程序的80%，但只占指令系统的20%。而且在微程序控制的计算机中，占指令总数20%的复杂指令占用了控制存储器容量的80%。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251013194838713.png&#34;
 	
 	
@@ -6687,7 +6830,8 @@
 		alt=&#34;image-20251013200751544&#34;
 	
 	
-&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;mips-的通用寄存器&#34;&gt;MIPS 的通用寄存器
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;0 号寄存器$zero 为固定值零，不能改变&lt;/li&gt;
@@ -7592,7 +7736,7 @@
         <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/posts/leetcode/</guid>
-        <description>&lt;h2 id=&#34;哈希&#34;&gt;哈希
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017094519413.png" alt="Featured image of post LeetCod Hot100" /&gt;&lt;h2 id=&#34;哈希&#34;&gt;哈希
 &lt;/h2&gt;&lt;p&gt;适用场景：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;collections.defaultdict(type)&lt;/code&gt; 字典类型，自动添加某类型元素。思考哈希值如何计算、如何存储。&lt;/li&gt;
@@ -7769,7 +7913,8 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;几乎唯一子数组的最大和&#34;&gt;几乎唯一子数组的最大和
 &lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;如果 &lt;code&gt;nums&lt;/code&gt; 的一个子数组有至少 &lt;code&gt;m&lt;/code&gt; 个互不相同的元素，我们称它是 &lt;strong&gt;几乎唯一&lt;/strong&gt; 子数组。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;如果 &lt;code&gt;nums&lt;/code&gt; 的一个子数组有至少 &lt;code&gt;m&lt;/code&gt; 个互不相同的元素，我们称它是 &lt;strong&gt;几乎唯一&lt;/strong&gt; 子数组。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7793,7 +7938,8 @@
 &lt;/div&gt;&lt;h3 id=&#34;不定长--越长越合法&#34;&gt;不定长 + 越长越合法
 &lt;/h3&gt;&lt;h4 id=&#34;每个字符最多出现两次&#34;&gt;每个字符最多出现两次
 &lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt; ，请找出满足每个字符最多出现两次的最长子字符串，并返回该子字符串的 &lt;strong&gt;最大&lt;/strong&gt; 长度。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt; ，请找出满足每个字符最多出现两次的最长子字符串，并返回该子字符串的 &lt;strong&gt;最大&lt;/strong&gt; 长度。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7811,7 +7957,8 @@
 &lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数 &lt;code&gt;k&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;如果一个数组的 &lt;strong&gt;最大&lt;/strong&gt; 元素的值 &lt;strong&gt;至多&lt;/strong&gt; 是其 &lt;strong&gt;最小&lt;/strong&gt; 元素的 &lt;code&gt;k&lt;/code&gt; 倍，则该数组被称为是 &lt;strong&gt;平衡&lt;/strong&gt; 的。&lt;/p&gt;
 &lt;p&gt;你可以从 &lt;code&gt;nums&lt;/code&gt; 中移除 &lt;strong&gt;任意&lt;/strong&gt; 数量的元素，但不能使其变为 &lt;strong&gt;空&lt;/strong&gt; 数组。&lt;/p&gt;
-&lt;p&gt;返回为了使剩余数组平衡，需要移除的元素的 &lt;strong&gt;最小&lt;/strong&gt; 数量。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;返回为了使剩余数组平衡，需要移除的元素的 &lt;strong&gt;最小&lt;/strong&gt; 数量。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7828,7 +7975,8 @@
 &lt;li&gt;子字符串中&lt;code&gt;1&lt;/code&gt;的个数恰好是&lt;code&gt;k&lt;/code&gt;（即美丽子字符串）；&lt;/li&gt;
 &lt;li&gt;该子字符串是所有美丽子字符串中&lt;strong&gt;最短&lt;/strong&gt;的；&lt;/li&gt;
 &lt;li&gt;若有多个最短的，选字典序最小的；若没有美丽子字符串，返回空字符串。&lt;/li&gt;
-&lt;/ol&gt;&lt;/blockquote&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7848,7 +7996,8 @@
 &lt;/div&gt;&lt;h3 id=&#34;求子数组个数--越短越合法&#34;&gt;求子数组个数 + 越短越合法
 &lt;/h3&gt;&lt;h4 id=&#34;元素乘积小于-k-的子数组数目&#34;&gt;元素乘积小于 k 的子数组数目
 &lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数 &lt;code&gt;k&lt;/code&gt; ，请你返回子数组内所有元素的乘积严格小于 &lt;code&gt;k&lt;/code&gt; 的连续子数组的数目。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数 &lt;code&gt;k&lt;/code&gt; ，请你返回子数组内所有元素的乘积严格小于 &lt;code&gt;k&lt;/code&gt; 的连续子数组的数目。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7868,7 +8017,8 @@
 &lt;li&gt;&lt;code&gt;i&lt;/code&gt;，&lt;code&gt;i + 1&lt;/code&gt; ，&amp;hellip;，&lt;code&gt;j&lt;/code&gt; 表示子数组中的下标。对于所有满足 &lt;code&gt;i &amp;lt;= i1, i2 &amp;lt;= j&lt;/code&gt; 的下标对，都有 &lt;code&gt;0 &amp;lt;= |nums[i1] - nums[i2]| &amp;lt;= 2&lt;/code&gt; 。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;请你返回 &lt;strong&gt;不间断&lt;/strong&gt; 子数组的总数目。&lt;/p&gt;
-&lt;p&gt;子数组是一个数组中一段连续 &lt;strong&gt;非空&lt;/strong&gt; 的元素序列。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;子数组是一个数组中一段连续 &lt;strong&gt;非空&lt;/strong&gt; 的元素序列。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7879,6 +8029,58 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. 用哈希表维护的判断条件！
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. 还是滑窗的思路，依次控制窗口枚举
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;求子数组个数--越长越合法&#34;&gt;求子数组个数 + 越长越合法
+&lt;/h3&gt;&lt;h4 id=&#34;包含所有三种字符的子字符串数目&#34;&gt;包含所有三种字符的子字符串数目
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt; ，它只包含三种字符 a, b 和 c 。&lt;/p&gt;
+&lt;p&gt;请你返回 a，b 和 c 都 &lt;strong&gt;至少&lt;/strong&gt; 出现过一次的子字符串数目。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. 先找至少出现过一次的情况，想到滑动窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. “至少”意味着只能找最短，所以在更新时要将更长的字符串加上，即 res += left
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. 注意：不能写 if len(cnt) &amp;lt; 3: continue 的判断，边界条件要考虑清楚！
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;恰好型滑窗&#34;&gt;恰好型滑窗
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;要计算有多少个元素和&lt;strong&gt;恰好等于&lt;/strong&gt; &lt;em&gt;k&lt;/em&gt; 的子数组，可以把问题变成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算有多少个元素和 ≥&lt;em&gt;k&lt;/em&gt; 的子数组。&lt;/li&gt;
+&lt;li&gt;计算有多少个元素和 &amp;gt;&lt;em&gt;k&lt;/em&gt;，也就是 ≥&lt;em&gt;k&lt;/em&gt;+1 的子数组。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因为滑动窗口比较难解决“等于”问题，故尝试转化成不等于问题，即越&amp;hellip;越合法&lt;/p&gt;
+&lt;p&gt;答案就是元素和 ≥&lt;em&gt;k&lt;/em&gt; 的子数组个数，减去元素和 ≥&lt;em&gt;k&lt;/em&gt;+1 的子数组个数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;也可以把问题变成 ≤&lt;em&gt;k&lt;/em&gt; 减去 ≤&lt;em&gt;k&lt;/em&gt;−1，即两个「至多」。可根据题目选择合适的变形方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;和相同的二元子数组&#34;&gt;和相同的二元子数组
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;给你一个二元数组 &lt;code&gt;nums&lt;/code&gt; ，和一个整数 &lt;code&gt;goal&lt;/code&gt; ，请你统计并返回有多少个和为 &lt;code&gt;goal&lt;/code&gt; 的 &lt;strong&gt;非空&lt;/strong&gt; 子数组。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;子数组&lt;/strong&gt; 是数组的一段连续部分。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. 求区间和，可以用前缀和，但是这里考虑滑窗
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. 转为求 res1 - res2，需要用两个 left1，2、sum1，2 来分别求边界
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;前缀和&#34;&gt;前缀和
@@ -7997,7 +8199,8 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;错误：yum-config-manager：找不到命令&lt;/p&gt;
-&lt;p&gt;yum -y install yum-utils&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;yum -y install yum-utils&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;错误：更新 yum 报错&lt;/p&gt;
 &lt;p&gt;sudo tee /etc/yum.repos.d/CentOS-Base.repo &amp;laquo;-&amp;lsquo;EOF&amp;rsquo;
@@ -8016,7 +8219,8 @@ name=CentOS-$releasever - Extras
 baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
 gpgcheck=1
 gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
-&lt;p&gt;EOF&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;EOF&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;安装docker&#34;&gt;安装docker
 &lt;/h2&gt;&lt;p&gt;添加 docker 官方仓库&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
