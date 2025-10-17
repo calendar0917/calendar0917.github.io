@@ -13,7 +13,7 @@
         <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/categories/ctf/</guid>
-        <description></description>
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017182934455.png" alt="Featured image of post CTF" /&gt;</description>
         </item>
         <item>
         <title>课内笔记</title>
@@ -21,7 +21,7 @@
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/categories/%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012174908777.png" alt="Featured image of post 课内笔记" /&gt;</description>
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017183148963.png" alt="Featured image of post 课内笔记" /&gt;</description>
         </item>
         <item>
         <title>开发</title>
@@ -29,7 +29,7 @@
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/categories/%E5%BC%80%E5%8F%91/</guid>
-        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012174745814.png" alt="Featured image of post 开发" /&gt;</description>
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017183329771.png" alt="Featured image of post 开发" /&gt;</description>
         </item>
         <item>
         <title>算法</title>
@@ -37,7 +37,7 @@
         <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://example.com/categories/%E7%AE%97%E6%B3%95/</guid>
-        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012174554681.png" alt="Featured image of post 算法" /&gt;</description>
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017183418489.png" alt="Featured image of post 算法" /&gt;</description>
         </item>
         <item>
         <title>技术杂项</title>
