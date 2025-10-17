@@ -9,15 +9,18 @@
     <lastmod>2025-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/categories/ctf/</loc>
-    <lastmod>2025-10-16T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/ctf/</loc>
-    <lastmod>2025-10-16T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/posts/</loc>
     <lastmod>2025-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/tags/</loc>
+    <lastmod>2025-10-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</loc>
     <lastmod>2025-10-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</loc>
@@ -118,6 +121,8 @@
   </url><url>
     <loc>https://example.com/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/search/</loc>
   </url><url>
     <loc>https://example.com/%E5%85%B3%E4%BA%8E/</loc>
   </url>

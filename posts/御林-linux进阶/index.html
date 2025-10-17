@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习关于 Linux 的更深层知识">
+<title>御林招新题-Linux 进阶</title>
+
+<link rel='canonical' href='https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题-Linux 进阶">
+<meta property='og:description' content="学习关于 Linux 的更深层知识">
+<meta property='og:url' content='https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-17T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题-Linux 进阶">
+<meta name="twitter:description" content="学习关于 Linux 的更深层知识"><link rel="alternate" type="application/json" href="https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/index.json">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#小结">小结</a></li>
+    <li><a href="#系统与进程管理">系统与进程管理</a></li>
+    <li><a href="#网络与文件系统">网络与文件系统</a></li>
+    <li><a href="#文件内容处理">文件内容处理</a></li>
+    <li><a href="#高级系统管理">高级系统管理</a></li>
+    <li><a href="#现代文件系统">现代文件系统</a></li>
+    <li><a href="#系统优化与维护">系统优化与维护</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/">御林招新题-Linux 进阶</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习关于 Linux 的更深层知识
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 17, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="小结">小结
+</h2><ol>
+<li>ps 命令查看进程
+<ul>
+<li>losf、netstat 查看端口进程号</li>
+<li>kill 终结进程</li>
+</ul>
+</li>
+<li>Linux 文件结构</li>
+<li>grep + 正则 + 管道查找指定内容
+<ul>
+<li>wc 统计字符</li>
+</ul>
+</li>
+<li>自动化脚本 .sh
+<ul>
+<li>systemctl 控制 service 终止</li>
+</ul>
+</li>
+<li>内核模块
+<ul>
+<li>lsmod 列出</li>
+<li>modprobe 控制</li>
+</ul>
+</li>
+<li>btrfs 控制磁盘、分卷
+<ul>
+<li>mount 挂载</li>
+<li>snapshot 创建快照、回滚</li>
+</ul>
+</li>
+<li>journalctl 查看、删除日志文件</li>
+<li>sysctl 查看、修改内核参数
+<ul>
+<li>控制 TCP 最大连接数：<code>net.core.somaxconn &amp; net.ipv4.tcp_max_syn_backlog</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="系统与进程管理">系统与进程管理
+</h2><ul>
+<li><strong>特殊进程</strong>：描述进程号为 <code>1</code> 的特殊进程是什么，以及它在系统中的作用。</li>
+</ul>
+<blockquote>
+<p>进程号为 1 的特殊进程在类 Unix 系统（如 Linux）中通常是<code>init</code>进程</p>
+<ul>
+<li><strong>作用</strong>：它是系统启动后创建的第一个用户空间进程，是所有其他进程的祖先进程。负责系统初始化，比如启动各种服务、设置运行级别等，系统关闭时也由它来完成相关收尾工作，确保系统各部分有序启动和停止。</li>
+<li>由 0 进程创建，内核启动 -&gt; init启动 -&gt; 启动其他进程</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>进程状态</strong>：使用 <code>ps</code> 命令查看所有活跃进程，并分析其父子关系。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ps -A -f</span>
+</span></span><span class="line"><span class="cl">UID         PID   PPID  C STIME TTY          TIME CMD
+</span></span><span class="line"><span class="cl">root          <span class="m">1</span>      <span class="m">0</span>  <span class="m">0</span> 23:25 ?        00:00:03 /usr/lib/systemd/systemd --switched-root --syste
+</span></span><span class="line"><span class="cl">root          <span class="m">2</span>      <span class="m">0</span>  <span class="m">0</span> 23:25 ?        00:00:00 <span class="o">[</span>kthreadd<span class="o">]</span>
+</span></span><span class="line"><span class="cl">root          <span class="m">4</span>      <span class="m">2</span>  <span class="m">0</span> 23:25 ?        00:00:00 <span class="o">[</span>kworker/0:0H<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>PID：进程 ID</p>
+<p>PPID：进程的父 PID</p>
+</blockquote>
+<ul>
+<li><strong>端口占用</strong>：当某个程序无法启动并提示端口已被占用时，如何通过命令行找出占用该端口的进程号（PID）并终止它。</li>
+</ul>
+<blockquote>
+<p>查看端口进程：</p>
+<ul>
+<li>lsof（List Open Files ）</li>
+<li>netstat（Network Statistics）
+<ul>
+<li>netstat | grep PID</li>
+<li><code>-t</code>：显示 <strong>TCP</strong> 协议的连接 / 端口（Transmission Control Protocol，传输控制协议）。</li>
+<li><code>-u</code>：显示 <strong>UDP</strong> 协议的连接 / 端口（User Datagram Protocol，用户数据报协议）。</li>
+<li><code>-l</code>：仅显示 <strong>处于监听状态</strong> 的端口（即等待外部连接的端口，而非已建立的连接）。</li>
+<li><code>-p</code>：显示 <strong>占用端口的进程信息</strong>（包括进程 ID 和进程名），需要 root 权限才能完整显示。</li>
+<li><code>-n</code>：以 <strong>数字形式</strong> 显示 IP 地址和端口号（而非域名或服务名，例如直接显示 <code>127.0.0.1:8080</code> 而非 <code>localhost:http-alt</code>）。</li>
+</ul>
+</li>
+</ul>
+<p>终止：</p>
+<ul>
+<li>kill -pid PID 强制终止进程</li>
+</ul>
+</blockquote>
+<h2 id="网络与文件系统">网络与文件系统
+</h2><ul>
+<li><strong>文件系统结构</strong>：描述 Linux 文件系统（例如 ext4）的基本目录结构和作用，并解释根目录 <code>/</code> 和 <code>/home</code> 的区别。</li>
+</ul>
+<blockquote>
+<p>基本目录结构：树形</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251017150043653.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251017150043653"
+	
+	
+></p>
+<ul>
+<li><strong><code>/</code>（根目录）</strong>：最顶层目录，所有其他目录和文件都从这里开始分支，包含了系统运行所需的所有核心文件和目录，一般情况下普通用户只能读取
+<ul>
+<li><strong><code>/home</code></strong>：是普通用户的主目录集合，<strong>每个普通用户在系统中都有</strong>一个以自己用户名命名的子目录（如用户 <code>user1</code> 的主目录是 <code>/home/user1</code>）。用户在自己的主目录下有完全的操作权限，可以存储个人文件、配置个人环境等，不会影响系统的核心部分。</li>
+</ul>
+</li>
+<li><strong><code>/bin</code></strong>：存放系统的<strong>基本命令</strong>，这些命令是二进制可执行文件，普通用户和超级用户都可以执行，用于完成基本的系统操作，如 <code>ls</code>（列出目录内容）、<code>cp</code>（复制文件）等。</li>
+<li><strong><code>/sbin</code></strong>：存放<strong>系统管理命令</strong>，通常只有超级用户（root）才能执行，用于系统管理和维护，如 <code>ifconfig</code>（配置网络接口）、<code>shutdown</code>（关闭系统）等。</li>
+<li><strong><code>/etc</code></strong>：存放系统的<strong>配置文件</strong>，包括系统服务配置、用户配置、网络配置等，如 <code>passwd</code>（用户账户信息）、<code>fstab</code>（文件系统挂载配置）等。</li>
+<li><strong><code>/dev</code></strong>：存放<strong>设备文件</strong>，Linux 把所有的硬件设备都抽象为文件，通过这些文件可以访问和控制硬件设备，如 <code>sda</code>（第一块硬盘）、<code>tty1</code>（第一个终端）等。</li>
+<li><strong><code>/proc</code></strong>：是一个<strong>虚拟文件系统</strong>，它不占用实际的磁盘空间，而是反映系统当前的运行状态，包含了进程信息、内存使用情况等，如 <code>/proc/cpuinfo</code>（CPU 信息）、<code>/proc/meminfo</code>（内存信息）等。</li>
+<li><strong><code>/usr</code></strong>：存放<strong>用户安装的应用程序和文件</strong>，类似于 Windows 系统中的 “Program Files” 目录，包含了大量的应用程序、库文件、文档等。</li>
+<li><strong><code>/var</code></strong>：存放<strong>经常变化的文件</strong>，如日志文件（<code>/var/log</code>）、邮件（<code>/var/mail</code>）、打印队列（<code>/var/spool</code>）等。</li>
+<li><strong><code>/tmp</code></strong>：存放<strong>临时文件</strong>，系统<strong>重启后这里的文件会被清除</strong>，用于程序运行时临时存储数据。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>GRUB</strong>：什么是 GRUB？它在 Linux 系统启动中扮演了什么角色？</li>
+</ul>
+<blockquote>
+<p>Grand Unified Bootloader 统一引导加载程序</p>
+<ul>
+<li><strong>系统启动引导</strong>：计算机开机后，首先由 BIOS（基本输入输出系统）或 UEFI（统一可扩展固件接口）进行硬件检测和初始化，然后会将引导加载程序（GRUB）加载到内存中运行。<strong>GRUB 负责加载 Linux 内核，并将系统控制权转交给内核</strong>，从而启动 Linux 系统。</li>
+<li><strong>多系统引导</strong>：如果计算机上安装了多个操作系统（如同时安装了 Linux 和 Windows），GRUB 可以提供一个<strong>启动菜单</strong>，让用户选择要启动的操作系统。</li>
+<li><strong>内核参数设置</strong>：在系统启动时，用户可以通过 GRUB 的启动菜单，<strong>临时修改内核的启动参数</strong>，这对于系统调试、故障排除（如单用户模式启动）等非常有用。</li>
+</ul>
+</blockquote>
+<h2 id="文件内容处理">文件内容处理
+</h2><ul>
+<li><strong>查找模式</strong>：使用 <code>grep</code> 命令在 <code>/etc/passwd</code> 文件中，找出所有以 <code>t</code> 开头的文本行。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># grep &#39;^t&#39; /etc/passwd</span>
+</span></span><span class="line"><span class="cl">tss:x:59:59:Account used ......
+</span></span><span class="line"><span class="cl">tcpdump:x:72:72::/:/sbin/nologin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>管道与重定向</strong>：使用管道和重定向，将 <code>/etc/passwd</code> 文件中所有包含数字的行数统计出来，并重定向到一个名为 <code>digit_count.txt</code> 的文件中。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># grep -E [0-9] /etc/passwd | wc -l &gt; hello/digit_count.txt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 统计结果：44
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="高级系统管理">高级系统管理
+</h2><ul>
+<li>
+<p><strong>systemd</strong>：</p>
+<ul>
+<li>编写一个简单的 <code>systemd service</code> 文件，让一个简单的脚本（例如，一个每分钟向 <code>/tmp/test_log.txt</code> 文件写入当前时间的脚本）开机自启动。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">//time.sh
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;当前时间: </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span> &gt;&gt; /tmp/test_log.txt
+</span></span><span class="line"><span class="cl">    sleep <span class="m">60</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//service
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>定时写入时间到日志的服务
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/home/your_username/time_script.sh
+</span></span><span class="line"><span class="cl"><span class="nv">Restart</span><span class="o">=</span>always
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># sudo systemctl enable time-logger.service</span>
+</span></span><span class="line"><span class="cl">Created symlink from /etc/systemd/system/multi-user.target.wants/time-logger.service to /etc/syste          md/system/time-logger.service.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># systemctl start time-logger.service</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># systemctl status time-logger.service</span>
+</span></span><span class="line"><span class="cl">● time-logger.service - 定时写入时间到日志的服务
+</span></span><span class="line"><span class="cl">   Loaded: loaded <span class="o">(</span>/etc/systemd/system/time-logger.service<span class="p">;</span> enabled<span class="p">;</span> vendor preset: disabled<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   Active: active <span class="o">(</span>running<span class="o">)</span> since Fri 2025-10-17 00:48:53 PDT<span class="p">;</span> 2s ago
+</span></span><span class="line"><span class="cl"> Main PID: <span class="m">29493</span> <span class="o">(</span>time_script.sh<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Tasks: <span class="m">2</span>
+</span></span><span class="line"><span class="cl">   Memory: 304.0K
+</span></span><span class="line"><span class="cl">   CGroup: /system.slice/time-logger.service
+</span></span><span class="line"><span class="cl">           ├─29493 /bin/bash /root/time_script.sh
+</span></span><span class="line"><span class="cl">           └─29497 sleep <span class="m">60</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># cat /tmp/test_log.txt</span>
+</span></span><span class="line"><span class="cl">当前时间: Fri Oct <span class="m">17</span> 00:48:53 PDT <span class="m">2025</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>systemctl</code> 命令启用和启动你的服务，并验证它是否正常工作。</li>
+</ul>
+</li>
+<li>
+<p><strong>内核模块</strong>：</p>
+<ul>
+<li>列出系统中所有已加载的内核模块。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># lsmod</span>
+</span></span><span class="line"><span class="cl">Module                  Size  Used by
+</span></span><span class="line"><span class="cl">nf_conntrack_netlink    <span class="m">36396</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl">xt_addrtype            <span class="m">12676</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl">.....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>尝试加载一个你了解的内核模块（例如，一个虚拟网络设备模块），然后卸载它，并验证其状态。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># modprobe dummy</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># lsmod | grep dummy</span>
+</span></span><span class="line"><span class="cl">dummy                  <span class="m">12960</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># modprobe -r dummy</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># lsmod | grep dummy</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>什么是 dummy？</p>
+<p>在 Linux 系统中，<code>dummy</code>模块是一种虚拟网络设备模块，主要有以下特点和用途：</p>
+<ul>
+<li><strong>虚拟网络接口创建</strong>：加载<code>dummy</code>模块后，通过系统命令可以创建出像 <code>dummy0</code>、<code>dummy1</code> 这样的虚拟网络接口。这些接口和真实的物理网络接口类似， 可以配置 IP 地址、子网掩码等网络参数 ，也能参与网络数据包的收发模拟。</li>
+<li><strong>网络测试与实验</strong>：在进行网络相关的测试，比如路由策略测试、防火墙规则测试时，使用<code>dummy</code>虚拟网络接口非常方便。不需要依赖实际的物理网络设备，就可以构建复杂的网络拓扑结构，模拟各种网络环境。</li>
+<li><strong>服务绑定与隔离</strong>：某些应用场景下，需要将特定的网络服务绑定到指定的网络接口上，使用<code>dummy</code>接口可以实现灵活的绑定和隔离。比如，希望某个服务只在特定的 “网络通道” 上提供服务，就可以将该服务绑定到<code>dummy</code>接口上，便于管理和安全控制。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="现代文件系统">现代文件系统
+</h2><p><strong>Btrfs/ZFS 文件系统实践</strong>：</p>
+<ul>
+<li>
+<p><strong>创建文件系统与子卷</strong>：</p>
+<ul>
+<li>
+<p>假设你有一个未使用的磁盘分区 <code>/dev/sdb1</code>。</p>
+</li>
+<li>
+<p><strong>格式化</strong>该分区为 <code>Btrfs</code> 或 <code>ZFS</code> 文件系统。</p>
+</li>
+<li>
+<p><strong>挂载</strong>该文件系统到一个新的目录，例如 <code>/mnt/data</code>。</p>
+</li>
+<li>
+<p>在 <code>/mnt/data</code> 下<strong>创建两个子卷</strong>，一个名为 <code>web_data</code>，另一个名为 <code>database</code>。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">由于没有磁盘分区，故用虚拟磁盘代替
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># dd if=/dev/zero of=~/virtual_disk.img bs=1G count=1</span>
+</span></span><span class="line"><span class="cl">// 创建 1G * <span class="m">1</span> 的虚拟磁盘
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># losetup -f ~/virtual_disk.img</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># losetup -a | grep virtual_disk.img</span>
+</span></span><span class="line"><span class="cl">/dev/loop0: <span class="o">[</span>2051<span class="o">]</span>:67154732 <span class="o">(</span>/root/virtual_disk.img<span class="o">)</span>
+</span></span><span class="line"><span class="cl">// 自动映射,格式化
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># mkfs.btrfs /dev/loop0 </span>
+</span></span><span class="line"><span class="cl">btrfs-progs v4.9.1
+</span></span><span class="line"><span class="cl">See http://btrfs.wiki.kernel.org <span class="k">for</span> more information.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Performing full device TRIM /dev/loop0 <span class="o">(</span>1.00GiB<span class="o">)</span> ...
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">// 创建映射文件系统新目录并挂载
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># mkdir /mnt/data</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># mount /dev/loop0 /mnt/data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 创建两个子卷
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume create /mnt/data/web_data</span>
+</span></span><span class="line"><span class="cl">Create subvolume <span class="s1">&#39;/mnt/data/web_data&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume create /mnt/data/database</span>
+</span></span><span class="line"><span class="cl">Create subvolume <span class="s1">&#39;/mnt/data/database&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume list /mnt/data</span>
+</span></span><span class="line"><span class="cl">ID <span class="m">256</span> gen <span class="m">7</span> top level <span class="m">5</span> path web_data
+</span></span><span class="line"><span class="cl">ID <span class="m">257</span> gen <span class="m">8</span> top level <span class="m">5</span> path database
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>快照与回滚</strong>：</p>
+<ul>
+<li>
+<p>在 <code>web_data</code> 子卷中创建一个测试文件 <code>hello.txt</code>。</p>
+</li>
+<li>
+<p>为 <code>web_data</code> 子卷<strong>创建一个只读快照</strong>，命名为 <code>snapshot_v1</code>。</p>
+</li>
+<li>
+<p><strong>修改</strong> <code>web_data</code> 子卷中的 <code>hello.txt</code> 文件内容。</p>
+</li>
+<li>
+<p><strong>验证</strong> <code>snapshot_v1</code> 中的文件内容是否保持不变。</p>
+</li>
+<li>
+<p><strong>回滚</strong> <code>web_data</code> 子卷到 <code>snapshot_v1</code> 的状态，并验证 <code>hello.txt</code> 的内容是否恢复到修改前。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">// 创建文件
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># echo &#39;helloworld 111&#39; &gt; /mnt/data/web_data/hello.txt</span>
+</span></span><span class="line"><span class="cl">// 创建只读快照
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume snapshot -r /mnt/data/web_data /mnt/data/snapshot_v1</span>
+</span></span><span class="line"><span class="cl">Create a <span class="nb">readonly</span> snapshot of <span class="s1">&#39;/mnt/data/web_data&#39;</span> in <span class="s1">&#39;/mnt/data/snapshot_v1&#39;</span>
+</span></span><span class="line"><span class="cl">// 修改文件
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># echo &#39;helloworld 222&#39; &gt; /mnt/data/web_data/hello.txt</span>
+</span></span><span class="line"><span class="cl">//读快照，并未改变
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># cat /mnt/data/snapshot_v1/hello.txt</span>
+</span></span><span class="line"><span class="cl">helloworld <span class="m">111</span>
+</span></span><span class="line"><span class="cl">// 删除源文件，快照恢复
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume delete /mnt/data/web_data</span>
+</span></span><span class="line"><span class="cl">Delete subvolume <span class="o">(</span>no-commit<span class="o">)</span>: <span class="s1">&#39;/mnt/data/web_data&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># btrfs subvolume snapshot /mnt/data/snapshot_v1/ /mnt/data/web_data</span>
+</span></span><span class="line"><span class="cl">Create a snapshot of <span class="s1">&#39;/mnt/data/snapshot_v1/&#39;</span> in <span class="s1">&#39;/mnt/data/web_data&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># cat /mnt/data/web_data/hello.txt</span>
+</span></span><span class="line"><span class="cl">helloworld <span class="m">111</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="系统优化与维护">系统优化与维护
+</h2><ul>
+<li>
+<p><strong>缓存与日志管理</strong>：</p>
+<ul>
+<li>
+<p>使用 <code>journalctl</code> 命令查看过去 10 分钟内系统日志中所有包含“error”或“fail”关键字的条目。</p>
+</li>
+<li>
+<p>通过命令行安全地<strong>清除</strong>超过 7 天的系统日志文件，以释放磁盘空间。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># journalctl --since &#34;100 minute ago&#34; | grep -E &#34;error|fail&#34;</span>
+</span></span><span class="line"><span class="cl">Oct <span class="m">17</span> 00:46:03 localhost.localdomain systemd<span class="o">[</span>1<span class="o">]</span>: Unit time-logger.service entered failed state.
+</span></span><span class="line"><span class="cl">Oct <span class="m">17</span> 00:46:03 localhost.localdomain systemd<span class="o">[</span>1<span class="o">]</span>: time-logger.service failed.
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># journalctl --vacuum-time=7d</span>
+</span></span><span class="line"><span class="cl">Vacuuming <span class="k">done</span>, freed 0B of archived journals on disk.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>内核参数调整</strong>：</p>
+<ul>
+<li>
+<p><strong>查看</strong>当前系统中的 <code>TCP</code> 最大连接数限制参数。</p>
+</li>
+<li>
+<p><strong>临时修改</strong>该参数，将最大连接数限制提高到 <code>50000</code>。</p>
+</li>
+<li>
+<p>使用 <code>sysctl -a</code> 命令<strong>验证</strong>修改是否生效。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># sysctl net.core.somaxconn net.ipv4.tcp_max_syn_backlog</span>
+</span></span><span class="line"><span class="cl">net.core.somaxconn <span class="o">=</span> <span class="m">128</span>
+</span></span><span class="line"><span class="cl">net.ipv4.tcp_max_syn_backlog <span class="o">=</span> <span class="m">256</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># sysctl -w net.core.somaxconn=50000</span>
+</span></span><span class="line"><span class="cl">net.core.somaxconn <span class="o">=</span> <span class="m">50000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># sysctl -a | grep -E &#34;50000&#34;</span>
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">net.core.somaxconn <span class="o">=</span> <span class="m">50000</span>
+</span></span><span class="line"><span class="cl">......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>解释</strong>此项修改对一个高并发 Web 服务器可能带来的影响。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提高 TCP 最大连接数限制（如 <code>net.core.somaxconn</code> 和 <code>net.ipv4.tcp_max_syn_backlog</code>），对高并发 Web 服务器有以下影响：</p>
+<ul>
+<li>优化：
+<ul>
+<li>能够处理更多的并发 TCP 连接请求，减少因连接队列满而导致的连接建立失败情况，<strong>提升 Web 服务器的并发处理能力</strong>，让更多客户端能成功与服务器建立连接并请求资源。</li>
+</ul>
+</li>
+<li>问题：
+<ul>
+<li>会增加服务器的内存等<strong>资源消耗</strong>，因为每个连接都需要一定的内存来维护连接状态等信息。如果服务器内存等资源不足，过度提高连接数限制可能导致系统内存紧张，甚至出现内存溢出等问题，反而影响服务器的稳定运行。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：DevOps-Linux入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：雪王生擒明珠塔</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-ipv4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：ipv4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：御图网</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：档案馆的回响</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liqnfgV1gDitJmRT",
+        clientSecret: "d84fe334d383f6451d6fbddecfc9d04b7d631aa7",
+        repo: "calendar0917.github.io",
+        owner: "calendar0917",
+        admin: ["calendar0917"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+        proxy: null ,
+    });
+    (function () {
+        const excludedHosts = ["localhost", "127.0.0.1"];
+        const hostname = window.location.hostname;
+
+        if (excludedHosts.includes(hostname)) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://example.com/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>

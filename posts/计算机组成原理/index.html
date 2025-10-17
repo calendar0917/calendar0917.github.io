@@ -12,7 +12,7 @@
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-13T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="计算机组成原理">
-<meta name="twitter:description" content="计算机组成原理课程的笔记">
+<meta name="twitter:description" content="计算机组成原理课程的笔记"><link rel="alternate" type="application/json" href="https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.json">
     </head>
     <body class="
     article-page
@@ -1808,6 +1808,39 @@
      
     
         
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23liqnfgV1gDitJmRT",
+        clientSecret: "d84fe334d383f6451d6fbddecfc9d04b7d631aa7",
+        repo: "calendar0917.github.io",
+        owner: "calendar0917",
+        admin: ["calendar0917"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+        proxy: null ,
+    });
+    (function () {
+        const excludedHosts = ["localhost", "127.0.0.1"];
+        const hostname = window.location.hostname;
+
+        if (excludedHosts.includes(hostname)) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
     
 
     <footer class="site-footer">
