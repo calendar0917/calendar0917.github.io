@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Calendar&#39;s Blog</title>
-        <link>https://example.com/posts/</link>
+        <link>https://calendar0917.github.io/posts/</link>
         <description>Recent content in Posts on Calendar&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/posts/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>御林招新题-Linux 进阶</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</link>
         <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</guid>
         <description>&lt;h2 id=&#34;小结&#34;&gt;小结
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;ps 命令查看进程
@@ -561,10 +561,10 @@
         </item>
         <item>
         <title>御林招新题：DevOps-Linux入门</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</link>
         <pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</guid>
         <description>&lt;h2 id=&#34;获得一个linux操作系统&#34;&gt;获得一个Linux操作系统
 &lt;/h2&gt;&lt;p&gt;服务器 + 云服务器均尝试，已完成。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251016181737313.png&#34;
@@ -1021,10 +1021,10 @@
         </item>
         <item>
         <title>御林招新题：雪王生擒明珠塔</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</link>
         <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1298,10 +1298,10 @@
         </item>
         <item>
         <title>C&#43;&#43; 模板及STL技术</title>
-        <link>https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</link>
+        <link>https://calendar0917.github.io/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</guid>
+        <guid>https://calendar0917.github.io/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" alt="Featured image of post C&#43;&#43; 模板及STL技术" /&gt;&lt;h2 id=&#34;模板&#34;&gt;模板
 &lt;/h2&gt;&lt;p&gt;建立通用的模具，提高复用性&lt;/p&gt;
 &lt;h3 id=&#34;函数模板&#34;&gt;函数模板
@@ -1562,10 +1562,10 @@
         </item>
         <item>
         <title>御林招新题：ipv4</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-ipv4/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-ipv4/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-ipv4/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-ipv4/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;p&gt;附件：&lt;/p&gt;
 &lt;h4 id=&#34;docker-composeyml&#34;&gt;docker-compose.yml
@@ -1853,10 +1853,10 @@
         </item>
         <item>
         <title>御林招新题：档案馆的回响</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -1965,10 +1965,10 @@
         </item>
         <item>
         <title>御林招新题：御图网</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</guid>
         <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;御林娘图片_御林娘素材_御林娘高清图片_御林网图片下载_306万 御林娘 免版税图片、库存照片和图像 | Yulinsec&lt;/em&gt;&lt;/p&gt;
@@ -2436,10 +2436,10 @@
         </item>
         <item>
         <title>C&#43;&#43; 核心编程</title>
-        <link>https://example.com/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</link>
+        <link>https://calendar0917.github.io/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Mon, 13 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>https://calendar0917.github.io/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" alt="Featured image of post C&#43;&#43; 核心编程" /&gt;&lt;h2 id=&#34;内存分区模型&#34;&gt;内存分区模型
 &lt;/h2&gt;&lt;h3 id=&#34;程序运行前&#34;&gt;程序运行前
 &lt;/h3&gt;&lt;p&gt;编译后生成 exe 可执行程序，分为两个区域&lt;/p&gt;
@@ -3445,10 +3445,10 @@
         </item>
         <item>
         <title>Mybatis</title>
-        <link>https://example.com/posts/mybatis/</link>
+        <link>https://calendar0917.github.io/posts/mybatis/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/mybatis/</guid>
+        <guid>https://calendar0917.github.io/posts/mybatis/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012201626030.png" alt="Featured image of post Mybatis" /&gt;&lt;h2 id=&#34;mybatis&#34;&gt;Mybatis
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;ul&gt;
@@ -4022,10 +4022,10 @@
         </item>
         <item>
         <title>SpringBoot</title>
-        <link>https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+        <link>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+        <guid>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png" alt="Featured image of post SpringBoot" /&gt;&lt;h2 id=&#34;springboot&#34;&gt;SpringBoot
 &lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;简介
 &lt;/h3&gt;&lt;p&gt;设计目的：&lt;strong&gt;简化Spring应用的初始搭建以及开发过程&lt;/strong&gt;&lt;/p&gt;
@@ -4330,10 +4330,10 @@
         </item>
         <item>
         <title>SpringMVC</title>
-        <link>https://example.com/posts/springmvc/</link>
+        <link>https://calendar0917.github.io/posts/springmvc/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/springmvc/</guid>
+        <guid>https://calendar0917.github.io/posts/springmvc/</guid>
         <description>&lt;h2 id=&#34;spring-mvc&#34;&gt;Spring MVC
 &lt;/h2&gt;&lt;p&gt;主要覆盖表述层（Controller）&lt;/p&gt;
 &lt;ul&gt;
@@ -4638,10 +4638,10 @@
         </item>
         <item>
         <title>Spring</title>
-        <link>https://example.com/posts/spring/</link>
+        <link>https://calendar0917.github.io/posts/spring/</link>
         <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/spring/</guid>
+        <guid>https://calendar0917.github.io/posts/spring/</guid>
         <description>&lt;h2 id=&#34;概述&#34;&gt;概述
 &lt;/h2&gt;&lt;h3 id=&#34;spring-framework-特点&#34;&gt;Spring FrameWork 特点
 &lt;/h3&gt;&lt;ul&gt;
@@ -5301,10 +5301,10 @@
         </item>
         <item>
         <title>JavaWeb-Servlet</title>
-        <link>https://example.com/posts/javaweb-servlet/</link>
+        <link>https://calendar0917.github.io/posts/javaweb-servlet/</link>
         <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/javaweb-servlet/</guid>
+        <guid>https://calendar0917.github.io/posts/javaweb-servlet/</guid>
         <description>&lt;h2 id=&#34;tomcat&#34;&gt;Tomcat
 &lt;/h2&gt;&lt;p&gt;服务器容器，将服务部署（deploy）到容器内&lt;/p&gt;
 &lt;p&gt;目录结构：&lt;/p&gt;
@@ -5609,10 +5609,10 @@
         </item>
         <item>
         <title>学成在线-面试</title>
-        <link>https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</link>
+        <link>https://calendar0917.github.io/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</link>
         <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</guid>
         <description>&lt;h2 id=&#34;项目介绍&#34;&gt;项目介绍
 &lt;/h2&gt;&lt;p&gt;从以下几个方面进行项目介绍：&lt;/p&gt;
 &lt;ol&gt;
@@ -5682,10 +5682,10 @@
         </item>
         <item>
         <title>ElasticSearch</title>
-        <link>https://example.com/posts/elasticsearch/</link>
+        <link>https://calendar0917.github.io/posts/elasticsearch/</link>
         <pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/elasticsearch/</guid>
+        <guid>https://calendar0917.github.io/posts/elasticsearch/</guid>
         <description>&lt;h2 id=&#34;初识&#34;&gt;初识
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -6282,10 +6282,10 @@
         </item>
         <item>
         <title>计算机组成原理</title>
-        <link>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+        <link>https://calendar0917.github.io/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
         <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
+        <guid>https://calendar0917.github.io/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
         <description>&lt;h2 id=&#34;第一章-计算机系统概述&#34;&gt;第一章 计算机系统概述
 &lt;/h2&gt;&lt;h3 id=&#34;计算机系统的发展&#34;&gt;计算机系统的发展
 &lt;/h3&gt;&lt;p&gt;计算机系统 = 硬件 + 软件&lt;/p&gt;
@@ -7603,10 +7603,10 @@
         </item>
         <item>
         <title>MQ</title>
-        <link>https://example.com/posts/mq/</link>
+        <link>https://calendar0917.github.io/posts/mq/</link>
         <pubDate>Thu, 02 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/mq/</guid>
+        <guid>https://calendar0917.github.io/posts/mq/</guid>
         <description>&lt;h2 id=&#34;初识-mq&#34;&gt;初识 MQ
 &lt;/h2&gt;&lt;h3 id=&#34;服务调用类型&#34;&gt;服务调用类型
 &lt;/h3&gt;&lt;h4 id=&#34;同步调用&#34;&gt;同步调用
@@ -8060,10 +8060,10 @@
         </item>
         <item>
         <title>网关及配置中心</title>
-        <link>https://example.com/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+        <link>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
+        <guid>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
         <description>&lt;h2 id=&#34;网关&#34;&gt;网关
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;p&gt;网络的关口，负责请求的路由、转发、身份检验。分为阻塞式、响应式。微服务将服务注册到注册中心，网关进行服务拉取返回给前端。&lt;/p&gt;
@@ -8287,10 +8287,10 @@
         </item>
         <item>
         <title>微服务拆分</title>
-        <link>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
         <description>&lt;h2 id=&#34;为什么需要拆分&#34;&gt;为什么需要拆分？
 &lt;/h2&gt;&lt;p&gt;单体架构不适合于用户量大、开发人员多的项目
 访问资源难以分配，无法分解并发压力
@@ -8367,10 +8367,10 @@
         </item>
         <item>
         <title>LeetCod Hot100</title>
-        <link>https://example.com/posts/leetcode/</link>
+        <link>https://calendar0917.github.io/posts/leetcode/</link>
         <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/leetcode/</guid>
+        <guid>https://calendar0917.github.io/posts/leetcode/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017094519413.png" alt="Featured image of post LeetCod Hot100" /&gt;&lt;h2 id=&#34;哈希&#34;&gt;哈希
 &lt;/h2&gt;&lt;p&gt;适用场景：&lt;/p&gt;
 &lt;ol&gt;
@@ -8781,10 +8781,10 @@
         </item>
         <item>
         <title>配置docker</title>
-        <link>https://example.com/posts/%E9%85%8D%E7%BD%AEdocker/</link>
+        <link>https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/</link>
         <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E9%85%8D%E7%BD%AEdocker/</guid>
+        <guid>https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/</guid>
         <description>&lt;h2 id=&#34;查看是否已安装&#34;&gt;查看是否已安装
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -8942,10 +8942,10 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
         </item>
         <item>
         <title>博客开发记录</title>
-        <link>https://example.com/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</link>
+        <link>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</link>
         <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</guid>
         <description>&lt;h2 id=&#34;准备工作&#34;&gt;准备工作
 &lt;/h2&gt;&lt;h3 id=&#34;技术栈&#34;&gt;技术栈
 &lt;/h3&gt;&lt;h4 id=&#34;后端&#34;&gt;后端
@@ -9183,10 +9183,10 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
         </item>
         <item>
         <title>微服务保护及分布式事务</title>
-        <link>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
         <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
         <description>&lt;h2 id=&#34;微服务保护&#34;&gt;微服务保护
 &lt;/h2&gt;&lt;p&gt;问题：&lt;/p&gt;
 &lt;ul&gt;

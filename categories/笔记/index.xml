@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>课内笔记 on Calendar&#39;s Blog</title>
-        <link>https://example.com/categories/%E7%AC%94%E8%AE%B0/</link>
+        <link>https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/</link>
         <description>Recent content in 课内笔记 on Calendar&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>C&#43;&#43; 模板及STL技术</title>
-        <link>https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</link>
+        <link>https://calendar0917.github.io/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</guid>
+        <guid>https://calendar0917.github.io/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" alt="Featured image of post C&#43;&#43; 模板及STL技术" /&gt;&lt;h2 id=&#34;模板&#34;&gt;模板
 &lt;/h2&gt;&lt;p&gt;建立通用的模具，提高复用性&lt;/p&gt;
 &lt;h3 id=&#34;函数模板&#34;&gt;函数模板
@@ -273,10 +273,10 @@
         </item>
         <item>
         <title>C&#43;&#43; 核心编程</title>
-        <link>https://example.com/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</link>
+        <link>https://calendar0917.github.io/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Mon, 13 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>https://calendar0917.github.io/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" alt="Featured image of post C&#43;&#43; 核心编程" /&gt;&lt;h2 id=&#34;内存分区模型&#34;&gt;内存分区模型
 &lt;/h2&gt;&lt;h3 id=&#34;程序运行前&#34;&gt;程序运行前
 &lt;/h3&gt;&lt;p&gt;编译后生成 exe 可执行程序，分为两个区域&lt;/p&gt;
@@ -1282,10 +1282,10 @@
         </item>
         <item>
         <title>计算机组成原理</title>
-        <link>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+        <link>https://calendar0917.github.io/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
         <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
+        <guid>https://calendar0917.github.io/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
         <description>&lt;h2 id=&#34;第一章-计算机系统概述&#34;&gt;第一章 计算机系统概述
 &lt;/h2&gt;&lt;h3 id=&#34;计算机系统的发展&#34;&gt;计算机系统的发展
 &lt;/h3&gt;&lt;p&gt;计算机系统 = 硬件 + 软件&lt;/p&gt;

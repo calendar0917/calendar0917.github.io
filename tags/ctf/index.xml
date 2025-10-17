@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CTF on Calendar&#39;s Blog</title>
-        <link>https://example.com/tags/ctf/</link>
+        <link>https://calendar0917.github.io/tags/ctf/</link>
         <description>Recent content in CTF on Calendar&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>御林招新题-Linux 进阶</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</link>
         <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/</guid>
         <description>&lt;h2 id=&#34;小结&#34;&gt;小结
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;ps 命令查看进程
@@ -561,10 +561,10 @@
         </item>
         <item>
         <title>御林招新题：DevOps-Linux入门</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</link>
         <pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/</guid>
         <description>&lt;h2 id=&#34;获得一个linux操作系统&#34;&gt;获得一个Linux操作系统
 &lt;/h2&gt;&lt;p&gt;服务器 + 云服务器均尝试，已完成。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251016181737313.png&#34;
@@ -1021,10 +1021,10 @@
         </item>
         <item>
         <title>御林招新题：雪王生擒明珠塔</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</link>
         <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1298,10 +1298,10 @@
         </item>
         <item>
         <title>御林招新题：ipv4</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-ipv4/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-ipv4/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-ipv4/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-ipv4/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;p&gt;附件：&lt;/p&gt;
 &lt;h4 id=&#34;docker-composeyml&#34;&gt;docker-compose.yml
@@ -1589,10 +1589,10 @@
         </item>
         <item>
         <title>御林招新题：档案馆的回响</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/</guid>
         <description>&lt;h2 id=&#34;题干&#34;&gt;题干
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -1701,10 +1701,10 @@
         </item>
         <item>
         <title>御林招新题：御图网</title>
-        <link>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E5%BE%A1%E5%9B%BE%E7%BD%91/</guid>
         <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;御林娘图片_御林娘素材_御林娘高清图片_御林网图片下载_306万 御林娘 免版税图片、库存照片和图像 | Yulinsec&lt;/em&gt;&lt;/p&gt;

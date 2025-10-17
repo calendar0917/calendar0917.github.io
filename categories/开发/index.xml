@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>开发 on Calendar&#39;s Blog</title>
-        <link>https://example.com/categories/%E5%BC%80%E5%8F%91/</link>
+        <link>https://calendar0917.github.io/categories/%E5%BC%80%E5%8F%91/</link>
         <description>Recent content in 开发 on Calendar&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Sun, 12 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 12 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Mybatis</title>
-        <link>https://example.com/posts/mybatis/</link>
+        <link>https://calendar0917.github.io/posts/mybatis/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/mybatis/</guid>
+        <guid>https://calendar0917.github.io/posts/mybatis/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012201626030.png" alt="Featured image of post Mybatis" /&gt;&lt;h2 id=&#34;mybatis&#34;&gt;Mybatis
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;ul&gt;
@@ -586,10 +586,10 @@
         </item>
         <item>
         <title>SpringBoot</title>
-        <link>https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+        <link>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+        <guid>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png" alt="Featured image of post SpringBoot" /&gt;&lt;h2 id=&#34;springboot&#34;&gt;SpringBoot
 &lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;简介
 &lt;/h3&gt;&lt;p&gt;设计目的：&lt;strong&gt;简化Spring应用的初始搭建以及开发过程&lt;/strong&gt;&lt;/p&gt;
@@ -894,10 +894,10 @@
         </item>
         <item>
         <title>SpringMVC</title>
-        <link>https://example.com/posts/springmvc/</link>
+        <link>https://calendar0917.github.io/posts/springmvc/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/springmvc/</guid>
+        <guid>https://calendar0917.github.io/posts/springmvc/</guid>
         <description>&lt;h2 id=&#34;spring-mvc&#34;&gt;Spring MVC
 &lt;/h2&gt;&lt;p&gt;主要覆盖表述层（Controller）&lt;/p&gt;
 &lt;ul&gt;
@@ -1202,10 +1202,10 @@
         </item>
         <item>
         <title>Spring</title>
-        <link>https://example.com/posts/spring/</link>
+        <link>https://calendar0917.github.io/posts/spring/</link>
         <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/spring/</guid>
+        <guid>https://calendar0917.github.io/posts/spring/</guid>
         <description>&lt;h2 id=&#34;概述&#34;&gt;概述
 &lt;/h2&gt;&lt;h3 id=&#34;spring-framework-特点&#34;&gt;Spring FrameWork 特点
 &lt;/h3&gt;&lt;ul&gt;
@@ -1865,10 +1865,10 @@
         </item>
         <item>
         <title>JavaWeb-Servlet</title>
-        <link>https://example.com/posts/javaweb-servlet/</link>
+        <link>https://calendar0917.github.io/posts/javaweb-servlet/</link>
         <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/javaweb-servlet/</guid>
+        <guid>https://calendar0917.github.io/posts/javaweb-servlet/</guid>
         <description>&lt;h2 id=&#34;tomcat&#34;&gt;Tomcat
 &lt;/h2&gt;&lt;p&gt;服务器容器，将服务部署（deploy）到容器内&lt;/p&gt;
 &lt;p&gt;目录结构：&lt;/p&gt;
@@ -2173,10 +2173,10 @@
         </item>
         <item>
         <title>学成在线-面试</title>
-        <link>https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</link>
+        <link>https://calendar0917.github.io/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</link>
         <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%AD%A6%E6%88%90%E5%9C%A8%E7%BA%BF/</guid>
         <description>&lt;h2 id=&#34;项目介绍&#34;&gt;项目介绍
 &lt;/h2&gt;&lt;p&gt;从以下几个方面进行项目介绍：&lt;/p&gt;
 &lt;ol&gt;
@@ -2246,10 +2246,10 @@
         </item>
         <item>
         <title>ElasticSearch</title>
-        <link>https://example.com/posts/elasticsearch/</link>
+        <link>https://calendar0917.github.io/posts/elasticsearch/</link>
         <pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/elasticsearch/</guid>
+        <guid>https://calendar0917.github.io/posts/elasticsearch/</guid>
         <description>&lt;h2 id=&#34;初识&#34;&gt;初识
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -2846,10 +2846,10 @@
         </item>
         <item>
         <title>MQ</title>
-        <link>https://example.com/posts/mq/</link>
+        <link>https://calendar0917.github.io/posts/mq/</link>
         <pubDate>Thu, 02 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/mq/</guid>
+        <guid>https://calendar0917.github.io/posts/mq/</guid>
         <description>&lt;h2 id=&#34;初识-mq&#34;&gt;初识 MQ
 &lt;/h2&gt;&lt;h3 id=&#34;服务调用类型&#34;&gt;服务调用类型
 &lt;/h3&gt;&lt;h4 id=&#34;同步调用&#34;&gt;同步调用
@@ -3303,10 +3303,10 @@
         </item>
         <item>
         <title>网关及配置中心</title>
-        <link>https://example.com/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+        <link>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
+        <guid>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
         <description>&lt;h2 id=&#34;网关&#34;&gt;网关
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;p&gt;网络的关口，负责请求的路由、转发、身份检验。分为阻塞式、响应式。微服务将服务注册到注册中心，网关进行服务拉取返回给前端。&lt;/p&gt;
@@ -3530,10 +3530,10 @@
         </item>
         <item>
         <title>微服务拆分</title>
-        <link>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
         <description>&lt;h2 id=&#34;为什么需要拆分&#34;&gt;为什么需要拆分？
 &lt;/h2&gt;&lt;p&gt;单体架构不适合于用户量大、开发人员多的项目
 访问资源难以分配，无法分解并发压力
@@ -3610,10 +3610,10 @@
         </item>
         <item>
         <title>博客开发记录</title>
-        <link>https://example.com/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</link>
+        <link>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</link>
         <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</guid>
         <description>&lt;h2 id=&#34;准备工作&#34;&gt;准备工作
 &lt;/h2&gt;&lt;h3 id=&#34;技术栈&#34;&gt;技术栈
 &lt;/h3&gt;&lt;h4 id=&#34;后端&#34;&gt;后端
@@ -3851,10 +3851,10 @@
         </item>
         <item>
         <title>微服务保护及分布式事务</title>
-        <link>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
+        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
         <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
+        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
         <description>&lt;h2 id=&#34;微服务保护&#34;&gt;微服务保护
 &lt;/h2&gt;&lt;p&gt;问题：&lt;/p&gt;
 &lt;ul&gt;

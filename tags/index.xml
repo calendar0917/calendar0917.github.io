@@ -2,41 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Calendar&#39;s Blog</title>
-        <link>https://example.com/tags/</link>
+        <link>https://calendar0917.github.io/tags/</link>
         <description>Recent content in Tags on Calendar&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CTF</title>
-        <link>https://example.com/tags/ctf/</link>
+        <link>https://calendar0917.github.io/tags/ctf/</link>
         <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/ctf/</guid>
+        <guid>https://calendar0917.github.io/tags/ctf/</guid>
         <description></description>
         </item>
         <item>
         <title>技术</title>
-        <link>https://example.com/tags/%E6%8A%80%E6%9C%AF/</link>
+        <link>https://calendar0917.github.io/tags/%E6%8A%80%E6%9C%AF/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/%E6%8A%80%E6%9C%AF/</guid>
+        <guid>https://calendar0917.github.io/tags/%E6%8A%80%E6%9C%AF/</guid>
         <description></description>
         </item>
         <item>
         <title>笔记</title>
-        <link>https://example.com/tags/%E7%AC%94%E8%AE%B0/</link>
+        <link>https://calendar0917.github.io/tags/%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/%E7%AC%94%E8%AE%B0/</guid>
+        <guid>https://calendar0917.github.io/tags/%E7%AC%94%E8%AE%B0/</guid>
         <description></description>
         </item>
         <item>
         <title>算法</title>
-        <link>https://example.com/tags/%E7%AE%97%E6%B3%95/</link>
+        <link>https://calendar0917.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/tags/%E7%AE%97%E6%B3%95/</guid>
+        <guid>https://calendar0917.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
         <description></description>
         </item>
         
