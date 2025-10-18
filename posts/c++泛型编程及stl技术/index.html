@@ -232,6 +232,29 @@
             <li><a href="#vector-使用">vector 使用</a></li>
           </ol>
         </li>
+        <li><a href="#string">String</a>
+          <ol>
+            <li><a href="#构造函数">构造函数</a></li>
+            <li><a href="#赋值">赋值</a></li>
+            <li><a href="#拼接">拼接</a></li>
+            <li><a href="#查找替换">查找、替换</a></li>
+            <li><a href="#比较">比较</a></li>
+            <li><a href="#字符存取">字符存取</a></li>
+            <li><a href="#插入删除">插入、删除</a></li>
+            <li><a href="#截取">截取</a></li>
+          </ol>
+        </li>
+        <li><a href="#vector">vector</a>
+          <ol>
+            <li><a href="#构造">构造</a></li>
+            <li><a href="#赋值-1">赋值</a></li>
+            <li><a href="#容量">容量</a></li>
+            <li><a href="#插入删除-1">插入、删除</a></li>
+            <li><a href="#存取">存取</a></li>
+            <li><a href="#呼唤">呼唤</a></li>
+            <li><a href="#预留空间">预留空间</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -567,7 +590,265 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">for_each</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">MyPrint</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="string">String
+</h3><p>string 是 C++ 风格的字符串，本质是一个类</p>
+<ul>
+<li>类内部封装 <code>char*</code>，是管理 <code>char*</code> 的容器</li>
+</ul>
+<h4 id="构造函数">构造函数
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span><span class="p">();</span><span class="c1">//创建一个空的字符串例如：stringstr;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">chan</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span><span class="c1">//使用字符串s初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="err">）</span><span class="p">;</span><span class="c1">//使用一个string对象初始化另一个string对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="p">(</span><span class="n">Int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">char</span> <span class="n">c</span><span class="p">);</span><span class="c1">//使用n个字符c初始化
+</span></span></span></code></pre></td></tr></table>
 </div>
+</div><h4 id="赋值">赋值
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="c1">//char*类型字符串赋值给当前的字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="err">）</span><span class="p">;</span><span class="c1">//把字符串s赋给当前的字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">);</span><span class="c1">//字符赋值给当前的字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="c1">//把字符串s赋给当前的字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span><span class="c1">//把字符串s的前n个字符赋给当前的字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="c1">//把字符串s赋给当前字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">char</span> <span class="n">c</span><span class="p">);</span><span class="c1">//用n个字符c赋给当前字符串
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="拼接">拼接
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">str</span><span class="p">);</span><span class="c1">//重载+=操作符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="n">c</span><span class="p">);</span><span class="c1">//重载+=操作符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">);</span><span class="c1">//重载+=操作符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">appnd</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="c1">//把字符串s连接到当前字符串结尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">append</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span><span class="c1">//把字符串s的前n个字符连接到当前字符串结尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">append</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">);</span><span class="c1">//同operator+=(const string&amp;str)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span><span class="n">append</span><span class="p">(</span><span class="n">conststring</span><span class="o">&amp;</span><span class="n">s</span><span class="err">，</span><span class="n">intpos</span><span class="err">，</span><span class="n">intn</span><span class="p">);</span><span class="o">/</span><span class="err">字符串</span><span class="n">s中从pos开始的n个字符连接到字符串结尾</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="查找替换">查找、替换
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 查找 str 第一次出现位置，从 pos 开始查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找 s 第一次出现位置，从 pos 开始查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 从 pos 位置查找 s 的前 n 个字符第一次位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找字符 c 第一次出现位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="n">c</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找 str 最后一次位置，从 pos 开始查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">rfind</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">npos</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找 s 最后一次出现位置，从 pos 开始查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">rfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">npos</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 从 pos 查找 s 的前 n 个字符最后一次位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">rfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找字符 c 最后一次出现位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">rfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="n">c</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 替换从 pos 开始 n 个字符为字符串 str
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">replace</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 替换从 pos 开始的 n 个字符为字符串 s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">replace</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="比较">比较
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="k">const</span><span class="p">;</span> <span class="c1">//与字符串s比较
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span><span class="c1">//与字符串s比较
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="字符存取">字符存取
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">char</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[]</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span><span class="c1">//通过[方式取字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span><span class="o">&amp;</span> <span class="n">at</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span><span class="c1">//通过at方法获取字符
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="插入删除">插入、删除
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="n">s</span><span class="p">);</span><span class="c1">//插入字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">);</span><span class="c1">//插入字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">char</span> <span class="n">c</span><span class="p">);</span><span class="c1">//在指定位置插入n个字符c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="n">erase</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">npos</span><span class="p">);</span><span class="c1">//删除从Pos开始的n个字符
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="截取">截取
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">substr</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="o">=</span><span class="err">θ</span><span class="p">,</span><span class="kt">int</span> <span class="o">=</span> <span class="n">npos</span><span class="p">)</span><span class="k">const</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="vector">vector
+</h3><p>据结构和数组非常相似，也称为单端数组</p>
+<ul>
+<li>数组是静态空间，而 vector 可以动态扩展</li>
+<li>动态扩展：不是在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间</li>
+</ul>
+<h4 id="构造">构造
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="n">v</span><span class="p">;</span><span class="c1">//采用模板实现类实现，默认构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="c1">//将v[begin(),end()区间中的元素拷贝给本身。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">elem</span><span class="p">);</span><span class="c1">//构造函数将n个elem拷贝给本身。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span> <span class="o">&amp;</span><span class="n">vec</span><span class="p">);</span><span class="c1">//拷贝构造函数。
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="赋值-1">赋值
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span> <span class="o">&amp;</span><span class="n">vec</span><span class="p">);</span><span class="c1">//重载等号操作符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">assign</span><span class="p">(</span><span class="n">beg</span><span class="p">,</span><span class="n">end</span><span class="p">);</span><span class="c1">//将[beg，end)区间中的数据拷贝赋值给本身。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">elem</span><span class="p">);</span><span class="c1">//将n个elem拷贝赋值给本身。
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="容量">容量
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">empty</span><span class="p">();</span><span class="c1">//判断容器是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">capacity</span><span class="p">();</span><span class="c1">//容器的容量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">size</span><span class="p">();</span><span class="c1">//返回容器中元素的个数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">resize</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">);</span><span class="c1">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//如果容器变短，则末尾超出容器长度的元素被删除。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">resize</span><span class="err">（</span><span class="n">intnum</span><span class="err">，</span><span class="n">elem</span><span class="p">)</span><span class="err">；</span><span class="c1">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//如果容器变短，则末尾超出容器长度的元素被删除
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="插入删除-1">插入、删除
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">push_back</span><span class="p">(</span><span class="n">ele</span><span class="p">);</span><span class="c1">//尾部插入元素ele
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pop_back</span><span class="p">();</span><span class="c1">//删除最后一个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">insert</span><span class="p">(</span><span class="n">const_iterator</span> <span class="n">pos</span><span class="p">,</span><span class="n">ele</span><span class="p">);</span><span class="c1">//选代器指向位置pos插入元素ele
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">insert</span><span class="p">(</span><span class="n">const_iteratorpos</span><span class="err">，</span><span class="n">intcount</span><span class="err">，</span><span class="n">ele</span><span class="p">);</span><span class="c1">//迭代器指向位置pos插入count个元素ele
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">erase</span><span class="p">(</span><span class="n">const_iterator</span> <span class="n">pos</span><span class="p">);</span><span class="c1">//删除选代器指向的元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">erase</span><span class="p">(</span><span class="n">const_iteratorstart</span><span class="err">，</span><span class="n">const_iteratorend</span><span class="p">);</span><span class="c1">//删除迭代器从start到end之间的元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">clear</span><span class="p">();</span><span class="c1">//删除容器中所有元素
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="存取">存取
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">at</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">);</span><span class="c1">//返回索引lidx所指的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">operator</span><span class="p">[];</span><span class="c1">//返回索引lidx所指的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">front</span><span class="p">();</span><span class="c1">//返回容器中第一个数据元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">back</span><span class="p">();</span><span class="c1">//返回容器中最后一个数据元素
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="呼唤">呼唤
+</h4><p><code>swap(vec)</code></p>
+<p>收缩空间：<code>vector&lt;int&gt;(v).swap(v)</code></p>
+<ul>
+<li>匿名对象自动被回收</li>
+</ul>
+<h4 id="预留空间">预留空间
+</h4><p><code>reserve(int len)</code></p>
+<ul>
+<li>分配内存，但内存上数据并未初始化，不可访问</li>
+<li>用于减少开辟空间次数</li>
+</ul>
+
 </section>
 
 

