@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 Git 的基本操作">
+<title>御林招新题：Git 版本管理</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：Git 版本管理">
+<meta property='og:description' content="学习 Git 的基本操作">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：Git 版本管理">
+<meta name="twitter:description" content="学习 Git 的基本操作"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/index.json">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#安装与配置-git"><strong>安装与配置 Git</strong></a></li>
+    <li><a href="#创建与克隆仓库"><strong>创建与克隆仓库</strong></a></li>
+    <li><a href="#文件的提交与同步"><strong>文件的提交与同步</strong></a></li>
+    <li><a href="#分支管理"><strong>分支管理</strong></a></li>
+    <li><a href="#历史记录与回溯"><strong>历史记录与回溯</strong></a></li>
+    <li><a href="#远程仓库进阶"><strong>远程仓库进阶</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">御林招新题：Git 版本管理</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习 Git 的基本操作
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 18, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="安装与配置-git"><strong>安装与配置 Git</strong>
+</h2><ul>
+<li>在你的 Linux 操作系统上，安装 Git。</li>
+<li><strong>全局配置</strong>：配置你的全局用户名和邮箱，这是 Git 记录提交者信息所必需的。</li>
+<li><strong>验证</strong>：执行 <code>git --version</code> 命令，确认 Git 已正确安装。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># git config --global user.name &#34;calendar&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># git config --global user.email &#34;1131821081@qq.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># git --version</span>
+</span></span><span class="line"><span class="cl">git version 1.8.3.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="创建与克隆仓库"><strong>创建与克隆仓库</strong>
+</h2><ul>
+<li><strong>本地仓库</strong>：在你的主目录下创建一个新的文件夹，并在其中初始化一个 Git 仓库。</li>
+<li><strong>远程克隆</strong>：找一个公开的 Git 仓库（例如 GitHub 上的一个开源项目），使用 <code>git clone</code> 命令将其克隆到本地。</li>
+</ul>
+<blockquote>
+<p>这里还配置了一下 clash，记一下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ clashctl + ...
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">    clash                    命令一览
+</span></span><span class="line"><span class="cl">    clashon                  开启代理
+</span></span><span class="line"><span class="cl">    clashoff                 关闭代理
+</span></span><span class="line"><span class="cl">    clashui                  面板地址
+</span></span><span class="line"><span class="cl">    clashstatus              内核状况
+</span></span><span class="line"><span class="cl">    clashtun     [on|off]    Tun 模式
+</span></span><span class="line"><span class="cl">    clashmixin   [-e|-r]     Mixin 配置
+</span></span><span class="line"><span class="cl">    clashsecret  [secret]    Web 密钥
+</span></span><span class="line"><span class="cl">    clashupdate  [auto|log]  更新订阅
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost git_repo<span class="o">]</span><span class="c1"># git clone https://github.com/calendar0917/learning_log.git</span>
+</span></span><span class="line"><span class="cl">Cloning into <span class="s1">&#39;learning_log&#39;</span>...
+</span></span><span class="line"><span class="cl">remote: Enumerating objects: 72, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">Unpacking objects: 100% <span class="o">(</span>72/72<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost git_repo<span class="o">]</span><span class="c1"># ls</span>
+</span></span><span class="line"><span class="cl">clash-for-linux-install  learning_log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="文件的提交与同步"><strong>文件的提交与同步</strong>
+</h2><ul>
+<li>
+<p><strong>文件修改</strong>：在你克隆的本地仓库中，对某个文件进行修改。</p>
+</li>
+<li>
+<p><strong>暂存与提交</strong>：</p>
+<ul>
+<li>使用 <code>git add</code> 命令将修改后的文件添加到暂存区。</li>
+<li>使用 <code>git commit</code> 命令提交你的变更，并附上一条有意义的提交信息。</li>
+</ul>
+<blockquote>
+<p>登录的时候遇到问题，发现得要用 <strong>Personal Access Token</strong> 来代替 Password，然后保存一下登录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 配置凭据缓存（默认缓存15分钟）</span>
+</span></span><span class="line"><span class="cl">git config --global credential.helper cache
+</span></span><span class="line"><span class="cl"><span class="c1"># 可选：设置缓存时间（单位：秒，例如设置30天）</span>
+</span></span><span class="line"><span class="cl">git config --global credential.helper <span class="s1">&#39;cache --timeout=2592000&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+</li>
+<li>
+<p><strong>同步操作</strong>：</p>
+<ul>
+<li>使用 <code>git pull</code> 命令从远程仓库拉取最新的变更。</li>
+<li>使用 <code>git push</code> 命令将你的本地提交推送到远程仓库。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git push</span>
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">Username <span class="k">for</span> <span class="s1">&#39;https://github.com&#39;</span>: calendar0917
+</span></span><span class="line"><span class="cl">Password <span class="k">for</span> <span class="s1">&#39;https://calendar0917@github.com&#39;</span>:
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">remote: To https://github.com/calendar0917/learning_log.git
+</span></span><span class="line"><span class="cl">   1d476d9..5a31feb  main -&gt; main
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>验证</strong>：在远程仓库页面上，确认你的提交历史已成功显示。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251018204758535.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251018204758535"
+	
+	
+></p>
+<h2 id="分支管理"><strong>分支管理</strong>
+</h2><ul>
+<li><strong>目标</strong>：理解分支的作用，掌握创建、切换和合并分支的操作。</li>
+</ul>
+<blockquote>
+<p>在一个分支上进行的代码修改不会影响其他分支，进行实验性的开发，能回退到原来的状态。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>创建一个名为 <code>feature-a</code> 的新分支。</li>
+</ul>
+<blockquote>
+<p><code>git branch name</code> 新建分支</p>
+<p><code>git checkout name</code> 跳转分支</p>
+<p><code>git checkout -b name</code> 创建并跳转分支</p>
+</blockquote>
+<ul>
+<li>在新分支上对文件进行修改并提交。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git branch feature-a</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git checkout feature-a</span>
+</span></span><span class="line"><span class="cl">Switched to branch <span class="s1">&#39;feature-a&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># vi hello.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git add hello.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git commit -m &#34;来自feature-a的修改&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>feature-a 44b4133<span class="o">]</span> 来自feature-a的修改
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>切换回主分支（<code>main</code> 或 <code>master</code>）。</li>
+<li>使用 <code>git merge</code> 命令将 <code>feature-a</code> 分支的修改合并到主分支上。</li>
+<li>删除 <code>feature-a</code> 分支。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git branch</span>
+</span></span><span class="line"><span class="cl">* feature-a
+</span></span><span class="line"><span class="cl">  main
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git checkout main</span>
+</span></span><span class="line"><span class="cl">Switched to branch <span class="s1">&#39;main&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git merge feature-a</span>
+</span></span><span class="line"><span class="cl">Updating 5a31feb..44b4133
+</span></span><span class="line"><span class="cl">Fast-forward
+</span></span><span class="line"><span class="cl"> hello.txt <span class="p">|</span> <span class="m">1</span> +
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git branch -d feature-a</span>
+</span></span><span class="line"><span class="cl">Deleted branch feature-a <span class="o">(</span>was 44b4133<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="历史记录与回溯"><strong>历史记录与回溯</strong>
+</h2><ul>
+<li>
+<p><strong>目标</strong>：学会查看提交历史，并在需要时回溯到特定版本。</p>
+</li>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>使用 <code>git log</code> 命令查看你的提交历史。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git log</span>
+</span></span><span class="line"><span class="cl">commit 44b413353e383dcbc0063558f1ce87e544c7730b
+</span></span><span class="line"><span class="cl">Author: calendar &lt;1131821081@qq.com&gt;
+</span></span><span class="line"><span class="cl">Date:   Sat Oct <span class="m">18</span> 05:54:50 <span class="m">2025</span> -0700
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    来自feature-a的修改
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">commit 5a31feb5ae61d40b7d6d7eaff991b5c3eeb82892
+</span></span><span class="line"><span class="cl">Author: calendar &lt;1131821081@qq.com&gt;
+</span></span><span class="line"><span class="cl">Date:   Sat Oct <span class="m">18</span> 05:38:50 <span class="m">2025</span> -0700
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    测试暂存与提交
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">commit 1d476d982a3144004612cc9162b83b6483e42faa
+</span></span><span class="line"><span class="cl">Author: calendar0917 &lt;1131821081@qq.com&gt;
+</span></span><span class="line"><span class="cl">Date:   Thu Feb <span class="m">13</span> 11:10:55 <span class="m">2025</span> +0800
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Initial commit
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>找到一个较早的提交 ID。</li>
+<li>使用 <code>git reset</code> 或 <code>git revert</code> 命令将代码库回溯到该提交版本，并解释你所用命令的区别。</li>
+</ul>
+</li>
+<li>
+<p>知识：</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>工作区和暂存区：
+<ul>
+<li>工作区：可见的实际存放项目文件的目录</li>
+<li>暂存区：一个临时保存文件修改的区域，它是位于 .git 目录中的一个文件（在.git/index） ，并不是一个实际可视化的文件夹。Git 利用暂存区来管理文件的状态，决定哪些文件的修改会被包含在下一次提交中。</li>
+<li>使用 <code>git add</code> 命令后，工作区中已修改的文件会被添加到暂存区，文件进入已暂存状态。暂存区只记录那些即将被提交到版本库的文件修改信息 。</li>
+</ul>
+</li>
+<li>git revert:
+<ul>
+<li>原理是创建一个<strong>新的提交</strong>，用来抵消目标提交所做的修改。（对后面的修改不影响，且不修改历史记录）</li>
+</ul>
+</li>
+<li>git reset：
+<ul>
+<li>用于将当前分支的 HEAD 指针重置到指定的提交版本，同时可以选择如何处理工作区和暂存区的文件</li>
+<li><code>--hard</code> 模式：将 HEAD 指针、暂存区和工作区都重置到指定提交版本</li>
+<li><code>--soft</code> 模式：仅将 HEAD 指针重置到指定提交版本，暂存区和工作区的内容保持不变
+<ul>
+<li>假设你有一串零散的提交（比如修复同一个功能的多次小修改），想把它们合并成一个清晰的大提交，<code>--soft</code> 模式非常合适</li>
+<li>刚执行了 <code>git commit</code>，但发现提交信息写错了，或者想补充修改后再提交</li>
+</ul>
+</li>
+<li><code>--mixed</code> 模式：将 HEAD 指针和暂存区重置到指定提交版本，工作区内容不变。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>实操：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 报错了，用 git status 看原因</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git revert 5a31feb5ae61d40b7d6d7eaff991b5c3eeb82892</span>
+</span></span><span class="line"><span class="cl">error: could not revert 5a31feb... 测试暂存与提交
+</span></span><span class="line"><span class="cl">hint: after resolving the conflicts, mark the corrected paths
+</span></span><span class="line"><span class="cl">hint: with <span class="s1">&#39;git add &lt;paths&gt;&#39;</span> or <span class="s1">&#39;git rm &lt;paths&gt;&#39;</span>
+</span></span><span class="line"><span class="cl">hint: and commit the result with <span class="s1">&#39;git commit&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git status</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># On branch main --&gt; 所在分支、状态</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Your branch is ahead of &#39;origin/main&#39; by 1 commit.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   (use &#34;git push&#34; to publish your local commits)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You are currently reverting commit 5a31feb.  --&gt; 正在进行的操作</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   (fix conflicts and run &#34;git revert --continue&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   (use &#34;git revert --abort&#34; to cancel the revert operation)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Unmerged paths:  --&gt; 报错的地方，5a31feb 中创建了 hello.txt,这里需要手动删除才可以</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   (use &#34;git reset HEAD &lt;file&gt;...&#34; to unstage)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   (use &#34;git add/rm &lt;file&gt;...&#34; as appropriate to mark resolution)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       deleted by them:    hello.txt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 手动删除</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git rm hello.txt</span>
+</span></span><span class="line"><span class="cl">hello.txt: needs merge
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git revert --continue</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>main 49e231f<span class="o">]</span> Revert <span class="s2">&#34;测试暂存与提交&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> file changed, <span class="m">2</span> deletions<span class="o">(</span>-<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> delete mode <span class="m">100644</span> hello.txt
+</span></span><span class="line"><span class="cl"> <span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git push</span>
+</span></span><span class="line"><span class="cl"> ......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="远程仓库进阶"><strong>远程仓库进阶</strong>
+</h2><ul>
+<li><strong>目标</strong>：管理多个远程仓库，并实现不同仓库间的同步。</li>
+<li><strong>挑战</strong>：
+<ul>
+<li>为你的本地仓库添加第二个远程仓库（例如，一个 <code>GitHub</code> 仓库和一个 <code>Gitee</code> 仓库）。</li>
+<li>将你的本地分支推送到这两个不同的远程仓库。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看并添加远程仓库</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git remote -v</span>
+</span></span><span class="line"><span class="cl">origin  https://github.com/calendar0917/learning_log.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  https://github.com/calendar0917/learning_log.git <span class="o">(</span>push<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git remote add gitee https://gitee.com/calendar917/learning_log.git</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git remote -v</span>
+</span></span><span class="line"><span class="cl">gitee   https://gitee.com/calendar917/learning_log.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">gitee   https://gitee.com/calendar917/learning_log.git <span class="o">(</span>push<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  https://github.com/calendar0917/learning_log.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  https://github.com/calendar0917/learning_log.git <span class="o">(</span>push<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># push 到gitee上</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost learning_log<span class="o">]</span><span class="c1"># git push gitee main</span>
+</span></span><span class="line"><span class="cl">Username <span class="k">for</span> <span class="s1">&#39;https://gitee.com&#39;</span>: calendar917
+</span></span><span class="line"><span class="cl">Password <span class="k">for</span> <span class="s1">&#39;https://calendar917@gitee.com&#39;</span>:
+</span></span><span class="line"><span class="cl">Counting objects: 10, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">To https://gitee.com/calendar917/learning_log.git
+</span></span><span class="line"><span class="cl"> * <span class="o">[</span>new branch<span class="o">]</span>      main -&gt; main
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：shell 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Linux 进阶</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：DevOps-Linux入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E9%9B%AA%E7%8E%8B%E7%94%9F%E6%93%92%E6%98%8E%E7%8F%A0%E5%A1%94/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：雪王生擒明珠塔</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-ipv4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：ipv4</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
