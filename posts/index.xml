@@ -618,6 +618,337 @@ multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB&lt;/p&gt;
 &lt;/div&gt;</description>
         </item>
         <item>
+        <title>御林招新题：内网穿透与流量转发专题</title>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/</link>
+        <pubDate>Sun, 19 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/</guid>
+        <description>&lt;h2 id=&#34;nginx-反向代理&#34;&gt;&lt;strong&gt;Nginx 反向代理&lt;/strong&gt;
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;什么是反向代理？
+&lt;ul&gt;
+&lt;li&gt;反向代理是一种服务器架构模式，客户端&lt;strong&gt;向反向代理服务器发起请求&lt;/strong&gt;，反向代理服务器再将请求&lt;strong&gt;转发到内部网络中的实际服务器&lt;/strong&gt;（内网服务），并将实际服务器的响应返回给客户端。从客户端角度看，&lt;strong&gt;仿佛是直接和反向代理服务器交互&lt;/strong&gt;，无需知晓背后内网服务的存在。Nginx 作为高性能的 Web 服务器和反向代理服务器，很适合承担这个角色。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;任务&lt;/strong&gt;：在一台可以从公网访问的服务器（或本地虚拟机）上安装 Nginx，并将其配置为反向代理，以转发流量到你的内网服务（例如，在另一台机器上运行的 Web 服务器）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;具体操作&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在公网服务器上安装 Nginx。&lt;/li&gt;
+&lt;li&gt;修改 Nginx 配置文件，添加一个 &lt;code&gt;server&lt;/code&gt; 块，并使用 &lt;code&gt;proxy_pass&lt;/code&gt; 指令将请求转发到你的内网 IP 地址和端口。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# /etc/nginx/conf.d/reverse-proxy.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 需要先把 /etc/nginx/nginx.conf 里监听 80 端口的 server 注释掉
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;server {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    listen 80;  # 监听80端口（HTTP默认端口）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    server_name 8.137.38.223;  # 公网服务器的IP地址
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    location / {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        proxy_pass http://127.0.0.1:8001;  # 转发到内网Web服务器的IP和端口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        proxy_set_header Host $host;  # 传递请求头中的Host信息，确保内网服务器能正确识别
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        proxy_set_header X-Real-IP $remote_addr;  # 传递真实客户端IP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  # 记录代理链的IP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;验证：通过公网 IP 访问 Nginx 服务器，确认能成功显示内网服务的页面。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251019110710322.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251019110710322&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;autossh-端口转发&#34;&gt;&lt;strong&gt;Autossh 端口转发&lt;/strong&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;任务&lt;/strong&gt;：使用 &lt;code&gt;autossh&lt;/code&gt; 建立一个持久的 SSH 反向隧道，将内网服务的端口暴露到公网服务器上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SSH 反向隧道&lt;/strong&gt;：通常情况下，SSH 隧道是从客户端（能访问公网的机器）主动连接到服务端（公网服务器），实现从客户端到服务端的端口转发。而反向隧道则是&lt;strong&gt;让服务端（公网服务器）主动连接到客户端&lt;/strong&gt;（内网机器），从而将内网机器的端口暴露到公网服务器上，&lt;strong&gt;使得公网可以访问内网服务&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Autossh&lt;/strong&gt;：是 SSH 的一个封装工具，它能够&lt;strong&gt;自动监控 SSH 连接的状态&lt;/strong&gt;，当连接断开时会自动重新建立连接，保证隧道的持久性，避免因为网络波动等原因导致隧道中断后需要手动重新建立。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;具体操作&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;在内网机器上安装 &lt;code&gt;autossh&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;执行 &lt;code&gt;autossh&lt;/code&gt; 命令，将内网服务的端口（例如 8080）反向隧道到公网服务器的一个指定端口（例如 8000）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;配置 ssh 公钥：
+&lt;ul&gt;
+&lt;li&gt;内网：&lt;code&gt;ssh-keygen&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;上传到服务器：&lt;code&gt;ssh-copy-id -i /root/key.pub user@8.137.38.223&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;autossh -M &lt;span class=&#34;m&#34;&gt;20000&lt;/span&gt; -fCNR public_server_ip:8000:localhost:5000 root@public_server_ip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;各参数解释：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-M 20000&lt;/code&gt;：指定一个监视端口，autossh 通过这个端口来监视 SSH 连接的状态，确保连接的持久性。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-f&lt;/code&gt;：将 autossh 放入后台运行。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-C&lt;/code&gt;：启用压缩，减少数据传输的大小，提高传输效率。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-N&lt;/code&gt;：不执行远程命令，只进行端口转发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-R public_server_ip:8000:localhost:8080&lt;/code&gt;：建立反向隧道，将公网服务器的&lt;code&gt;8000&lt;/code&gt;端口转发到内网机器的&lt;code&gt;localhost:8080&lt;/code&gt;（即内网服务的端口）。&lt;code&gt;user&lt;/code&gt;是公网服务器上的用户名。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;验证：通过访问公网服务器的 &lt;code&gt;8000&lt;/code&gt; 端口，确认能访问到内网服务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;docker ps -a&lt;/code&gt; 看所有容器；&lt;code&gt;docker rm&lt;/code&gt; 删除&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker insepct &amp;lt;image&amp;gt;&lt;/code&gt; 看一下端口&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;配了很久，要注意的点：
+&lt;ol&gt;
+&lt;li&gt;autossh 指令：&lt;code&gt;public_server_ip:8000&lt;/code&gt; 这里要写 &lt;code&gt;0.0.0.0&lt;/code&gt;，不然只能服务器本地访问&lt;/li&gt;
+&lt;li&gt;不知道为什么密钥上传了但是没用&lt;/li&gt;
+&lt;li&gt;需要将服务器上的 &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt; 中 &lt;code&gt;GatewayPorts&lt;/code&gt; 改为 yes，否则隧道仅允许目标服务器本地访问 8000 端口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;netstat -tuln | grep 8000&lt;/code&gt; 看服务器 ssh 连接状态；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ps（process status） aux | grep autossh&lt;/code&gt; 看内网的 autossh 命令&lt;/li&gt;
+&lt;li&gt;云服务器还要看一下安全组是不是拦截了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251019123323350.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251019123323350&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tailscale-零配置网络&#34;&gt;&lt;strong&gt;Tailscale 零配置网络&lt;/strong&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;任务&lt;/strong&gt;：使用 &lt;code&gt;Tailscale&lt;/code&gt; 建立一个零配置的虚拟私有网络（VPN），实现内网设备的点对点互联。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不需要复杂的网络配置（如端口转发、防火墙规则调整等），就能让分布在不同网络环境（如内网、公网）的设备，像在同一个局域网内一样实现点对点的互联互通。Tailscale 用于简化 VPN 搭建流程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;具体操作&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在你的公网服务器和内网机器上分别安装 &lt;code&gt;Tailscale&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt; curl -fsSL https://tailscale.com/install.sh | sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注册 &lt;a class=&#34;link&#34; href=&#34;https://login.tailscale.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://login.tailscale.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;使用你的账户登录并加入 &lt;code&gt;Tailscale&lt;/code&gt; 网络。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# tailscale ip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;100.124.165.66
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@iZ2vc96n4f90pw7f8dfbfsZ ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# tailscale ip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;100.75.140.47
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 访问 OK&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;root@iZ2vc96n4f90pw7f8dfbfsZ ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# curl http://100.124.165.66:5000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hello from Flask!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;验证：在公网服务器上，通过内网机器的 &lt;code&gt;Tailscale IP&lt;/code&gt; 或主机名直接访问其内网服务，无需任何端口转发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;frp-fast-reverse-proxy&#34;&gt;&lt;strong&gt;Frp (Fast Reverse Proxy)&lt;/strong&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;任务&lt;/strong&gt;：使用 Frp 客户端-服务端模式，将内网服务暴露到公网。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Frp（Fast Reverse Proxy）是一款专注于内网穿透的高性能反向代理应用&lt;/p&gt;
+&lt;p&gt;下载 &lt;code&gt;wget https://github.com/fatedier/frp/releases/download/v0.32.1/frp_0.32.1_linux_amd64.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;安装参考：&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_39689711/article/details/134392136&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CentOS 7 部署frp穿透内网_centos frp-CSDN博客&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 关防火墙&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl stop firewalld &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; systemctl disable firewalld
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 关 SELinux&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;setenforce &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建安装路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p /usr/local/frps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 解压备用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar zxvf frp_0.32.1_linux_amd64.tar.gz  -C /tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 复制 frps 和 frps.ini 两个配置文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 注意！！！ 客户端要复制的是 frpc 和 frpc.ini&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /tmp/frp_0.32.1_linux_amd64
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp frps frps.ini /usr/local/frps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim /usr/local/frps/frps.ini
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 内网 frpc.ini
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[common]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;server_addr = 8.137.38.223  # 公网服务器 IP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;server_port = 7000          # 服务端 bind_port
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[web_tcp]  # 模块名可自定义
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;type = tcp                   # 改为 TCP 类型
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;local_ip = 127.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;local_port = 5000
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;remote_port = 8001           # 公网服务器上用于访问的端口（需和服务端端口不冲突??冲突！）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 服务器 frps.ini
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[common]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bind_port = 7000  # Frp 服务端与客户端通信的端口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vhost_http_port = 8080  # 若要通过 HTTP 访问内网 Web 服务，设置此端口
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;具体操作&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在一台公网服务器上运行 &lt;code&gt;frps&lt;/code&gt;（服务端）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在内网机器上运行 &lt;code&gt;frpc&lt;/code&gt;（客户端），并配置其连接到服务端，将内网服务的端口暴露出去。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;启动 &lt;code&gt;./frps -c ./frps.ini&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;验证：通过公网服务器的 IP 和 Frp 配置的端口，确认能访问到内网服务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;错了几个点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;运行内网的时候运行成 &lt;code&gt;frps&lt;/code&gt; 了 ……&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果配置为 &lt;code&gt;http&lt;/code&gt; 的话，还需要域名，所以改成了 &lt;code&gt;tcp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251019135932508.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251019135932508&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251019135627727.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251019135627727&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>御林招新题：Git 版本管理</title>
         <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</link>
         <pubDate>Sat, 18 Oct 2025 00:00:00 +0000</pubDate>
@@ -10590,6 +10921,14 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>标题</title>
+        <link>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+        <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+        <description></description>
         </item>
         <item>
         <title>博客开发记录</title>

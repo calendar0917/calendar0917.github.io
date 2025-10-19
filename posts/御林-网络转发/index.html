@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 docker 的基础操作">
-<title>御林招新题：docker 入门</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习内网穿透与流量转发相关知识">
+<title>御林招新题：内网穿透与流量转发专题</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：docker 入门">
-<meta property='og:description' content="学习 docker 的基础操作">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：内网穿透与流量转发专题">
+<meta property='og:description' content="学习内网穿透与流量转发相关知识">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-19T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="御林招新题：docker 入门">
-<meta name="twitter:description" content="学习 docker 的基础操作"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/index.json">
+<meta name="twitter:title" content="御林招新题：内网穿透与流量转发专题">
+<meta name="twitter:description" content="学习内网穿透与流量转发相关知识"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/index.json">
     </head>
     <body class="
     article-page
@@ -206,12 +206,10 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#安装与配置-docker"><strong>安装与配置 Docker</strong></a></li>
-    <li><a href="#运行你的第一个容器"><strong>运行你的第一个容器</strong></a></li>
-    <li><a href="#核心概念理解"><strong>核心概念理解</strong></a></li>
-    <li><a href="#了解-docker-compose"><strong>了解 Docker Compose</strong></a></li>
-    <li><a href="#编写你的第一个-dockerfile"><strong>编写你的第一个 Dockerfile</strong></a></li>
-    <li><a href="#使用-docker-compose-部署多服务应用"><strong>使用 Docker Compose 部署多服务应用</strong></a></li>
+    <li><a href="#nginx-反向代理"><strong>Nginx 反向代理</strong></a></li>
+    <li><a href="#autossh-端口转发"><strong>Autossh 端口转发</strong></a></li>
+    <li><a href="#tailscale-零配置网络"><strong>Tailscale 零配置网络</strong></a></li>
+    <li><a href="#frp-fast-reverse-proxy"><strong>Frp (Fast Reverse Proxy)</strong></a></li>
   </ol>
 </nav>
         </div>
@@ -239,12 +237,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">御林招新题：docker 入门</a>
+            <a href="/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/">御林招新题：内网穿透与流量转发专题</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            学习 docker 的基础操作
+            学习内网穿透与流量转发相关知识
         </h3>
         
     </div>
@@ -281,135 +279,25 @@
     <section class="article-content">
     
     
-    <h2 id="安装与配置-docker"><strong>安装与配置 Docker</strong>
-</h2><ul>
-<li>在你的 Linux 操作系统上，安装 Docker Engine。</li>
-<li>配置 Docker 的国内镜像源，以加快镜像下载速度。</li>
-<li><strong>验证</strong>：执行 <code>docker version</code> 和 <code>docker info</code> 命令，确认 Docker 已正确安装并配置。</li>
-</ul>
-<blockquote>
-<p>参考之前写的：<a class="link" href="https://calendar0917.github.io/posts/%e9%85%8d%e7%bd%aedocker/"  target="_blank" rel="noopener"
-    >配置docker</a></p>
-</blockquote>
-<h2 id="运行你的第一个容器"><strong>运行你的第一个容器</strong>
-</h2><ul>
-<li>使用 <code>docker pull</code> 命令拉取 <code>hello-world</code> 镜像。</li>
-<li>使用 <code>docker run</code> 命令运行一个 <code>hello-world</code> 容器，观察其输出。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run hello-world</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Hello from Docker!
-</span></span><span class="line"><span class="cl">This message shows that your installation appears to be working correctly.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">To generate this message, Docker took the following steps:
-</span></span><span class="line"><span class="cl">......
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>运行一个 <code>searxng</code> 容器。
+    <h2 id="nginx-反向代理"><strong>Nginx 反向代理</strong>
+</h2><blockquote>
 <ul>
-<li>使用 <code>docker run</code> 命令，将 <code>searxng</code> 容器运行在后台。</li>
-<li>将容器的 <code>8080</code> 端口映射到主机的 <code>8080</code> 端口。</li>
-<li>验证：在浏览器中访问 <code>http://localhost:8080</code>，确认 <code>searxng</code> 网页正常显示。</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker pull searxng/searxng</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run -d -p 8080:8080 searxng/searxng</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
+<li>什么是反向代理？
 <ul>
-<li>docker run:
-<ul>
-<li><code>-d</code>：后台运行容器（守护进程模式）。</li>
-<li><code>-p 主机端口:容器端口</code>：端口映射（外部可通过主机端口访问容器服务）。</li>
-<li><code>-v 主机目录:容器目录</code>：挂载数据卷（持久化数据，容器删除后数据不丢失）。</li>
-<li><code>--name 容器名</code>：指定容器名称（方便后续操作）。</li>
-<li><code>-it</code>：交互式运行（用于进入容器终端，如 <code>bash</code>）</li>
+<li>反向代理是一种服务器架构模式，客户端<strong>向反向代理服务器发起请求</strong>，反向代理服务器再将请求<strong>转发到内部网络中的实际服务器</strong>（内网服务），并将实际服务器的响应返回给客户端。从客户端角度看，<strong>仿佛是直接和反向代理服务器交互</strong>，无需知晓背后内网服务的存在。Nginx 作为高性能的 Web 服务器和反向代理服务器，很适合承担这个角色。</li>
 </ul>
 </li>
 </ul>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019075703614.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251019075703614"
-	
-	
-></p>
-<h2 id="核心概念理解"><strong>核心概念理解</strong>
-</h2><ul>
-<li><strong>解释题</strong>：请用你自己的话，简要解释以下核心概念，并说明它们之间的关系。
 <ul>
-<li><strong>镜像（Image）</strong>
+<li>
+<p><strong>任务</strong>：在一台可以从公网访问的服务器（或本地虚拟机）上安装 Nginx，并将其配置为反向代理，以转发流量到你的内网服务（例如，在另一台机器上运行的 Web 服务器）。</p>
+</li>
+<li>
+<p><strong>具体操作</strong>：</p>
 <ul>
-<li>类似安装包，整合了所需的运行环境。创建了就不会被更改。</li>
-</ul>
-</li>
-<li><strong>容器（Container）</strong>
-<ul>
-<li>基于镜像安装后的实例应用，而且是独立的，可以启动、删除等等，同时是一个隔离出来的沙箱环境</li>
-</ul>
-</li>
-<li><strong>Dockerfile</strong>
-<ul>
-<li>自己构建镜像的工具，在这个文档中编写镜像所需的环境（而非一个一个手动安装），实现自动化构建</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="了解-docker-compose"><strong>了解 Docker Compose</strong>
-</h2><ul>
-<li>什么是 Docker Compose？它解决了什么问题？
-<ul>
-<li>Docker 官方提供的一个工具，用于定义和运行<strong>多容器</strong> Docker 应用程序。</li>
-<li>将多个 docker 容器整合到一起，可以统一操作（而不用一个一个开启、关闭）。并且可以一起配置网络、数据卷挂载等等。</li>
-</ul>
-</li>
-<li>简要说明 Docker Compose 文件（<code>docker-compose.yml</code>）的作用。
-<ul>
-<li>Docker Compose 的核心配置文件，具体实现多个 docker 容器的协同。可以定义 compose 中的：
-<ul>
-<li>服务：指定适用镜像、映射端口等</li>
-<li>网络：使不同容器可以在一个网络中通信</li>
-<li>数据卷：在容器之间或者容器与主机之间共享数据</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="编写你的第一个-dockerfile"><strong>编写你的第一个 Dockerfile</strong>
-</h2><ul>
-<li><strong>挑战</strong>：编写一个 <code>Dockerfile</code>，实现以下功能：
-<ul>
-<li>基于一个最新的 <code>ubuntu</code> 镜像。</li>
-<li>在容器中安装 <code>nginx</code>。</li>
-<li>设置 <code>nginx</code> 服务在容器启动时自动运行。</li>
-<li><strong>验证</strong>：使用 <code>docker build</code> 命令构建你的镜像，并使用 <code>docker run</code> 命令运行该容器，确保 <code>nginx</code> 服务正在运行。</li>
-</ul>
-</li>
+<li>在公网服务器上安装 Nginx。</li>
+<li>修改 Nginx 配置文件，添加一个 <code>server</code> 块，并使用 <code>proxy_pass</code> 指令将请求转发到你的内网 IP 地址和端口。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -425,65 +313,174 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="c"># 基于最新的 Ubuntu 镜像</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:latest</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 安装 nginx</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 首先更新 Ubuntu 的软件包列表，然后安装 nginx，最后清理软件包缓存以减小镜像体积</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    apt-get install -y nginx <span class="o">&amp;&amp;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    rm -rf /var/lib/apt/lists/*<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 设置 nginx 服务在容器启动时自动运行</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># CMD 指令指定容器启动时要执行的命令，这里让 nginx 以前台方式运行，保证容器不退出</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;nginx&#34;</span><span class="p">,</span> <span class="s2">&#34;-g&#34;</span><span class="p">,</span> <span class="s2">&#34;daemon off;&#34;</span><span class="p">]</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker build -t my-ubuntu-nginx .</span>
-</span></span><span class="line"><span class="cl">......
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># /etc/nginx/conf.d/reverse-proxy.conf
+</span></span><span class="line"><span class="cl"># 需要先把 /etc/nginx/nginx.conf 里监听 80 端口的 server 注释掉
+</span></span><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen 80;  # 监听80端口（HTTP默认端口）
+</span></span><span class="line"><span class="cl">    server_name 8.137.38.223;  # 公网服务器的IP地址
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run -d -p 80:80 my-ubuntu-nginx</span>
+</span></span><span class="line"><span class="cl">    location / {
+</span></span><span class="line"><span class="cl">        proxy_pass http://127.0.0.1:8001;  # 转发到内网Web服务器的IP和端口
+</span></span><span class="line"><span class="cl">        proxy_set_header Host $host;  # 传递请求头中的Host信息，确保内网服务器能正确识别
+</span></span><span class="line"><span class="cl">        proxy_set_header X-Real-IP $remote_addr;  # 传递真实客户端IP
+</span></span><span class="line"><span class="cl">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  # 记录代理链的IP
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<ul>
-<li>为什么不用下载整个 ubuntu 镜像？
-<ul>
-<li>Docker 中的 <code>ubuntu</code> 镜像本质是 <strong>“精简的根文件系统（rootfs）”</strong>，仅包含运行 Ubuntu 环境所需的核心组件，共享宿主机的 Linux 内核，只保留基础命令，去除图形化</li>
+</div><ul>
+<li>验证：通过公网 IP 访问 Nginx 服务器，确认能成功显示内网服务的页面。</li>
 </ul>
-</li>
-</ul>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019082929494.png"
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019110710322.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251019082929494"
+		alt="image-20251019110710322"
 	
 	
 ></p>
-<h2 id="使用-docker-compose-部署多服务应用"><strong>使用 Docker Compose 部署多服务应用</strong>
+</li>
+</ul>
+<h2 id="autossh-端口转发"><strong>Autossh 端口转发</strong>
 </h2><ul>
-<li><strong>挑战</strong>：编写一个 <code>docker-compose.yml</code> 文件，实现以下功能：
+<li><strong>任务</strong>：使用 <code>autossh</code> 建立一个持久的 SSH 反向隧道，将内网服务的端口暴露到公网服务器上。</li>
+</ul>
+<blockquote>
 <ul>
-<li><strong>服务一</strong>：部署一个 <code>nginx</code> 服务，将其 <code>80</code> 端口映射到主机的 <code>8081</code> 端口。</li>
-<li><strong>服务二</strong>：部署一个 <code>mysql</code> 服务，并设置环境变量 <code>MYSQL_ROOT_PASSWORD</code>。</li>
-<li><strong>验证</strong>：使用 <code>docker compose up -d</code> 命令一键启动这两个服务，并使用 <code>docker ps</code> 确认两个容器都已成功运行。</li>
+<li><strong>SSH 反向隧道</strong>：通常情况下，SSH 隧道是从客户端（能访问公网的机器）主动连接到服务端（公网服务器），实现从客户端到服务端的端口转发。而反向隧道则是<strong>让服务端（公网服务器）主动连接到客户端</strong>（内网机器），从而将内网机器的端口暴露到公网服务器上，<strong>使得公网可以访问内网服务</strong>。</li>
+<li><strong>Autossh</strong>：是 SSH 的一个封装工具，它能够<strong>自动监控 SSH 连接的状态</strong>，当连接断开时会自动重新建立连接，保证隧道的持久性，避免因为网络波动等原因导致隧道中断后需要手动重新建立。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>具体操作</strong>：
+<ul>
+<li>在内网机器上安装 <code>autossh</code>。</li>
+<li>执行 <code>autossh</code> 命令，将内网服务的端口（例如 8080）反向隧道到公网服务器的一个指定端口（例如 8000）。</li>
 </ul>
 </li>
 </ul>
+<blockquote>
+<ul>
+<li>配置 ssh 公钥：
+<ul>
+<li>内网：<code>ssh-keygen</code></li>
+<li>上传到服务器：<code>ssh-copy-id -i /root/key.pub user@8.137.38.223</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">autossh -M <span class="m">20000</span> -fCNR public_server_ip:8000:localhost:5000 root@public_server_ip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>各参数解释：
+<ul>
+<li><code>-M 20000</code>：指定一个监视端口，autossh 通过这个端口来监视 SSH 连接的状态，确保连接的持久性。</li>
+<li><code>-f</code>：将 autossh 放入后台运行。</li>
+<li><code>-C</code>：启用压缩，减少数据传输的大小，提高传输效率。</li>
+<li><code>-N</code>：不执行远程命令，只进行端口转发。</li>
+<li><code>-R public_server_ip:8000:localhost:8080</code>：建立反向隧道，将公网服务器的<code>8000</code>端口转发到内网机器的<code>localhost:8080</code>（即内网服务的端口）。<code>user</code>是公网服务器上的用户名。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>验证：通过访问公网服务器的 <code>8000</code> 端口，确认能访问到内网服务。</li>
+</ul>
+<blockquote>
+<p><code>docker ps -a</code> 看所有容器；<code>docker rm</code> 删除</p>
+<p><code>docker insepct &lt;image&gt;</code> 看一下端口</p>
+</blockquote>
+<ul>
+<li>配了很久，要注意的点：
+<ol>
+<li>autossh 指令：<code>public_server_ip:8000</code> 这里要写 <code>0.0.0.0</code>，不然只能服务器本地访问</li>
+<li>不知道为什么密钥上传了但是没用</li>
+<li>需要将服务器上的 <code>/etc/ssh/sshd_config</code> 中 <code>GatewayPorts</code> 改为 yes，否则隧道仅允许目标服务器本地访问 8000 端口</li>
+<li><code>netstat -tuln | grep 8000</code> 看服务器 ssh 连接状态；</li>
+<li><code>ps（process status） aux | grep autossh</code> 看内网的 autossh 命令</li>
+<li>云服务器还要看一下安全组是不是拦截了</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019123323350.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019123323350"
+	
+	
+></p>
+<h2 id="tailscale-零配置网络"><strong>Tailscale 零配置网络</strong>
+</h2><ul>
+<li><strong>任务</strong>：使用 <code>Tailscale</code> 建立一个零配置的虚拟私有网络（VPN），实现内网设备的点对点互联。</li>
+</ul>
+<blockquote>
+<p>不需要复杂的网络配置（如端口转发、防火墙规则调整等），就能让分布在不同网络环境（如内网、公网）的设备，像在同一个局域网内一样实现点对点的互联互通。Tailscale 用于简化 VPN 搭建流程</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li>在你的公网服务器和内网机器上分别安装 <code>Tailscale</code>。</li>
+</ul>
+<blockquote>
+<p><code> curl -fsSL https://tailscale.com/install.sh | sh</code></p>
+<p>注册 <a class="link" href="https://login.tailscale.com/"  target="_blank" rel="noopener"
+    >https://login.tailscale.com/</a></p>
+</blockquote>
+<ul>
+<li>使用你的账户登录并加入 <code>Tailscale</code> 网络。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tailscale ip</span>
+</span></span><span class="line"><span class="cl">100.124.165.66
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ ~<span class="o">]</span><span class="c1"># tailscale ip</span>
+</span></span><span class="line"><span class="cl">100.75.140.47
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 访问 OK</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ ~<span class="o">]</span><span class="c1"># curl http://100.124.165.66:5000</span>
+</span></span><span class="line"><span class="cl">Hello from Flask!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>验证：在公网服务器上，通过内网机器的 <code>Tailscale IP</code> 或主机名直接访问其内网服务，无需任何端口转发。</li>
+</ul>
+</li>
+</ul>
+<h2 id="frp-fast-reverse-proxy"><strong>Frp (Fast Reverse Proxy)</strong>
+</h2><ul>
+<li><strong>任务</strong>：使用 Frp 客户端-服务端模式，将内网服务暴露到公网。</li>
+</ul>
+<blockquote>
+<p>Frp（Fast Reverse Proxy）是一款专注于内网穿透的高性能反向代理应用</p>
+<p>下载 <code>wget https://github.com/fatedier/frp/releases/download/v0.32.1/frp_0.32.1_linux_amd64.tar.gz</code></p>
+<p>安装参考：<a class="link" href="https://blog.csdn.net/qq_39689711/article/details/134392136"  target="_blank" rel="noopener"
+    >CentOS 7 部署frp穿透内网_centos frp-CSDN博客</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -502,41 +499,110 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 服务一：Nginx 服务</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nginx-service</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8081:80&#34;</span><span class="w">  </span><span class="c"># 将容器的 80 端口映射到主机的 8081 端口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 服务二：MySQL 服务</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql-service</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="m">1234</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;3306:3306&#34;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 关防火墙</span>
+</span></span><span class="line"><span class="cl">systemctl stop firewalld <span class="o">&amp;&amp;</span> systemctl disable firewalld
+</span></span><span class="line"><span class="cl"><span class="c1"># 关 SELinux</span>
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建安装路径</span>
+</span></span><span class="line"><span class="cl">mkdir -p /usr/local/frps
+</span></span><span class="line"><span class="cl"><span class="c1"># 解压备用</span>
+</span></span><span class="line"><span class="cl">tar zxvf frp_0.32.1_linux_amd64.tar.gz  -C /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制 frps 和 frps.ini 两个配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意！！！ 客户端要复制的是 frpc 和 frpc.ini</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp/frp_0.32.1_linux_amd64
+</span></span><span class="line"><span class="cl">cp frps frps.ini /usr/local/frps
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置</span>
+</span></span><span class="line"><span class="cl">vim /usr/local/frps/frps.ini
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># vi docker-compose.yml</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># docker compose up -d</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># docker ps</span>
-</span></span><span class="line"><span class="cl">CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
-</span></span><span class="line"><span class="cl">70b31fae2377   mysql:latest   <span class="s2">&#34;docker-entrypoint.s…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">3</span> minutes   3306/tcp, 33060/tcp                     docker_compose_test-mysql-service-1
-</span></span><span class="line"><span class="cl">d61344588b2e   nginx:latest   <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">3</span> minutes   0.0.0.0:8081-&gt;80/tcp, :::8081-&gt;80/tcp   docker_compose_test-nginx-service-1
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># 内网 frpc.ini
+</span></span><span class="line"><span class="cl">[common]
+</span></span><span class="line"><span class="cl">server_addr = 8.137.38.223  # 公网服务器 IP
+</span></span><span class="line"><span class="cl">server_port = 7000          # 服务端 bind_port
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[web_tcp]  # 模块名可自定义
+</span></span><span class="line"><span class="cl">type = tcp                   # 改为 TCP 类型
+</span></span><span class="line"><span class="cl">local_ip = 127.0.0.1
+</span></span><span class="line"><span class="cl">local_port = 5000
+</span></span><span class="line"><span class="cl">remote_port = 8001           # 公网服务器上用于访问的端口（需和服务端端口不冲突??冲突！）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 服务器 frps.ini
+</span></span><span class="line"><span class="cl">[common]
+</span></span><span class="line"><span class="cl">bind_port = 7000  # Frp 服务端与客户端通信的端口
+</span></span><span class="line"><span class="cl">vhost_http_port = 8080  # 若要通过 HTTP 访问内网 Web 服务，设置此端口
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div></blockquote>
+<ul>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li>
+<p>在一台公网服务器上运行 <code>frps</code>（服务端）。</p>
+</li>
+<li>
+<p>在内网机器上运行 <code>frpc</code>（客户端），并配置其连接到服务端，将内网服务的端口暴露出去。</p>
+</li>
+</ul>
+<blockquote>
+<p>启动 <code>./frps -c ./frps.ini</code></p>
+</blockquote>
+<ul>
+<li>验证：通过公网服务器的 IP 和 Frp 配置的端口，确认能访问到内网服务。</li>
+</ul>
+</li>
+<li>
+<p>错了几个点：</p>
+<ol>
+<li>
+<p>运行内网的时候运行成 <code>frps</code> 了 ……</p>
+</li>
+<li>
+<p>如果配置为 <code>http</code> 的话，还需要域名，所以改成了 <code>tcp</code></p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019135932508.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019135932508"
+	
+	
+></p>
+</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019135627727.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019135627727"
+	
+	
+></p>
+
 </section>
 
 
@@ -578,12 +644,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：docker 进阶</h2>
+            <h2 class="article-title">御林招新题：docker 入门</h2>
         </div>
     </a>
 </article>
@@ -591,12 +657,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：内网穿透与流量转发专题</h2>
+            <h2 class="article-title">御林招新题：docker 进阶</h2>
         </div>
     </a>
 </article>
