@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 docker 的进阶知识">
+<title>御林招新题：docker 进阶</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：docker 进阶">
+<meta property='og:description' content="学习 docker 的进阶知识">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：docker 进阶">
+<meta name="twitter:description" content="学习 docker 的进阶知识"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/index.json">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#多阶段构建multi-stage-build"><strong>多阶段构建（Multi-stage build）</strong></a></li>
+    <li><a href="#镜像版本管理与标签tagging"><strong>镜像版本管理与标签（Tagging）</strong></a></li>
+    <li><a href="#镜像的打包与加载"><strong>镜像的打包与加载</strong></a></li>
+    <li><a href="#推送到私有仓库"><strong>推送到私有仓库</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">御林招新题：docker 进阶</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习 docker 的进阶知识
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 19, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="多阶段构建multi-stage-build"><strong>多阶段构建（Multi-stage build）</strong>
+</h2><ul>
+<li><strong>目标</strong>：优化你的镜像大小，只包含运行应用所需的最小组件。</li>
+</ul>
+<blockquote>
+<ul>
+<li>什么是多阶段构建？
+<ul>
+<li>允许在一个 <code>Dockerfile</code> 中定义多个构建阶段，每个阶段可以使用不同的基础镜像，最终只将必要的文件复制到最终镜像中，从而剔除构建过程中产生的冗余内容（如编译工具、临时文件、开发依赖等）。</li>
+<li><strong>构建阶段</strong>：使用包含编译 / 打包工具的镜像，完成代码编译、依赖安装等操作；</li>
+<li><strong>运行阶段</strong>：使用轻量级基础镜像（如 <code>alpine</code>），仅复制构建阶段的产物（如可执行文件、Jar 包），最终镜像只包含运行所需的最小环境。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 第一阶段：构建阶段（可命名）
+</span></span><span class="line"><span class="cl">FROM 基础镜像1 AS 阶段名1
+</span></span><span class="line"><span class="cl"># 执行构建操作（如编译、安装依赖）
+</span></span><span class="line"><span class="cl">RUN 命令1
+</span></span><span class="line"><span class="cl">COPY 源码 目标路径
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 第二阶段：运行阶段（最终镜像）
+</span></span><span class="line"><span class="cl">FROM 基础镜像2 AS 阶段名2
+</span></span><span class="line"><span class="cl"># 从第一阶段复制构建产物
+</span></span><span class="line"><span class="cl">COPY --from=阶段名1 构建阶段的产物路径 最终镜像的目标路径
+</span></span><span class="line"><span class="cl"># 定义运行命令
+</span></span><span class="line"><span class="cl">CMD [&#34;启动命令&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一阶段去哪里了？
+<ul>
+<li>第一阶段的产物，要么被<strong>主动复制到最终镜像</strong>（成为运行时必需的部分），要么作为<strong>中间层被 Docker 缓存</strong>（用于加速后续构建，但不进入最终镜像）。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>编写一个 <code>Dockerfile</code>，使用<strong>多阶段构建</strong>来打包一个简单的 Web 应用（例如，一个基于 Python Flask 的应用）。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;Hello from Flask!&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>在第一阶段，使用完整的开发镜像（例如 <code>python:3.9</code>）来安装依赖并构建应用。</p>
+</li>
+<li>
+<p>在第二阶段，使用一个轻量级的运行时镜像（例如 <code>python:3.9-slim</code> 或 <code>alpine</code>）作为基础，只将第一阶段构建好的应用代码和必要的依赖文件复制过来。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="c"># 第一阶段：构建阶段，使用完整的开发镜像</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">builder</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 设置工作目录</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 复制依赖文件并安装</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> requirements.txt .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> pip install -r requirements.txt<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 复制应用代码</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> app.py .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 第二阶段：运行阶段，使用轻量级的运行时镜像</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9-slim</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 设置工作目录</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 从构建阶段复制必要的文件（安装好的依赖和应用代码）</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /app/requirements.txt .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /app/app.py .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 暴露应用端口</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="w"> </span><span class="s">5000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 启动应用</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="s2">&#34;app.py&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="c"># 单阶段</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> requirements.txt .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> pip install -r requirements.txt<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> app.py .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="w"> </span><span class="s">5000</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="s2">&#34;app.py&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>验证</strong>：分别构建一个单阶段镜像和一个多阶段镜像，并使用 <code>docker images</code> 命令比较它们的大小，说明多阶段构建的优势。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker images</span>
+</span></span><span class="line"><span class="cl">REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+</span></span><span class="line"><span class="cl">multi_stage       latest    e9c0c0a489a8   <span class="m">16</span> minutes ago   148MB
+</span></span><span class="line"><span class="cl">docker_nostage    latest    033ed26b2d7f   <span class="m">16</span> minutes ago   1.1GB
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>多阶段可以删去不必要的组件，精简了镜像的大小</p>
+<ul>
+<li>单阶段使用的 <code>python:3.9</code> 基于完整的 Debian 系统，多阶段最终使用的 <code>python:3.9-slim</code> 是精简版</li>
+</ul>
+<p>为什么不能直接用 slim 构建？</p>
+<ul>
+<li>如果直接用 <code>slim</code> 镜像构建（单阶段），执行 <code>pip install -r requirements.txt</code> 时，若遇到需要编译的包，会因缺少 <code>gcc</code> 等工具而失败，报错类似：<code>error: command 'gcc' failed: No such file or directory</code>，所以需要构建后再复制编译后的模块</li>
+</ul>
+<p>怎么知道所需要保留的包的路径？</p>
+<ul>
+<li>可以创建临时容器：<code>docker run -it --rm python:3.9 /bin/bash</code>，进入后 <code>python -m site</code> 或 <code>pip show flask | grep &quot;Location&quot;</code></li>
+<li>也可以先构建一个单阶段容器，在 dockerfile 中输出依赖路径，再作修改</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="镜像版本管理与标签tagging"><strong>镜像版本管理与标签（Tagging）</strong>
+</h2><ul>
+<li>
+<p><strong>目标</strong>：为你的镜像打上清晰的版本标签，方便管理和追溯。</p>
+</li>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>为你上一步构建的多阶段镜像打上至少两个标签（例如 <code>your-app:1.0.0</code> 和 <code>your-app:latest</code>）。</li>
+<li>使用 <code>docker images</code> 命令验证标签是否正确应用。</li>
+</ul>
+<blockquote>
+<p><code>docker tag &lt;ID&gt; name:&lt;tag&gt;</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker tag e9c0c0a489a8 multi:latest</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker images</span>
+</span></span><span class="line"><span class="cl">REPOSITORY        TAG       IMAGE ID       CREATED             SIZE
+</span></span><span class="line"><span class="cl">multi             1.0.0     e9c0c0a489a8   <span class="m">29</span> minutes ago      148MB
+</span></span><span class="line"><span class="cl">multi             latest    e9c0c0a489a8   <span class="m">29</span> minutes ago      148MB
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="镜像的打包与加载"><strong>镜像的打包与加载</strong>
+</h2><ul>
+<li><strong>目标</strong>：掌握在没有 Docker Registry 的情况下，迁移镜像的方法。</li>
+</ul>
+<blockquote>
+<p><code>docker save -o your-app-1.0.0.tar your-app:1.0.0</code></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>使用 <code>docker save</code> 命令将你构建的镜像（<code>your-app:1.0.0</code>）打包成一个 <code>.tar</code> 文件。</li>
+<li>将该 <code>.tar</code> 文件复制到另一台机器（或在当前机器上删除本地镜像），然后使用 <code>docker load</code> 命令加载该 <code>.tar</code> 文件。</li>
+</ul>
+<blockquote>
+<p>删除镜像 <code>docker rmi your-app:1.0.0</code></p>
+<p>加载镜像 <code>docker load -i target</code></p>
+</blockquote>
+<ul>
+<li><strong>验证</strong>：使用 <code>docker images</code> 命令，确认镜像已成功加载，并可以正常运行。</li>
+</ul>
+<blockquote>
+<p>[root@localhost docker_stage_2]# docker load -i multi-1.0.0.tar
+Loaded image: multi:1.0.0
+[root@localhost docker_stage_2]# docker images
+REPOSITORY        TAG       IMAGE ID       CREATED             SIZE
+multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="推送到私有仓库"><strong>推送到私有仓库</strong>
+</h2><ul>
+<li>
+<p><strong>目标</strong>：将你的镜像推送到一个私有的 Docker Registry，模拟团队协作环境。</p>
+</li>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>在本地运行一个临时的 Docker Registry 容器。</li>
+<li>使用 <code>docker tag</code> 命令为你的镜像打上指向该私有仓库的标签（例如 <code>localhost:5000/your-app:1.0.0</code>）。</li>
+<li>使用 <code>docker push</code> 命令将镜像推送到本地私有仓库。</li>
+<li><strong>验证</strong>：使用 <code>docker pull</code> 命令从该私有仓库拉取镜像，确认推送和拉取流程畅通。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker rmi multi_stage:latest</span>
+</span></span><span class="line"><span class="cl">Untagged: multi_stage:latest
+</span></span><span class="line"><span class="cl">Deleted: sha256:e9c0c0a489a800d997c60d99cfc4fd11b7416afdb10f80e5d1f5b68bfdf5a16b
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker load -i multi-1.0.0.tar</span>
+</span></span><span class="line"><span class="cl">Loaded image: multi:1.0.0
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_stage_2<span class="o">]</span><span class="c1"># docker run -p 8001:5000 multi:1.0.0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果 rmi 的时候镜像有多个 tag，只会删除 tag，只有只剩一个 tag 时会彻底删除镜像</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019094027247.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019094027247"
+	
+	
+></p>
+<blockquote>
+<ul>
+<li>属于一个 compose 的要如何一起 stop？
+<ul>
+<li>在 <code>docker-compose.yml</code> 文件所在的目录下，使用 <strong><code>docker compose stop</code> 命令</strong></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Git 版本管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：shell 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E8%BF%9B%E9%98%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Linux 进阶</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-linux%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：DevOps-Linux入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
