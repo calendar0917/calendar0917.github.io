@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 shell 脚本的编写">
-<title>御林招新题：shell 入门</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 docker 的基础操作">
+<title>御林招新题：docker 入门</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：shell 入门">
-<meta property='og:description' content="学习 shell 脚本的编写">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：docker 入门">
+<meta property='og:description' content="学习 docker 的基础操作">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="御林招新题：shell 入门">
-<meta name="twitter:description" content="学习 shell 脚本的编写"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：docker 入门">
+<meta name="twitter:description" content="学习 docker 的基础操作"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/index.json">
     </head>
     <body class="
     article-page
@@ -206,11 +206,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#重定向与管道"><strong>重定向与管道</strong></a></li>
-    <li><a href="#变量与引号"><strong>变量与引号</strong></a></li>
-    <li><a href="#参数与条件判断"><strong>参数与条件判断</strong></a></li>
-    <li><a href="#循环"><strong>循环</strong></a></li>
-    <li><a href="#编写一个-shell-脚本实现以下功能"><strong>编写一个 Shell 脚本</strong>，实现以下功能：</a></li>
+    <li><a href="#安装与配置-docker"><strong>安装与配置 Docker</strong></a></li>
+    <li><a href="#运行你的第一个容器"><strong>运行你的第一个容器</strong></a></li>
+    <li><a href="#核心概念理解"><strong>核心概念理解</strong></a></li>
+    <li><a href="#了解-docker-compose"><strong>了解 Docker Compose</strong></a></li>
+    <li><a href="#编写你的第一个-dockerfile"><strong>编写你的第一个 Dockerfile</strong></a></li>
+    <li><a href="#使用-docker-compose-部署多服务应用"><strong>使用 Docker Compose 部署多服务应用</strong></a></li>
   </ol>
 </nav>
         </div>
@@ -238,12 +239,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">御林招新题：shell 入门</a>
+            <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">御林招新题：docker 入门</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            学习 shell 脚本的编写
+            学习 docker 的基础操作
         </h3>
         
     </div>
@@ -264,7 +265,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 18, 2025</time>
+                <time class="article-time--published">Oct 19, 2025</time>
             </div>
         
 
@@ -280,109 +281,20 @@
     <section class="article-content">
     
     
-    <h2 id="重定向与管道"><strong>重定向与管道</strong>
+    <h2 id="安装与配置-docker"><strong>安装与配置 Docker</strong>
 </h2><ul>
-<li>了解标准输入、标准输出、标准错误的概念。</li>
+<li>在你的 Linux 操作系统上，安装 Docker Engine。</li>
+<li>配置 Docker 的国内镜像源，以加快镜像下载速度。</li>
+<li><strong>验证</strong>：执行 <code>docker version</code> 和 <code>docker info</code> 命令，确认 Docker 已正确安装并配置。</li>
 </ul>
 <blockquote>
-<ul>
-<li><strong>标准输入（Standard Input，stdin）</strong>：默认是键盘，是程序获取输入数据的地方。例如，<code>cat</code>命令如果没有指定文件，就会从标准输入读取内容，此时你可以在键盘上输入文字，输入结束后按<code>Ctrl + D</code>（类 Unix 系统）表示输入结束，<code>cat</code>会将输入的内容输出。</li>
-<li><strong>标准输出（Standard Output，stdout）</strong>：默认是终端屏幕，是程序输出正常结果的地方。比如执行<code>ls</code>命令，会在终端显示当前目录下的文件和文件夹列表。</li>
-<li><strong>标准错误（Standard Error，stderr）</strong>：默认也是终端屏幕，用于输出程序的错误信息。例如，执行<code>ls /nonexistent</code>（假设<code>/nonexistent</code>是不存在的目录），会在终端显示类似<code>ls: cannot access '/nonexistent': No such file or directory</code>的错误信息，这就是标准错误输出。</li>
-</ul>
+<p>参考之前写的：<a class="link" href="https://calendar0917.github.io/posts/%e9%85%8d%e7%bd%aedocker/"  target="_blank" rel="noopener"
+    >配置docker</a></p>
 </blockquote>
-<ul>
-<li>使用 <code>&gt;</code> 和 <code>&gt;&gt;</code> 操作符将命令的输出重定向到文件。</li>
-</ul>
-<blockquote>
-<ul>
-<li><code>&gt;</code>操作符：用于将命令的标准输出重定向到文件，如果文件已存在，会<strong>覆盖</strong>文件原有内容；如果文件不存在，会创建新文件。</li>
-<li><code>&gt;&gt;</code>操作符：用于将命令的标准输出以<strong>追加</strong>的方式重定向到文件，即把输出内容添加到文件原有内容的末尾，不会覆盖原有内容。</li>
-</ul>
-</blockquote>
-<ul>
-<li>使用 <code>2&gt;</code> 或 <code>2&gt;&gt;</code> 操作符将标准错误重定向到文件。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls /invalid 2&gt; error.txt</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls /invalid_2 2&gt;&gt; error.txt</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># cat error.txt</span>
-</span></span><span class="line"><span class="cl">ls: cannot access /invalid: No such file or directory
-</span></span><span class="line"><span class="cl">ls: cannot access /invalid_2: No such file or directory
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>使用 <code>|</code> 管道操作符将一个命令的输出作为另一个命令的输入。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost hello<span class="o">]</span><span class="c1"># ls | grep &#39;txt&#39;</span>
-</span></span><span class="line"><span class="cl">digit_count.txt
-</span></span><span class="line"><span class="cl">error.txt
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="变量与引号"><strong>变量与引号</strong>
+<h2 id="运行你的第一个容器"><strong>运行你的第一个容器</strong>
 </h2><ul>
-<li>学习如何在 Shell 中定义、引用和取消定义变量。</li>
-</ul>
-<blockquote>
-<ul>
-<li>
-<p><strong>定义变量</strong>：基本语法是：<code>变量名=值</code>，等号两边不能有空格。</p>
-</li>
-<li>
-<p><strong>引用变量</strong>：使用 <code>$变量名</code> 或者 <code>${变量名}</code> 的形式。</p>
-</li>
-<li>
-<p><strong>取消定义变量</strong></p>
-</li>
-</ul>
-<p>使用 <code>unset</code> 命令可以取消定义变量，语法为：<code>unset 变量名</code>。</p>
-</blockquote>
-<ul>
-<li>理解单引号 (<code>'</code>)、双引号 (<code>&quot;</code>) 和反引号 (``) 的区别与作用。</li>
-</ul>
-<blockquote>
-<ul>
-<li>
-<p><strong>单引号（<code>'</code>）</strong>：用于包裹字符串，单引号内的所有内容都被视为普通字符，不会进行变量替换、命令替换等操作。</p>
-</li>
-<li>
-<p>**双引号（<code>&quot;</code>）：**双引号内会进行变量替换和命令替换（需要结合<code>$()</code>或反引号）</p>
-</li>
-<li>
-<p>**反引号（`<code>）**：反引号主要用于命令替换，即执行反引号内的命令，并将命令的输出作为结果返回。不过现在更推荐使用</code>$()`来进行命令替换，因为它的可读性更好，而且可以嵌套使用（反引号嵌套使用比较复杂）。</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="参数与条件判断"><strong>参数与条件判断</strong>
-</h2><ul>
-<li>了解如何获取命令行参数（例如 <code>$1</code>, <code>$2</code>, <code>$#</code>）。</li>
-</ul>
-<blockquote>
-<ul>
-<li><strong><code>$1</code>、<code>$2</code>、<code>$3</code>……</strong>：分别表示第 1 个、第 2 个、第 3 个…… 命令行参数。</li>
-<li><strong><code>$#</code></strong>：表示命令行参数的个数。</li>
-<li><strong><code>$0</code></strong>：表示脚本本身的名称。</li>
-<li><strong><code>$\*</code></strong>：把所有的命令行参数当作一个整体的字符串</li>
-<li><strong><code>$@</code></strong>：把每个命令行参数当作独立的字符串</li>
-</ul>
-</blockquote>
-<ul>
-<li>掌握基本的条件判断语句（<code>if</code> 语句）。</li>
+<li>使用 <code>docker pull</code> 命令拉取 <code>hello-world</code> 镜像。</li>
+<li>使用 <code>docker run</code> 命令运行一个 <code>hello-world</code> 容器，观察其输出。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -395,119 +307,183 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span>条件1<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 条件1为真时执行的命令</span>
-</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span>条件2<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 条件2为真时执行的命令</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 所有条件都为假时执行的命令</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>使用 <code>test</code> 或 <code>[]</code> 进行文件、字符串或数字的比较。</li>
-</ul>
-<blockquote>
-<p><code>test</code> 命令和 <code>[]</code>（方括号）在 Shell 中用于进行条件测试，可以对文件、字符串、数字等进行比较。<code>[]</code> 是 <code>test</code> 命令的另一种写法，使用起来更简洁。</p>
-<ul>
-<li>文件：
-<ul>
-<li>-e 存在、-f  普通文件、-d 目录、-r 可读、-w 可写、-x 可执行</li>
-</ul>
-</li>
-<li>字符串：
-<ul>
-<li>= 相等、！=不等、-z 长度是否为0、-n 长度是否不为零</li>
-</ul>
-</li>
-<li>数字：
-<ul>
-<li>-eq 相等、-ne 不相等、-gt 大于、-ge 大于等于、-lt 小于、-le 小于等于</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h2 id="循环"><strong>循环</strong>
-</h2><ul>
-<li>学习 <code>for</code> 循环和 <code>while</code> 循环的基本用法。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> 变量 in 元素1 元素2 元素3 ...<span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体，对每个元素执行的操作</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run hello-world</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> 变量 in <span class="o">{</span>起始值..结束值<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">Hello from Docker!
+</span></span><span class="line"><span class="cl">This message shows that your installation appears to be working correctly.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To generate this message, Docker took the following steps:
+</span></span><span class="line"><span class="cl">......
 </span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>运行一个 <code>searxng</code> 容器。
+<ul>
+<li>使用 <code>docker run</code> 命令，将 <code>searxng</code> 容器运行在后台。</li>
+<li>将容器的 <code>8080</code> 端口映射到主机的 <code>8080</code> 端口。</li>
+<li>验证：在浏览器中访问 <code>http://localhost:8080</code>，确认 <code>searxng</code> 网页正常显示。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker pull searxng/searxng</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run -d -p 8080:8080 searxng/searxng</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>docker run:
+<ul>
+<li><code>-d</code>：后台运行容器（守护进程模式）。</li>
+<li><code>-p 主机端口:容器端口</code>：端口映射（外部可通过主机端口访问容器服务）。</li>
+<li><code>-v 主机目录:容器目录</code>：挂载数据卷（持久化数据，容器删除后数据不丢失）。</li>
+<li><code>--name 容器名</code>：指定容器名称（方便后续操作）。</li>
+<li><code>-it</code>：交互式运行（用于进入容器终端，如 <code>bash</code>）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019075703614.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019075703614"
+	
+	
+></p>
+<h2 id="核心概念理解"><strong>核心概念理解</strong>
+</h2><ul>
+<li><strong>解释题</strong>：请用你自己的话，简要解释以下核心概念，并说明它们之间的关系。
+<ul>
+<li><strong>镜像（Image）</strong>
+<ul>
+<li>类似安装包，整合了所需的运行环境。创建了就不会被更改。</li>
+</ul>
+</li>
+<li><strong>容器（Container）</strong>
+<ul>
+<li>基于镜像安装后的实例应用，而且是独立的，可以启动、删除等等，同时是一个隔离出来的沙箱环境</li>
+</ul>
+</li>
+<li><strong>Dockerfile</strong>
+<ul>
+<li>自己构建镜像的工具，在这个文档中编写镜像所需的环境（而非一个一个手动安装），实现自动化构建</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="了解-docker-compose"><strong>了解 Docker Compose</strong>
+</h2><ul>
+<li>什么是 Docker Compose？它解决了什么问题？
+<ul>
+<li>Docker 官方提供的一个工具，用于定义和运行<strong>多容器</strong> Docker 应用程序。</li>
+<li>将多个 docker 容器整合到一起，可以统一操作（而不用一个一个开启、关闭）。并且可以一起配置网络、数据卷挂载等等。</li>
+</ul>
+</li>
+<li>简要说明 Docker Compose 文件（<code>docker-compose.yml</code>）的作用。
+<ul>
+<li>Docker Compose 的核心配置文件，具体实现多个 docker 容器的协同。可以定义 compose 中的：
+<ul>
+<li>服务：指定适用镜像、映射端口等</li>
+<li>网络：使不同容器可以在一个网络中通信</li>
+<li>数据卷：在容器之间或者容器与主机之间共享数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="编写你的第一个-dockerfile"><strong>编写你的第一个 Dockerfile</strong>
+</h2><ul>
+<li><strong>挑战</strong>：编写一个 <code>Dockerfile</code>，实现以下功能：
+<ul>
+<li>基于一个最新的 <code>ubuntu</code> 镜像。</li>
+<li>在容器中安装 <code>nginx</code>。</li>
+<li>设置 <code>nginx</code> 服务在容器启动时自动运行。</li>
+<li><strong>验证</strong>：使用 <code>docker build</code> 命令构建你的镜像，并使用 <code>docker run</code> 命令运行该容器，确保 <code>nginx</code> 服务正在运行。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="c"># 基于最新的 Ubuntu 镜像</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 安装 nginx</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 首先更新 Ubuntu 的软件包列表，然后安装 nginx，最后清理软件包缓存以减小镜像体积</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    apt-get install -y nginx <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    rm -rf /var/lib/apt/lists/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># 设置 nginx 服务在容器启动时自动运行</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># CMD 指令指定容器启动时要执行的命令，这里让 nginx 以前台方式运行，保证容器不退出</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;nginx&#34;</span><span class="p">,</span> <span class="s2">&#34;-g&#34;</span><span class="p">,</span> <span class="s2">&#34;daemon off;&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">while</span> 条件<span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 循环体，条件为真时执行的操作</span>
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker build -t my-ubuntu-nginx .</span>
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># docker run -d -p 80:80 my-ubuntu-nginx</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>能够编写简单的循环脚本来处理文件列表或执行重复任务。</li>
-</ul>
-<h2 id="编写一个-shell-脚本实现以下功能"><strong>编写一个 Shell 脚本</strong>，实现以下功能：
-</h2><ol>
-<li>
-<p><strong>参数检查</strong>：</p>
+</div><blockquote>
 <ul>
-<li>检查脚本是否接收到至少一个命令行参数。如果没有，打印使用说明（例如：<code>Usage: ./file_processor.sh &lt;directory&gt;</code>）并退出。</li>
-</ul>
-</li>
-<li>
-<p><strong>目录遍历</strong>：</p>
-</li>
-</ol>
+<li>为什么不用下载整个 ubuntu 镜像？
 <ul>
-<li>脚本接收一个目录路径作为参数。进入该目录后，使用 <code>for</code> 循环遍历目录下的所有文件。</li>
+<li>Docker 中的 <code>ubuntu</code> 镜像本质是 <strong>“精简的根文件系统（rootfs）”</strong>，仅包含运行 Ubuntu 环境所需的核心组件，共享宿主机的 Linux 内核，只保留基础命令，去除图形化</li>
 </ul>
-<ol start="3">
-<li>
-<p><strong>文件处理</strong>：</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251019082929494.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251019082929494"
+	
+	
+></p>
+<h2 id="使用-docker-compose-部署多服务应用"><strong>使用 Docker Compose 部署多服务应用</strong>
+</h2><ul>
+<li><strong>挑战</strong>：编写一个 <code>docker-compose.yml</code> 文件，实现以下功能：
 <ul>
-<li>
-<p>对于遍历到的每一个文件，进行以下判断：</p>
-</li>
-<li>
-<p>如果文件是<strong>普通文件</strong>（非目录），则将该文件的文件名（不包含路径）打印到标准输出。</p>
-</li>
-<li>
-<p>如果文件是<strong>可执行文件</strong>，则在文件名后面追加 <code>(Executable)</code> 字样。</p>
-</li>
+<li><strong>服务一</strong>：部署一个 <code>nginx</code> 服务，将其 <code>80</code> 端口映射到主机的 <code>8081</code> 端口。</li>
+<li><strong>服务二</strong>：部署一个 <code>mysql</code> 服务，并设置环境变量 <code>MYSQL_ROOT_PASSWORD</code>。</li>
+<li><strong>验证</strong>：使用 <code>docker compose up -d</code> 命令一键启动这两个服务，并使用 <code>docker ps</code> 确认两个容器都已成功运行。</li>
 </ul>
 </li>
-<li>
-<p><strong>结果输出</strong>：</p>
-<ul>
-<li>
-<p>将所有被处理的文件的输出结果（包含可执行标记）重定向到一个名为 <code>processed_files.txt</code> 的新文件中。</p>
-</li>
-<li>
-<p>最后，打印一句话，提示用户处理已完成，并说明结果已保存在 <code>processed_files.txt</code> 中。</p>
-</li>
 </ul>
-</li>
-</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -524,74 +500,43 @@
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 判断是否未传入任何参数</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;Usage： ./file_processor.sh &lt;directory&gt;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;是不是没有写文件路径？&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 判断传入的参数是否为目录</span>
-</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> -d <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 遍历目录下的所有文件</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> file in <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>/*<span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># 判断是否为普通文件</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> &gt;&gt; processed_files.txt
-</span></span><span class="line"><span class="cl">            <span class="c1"># 判断文件是否可执行</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">                <span class="nb">echo</span> -n <span class="s1">&#39;Executable&#39;</span>
-</span></span><span class="line"><span class="cl">                <span class="nb">echo</span> -n <span class="s1">&#39;Executable&#39;</span> &gt;&gt; processed_files.txt
-</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s1">&#39;&#39;</span> <span class="c1"># 美化的作用</span>
-</span></span><span class="line"><span class="cl">    <span class="k">done</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;批处理已完成，结果已保存在 processed_files.txt 中&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;-----------------&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s1">&#39;是不是文件夹路径输错了？&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 服务一：Nginx 服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nginx-service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8081:80&#34;</span><span class="w">  </span><span class="c"># 将容器的 80 端口映射到主机的 8081 端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 服务二：MySQL 服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql-service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="m">1234</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;3306:3306&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># vi docker-compose.yml</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># docker compose up -d</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost docker_compose_test<span class="o">]</span><span class="c1"># docker ps</span>
+</span></span><span class="line"><span class="cl">CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+</span></span><span class="line"><span class="cl">70b31fae2377   mysql:latest   <span class="s2">&#34;docker-entrypoint.s…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">3</span> minutes   3306/tcp, 33060/tcp                     docker_compose_test-mysql-service-1
+</span></span><span class="line"><span class="cl">d61344588b2e   nginx:latest   <span class="s2">&#34;/docker-entrypoint.…&#34;</span>   <span class="m">3</span> minutes ago   Up <span class="m">3</span> minutes   0.0.0.0:8081-&gt;80/tcp, :::8081-&gt;80/tcp   docker_compose_test-nginx-service-1
 </span></span></code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>写错的点：</p>
-<ul>
-<li><code>[ -z $* ]</code>，要先写 <code>-&lt;...&gt;</code></li>
-<li><code>$file</code> 忘记改单引号为双引号了</li>
-<li><code>$1</code> 只是目录路径，<code>&quot;$1&quot;/*</code> 才是目录下所有文件</li>
-<li><code>echo</code> 默认带换行，添加 -n 参数取消</li>
-</ul>
-</blockquote>
-<p>结果如下图：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251018185932433.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251018185932433"
-	
-	
-></p>
-<blockquote>
-<p>又发现 .txt 中没有换行，得添加一下手动换行</p>
-</blockquote>
-
+</div>
 </section>
 
 
@@ -633,12 +578,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：docker 入门</h2>
+            <h2 class="article-title">御林招新题：Git 版本管理</h2>
         </div>
     </a>
 </article>
@@ -646,12 +591,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-shell%E5%85%A5%E9%97%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：Git 版本管理</h2>
+            <h2 class="article-title">御林招新题：shell 入门</h2>
         </div>
     </a>
 </article>
