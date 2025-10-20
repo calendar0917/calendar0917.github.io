@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="摘要">
-<title>标题</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习对数据库的基本操作">
+<title>御林招新题：MySQL专题</title>
 
 <link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="标题">
-<meta property='og:description' content="摘要">
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：MySQL专题">
+<meta property='og:description' content="学习对数据库的基本操作">
 <meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2025-09-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-08T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="标题">
-<meta name="twitter:description" content="摘要"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：MySQL专题">
+<meta name="twitter:description" content="学习对数据库的基本操作"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/index.json">
     </head>
     <body class="
     article-page
@@ -184,7 +184,42 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mysql-安装与配置"><strong>MySQL 安装与配置</strong></a></li>
+    <li><a href="#数据库操作与管理"><strong>数据库操作与管理</strong></a></li>
+    <li><a href="#数据库性能调优"><strong>数据库性能调优</strong></a></li>
+    <li><a href="#应用程序集成与数据处理"><strong>应用程序集成与数据处理</strong></a></li>
+    <li><a href="#自动化备份与恢复"><strong>自动化备份与恢复</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -194,17 +229,21 @@
     
     <header class="article-category">
         
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">标题</a>
+            <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">御林招新题：MySQL专题</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            摘要
+            学习对数据库的基本操作
         </h3>
         
     </div>
@@ -225,7 +264,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Sep 08, 2025</time>
+                <time class="article-time--published">Oct 20, 2025</time>
             </div>
         
 
@@ -241,13 +280,700 @@
     <section class="article-content">
     
     
-    
+    <h2 id="mysql-安装与配置"><strong>MySQL 安装与配置</strong>
+</h2><ul>
+<li>
+<p><strong>任务</strong>：在你的 Linux 系统上安装 MySQL 服务器，并进行基本的安全配置。</p>
+</li>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li><del>使用系统包管理器安装 MySQL。</del></li>
+</ul>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 下载 MySQL 5.7 的官方源，yum 默认不包含，不能直接下载</span>
+</span></span><span class="line"><span class="cl">wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装源包，检查是否启用源</span>
+</span></span><span class="line"><span class="cl">sudo rpm -ivh mysql57-community-release-el7-11.noarch.rpm
+</span></span><span class="line"><span class="cl">sudo yum repolist enabled <span class="p">|</span> grep <span class="s2">&#34;mysql.*-community.*&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 再安装</span>
+</span></span><span class="line"><span class="cl">sudo yum install mysql-community-server -y
+</span></span><span class="line"><span class="cl"><span class="c1"># 装到这里要确认密钥，有点麻烦，换方案，直接下载 tar 包</span>
+</span></span><span class="line"><span class="cl">sudo systemctl start mysqld
+</span></span><span class="line"><span class="cl"><span class="c1"># 安全脚本</span>
+</span></span><span class="line"><span class="cl">sudo mysql_secure_installation
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>参考：<a class="link" href="https://blog.csdn.net/bai_shuang/article/details/122939884"  target="_blank" rel="noopener"
+    >Linux 安装Mysql 详细教程（图文教程）_linux mysql安装教程-CSDN博客</a></p>
+<p>下载 tar 包：<a class="link" href="https://downloads.mysql.com/archives/community/"  target="_blank" rel="noopener"
+    >MySQL :: Download MySQL Community Server (Archived Versions)</a>，上传</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tar -zxvf mysql-5.7.35-linux-glibc2.12-x86_64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建目录并赋权</span>
+</span></span><span class="line"><span class="cl">groupadd mysql <span class="o">&amp;&amp;</span> useradd -r -g mysql mysql
+</span></span><span class="line"><span class="cl">mkdir -p /data/mysql
+</span></span><span class="line"><span class="cl">chown mysql:mysql -R /data/mysql
+</span></span><span class="line"><span class="cl">chown mysql:mysql -R /usr/local/mysql
+</span></span><span class="line"><span class="cl">chown mysql:mysql -R /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 改配置</span>
+</span></span><span class="line"><span class="cl">vim /etc/my.cnf <span class="c1"># 见下</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 初始化</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/mysql/bin/
+</span></span><span class="line"><span class="cl">./mysqld --defaults-file<span class="o">=</span>/etc/my.cnf --basedir<span class="o">=</span>/usr/local/mysql/ --datadir<span class="o">=</span>/data/mysql/ --user<span class="o">=</span>mysql --initialize
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动</span>
+</span></span><span class="line"><span class="cl">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql
+</span></span><span class="line"><span class="cl">service mysql start
+</span></span><span class="line"><span class="cl"><span class="c1"># 改密码操作比较繁琐，不做记录，参考文章</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[mysqld]
+</span></span><span class="line"><span class="cl">bind-address=0.0.0.0
+</span></span><span class="line"><span class="cl">port=3306
+</span></span><span class="line"><span class="cl">user=mysql
+</span></span><span class="line"><span class="cl">basedir=/usr/local/mysql
+</span></span><span class="line"><span class="cl">datadir=/data/mysql
+</span></span><span class="line"><span class="cl">socket=/tmp/mysql.sock
+</span></span><span class="line"><span class="cl">log-error=/data/mysql/mysql.err
+</span></span><span class="line"><span class="cl">pid-file=/data/mysql/mysql.pid
+</span></span><span class="line"><span class="cl">#character config
+</span></span><span class="line"><span class="cl">character_set_server=utf8mb4
+</span></span><span class="line"><span class="cl">symbolic-links=0
+</span></span><span class="line"><span class="cl">explicit_defaults_for_timestamp=true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>运行 MySQL 的安全脚本，设置 root 密码，并删除不安全的用户和数据库。</li>
+<li><strong>验证</strong>：使用 <code>mysql -u root -p</code> 命令登录，确认能成功进入 MySQL 命令行。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 添加快速启动</span>
+</span></span><span class="line"><span class="cl">sudo ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意：这样安装需要添加默认启动路径，如下</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 登录</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ bin<span class="o">]</span><span class="c1"># mysql -u root -p</span>
+</span></span><span class="line"><span class="cl">Enter password:
+</span></span><span class="line"><span class="cl">Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># /etc/systemd/system/mysql.service,配置service
+</span></span><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=MySQL Server
+</span></span><span class="line"><span class="cl">After=network.target
+</span></span><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">User=mysql
+</span></span><span class="line"><span class="cl">Group=mysql
+</span></span><span class="line"><span class="cl">ExecStart=/path/to/mysql-8.0.27/bin/mysqld --defaults-file=/path/to/mysql-8.0.27/my.cnf
+</span></span><span class="line"><span class="cl">ExecStop=/path/to/mysql-8.0.27/bin/mysqladmin --defaults-file=/path/to/mysql-8.0.27/my.cnf shutdown
+</span></span><span class="line"><span class="cl">Restart=on-failure [Install] WantedBy=multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数据库操作与管理"><strong>数据库操作与管理</strong>
+</h2><ul>
+<li>
+<p><strong>任务</strong>：创建数据库、表，并进行数据的导入与导出。</p>
+</li>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li>在 MySQL 中创建一个新的数据库和一张表（例如，一个名为 <code>students</code> 的表，包含 <code>id</code>, <code>name</code>, <code>score</code> 等字段）。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1"># 建库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">USE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># 建表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">students</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="kp">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">score</span><span class="w"> </span><span class="kt">DECIMAL</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># 插入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">students</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">85</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">92</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="s1">&#39;Charlie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">78</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># 这里先出去 shell 导出
+</span></span></span><span class="line"><span class="cl"><span class="c1"># mysqldump -u root -p test_db &gt; test_db_backup.sql
+</span></span></span><span class="line"><span class="cl"><span class="c1"># 删库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># 重建
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">USE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># 导入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">test_db</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">test_db_backup</span><span class="p">.</span><span class="k">sql</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mysqldump -u root -p test_db &gt; test_db_backup.sql <span class="c1"># 导出</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>插入几条数据到表中。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020191506632.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020191506632"
+	
+	
+></p>
+<ul>
+<li><strong>导出</strong>：使用 <code>mysqldump</code> 命令将你的数据库导出为一个 SQL 文件。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ bin<span class="o">]</span><span class="c1"># ./mysqldump -u root -p test_db &gt; test_db_backup.sql</span>
+</span></span><span class="line"><span class="cl">Enter password:....
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ bin<span class="o">]</span><span class="c1"># ls | grep test</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">test_db_backup.sql <span class="c1"># 备份的表</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>导入</strong>：删除你创建的数据库，然后使用导出的 SQL 文件将其恢复。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="k">DATABASES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="k">Database</span><span class="w">           </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">information_schema</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">mysql</span><span class="w">              </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">performance_schema</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">sys</span><span class="w">                </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">test_db</span><span class="w">            </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+--------------------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">5</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="数据库性能调优"><strong>数据库性能调优</strong>
+</h2><ul>
+<li>
+<p><strong>任务</strong>：了解并修改 MySQL 的关键配置参数，以提高性能。</p>
+</li>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li>
+<p>找到 MySQL 的配置文件（通常是 <code>/etc/mysql/my.cnf</code> 或 <code>/etc/my.cnf</code>）。</p>
+</li>
+<li>
+<p><strong>挑战</strong>：</p>
+<ul>
+<li>修改 <code>innodb_buffer_pool_size</code> 参数，并简要解释该参数的作用。</li>
+</ul>
+<blockquote>
+<p>InnoDB 存储引擎极为关键的参数，它<strong>指定了 InnoDB 缓冲池的大小</strong>。InnoDB 缓冲池主要用于缓存表数据、索引数据等，当数据库进行查询操作时，会<strong>先从缓冲池中查找所需数据</strong>，如果能找到（即命中缓存），就可以避免从磁盘读取数据，从而极大地<strong>提高查询性能</strong>。</p>
+</blockquote>
+<ul>
+<li>修改 <code>max_connections</code> 参数，并解释其对系统资源和并发连接的影响。</li>
+</ul>
+<blockquote>
+<p>用于设置 MySQL 服务器允许的<strong>最大并发连接数</strong>。过小会导致部分连接被拒绝，过多会占用服务器资源。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[root@iZ2vc96n4f90pw7f8dfbfsZ local]# vi /etc/my.cnf
+</span></span><span class="line"><span class="cl">[mysqld]
+</span></span><span class="line"><span class="cl">bind-address=0.0.0.0
+</span></span><span class="line"><span class="cl">port=3306
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">innodb_buffer_pool_size = 2G
+</span></span><span class="line"><span class="cl">max_connections = 500
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>验证</strong>：重启 MySQL 服务，并确认新的配置已生效。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ support-files<span class="o">]</span><span class="c1"># mysql -u root -p</span>
+</span></span><span class="line"><span class="cl">......
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mysql&gt; SHOW VARIABLES LIKE <span class="s1">&#39;innodb_buffer_pool_size&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+-------------------------+------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Variable_name           <span class="p">|</span> Value      <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-------------------------+------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> innodb_buffer_pool_size <span class="p">|</span> <span class="m">2147483648</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-------------------------+------------+
+</span></span><span class="line"><span class="cl"><span class="m">1</span> row in <span class="nb">set</span> <span class="o">(</span>0.01 sec<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mysql&gt; SHOW VARIABLES LIKE <span class="s1">&#39;max_connections&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+-----------------+-------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Variable_name   <span class="p">|</span> Value <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----------------+-------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> max_connections <span class="p">|</span> <span class="m">500</span>   <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----------------+-------+
+</span></span><span class="line"><span class="cl"><span class="m">1</span> row in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="应用程序集成与数据处理"><strong>应用程序集成与数据处理</strong>
+</h2><ul>
+<li>
+<p><strong>任务</strong>：编写一个简单的应用程序，连接到你的 MySQL 数据库，执行查询和计算，并将结果导出。</p>
+</li>
+<li>
+<p><strong>具体操作</strong>：</p>
+<ul>
+<li><strong>语言选择</strong>：你可以使用任何你熟悉的语言（<strong>推荐使用Python</strong>）。</li>
+<li><strong>程序功能</strong>：
+<ul>
+<li>连接到你在必做部分创建的数据库。</li>
+<li>查询 <code>students</code> 表中的所有数据。</li>
+<li>计算学生的平均分数。</li>
+<li>将所有数据（包括计算出的平均分）写入一个名为 <code>report.csv</code> 的 CSV 文件中。</li>
+</ul>
+</li>
+<li><strong>要求</strong>：在代码中添加注释，解释连接数据库、执行查询和写入文件的关键步骤。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 代码模板</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pymysql</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">csv</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 数据库连接配置</span>
+</span></span><span class="line"><span class="cl"><span class="n">db_config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34;8.137.38.223&#34;</span><span class="p">,</span>  <span class="c1"># MySQL 主机地址</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;user&#34;</span><span class="p">:</span> <span class="s2">&#34;root&#34;</span><span class="p">,</span>  <span class="c1"># 数据库用户名</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;1234&#34;</span><span class="p">,</span>  <span class="c1"># 数据库密码</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;database&#34;</span><span class="p">:</span> <span class="s2">&#34;test_db&#34;</span>  <span class="c1"># 数据库名</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连接数据库</span>
+</span></span><span class="line"><span class="cl"><span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">db_config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询 students 表中的所有数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">query_sql</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM students&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_sql</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">students_data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取表的列名</span>
+</span></span><span class="line"><span class="cl"><span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 计算学生的平均分数</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">students_data</span><span class="p">]</span>  <span class="c1"># 假设分数在第三列（索引为2）</span>
+</span></span><span class="line"><span class="cl"><span class="n">average_score</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="k">if</span> <span class="n">scores</span> <span class="k">else</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将所有数据写入 report.csv 文件</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;report.csv&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 写入列名</span>
+</span></span><span class="line"><span class="cl">    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">column_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&#34;average_score&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 写入每行数据以及平均分</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">students_data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">average_score</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭游标和连接</span>
+</span></span><span class="line"><span class="cl"><span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;数据查询、计算及导出完成，结果已保存至 report.csv 文件&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<blockquote>
+<ul>
+<li>
+<p>pymysql 库的使用：</p>
+<ul>
+<li>
+<p><code>conn = pymysql.connect()</code> 建立连接，传入 <code>host port user password database</code>，连接成功，返回一个 conn 对象，用这个对象操作</p>
+</li>
+<li>
+<p><code>cursor = conn.cursor()</code> 创建游标对象，用于执行 sql 语句</p>
+<ul>
+<li>还有<code>conn.cursor(pymysql.cursors.DictCursor)</code>，返回一个字典游标，用于插入字典</li>
+</ul>
+</li>
+<li>
+<p><code>cursor.execute(&quot;...&quot;)</code>，执行</p>
+<ul>
+<li>
+<p>防注入写法：</p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;Alice&#34;</span><span class="p">,</span> <span class="mf">85.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sql</span> <span class="o">=</span> <span class="s2">&#34;INSERT INTO students (name, score) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p>获取数据：<code>fetchall() fetchone() fetchmany(size)</code></p>
+</li>
+<li>
+<p>释放资源：<code>cursor.close() conn.close()</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020202548553.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020202548553"
+	
+	
+></p>
+<h2 id="自动化备份与恢复"><strong>自动化备份与恢复</strong>
+</h2><ul>
+<li><strong>任务</strong>：编写一个 Shell 脚本，自动化数据库的日常备份。</li>
+<li><strong>具体操作</strong>：
+<ul>
+<li>编写一个 Shell 脚本，使用 <code>mysqldump</code> 命令备份你的数据库。</li>
+<li>脚本应为备份文件自动添加时间戳，例如 <code>backup_db_2025-09-15.sql</code>。</li>
+<li>使用 <code>crontab</code> 将该脚本设置为每天凌晨自动运行一次。</li>
+<li><strong>验证</strong>：手动执行脚本，并检查是否成功生成了带有时间戳的备份文件。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">DB_USER</span><span class="o">=</span><span class="s2">&#34;root&#34;</span>           <span class="c1"># 用户名</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="s2">&#34;....&#34;</span>  <span class="c1"># MySQL 密码</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DB_NAME</span><span class="o">=</span><span class="s2">&#34;test_db&#34;</span>        <span class="c1"># 要备份的数据库名</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&#34;/usr/local/mysql/backup&#34;</span>  <span class="c1"># 备份文件保存目录</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date +<span class="s2">&#34;%Y-%m-%d&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 命令行中，date +%Y-%m-%d 可以格式化 date 输出</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BACKUP_FILE</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$BACKUP_DIR</span><span class="s2">/backup_</span><span class="si">${</span><span class="nv">DB_NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">DATE</span><span class="si">}</span><span class="s2">.sql&#34;</span>  <span class="c1"># 备份文件名</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 mysqldump 备份数据库</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里得要指定路径，系统变量没配置好</span>
+</span></span><span class="line"><span class="cl">/usr/local/mysql/bin/mysqldump -u <span class="si">${</span><span class="nv">DB_USER</span><span class="si">}</span> --password<span class="o">=</span><span class="si">${</span><span class="nv">DB_PASSWORD</span><span class="si">}</span> <span class="si">${</span><span class="nv">DB_NAME</span><span class="si">}</span> &gt; <span class="si">${</span><span class="nv">BACKUP_FILE</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查备份是否成功</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  <span class="c1"># $? 是特殊变量，返回上一条语句的执行结果，成功返回0</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;备份成功！文件：</span><span class="si">${</span><span class="nv">BACKUP_FILE</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;备份失败！&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 赋权</span>
+</span></span><span class="line"><span class="cl">chmod +x mysql_backup.sh
+</span></span><span class="line"><span class="cl"><span class="c1"># 手动执行</span>
+</span></span><span class="line"><span class="cl">./mysql_backup.sh
+</span></span><span class="line"><span class="cl">备份成功！文件：/usr/local/mysql/backup/backup_test_db_2025-10-20.sql
+</span></span><span class="line"><span class="cl"><span class="c1"># 脚本定时执行，用 crontab 定时工具</span>
+</span></span><span class="line"><span class="cl">crontab -e
+</span></span><span class="line"><span class="cl"><span class="c1"># 加上：</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">1</span> * * * /usr/local/mysql/mysql_backup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020204004953.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020204004953"
+	
+	
+></p>
+<ul>
+<li>不知道怎么关闭 mysql</li>
+</ul>
+<blockquote>
+<p>源码编译，需要到指定目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ mysql<span class="o">]</span><span class="c1"># cd /usr/local/mysql/bin</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZ2vc96n4f90pw7f8dfbfsZ bin<span class="o">]</span><span class="c1"># sudo ./mysqladmin -u root -p shutdown</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<ul>
+<li>
+<p>如何看系统占用？</p>
+<ul>
+<li>
+<p>top 指令</p>
+</li>
+<li>
+<p>增强版 htop</p>
+</li>
+</ul>
+</li>
+</ul>
+
 </section>
 
 
     <footer class="article-footer">
     
     <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
         
     </section>
 
@@ -280,13 +1006,19 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
-    <a href="/%E6%A0%87%E9%A2%98/">
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
         
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png"/>
+                
+            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">标题</h2>
+            <h2 class="article-title">御林招新题：Homepage</h2>
         </div>
     </a>
 </article>
@@ -294,12 +1026,51 @@
             
                 
 <article class="">
-    <a href="/cotents/posts/%E9%85%8D%E7%BD%AEdocker/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-llm%E4%B8%93%E9%A2%98/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">测试</h2>
+            <h2 class="article-title">御林招新题：LLM 专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 进阶</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：内网穿透与流量转发专题</h2>
         </div>
     </a>
 </article>
