@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习用 Homepage 制作工作台">
+<title>御林招新题：Homepage</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-homepage/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：Homepage">
+<meta property='og:description' content="学习用 Homepage 制作工作台">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-homepage/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-20T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png' />
+<meta name="twitter:title" content="御林招新题：Homepage">
+<meta name="twitter:description" content="学习用 Homepage 制作工作台"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png' /><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-homepage/index.json">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#阅读文档选择安装方式"><strong>阅读文档，选择安装方式</strong></a></li>
+    <li><a href="#理解配置设置主页标题"><strong>理解配置，设置主页标题</strong></a></li>
+    <li><a href="#添加你的第一个服务"><strong>添加你的第一个服务</strong></a></li>
+    <li><a href="#验证"><strong>验证</strong></a></li>
+    <li><a href="#进阶服务与集成"><strong>进阶服务与集成</strong></a></li>
+    <li><a href="#小部件定制"><strong>小部件定制</strong></a></li>
+    <li><a href="#主题与布局自定义"><strong>主题与布局自定义</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" alt="Featured image of post 御林招新题：Homepage" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">御林招新题：Homepage</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习用 Homepage 制作工作台
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><strong>任务：安装并配置一个基础的 Homepage</strong></p>
+<blockquote>
+<ul>
+<li>什么是 Homepage？</li>
+</ul>
+<blockquote>
+<p>A modern, <em>fully static, fast</em>, secure <em>fully proxied</em>, highly customizable application dashboard with integrations for over 100 services and translations into multiple languages. Easily configured via YAML files or through docker label discovery.</p>
+</blockquote>
+</blockquote>
+<h2 id="阅读文档选择安装方式"><strong>阅读文档，选择安装方式</strong>
+</h2><ul>
+<li>访问 <a class="link" href="https://github.com/gethomepage/homepage"  target="_blank" rel="noopener"
+    >Homepage 的官方 GitHub</a> 或官方网站。</li>
+<li>在文档中找到“安装指南”部分，根据你已经学过的知识，选择最合适的安装方式（<strong>推荐使用 Docker 或 Docker Compose</strong>）。</li>
+<li>根据文档说明，完成 Homepage 的安装。</li>
+</ul>
+<h2 id="理解配置设置主页标题"><strong>理解配置，设置主页标题</strong>
+</h2><ul>
+<li>在文档中找到“配置”部分，了解其配置文件的结构。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># docker compose 的配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 可以用 docker proxy 来反向代理，增加安全性？</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 保存为 docker-compose.yml,然后 docker-compose up -d 启动,后续直接修改 yml,docker-compose restart 即可修改配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">homepage</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ghcr.io/gethomepage/homepage:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">homepage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">HOMEPAGE_ALLOWED_HOSTS</span><span class="p">:</span><span class="w"> </span><span class="m">8.137.38.223</span><span class="p">:</span><span class="m">3000</span><span class="w"> </span><span class="c"># 补上端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PUID</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="c"># optional, your user id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PGID</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="c"># optional, your group id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">~/docker/homepage/config:/app/config</span><span class="w"> </span><span class="c"># Make sure your local config directory exists</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations # 用到 docker 集成的时候需要</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>mkdir -p ~/docker/homepage/config</p>
+<p>启动容器后自动挂载</p>
+<ul>
+<li>安装 docker-compose
+<ul>
+<li><del>加装一下（要用 pip3），又发现要 rust 环境，再加装&ndash;</del></li>
+<li><code>sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</code></li>
+<li><code>sudo chmod +x /usr/local/bin/docker-compose</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020091435920.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020091435920"
+	
+	
+></p>
+<p>进去了但没完全进去……</p>
+<blockquote>
+<p><del>原因是配置文件只写了域名没写端口，改一下</del></p>
+<p>原因是 HOMEPAGE_ALLOWED_HOSTS 得要配置，先设置为 “*” 禁用了（不安全，可能会被攻击）</p>
+<ul>
+<li>restart 还没办法重载配置……需要docker-compose down然后docker-compose up -d，就可以进入了</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020093454972.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020093454972"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># cofig 的配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">my-remote-docker</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.0.101</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">2375</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>根据文档说明，修改配置文件，将你的主页标题设置为你喜欢的名字（例如：“我的DevOps控制台”）。</li>
+</ul>
+<blockquote>
+<p>参考：<a class="link" href="https://gethomepage.dev/configs/settings/"  target="_blank" rel="noopener"
+    >Settings - Homepage</a>，修改完可以热加载</p>
+<p>有主题、外观等等</p>
+</blockquote>
+<h2 id="添加你的第一个服务"><strong>添加你的第一个服务</strong>
+</h2><ul>
+<li>在文档中找到“服务（Services）”或“应用程序（Apps）”相关的章节。</li>
+</ul>
+<blockquote>
+<p>参考：<a class="link" href="https://gethomepage.dev/configs/services/"  target="_blank" rel="noopener"
+    >Services - Homepage</a>，修改 service.yaml</p>
+</blockquote>
+<ul>
+<li>根据文档中的示例，在配置文件中添加至少一个服务。这个服务可以是：
+<ul>
+<li>你在 Docker 任务中搭建的 <code>searxng</code>。</li>
+<li>一个你常用的网站，例如 GitHub、你自己的博客或任何其他网站。</li>
+</ul>
+</li>
+<li><strong>要求</strong>：确保你正确配置了服务的名称、图标和URL。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020095731270.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020095731270"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">Group One</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">My Blog</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">https://raw.githubusercontent.com/calendar0917/images/master/6a4b02385b1bb87d52812566164e8031.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l">https://calendar0917.github.io/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Welcome To My Blog!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">Group Two</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">御林工作室</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">http://recruit.yulinsec.cn/assets/favicon-CKa7I3RX.webp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l">http://recruit.yulinsec.cn/#/game</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">来写几道题吧</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="验证"><strong>验证</strong>
+</h2><ul>
+<li>重新加载或重启你的 Homepage 服务。</li>
+<li>在浏览器中访问你的 Homepage，确认标题已更改，并且你添加的服务图标可以正常点击，并跳转到正确的页面。</li>
+</ul>
+<blockquote>
+<p>见上</p>
+</blockquote>
+<h2 id="进阶服务与集成"><strong>进阶服务与集成</strong>
+</h2><ul>
+<li>在文档中找到“增强服务（Enhanced services）”或“小部件（Widgets）”部分。</li>
+<li>添加一个支持状态检查的服务。例如，你可以添加你的 <code>searxng</code> 服务，并配置 Homepage 能够自动检查其运行状态（在线/离线）。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># service.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">Group Three</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">Searxng</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l">http://8.137.38.223:8081</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">siteMonitor</span><span class="p">:</span><span class="w"> </span><span class="l">http://8.137.38.223:8081</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">searxng.png</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020123744298.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020123744298"
+	
+	
+></p>
+<h2 id="小部件定制"><strong>小部件定制</strong>
+</h2><ul>
+<li>在文档中找到“小部件”章节，根据说明在你的主页上添加至少一个实用的小部件。</li>
+</ul>
+<blockquote>
+<p>先看看有什么 Widgets(小部件) 可以用：<a class="link" href="https://gethomepage.dev/widgets/info/"  target="_blank" rel="noopener"
+    >Info Widgets - Homepage</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">datetime</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">text_size</span><span class="p">:</span><span class="w"> </span><span class="l">xl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">timeStyle</span><span class="p">:</span><span class="w"> </span><span class="l">short</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>添加了一个时间</p>
+</blockquote>
+<ul>
+<li>尝试添加一个 Docker 状态小部件，使其能显示你的 Docker 容器数量或状态，这需要你在文档中找到如何与 Docker API 集成的方法。</li>
+</ul>
+<p><del>参考：<a class="link" href="https://gethomepage.dev/configs/docker/#using-socket-directly"  target="_blank" rel="noopener"
+    >using-socket-directly</a></del></p>
+<blockquote>
+<p><del>需要用到 docker socket 集成，上面的 docker-compose.yml 注释要去掉了,还要把PGID、PUID删掉，才能以 root 运行（？）</del></p>
+<p>不知道怎么使用，换方案</p>
+</blockquote>
+<p>参考：<a class="link" href="https://www.bilibili.com/video/BV1xZ42127eJ/?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=f329e64c57c95b7adedc05b814353e29"  target="_blank" rel="noopener"
+    >HomePage导航下集 常见组件的设置</a>，这里提到了 portainer 可视化工具，刚好 homepage 有整合</p>
+<p>安装参考：<a class="link" href="https://blog.csdn.net/weixin_44649780/article/details/128401975"  target="_blank" rel="noopener"
+    >Docker | docker安装portainer详细步骤-CSDN博客</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker pull portainer/portainer-ce
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动镜像</span>
+</span></span><span class="line"><span class="cl">docker run -d -p 9000:9000 -p 9443:9443 -v /var/run/docker.sock:/var/run/docker.sock -v /dockerData/portainer:/data --restart<span class="o">=</span>always --name portainer portainer/portainer-ce:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># setting.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">Group Three</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">Searxng</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l">http://8.137.38.223:8081</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">siteMonitor</span><span class="p">:</span><span class="w"> </span><span class="l">http://8.137.38.223:8081</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">searxng.png</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">Portainer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">portainer.png</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">href</span><span class="p">:</span><span class="w"> </span><span class="l">http://8.137.38.223:9000</span><span class="w"> </span><span class="c"># Portainer IP:9000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Portainer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ping</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="w"> </span><span class="c"># Portainer IP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">my-docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">showStats</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">container</span><span class="p">:</span><span class="w"> </span><span class="l">portainer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nt">widget</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">portainer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://8.137.38.223:9443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">......</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>
+<p>遇到的问题：</p>
+<p>刚开始没有映射 9443 端口（用于认证？）</p>
+<ul>
+<li>重新映射只需要 docker rm &hellip;，这样只会删除容器而不会删除数据卷，然后重新 docker run 即可</li>
+</ul>
+<p>感觉暴露了 portainer 有点危险</p>
+<ul>
+<li>portainer 自带登录验证</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>效果：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020165610688.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020165610688"
+	
+	
+></p>
+<h2 id="主题与布局自定义"><strong>主题与布局自定义</strong>
+</h2><ul>
+<li>在文档中找到“主题（Themes）”和“布局（Layout）”相关的章节。</li>
+</ul>
+<blockquote>
+<p><a class="link" href="https://gethomepage.dev/configs/settings/#theme"  target="_blank" rel="noopener"
+    >Theme</a></p>
+</blockquote>
+<ul>
+<li>尝试更改 Homepage 的默认主题，或者通过修改配置文件，调整服务图标的排列顺序或分组方式。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># setting.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">layout</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Group One</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">style</span><span class="p">:</span><span class="w"> </span><span class="l">row</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">columns</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Group One 由单列变为双列：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020171307094.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020171307094"
+	
+	
+></p>
+<ul>
+<li><strong>挑战</strong>：尝试在配置文件中添加自定义 CSS，改变某个元素的颜色或字体。这需要你仔细阅读文档中关于“自定义”的部分。</li>
+</ul>
+<blockquote>
+<p><a class="link" href="https://gethomepage.dev/configs/custom-css-js/"  target="_blank" rel="noopener"
+    >Custom-css-js</a>，很简短的说明</p>
+<p>To add custom css simply edit the <code>custom.css</code> file under your config directory, similarly for javascript you would edit <code>custom.js</code>.</p>
+</blockquote>
+<ul>
+<li>刚开始不知道去哪里找元素，其实直接 F12 看元素所属的类，然后修改就可以了</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nt">--</span><span class="o">!</span> <span class="nt">custom</span><span class="p">.</span><span class="nc">css</span> <span class="nt">字体变为红色</span> <span class="nt">--</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">service-group-name</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">color</span><span class="p">:</span> <span class="mh">#FF3A00</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>效果：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020172805821.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020172805821"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-llm%E4%B8%93%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：LLM 专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 进阶</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E7%BD%91%E7%BB%9C%E8%BD%AC%E5%8F%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：内网穿透与流量转发专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：文件服务器</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
