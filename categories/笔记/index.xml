@@ -7,7 +7,565 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>概率论</title>
+        <link>https://calendar0917.github.io/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/</link>
+        <pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/</guid>
+        <description>&lt;p&gt;参考视频：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1N8BbY8E15/?p=2&amp;amp;spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;amp;vd_source=f329e64c57c95b7adedc05b814353e29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;概率论四小时速成&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;随机事件与概率&#34;&gt;随机事件与概率
+&lt;/h2&gt;&lt;h3 id=&#34;事件关系与运算率&#34;&gt;事件关系与运算率
+&lt;/h3&gt;&lt;p&gt;事件关系：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075205102.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022075205102&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;运算律：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075254990.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022075254990&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;概率计算性质&#34;&gt;概率计算性质
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022075336338.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022075336338&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;注意：&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080231202.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022080231202&#34;
+	
+	
+&gt;对于多项依然成立&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;集合并 == 概率 +&lt;/p&gt;
+&lt;p&gt;集合且 == 概率 ·&lt;/p&gt;
+&lt;p&gt;补充：容斥原理&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;条件概率&#34;&gt;条件概率
+&lt;/h3&gt;&lt;p&gt;条件概率与乘法公式：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080612196.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022080612196&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;事件的独立性&#34;&gt;事件的独立性
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080750938.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022080750938&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;独立不互斥，互斥不独立&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080945953.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022080945953&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;多事件独立性：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022080829872.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022080829872&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;全概率 - 贝叶斯公式：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081025058.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081025058&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;随机变量分布&#34;&gt;随机变量分布
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;分布函数：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081325900.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081325900&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;备注：&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081339289.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081339289&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;概率 - 分布函数关系：配凑出范围&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081425038.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081425038&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;分布函数的充要条件：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081621331.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081621331&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;等号跟大于走，永远右连续&lt;/p&gt;
+&lt;p&gt;根据规范性、右连续性，可以用极限解方程求参数&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;常识结论：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081839150.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081839150&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;离散型随机变量&#34;&gt;离散型随机变量
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022081922286.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022081922286&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分布律可以写成表格的形式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;古典概型：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082007258.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082007258&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根据分布律写分布函数：
+&lt;ul&gt;
+&lt;li&gt;根据定义域划分范围，依次求和&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;二项分布&#34;&gt;二项分布
+&lt;/h4&gt;&lt;p&gt;独立重复、事件 A 发生的次数&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082320081.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082320081&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082421022.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082421022&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;几何概型：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082537602.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082537602&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;几何分布&#34;&gt;几何分布
+&lt;/h4&gt;&lt;p&gt;事件首次发生的概率&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082634533.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082634533&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;二项-01-分布&#34;&gt;二项 01 分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022082836415.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022082836415&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;泊松分布&#34;&gt;泊松分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084237766.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022084237766&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意一个代换：&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084307855.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022084307855&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;连续型随机变量&#34;&gt;连续型随机变量
+&lt;/h3&gt;&lt;h4 id=&#34;概率密度&#34;&gt;概率密度：
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084626738.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022084626738&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;概率为 0 的事件可能发生&lt;/p&gt;
+&lt;p&gt;概率密度的积分就成为概率 &amp;ndash;&amp;gt; 在哪求概率，就在哪求积分&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;充要条件：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022084813110.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022084813110&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;与分布函数：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085101165.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022085101165&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分定义域求积分&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;均匀分布&#34;&gt;均匀分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085829523.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022085829523&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;指数分布&#34;&gt;指数分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022085945280.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022085945280&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;利用指数分布的无记忆性，转换区间&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;正态分布&#34;&gt;正态分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022090654026.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022090654026&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;标准化：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022090834007.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022090834007&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;先变换为标准正态，再求概率（用标准正态的分布函数表示）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022091436382.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022091436382&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;根据形式配凑&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022091554558.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022091554558&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;已知-x求-fx-的分布函数&#34;&gt;已知 X，求 f(X) 的分布函数
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022092554592.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022092554592&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关键在于根据 Y &amp;lt;= y 转换出 X ~ y 关系，用 X 的分布函数代换出 Y 的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;二维随机变量&#34;&gt;二维随机变量
+&lt;/h2&gt;&lt;h3 id=&#34;离散型&#34;&gt;离散型
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;联合分布律&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094458316.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022094458316&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094526051.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022094526051&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;独立性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094540253.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022094540253&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有 p_ij = 0，一定不独立&lt;/p&gt;
+&lt;p&gt;独立 == 各行（列）成比例&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;连续型&#34;&gt;连续型
+&lt;/h3&gt;&lt;h4 id=&#34;分布密度概率&#34;&gt;分布密度、概率
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022094731080.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022094731080&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;找区域，二重积分即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;独立性&#34;&gt;独立性
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022095256614.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022095256614&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;边缘密度&#34;&gt;边缘密度
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022095512292.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022095512292&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对另一个变量积分&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;条件概率密度&#34;&gt;条件概率密度
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022100004051.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022100004051&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;固定某个参数后，概率密度只域另一个参数有关&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;二位均匀&#34;&gt;二位均匀
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022100325862.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022100325862&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;求面积之比即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;最大最小值分布&#34;&gt;最大、最小值分布
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022102611138.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251022102611138&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;二维连续型函数分布&#34;&gt;二维连续型函数分布
+&lt;/h4&gt;</description>
+        </item>
+        <item>
         <title>C&#43;&#43; 模板及STL技术</title>
         <link>https://calendar0917.github.io/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/</link>
         <pubDate>Tue, 14 Oct 2025 00:00:00 +0000</pubDate>

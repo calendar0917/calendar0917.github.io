@@ -10,9 +10,12 @@
 <meta property='og:description' content="学习 Git 的基本操作">
 <meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-18T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251021193834987.png' />
 <meta name="twitter:title" content="御林招新题：Git 版本管理">
-<meta name="twitter:description" content="学习 Git 的基本操作"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/index.json">
+<meta name="twitter:description" content="学习 Git 的基本操作"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251021193834987.png' /><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
     </head>
     <body class="
     article-page
@@ -212,6 +215,7 @@
     <li><a href="#分支管理"><strong>分支管理</strong></a></li>
     <li><a href="#历史记录与回溯"><strong>历史记录与回溯</strong></a></li>
     <li><a href="#远程仓库进阶"><strong>远程仓库进阶</strong></a></li>
+    <li><a href="#标签使用">标签使用</a></li>
   </ol>
 </nav>
         </div>
@@ -223,8 +227,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193834987.png" loading="lazy" alt="Featured image of post 御林招新题：Git 版本管理" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -722,7 +734,25 @@
 </span></span><span class="line"><span class="cl"> * <span class="o">[</span>new branch<span class="o">]</span>      main -&gt; main
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h2 id="标签使用">标签使用
+</h2><blockquote>
+<p><code>git restore</code>（Git 2.23+ 新增）</p>
+<p><strong>核心作用</strong>：恢复工作区或暂存区（index）的文件内容，不影响提交历史。可以理解为 “撤销对文件的修改”，直接操作文件内容，而非提交记录。</p>
+</blockquote>
+<p><strong>保存一步</strong>：
+<code>git add .</code>
+<code>git commit -m &quot;描述&quot;</code></p>
+<p><strong>恢复任意状态</strong>：
+<code>git log --oneline</code> 找编号
+<code>git restore --source=编号 .</code>
+<code>git add .</code></p>
+<p><strong>打标签</strong>：
+<code>git tag 标签名 提交号</code></p>
+<p><strong>恢复标签</strong>：
+<code>git restore --source=标签名 .</code></p>
+<p><strong>删标签</strong>：
+<code>git tag -d 标签名</code></p>
+
 </section>
 
 
@@ -763,9 +793,15 @@
         <div class="flex article-list--tile">
             
                 
-<article class="">
+<article class="has-image">
     <a href="/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/">
         
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png"/>
+                
+            </div>
         
 
         <div class="article-details">

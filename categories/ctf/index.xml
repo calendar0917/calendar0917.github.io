@@ -13,7 +13,7 @@
         <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/</guid>
-        <description>&lt;h2 id=&#34;linux-入门&#34;&gt;Linux 入门
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" alt="Featured image of post 御林-DevOps入门小结" /&gt;&lt;h2 id=&#34;linux-入门&#34;&gt;Linux 入门
 &lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://calendar0917.github.io/posts/%e5%be%a1%e6%9e%97-linux%e5%85%a5%e9%97%a8/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;御林招新题：DevOps-Linux入门&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;一环境搭建&#34;&gt;一、环境搭建
@@ -6445,7 +6445,7 @@ multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB&lt;/p&gt;
         <pubDate>Sat, 18 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</guid>
-        <description>&lt;h2 id=&#34;安装与配置-git&#34;&gt;&lt;strong&gt;安装与配置 Git&lt;/strong&gt;
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193834987.png" alt="Featured image of post 御林招新题：Git 版本管理" /&gt;&lt;h2 id=&#34;安装与配置-git&#34;&gt;&lt;strong&gt;安装与配置 Git&lt;/strong&gt;
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;在你的 Linux 操作系统上，安装 Git。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;全局配置&lt;/strong&gt;：配置你的全局用户名和邮箱，这是 Git 记录提交者信息所必需的。&lt;/li&gt;
@@ -6886,7 +6886,25 @@ multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; * &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;new branch&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;      main -&amp;gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;h2 id=&#34;标签使用&#34;&gt;标签使用
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;git restore&lt;/code&gt;（Git 2.23+ 新增）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;核心作用&lt;/strong&gt;：恢复工作区或暂存区（index）的文件内容，不影响提交历史。可以理解为 “撤销对文件的修改”，直接操作文件内容，而非提交记录。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;保存一步&lt;/strong&gt;：
+&lt;code&gt;git add .&lt;/code&gt;
+&lt;code&gt;git commit -m &amp;quot;描述&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;恢复任意状态&lt;/strong&gt;：
+&lt;code&gt;git log --oneline&lt;/code&gt; 找编号
+&lt;code&gt;git restore --source=编号 .&lt;/code&gt;
+&lt;code&gt;git add .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;打标签&lt;/strong&gt;：
+&lt;code&gt;git tag 标签名 提交号&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;恢复标签&lt;/strong&gt;：
+&lt;code&gt;git restore --source=标签名 .&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;删标签&lt;/strong&gt;：
+&lt;code&gt;git tag -d 标签名&lt;/code&gt;&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>御林招新题：shell 入门</title>
