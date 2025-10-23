@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>网络安全 on Calendar&#39;s Blog</title>
+        <link>https://calendar0917.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+        <description>Recent content in 网络安全 on Calendar&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Calendar</copyright>
+        <lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>代码审计-PHP</title>
+        <link>https://calendar0917.github.io/posts/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-php/</link>
+        <pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-php/</guid>
+        <description>&lt;p&gt;参考：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV12om2YTEgW?spm_id_from=333.788.player.switch&amp;amp;vd_source=f329e64c57c95b7adedc05b814353e29&amp;amp;p=113&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;代码审计-PHP篇&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;原生开发&#34;&gt;原生开发
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;关键词挖掘&lt;/li&gt;
+&lt;li&gt;功能挖掘&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;sql-注入&#34;&gt;SQL 注入
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;正则搜索 &lt;code&gt;(update|select|insert|delete|).*?where.*=&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;需要搭配经验筛选，模板比较不容易出漏洞&lt;/li&gt;
+&lt;li&gt;看文件路径，后台漏洞不容易利用&lt;/li&gt;
+&lt;li&gt;找&lt;strong&gt;可执行变量&lt;/strong&gt;、&lt;strong&gt;过滤&lt;/strong&gt;，跟踪函数声明、用例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MySQL Monitor Client 跟踪项目&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;文件安全&#34;&gt;文件安全
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;发现&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;脚本文件名 &lt;code&gt;upload del delfile down downfile read readfile&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;应用功能点 &lt;code&gt;下载、上传、读取……&lt;/code&gt; &amp;ndash;&amp;gt; 抓包找路径&lt;/li&gt;
+&lt;li&gt;操作关键字 &lt;code&gt;$_FILES、move_uploaded_file、unlink&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;遇见代码加密&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;需要查找对应解密方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;模型开发&#34;&gt;模型开发
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MVC ：Model、Controller、View&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MVC 对审计的影响&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件代码定位：功能被封装，不好搜索&lt;/li&gt;
+&lt;li&gt;代码过滤分析&lt;/li&gt;
+&lt;li&gt;前端安全发现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;版本对比的漏洞发现&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新版本修复，反推旧版本漏洞；根据旧版本漏洞看是否修复&lt;/li&gt;
+&lt;li&gt;Beyond、UltraCompare 项目&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;动态调试&#34;&gt;动态调试
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;phpstorm + phpstudy + xdebug&lt;/li&gt;
+&lt;li&gt;鉴权漏洞
+&lt;ul&gt;
+&lt;li&gt;未引用的鉴权逻辑
+&lt;ul&gt;
+&lt;li&gt;错误逻辑：先功能操作后鉴权&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;脆弱的、不严谨的
+&lt;ul&gt;
+&lt;li&gt;没有引用鉴权模块的，可以直接进入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

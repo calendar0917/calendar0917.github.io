@@ -277,7 +277,18 @@
         </li>
       </ol>
     </li>
-    <li><a href="#二分">二分</a></li>
+    <li><a href="#二分">二分</a>
+      <ol>
+        <li><a href="#二分查找">二分查找</a>
+          <ol>
+            <li><a href="#查找元素首尾位置">查找元素首尾位置</a></li>
+            <li><a href="#搜索插入位置">搜索插入位置</a></li>
+            <li><a href="#寻找比目标字母大的最小字母">寻找比目标字母大的最小字母</a></li>
+            <li><a href="#两个数组的距离值">两个数组的距离值</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -781,6 +792,14 @@
 </li>
 </ul>
 </li>
+<li>
+<p>易错点</p>
+<ul>
+<li>要保证区间 - 条件判断的连贯性，判断条件只要符合区间，就合法，就需要查找</li>
+<li>建议画图来理解！</li>
+<li>可以定义函数来复用逻辑</li>
+</ul>
+</li>
 </ol>
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
@@ -837,6 +856,67 @@
 </span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 不符合，向右找</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="二分查找">二分查找
+</h3><h4 id="查找元素首尾位置">查找元素首尾位置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">边界的判断注意</span><span class="err">，</span><span class="n">函数</span> <span class="n">find</span> <span class="n">的是什么</span><span class="err">？</span><span class="n">结果要什么</span><span class="err">？</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">找到坐标后</span><span class="err">，</span><span class="n">如何排除不可能的答案</span><span class="err">？</span><span class="o">--&gt;</span> <span class="n">直接用左右边界判断即可</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">还写错了</span> <span class="k">while</span> <span class="n">的更新条件</span><span class="err">，</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="n">而非</span> <span class="n">mid</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="搜索插入位置">搜索插入位置
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">先想清楚要找什么</span><span class="err">！</span><span class="n">找第一个大于等于指定数的位置即可</span><span class="err">！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="寻找比目标字母大的最小字母">寻找比目标字母大的最小字母
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">写习惯了大于等于</span><span class="err">，</span><span class="n">怎么变成大于</span><span class="err">？</span> <span class="o">--&gt;</span> <span class="n">改变循环不变量就可以</span><span class="err">！</span><span class="n">控制</span> <span class="n">left</span> <span class="n">左边为</span> <span class="o">&lt;=</span> <span class="n">的就行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">py</span> <span class="n">里求</span> <span class="n">askii</span> <span class="n">码</span><span class="err">：</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="两个数组的距离值">两个数组的距离值
+</h4><blockquote>
+<p>给你两个整数数组 <code>arr1</code> ， <code>arr2</code> 和一个整数 <code>d</code> ，请你返回两个数组之间的 <strong>距离值</strong> 。</p>
+<p>「<strong>距离值</strong>」 定义为符合此距离要求的元素数目：对于元素 <code>arr1[i]</code> ，不存在任何元素 <code>arr2[j]</code> 满足 <code>|arr1[i]-arr2[j]| &lt;= d</code> 。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">怎么找满足距离值的数</span><span class="err">？</span> <span class="o">--&gt;</span> <span class="n">距离先变小后变大</span> <span class="o">--&gt;</span> <span class="n">二分</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">找什么数</span><span class="err">？</span> <span class="o">--&gt;</span> <span class="n">大于等于</span> <span class="n">target</span> <span class="n">的第一个数和第一个数的前一个数</span><span class="err">，</span><span class="n">这两个数才有可能</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">优化</span><span class="err">：</span><span class="n">二分查找</span> <span class="err">≥</span><span class="n">x</span><span class="err">−</span><span class="n">d</span> <span class="n">的最小的数</span> <span class="n">y</span><span class="err">。</span><span class="n">如果</span> <span class="n">y</span> <span class="n">不存在</span><span class="err">，</span><span class="n">或者</span> <span class="n">y</span><span class="o">&gt;</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="err">，</span><span class="n">那么说明</span> <span class="n">arr</span> <span class="n">没有在</span> <span class="p">[</span><span class="n">x</span><span class="err">−</span><span class="n">d</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="n">中的数</span><span class="err">，</span><span class="n">答案加一</span><span class="err">。</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>

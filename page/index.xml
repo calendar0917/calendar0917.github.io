@@ -32,7 +32,17 @@
         <description>&lt;h1 id=&#34;欢迎来到我的网站&#34;&gt;欢迎来到我的网站
 &lt;/h1&gt;&lt;p&gt;本网站主要用于记录技术文章以及个人生活。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;始于2025.9.18&lt;/p&gt;
+&lt;p&gt;更新日志：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2025&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;9.17 网站诞生&lt;/p&gt;
+&lt;p&gt;9.18 开始使用图床，文章可以上传图片了&lt;/p&gt;
+&lt;p&gt;9.21 尝试完善搜索功能，但是失败了&lt;/p&gt;
+&lt;p&gt;10.7 分类页出现 bug，主题换为 Stack&lt;/p&gt;
+&lt;p&gt;10.12 归档页也可以展示图片了&lt;/p&gt;
+&lt;p&gt;10.17 美化了网站页面，新增了评论功能、搜索功能&lt;/p&gt;
+&lt;p&gt;10.22 新增了网站图标&lt;/p&gt;
 &lt;p&gt;Calendar&lt;/p&gt;
 </description>
         </item>

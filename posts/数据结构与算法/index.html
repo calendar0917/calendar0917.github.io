@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="课程笔记">
+<title>数据结构与算法</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="数据结构与算法">
+<meta property='og:description' content="课程笔记">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251022104404297.png' />
+<meta name="twitter:title" content="数据结构与算法">
+<meta name="twitter:description" content="课程笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251022104404297.png' /><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#绪论">绪论</a>
+      <ol>
+        <li><a href="#数据结构">数据结构</a></li>
+        <li><a href="#算法">算法</a></li>
+      </ol>
+    </li>
+    <li><a href="#线性表栈与队列">线性表、栈与队列</a>
+      <ol>
+        <li><a href="#线性表">线性表</a>
+          <ol>
+            <li><a href="#顺序存储">顺序存储</a></li>
+            <li><a href="#链式存储">链式存储</a></li>
+          </ol>
+        </li>
+        <li><a href="#栈">栈</a>
+          <ol>
+            <li><a href="#顺序存储-1">顺序存储</a></li>
+            <li><a href="#链式存储-1">链式存储</a></li>
+          </ol>
+        </li>
+        <li><a href="#队列">队列</a>
+          <ol>
+            <li><a href="#链式存储-2">链式存储</a></li>
+            <li><a href="#优先队列">优先队列</a></li>
+          </ol>
+        </li>
+        <li><a href="#数组">数组</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251022104404297.png" loading="lazy" alt="Featured image of post 数据结构与算法" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%AC%94%E8%AE%B0/" style="background-color: #80aba9; color: #fff;">
+                课内笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            课程笔记
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 22, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="绪论">绪论
+</h2><h3 id="数据结构">数据结构
+</h3><ul>
+<li>
+<p>形式定义：</p>
+<ul>
+<li>数据结构是一个四元组 <code>Data_Structure=（D,L,S,O）</code>
+<ul>
+<li>D是数据元素的有限集</li>
+<li>L是D上客观存在的关系（<strong>逻辑结构</strong>）</li>
+<li>S是关系L在计算机中的存储表示（<strong>存储结构</strong>）</li>
+<li>O是D上规定的一组操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>组成：</p>
+<ul>
+<li>
+<p>集合（set）—若干具有共同特征的事物的“聚合”。</p>
+</li>
+<li>
+<p>数据（data) —所有能输入到计算机中的描述客观事物的符号</p>
+</li>
+<li>
+<p>数据元素（data element）—数据的基本单位，也称节点（node）或记录（record）</p>
+</li>
+<li>
+<p>数据项（data item）—有独立含义的数据最小单位，也称域(field)</p>
+</li>
+<li>
+<p>关键码（key）—数据元素中能起标识作用的数据项。</p>
+</li>
+<li>
+<p>关系 —集合中元素之间的某种相关性</p>
+</li>
+</ul>
+</li>
+<li>
+<p>逻辑结构</p>
+<ul>
+<li>线性结构：一对一，线性表、栈、队列等</li>
+<li>树形结构</li>
+<li>图状结构</li>
+</ul>
+</li>
+<li>
+<p>存储结构</p>
+<ul>
+<li>顺序：借助相对位置表示元素间关系</li>
+<li>链式：借助指针</li>
+<li>散列：通过对关键字直接计算</li>
+</ul>
+</li>
+</ul>
+<h3 id="算法">算法
+</h3><blockquote>
+<p>为了解决某类问题而规定的一个有限长的操作序列</p>
+</blockquote>
+<ul>
+<li>
+<p>特性：有穷、确定、可行、功能性</p>
+</li>
+<li>
+<p>目标：正确、可读、健壮、高效率与低存储量需求</p>
+</li>
+<li>
+<p>衡量方法</p>
+<ul>
+<li>算法的时间特性用执行基本操作次数来度量</li>
+<li>算法的空间特性用算法运行所需存储量的增长率</li>
+</ul>
+</li>
+</ul>
+<h2 id="线性表栈与队列">线性表、栈与队列
+</h2><ul>
+<li>线性结构特点：在数据元素的非空有限集中
+<ul>
+<li>存在唯一一个称作“<strong>第一个</strong>”的数据元素</li>
+<li>存在唯一一个称作“<strong>最后一个</strong>”的数据元素</li>
+<li>除第一个外，集合中的每个数据元素均<strong>只有一个前驱</strong></li>
+<li>除最后一个外，集合中的每个数据元素均<strong>只有一个后继</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="线性表">线性表
+</h3><ul>
+<li>定义：一个线性表是n个数据元素的有限序列
+<ul>
+<li>元素个数n = 表长度</li>
+<li>a_1 无直接前驱，a_n 无直接后继</li>
+<li>i 为 a_i 再线性表中的位序</li>
+</ul>
+</li>
+</ul>
+<h4 id="顺序存储">顺序存储
+</h4><p>逻辑上相邻 - 物理地址相邻</p>
+<ul>
+<li>
+<p>操作</p>
+<ul>
+<li>
+<p>插入：复杂度 <code>n/2</code>，算在 i 出的平均移动次数</p>
+</li>
+<li>
+<p>删除：复杂度 <code>(n-1)/2</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>优点：</p>
+<ul>
+<li>逻辑相邻，物理相邻</li>
+<li>可随机存取任一元素</li>
+<li>存储空间使用紧凑</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>插入、删除操作需要移动大量的元素</li>
+<li>预先分配空间需按最大空间分配，利用不充分</li>
+<li>表容量难以扩充</li>
+</ul>
+</li>
+</ul>
+<h4 id="链式存储">链式存储
+</h4><ul>
+<li>特点：
+<ul>
+<li>用一组任意的存储单元存储线性表的数据元素，利用指针实现：<strong>用不相邻的存储单元存放逻辑上相邻的元素</strong></li>
+<li>每个数据元素ai，除存储本身信息外，还需存储其直接后继的信息</li>
+</ul>
+</li>
+</ul>
+<h5 id="单链表">单链表
+</h5><p>结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">ListNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">ElemType</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="k">struct</span> <span class="n">ListNode</span>  <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span><span class="n">ListNode</span><span class="p">,</span><span class="o">*</span><span class="n">ListNodePtr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 生成新节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">ListNodePtr</span><span class="p">)</span> <span class="nf">malloc</span> <span class="p">(</span> <span class="k">sizeof</span> <span class="p">(</span> <span class="n">ListNode</span> <span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 回收节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">free</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>操作</p>
+<ul>
+<li>查找：<code>O(n)</code></li>
+<li>插入、删除：<code>O(1)</code></li>
+</ul>
+</li>
+<li>
+<p>特点：</p>
+<ul>
+<li>
+<p>动态结构，整个存储空间为多个链表共用</p>
+</li>
+<li>
+<p>不需预先分配空间，指针额外存储空间</p>
+</li>
+<li>
+<p>不能随机读取，查找慢</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="循环链表">循环链表
+</h5><p>表中最后一个结点的指针指向头结点，使链表构成环状</p>
+<blockquote>
+<p>从表中任一结点出发均可找到表中其他结点， 提高查找效率</p>
+</blockquote>
+<ul>
+<li>操作与单链表基本一致,循环条件不同：
+<ul>
+<li>单链表 p 或 <code>p-&gt;next=NULL</code></li>
+<li>循环链表 <code>p-&gt;next=h</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="双向链表">双向链表
+</h5><p>解决单链表单向性的问题，存储前、后指针</p>
+<h3 id="栈">栈
+</h3><h4 id="顺序存储-1">顺序存储
+</h4><ul>
+<li>定义：
+<ul>
+<li>限定仅在表尾进行插入或删除操作的线性表，进行操作的一端称栈顶，固定的一端称栈底，不含元素的空表称空栈。</li>
+<li>先进后出</li>
+</ul>
+</li>
+<li>操作：
+<ul>
+<li>用指针 <code>top</code> 始终指向栈顶，初值为 -1 （栈空），终值为 M-1 （栈满）</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAXSTACK 100
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> <span class="k">typedef</span> <span class="k">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">StackEntry</span> <span class="n">entry</span><span class="p">[</span><span class="n">MAXSTACK</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span><span class="n">SqStack</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="链式存储-1">链式存储
+</h4><p>top 始终指向下一个插入的位置，类似</p>
+<h3 id="队列">队列
+</h3><p>限定只能在表的一端进行插入，在表的另一端进行删除的线性表，<code>先进先出</code></p>
+<h4 id="链式存储-2">链式存储
+</h4><p>设队首、队尾指针 front 和rear, front 指向头结点，rear 指向队尾</p>
+<p>问题：</p>
+<ul>
+<li>队列不满时假溢出、队列满时真溢出</li>
+</ul>
+<p>解决：</p>
+<ol>
+<li>队首固定：需要频繁移动 X</li>
+<li>循环队列：将队列设计成环形，让 <code>让sq[0]</code> 接在 <code>sq[M-1]</code> 之后，若 rear == M，则令 rear = 0
+<ul>
+<li>问题：队空和队满标志一样</li>
+<li>解决：另设标志位、少用一个元素空间、用一个计数变量</li>
+</ul>
+</li>
+</ol>
+<h4 id="优先队列">优先队列
+</h4><p>不完全遵守先进先出，设有优先级</p>
+<h3 id="数组">数组
+</h3>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大学物理（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E6%A6%82%E7%8E%87%E8%AE%BA/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">概率论</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">计算机组成原理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/c&#43;&#43;%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%E5%8F%8Astl%E6%8A%80%E6%9C%AF/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">C&#43;&#43; 模板及STL技术</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">C&#43;&#43; 核心编程</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>
