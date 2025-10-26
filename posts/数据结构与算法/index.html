@@ -235,7 +235,29 @@
             <li><a href="#优先队列">优先队列</a></li>
           </ol>
         </li>
-        <li><a href="#数组">数组</a></li>
+        <li><a href="#数组">数组</a>
+          <ol>
+            <li><a href="#顺序存储-2">顺序存储：</a></li>
+            <li><a href="#链式存储-3">链式存储</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#查找排序递归">查找、排序、递归</a>
+      <ol>
+        <li><a href="#递归">递归</a></li>
+        <li><a href="#查找">查找</a>
+          <ol>
+            <li><a href="#顺序表">顺序表</a></li>
+          </ol>
+        </li>
+        <li><a href="#排序">排序</a>
+          <ol>
+            <li><a href="#基本概念">基本概念</a></li>
+            <li><a href="#插入">插入</a></li>
+            <li><a href="#交换">交换</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -571,7 +593,321 @@
 <h4 id="优先队列">优先队列
 </h4><p>不完全遵守先进先出，设有优先级</p>
 <h3 id="数组">数组
-</h3>
+</h3><h4 id="顺序存储-2">顺序存储：
+</h4><ul>
+<li>
+<p>需要区分列主序、行主序</p>
+</li>
+<li>
+<p><code>Loc (j1, j2, ... , jn )=Loc (0, 0, ... , 0)+(b2*b3*...*bn*j1 + b3*b4*...*bn*j2+ ...+bn*jn-1+ jn)*l</code></p>
+</li>
+</ul>
+<p>三角矩阵：</p>
+<blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025143824138.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025143824138"
+	
+	
+></p>
+</blockquote>
+<p>三对角矩阵：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025143918477.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025143918477"
+	
+	
+></p>
+<p>稀疏矩阵：</p>
+<blockquote>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025144028082.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025144028082"
+	
+	
+></p>
+</blockquote>
+<h4 id="链式存储-3">链式存储
+</h4><p>表示矩阵：</p>
+<blockquote>
+<p>数组 + 链表</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025145127520.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025145127520"
+	
+	
+></p>
+</blockquote>
+<h2 id="查找排序递归">查找、排序、递归
+</h2><h3 id="递归">递归
+</h3><p>定义：</p>
+<ul>
+<li>一个过程或函数出现调用本过程或本函数的成分,称之为递归。</li>
+<li>若调用自身,称之为<strong>直接递归</strong>。若过程或函数p调用过程或函数q,而q又调用 p,称之为<strong>间接递归</strong>。</li>
+<li>如果一个递归过程或递归函数中递归调用语句是最后一条执行语句,则称这种递归调用为<strong>尾递归</strong>。</li>
+</ul>
+<h3 id="查找">查找
+</h3><h4 id="顺序表">顺序表
+</h4><ul>
+<li>顺序查找，改变 <code>R[0]</code> 以控制结束：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">seqsearch</span><span class="p">(</span><span class="n">DataType</span> <span class="n">R</span><span class="p">[],</span> <span class="n">KeyType</span> <span class="n">key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">while</span> <span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">key</span> <span class="o">!=</span> <span class="n">key</span><span class="p">)</span>  <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>折半查找，对于有序表</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">BinarySearch</span><span class="p">(</span><span class="n">DataType</span> <span class="n">SL</span><span class="p">[],</span> <span class="n">KeyType</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">//在长度为n的有序表SL中折半查找其关键字等于key的数据元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//查找成功返回其在有序表中的位置，查找失败否返回0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">high</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="n">low</span><span class="o">&lt;=</span><span class="n">high</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">mid</span><span class="o">=</span><span class="p">(</span><span class="n">low</span><span class="o">+</span><span class="n">high</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="o">=</span> <span class="n">SL</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">mid</span><span class="p">;}</span>              
+</span></span><span class="line"><span class="cl">	    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">key</span><span class="o">&gt;</span><span class="n">SL</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> <span class="n">low</span><span class="o">=</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">else</span> <span class="n">high</span><span class="o">=</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>索引表查找
+<ul>
+<li>基本思想：将<strong>原表分成若干块</strong>，各块内部不一定有序，但表中的块是“<strong>分块有序</strong>”的，<strong>抽取各块中的最大关键字</strong>及其起始位置建立索引表。</li>
+<li>块间顺序：复杂度 <code>1/2 * (n/s + s) + 1</code> (n 长度，分成 n/s 块)</li>
+<li>块间二分：<code>log_2(n/s + 1) + s/2</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">IndexSequelSearch</span><span class="p">(</span><span class="n">IndexType</span> <span class="n">ls</span><span class="p">[],</span> <span class="n">DataType</span> <span class="n">s</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">KeyType</span> <span class="n">key</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">//索引表中顺序查找关键字为key的记录。索引表为ls[0]-ls[m-1]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//顺序表为s，块长为l
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//在索引表中顺序查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">&gt;</span><span class="n">ls</span> <span class="p">[</span><span class="n">i</span> <span class="p">].</span><span class="n">key</span><span class="p">)</span><span class="n">i</span><span class="o">++</span><span class="p">;</span>  <span class="c1">//块间查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>             <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">m</span><span class="p">)</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>  <span class="c1">//查找失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>             <span class="k">else</span><span class="p">{</span>           <span class="c1">//在块内顺序查找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                  <span class="n">j</span><span class="o">=</span><span class="n">ls</span><span class="p">[</span> <span class="n">i</span> <span class="p">].</span><span class="n">Link</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">while</span><span class="p">(</span><span class="n">Key</span><span class="o">!=</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span> <span class="o">&amp;&amp;</span> <span class="n">j</span><span class="o">-</span><span class="n">ls</span><span class="p">[</span> <span class="n">i</span> <span class="p">].</span><span class="n">Link</span><span class="o">&lt;</span><span class="n">l</span><span class="p">)</span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                   <span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span><span class="p">)</span><span class="k">return</span> <span class="n">j</span><span class="p">;</span>  <span class="c1">//查找成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                   <span class="k">else</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>  <span class="c1">//查找失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>           <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>哈希表查找
+<ul>
+<li>以 <code>h(key) 哈希函数</code> 作为 key 的记录在表中的位置，常见构造方法有：
+<ul>
+<li>直接哈希：适用于地址集合大小 == 关键字集合大小</li>
+<li>数字分析：取随机</li>
+<li>平方取中：取关键字平方后的中间几位</li>
+<li>折叠：关键字分割后求和</li>
+<li>除留取余：除某个不大于哈希表长度的数后取余</li>
+<li>随机数：取随机数</li>
+</ul>
+</li>
+<li>冲突处理方法：
+<ul>
+<li>开放地址：线性探测、平方探测、随机探测 再散列</li>
+<li>再哈希：将 n 个不同哈希函数排成序列，往下计算</li>
+<li>链地址：将关键字发生冲突的记录存储在一个线性链表中</li>
+<li>公共溢出：将发生冲突的放在冲突表中</li>
+</ul>
+</li>
+<li>ALS 影响因素：
+<ul>
+<li>选用的哈希函数</li>
+<li>冲突处理方法</li>
+<li>哈希表饱和度、装载因子 <code>n/m</code> 的大小</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="排序">排序
+</h3><h4 id="基本概念">基本概念
+</h4><ul>
+<li>
+<p>稳定性：对于任意的数据元素序列，以在排序前后<strong>相同关键字数据的相对位置</strong>是否改变为依据</p>
+</li>
+<li>
+<p>内外部：</p>
+<ul>
+<li>无需借助外存，称内部排序</li>
+<li>数据量巨大，需要借助外村，称外部排序</li>
+</ul>
+</li>
+</ul>
+<h4 id="插入">插入
+</h4><ul>
+<li>直接插入：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>  <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span>  <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">key</span><span class="o">&lt;</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">key</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">     <span class="p">{</span>  <span class="err">在</span> <span class="n">R</span><span class="p">[</span><span class="mf">1.</span><span class="p">.</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="err">中查找</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="err">的插入位置</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="err">插入</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025154450647.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025154450647"
+	
+	
+></p>
+<ul>
+<li>
+<p>折半插入</p>
+<ul>
+<li>因为 <code>R[1..i-1]</code> 是一个按关键字有序的有序序列，则可以利用折半查找实现</li>
+</ul>
+</li>
+<li>
+<p>希尔排序</p>
+<ul>
+<li>对于<strong>n较大而且无序时</strong>，直接插入排序效率就较低，这时，如果能<strong>将序列分成几个较小的序列</strong>，对这些较小的序列先排序，然后再对较长的序列进行排序，可一定程度地提高排序效率。</li>
+<li>步骤：
+<ul>
+<li>先选取一个小于n的整数di（步长），然后把待排序的序列分成di个组</li>
+<li>第一趟完成之后，减小步长，再进行分组，再排序，如此知道 d=1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="交换">交换
+</h4><ul>
+<li>冒泡排序
+<ul>
+<li>基于两两比较及交换，直到某一趟没有发生数据的交换为止。</li>
+<li>改进：记下上次交换的位置</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Bubble_Sort</span><span class="p">(</span><span class="n">DataType</span> <span class="n">R</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//对长度为n的序列R按升序进行冒泡排序，降序排序类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="n">swap</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>  <span class="c1">//交换标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">){</span> <span class="c1">// 可以改进成 j&lt;i
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">key</span><span class="o">&gt;</span><span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">key</span><span class="p">){</span>  <span class="err">不满足升序规则，交换</span>
+</span></span><span class="line"><span class="cl">			<span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>  <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>  <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="n">swap</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">swap</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>  <span class="c1">//此趟冒泡没有发生交换，排序结束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251025160526177.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251025160526177"
+	
+	
+></p>
+
 </section>
 
 
@@ -610,6 +946,19 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">密码学</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
@@ -664,25 +1013,6 @@
 
         <div class="article-details">
             <h2 class="article-title">C&#43;&#43; 模板及STL技术</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/posts/c&#43;&#43;%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251013082109789.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">C&#43;&#43; 核心编程</h2>
         </div>
     </a>
 </article>

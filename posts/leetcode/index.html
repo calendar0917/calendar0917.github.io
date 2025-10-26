@@ -285,6 +285,13 @@
             <li><a href="#搜索插入位置">搜索插入位置</a></li>
             <li><a href="#寻找比目标字母大的最小字母">寻找比目标字母大的最小字母</a></li>
             <li><a href="#两个数组的距离值">两个数组的距离值</a></li>
+            <li><a href="#区间内查询数字的频率">区间内查询数字的频率</a></li>
+          </ol>
+        </li>
+        <li><a href="#二分答案">二分答案</a>
+          <ol>
+            <li><a href="#使结果不超过阈值的最小除数">使结果不超过阈值的最小除数</a></li>
+            <li><a href="#在-d-天内送达包裹的能力">在 D 天内送达包裹的能力</a></li>
           </ol>
         </li>
       </ol>
@@ -917,6 +924,143 @@
 </span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">找什么数</span><span class="err">？</span> <span class="o">--&gt;</span> <span class="n">大于等于</span> <span class="n">target</span> <span class="n">的第一个数和第一个数的前一个数</span><span class="err">，</span><span class="n">这两个数才有可能</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">优化</span><span class="err">：</span><span class="n">二分查找</span> <span class="err">≥</span><span class="n">x</span><span class="err">−</span><span class="n">d</span> <span class="n">的最小的数</span> <span class="n">y</span><span class="err">。</span><span class="n">如果</span> <span class="n">y</span> <span class="n">不存在</span><span class="err">，</span><span class="n">或者</span> <span class="n">y</span><span class="o">&gt;</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="err">，</span><span class="n">那么说明</span> <span class="n">arr</span> <span class="n">没有在</span> <span class="p">[</span><span class="n">x</span><span class="err">−</span><span class="n">d</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="n">中的数</span><span class="err">，</span><span class="n">答案加一</span><span class="err">。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="区间内查询数字的频率">区间内查询数字的频率
+</h4><blockquote>
+<p>请你实现 <code>RangeFreqQuery</code> 类：</p>
+<ul>
+<li><code>RangeFreqQuery(int[] arr)</code> 用下标从 <strong>0</strong> 开始的整数数组 <code>arr</code> 构造一个类的实例。</li>
+<li><code>int query(int left, int right, int value)</code> 返回子数组 <code>arr[left...right]</code> 中 <code>value</code> 的 <strong>频率</strong> 。</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">暴力会超时</span><span class="err">……</span><span class="n">考虑优化</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">找数字在区间内出现的频率</span><span class="err">，</span><span class="n">把问题化约到每个数字</span><span class="err">，</span><span class="n">先记录每个数字出现的下标表</span><span class="err">，</span><span class="n">然后二分查找在所求区间内</span><span class="err">，</span><span class="n">数字的数量</span><span class="err">。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="二分答案">二分答案
+</h3><blockquote>
+<ul>
+<li><strong>定义</strong>：一种通过 “二分枚举可能的答案范围” 来求解优化问题（如最大值最小化、最小值最大化）的算法。</li>
+<li><strong>核心目标</strong>：在所有可能的答案中，找到满足题目约束条件的<strong>最优解</strong>（如最大、最小、符合条件的解）。</li>
+<li><strong>本质</strong>：“构造答案并验证”，将优化问题转化为 “判断某个值是否为可行解” 的判定问题，再通过二分缩小范围。</li>
+</ul>
+<blockquote>
+<p>简而言之，就是不确定上下界，需要自己放缩出边界，然后进行二分查找。可能需要自己编写 check 函数来判断</p>
+</blockquote>
+</blockquote>
+<p>模板：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 计算满足 check(x) == True 的最小整数 x</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">binarySearchMin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 二分猜答案：判断 mid 是否满足题目要求</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">mid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># TODO</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">left</span> <span class="o">=</span>   <span class="c1"># 循环不变量：check(left) 恒为 False</span>
+</span></span><span class="line"><span class="cl">        <span class="n">right</span> <span class="o">=</span>   <span class="c1"># 循环不变量：check(right) 恒为 True</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>  <span class="c1"># 开区间不为空</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">check</span><span class="p">(</span><span class="n">mid</span><span class="p">):</span>  <span class="c1"># 说明 check(&gt;= mid 的数) 均为 True</span>
+</span></span><span class="line"><span class="cl">                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>  <span class="c1"># 接下来在 (left, mid) 中二分答案</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>  <span class="c1"># 说明 check(&lt;= mid 的数) 均为 False</span>
+</span></span><span class="line"><span class="cl">                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span>  <span class="c1"># 接下来在 (mid, right) 中二分答案</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 循环结束后 left+1 = right</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 此时 check(left) == False 而 check(left+1) == check(right) == True</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 所以 right 就是最小的满足 check 的值</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">right</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="使结果不超过阈值的最小除数">使结果不超过阈值的最小除数
+</h4><blockquote>
+<p>给你一个整数数组 <code>nums</code> 和一个正整数 <code>threshold</code> ，你需要选择一个正整数作为除数，然后将数组里每个数都除以它，并对除法结果求和。</p>
+<p>请你找出能够使上述结果小于等于阈值 <code>threshold</code> 的除数中 <strong>最小</strong> 的那个。</p>
+<p>每个数除以除数后都向上取整，比方说 7/3 = 3 ， 10/2 = 5 。</p>
+<p>题目保证一定有解。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">找值</span><span class="err">，</span><span class="n">考虑二分</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">先确定上下边界</span><span class="err">，</span><span class="n">可以取</span> <span class="mi">1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">),</span><span class="n">然后自定义</span> <span class="n">check</span> <span class="n">函数判断</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">3.</span> <span class="n">python</span> <span class="n">的向上取整函数</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="在-d-天内送达包裹的能力">在 D 天内送达包裹的能力
+</h4><blockquote>
+<p>传送带上的包裹必须在 <code>days</code> 天内从一个港口运送到另一个港口。</p>
+<p>传送带上的第 <code>i</code> 个包裹的重量为 <code>weights[i]</code>。每一天，我们都会按给出重量（<code>weights</code>）的顺序往传送带上装载包裹。我们装载的重量不会超过船的最大运载重量。</p>
+<p>返回能在 <code>days</code> 天内将传送带上的所有包裹送达的船的最低运载能力。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="mf">1.</span> <span class="n">难点在</span> <span class="n">check</span> <span class="n">函数的编写</span><span class="err">！</span><span class="n">怎么判断是否可以</span><span class="err">？</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mf">2.</span> <span class="n">其实很简单</span><span class="err">，</span><span class="n">注意初始</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="err">，</span><span class="n">每天的货物运输需要模拟过程才不会错</span><span class="err">！</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">load</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">days</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 最少也得花一天</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">+=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">load</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">days</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="n">s</span> <span class="o">=</span> <span class="n">x</span>  <span class="c1"># 当前包开始新一天</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">days</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>

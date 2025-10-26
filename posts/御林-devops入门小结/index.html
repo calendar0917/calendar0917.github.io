@@ -10,7 +10,7 @@
 <meta property='og:description' content="将入门题的知识点整合到一起，方便查询">
 <meta property='og:url' content='https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='CTF' /><meta property='article:published_time' content='2025-10-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-25T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png' />
 <meta name="twitter:title" content="御林-DevOps入门小结">
 <meta name="twitter:description" content="将入门题的知识点整合到一起，方便查询"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png' /><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/index.json">
@@ -228,6 +228,18 @@
         <li><a href="#四高级系统管理">四、高级系统管理</a></li>
         <li><a href="#五现代文件系统">五、现代文件系统</a></li>
         <li><a href="#六系统优化与维护">六、系统优化与维护</a></li>
+        <li><a href="#七软件包与服务管理">七、软件包与服务管理</a></li>
+        <li><a href="#linux-防火墙">Linux 防火墙</a></li>
+      </ol>
+    </li>
+    <li><a href="#服务器与-pc-硬件知识">服务器与 PC 硬件知识</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#pc-硬件基础">PC 硬件基础</a></li>
+            <li><a href="#服务器硬件">服务器硬件</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
     <li><a href="#shell-基础">shell 基础</a>
@@ -461,6 +473,11 @@
 </h3><ol>
 <li>口令修改：<code>passwd</code>命令修改用户密码。</li>
 <li>基础命令：<code>ls</code>（查看目录）、<code>mkdir</code>（创建目录）、<code>cd</code>（切换目录）。</li>
+</ol>
+<blockquote>
+<p><code>cd -</code>：切换到上次所在目录</p>
+</blockquote>
+<ol>
 <li>帮助查询：<code>man 命令名</code>获取命令详细帮助，如<code>man ls</code>。</li>
 </ol>
 <h3 id="三文件与目录操作">三、文件与目录操作
@@ -471,6 +488,42 @@
 <li>文件操作：<code>touch</code>创建空文件；<code>cp</code>（复制）、<code>mv</code>（移动/重命名）、<code>ln</code>（硬链接）、<code>ln -s</code>（软链接）、<code>rm</code>（删除）。</li>
 <li>内容查看：<code>cat</code>命令查看文件内容（不可查看目录）。</li>
 </ol>
+<blockquote>
+<ul>
+<li>
+<p>Q1: 如何实时查看一个正在增长的日志文件？</p>
+<ul>
+<li><code>tail -f file</code></li>
+</ul>
+</li>
+<li>
+<p>Q2: 如果日志文件被logrotate归档（重命名）了，tail -f会怎样？如何保证持续跟踪？</p>
+<ul>
+<li>tail -f 会停止输出 (因为它跟踪的是inode)。应该用 tail -F，它会检测文件名变化并重新打开文件。</li>
+</ul>
+</li>
+<li>
+<p><code>grep</code></p>
+<ul>
+<li><code>-r</code> 递归查找，<code>-l</code> 只列出文件名</li>
+</ul>
+</li>
+<li>
+<p><code>watch [选项] 命令</code></p>
+<ul>
+<li>
+<p><code>-n 秒数</code>：指定执行命令的间隔时间（默认 2 秒）。</p>
+</li>
+<li>
+<p><code>-d</code>：高亮显示两次输出之间的差异（方便观察变化部分）。</p>
+</li>
+<li>
+<p><code>-t</code>：不显示顶部的标题栏（包含执行时间、命令等信息）。</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="四文件和目录权限">四、文件和目录权限
 </h3><ol>
 <li>权限解读：10位权限字符串，第1位为文件类型，2-4位所有者权限，5-7位所属组权限，8-10位其他用户权限；<code>r=4</code>、<code>w=2</code>、<code>x=1</code>、<code>-=0</code>。</li>
@@ -487,15 +540,79 @@
 <h3 id="六文件操作进阶">六、文件操作进阶
 </h3><ol>
 <li>通配符：<code>ls a*</code>查找指定目录下以<code>a</code>开头的文件。</li>
-<li>文件查找：<code>find 目录 -type f -printf &quot;%f\n&quot;</code>查找文件并显示文件名。</li>
+<li>文件查找：<code>find 目录 -type f [-name] -printf &quot;%f\n&quot;</code>查找文件并显示文件名。</li>
 <li>内容排序：<code>sort</code>（正序）、<code>sort -r</code>（逆序）排序文件内容。</li>
 <li>部分显示：<code>head -n 数字</code>（前n行）、<code>tail -n 数字</code>（后n行）。</li>
 </ol>
+<blockquote>
+<ul>
+<li>sed 流编辑器 <code>sed [选项] '编辑命令' 文件</code>
+<ul>
+<li><code>sed 's/old/new/g' file</code>：替换所有行中的 <code>old</code> 为 <code>new</code>（<code>s</code> 是替换操作）</li>
+</ul>
+</li>
+<li><code>awk '模式 { 动作 }' 文件</code>
+<ul>
+<li>用于信息统计</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="七文件权限进阶">七、文件权限进阶
 </h3><ol>
 <li>链接区别：软链接适用于跨分区/目录快捷方式；硬链接适用于同一分区文件共享，源文件删除仍可用。</li>
+</ol>
+<blockquote>
+<p><strong>硬链接</strong>: 共享同一个inode，本质是同一个文件。删除一个不影响另一个，直到inode引用计数为0。不能跨文件系统，不能链接目录(防止创建循环引用，导致遍历混乱)。</p>
+<p><strong>软链接</strong>: 一个独立文件，内容是它所指向文件的路径。类似快捷方式。</p>
+</blockquote>
+<ol>
 <li>权限恢复：<code>chmod u=rwx,g=rx,o=rx 目录名</code>或<code>chmod 755 目录名</code>恢复默认权限。</li>
 </ol>
+<blockquote>
+<ul>
+<li><code>ls -l</code> 输出格式是？
+<ul>
+<li>第一位是文件类型 d: 目录, -: 文件, l: 链接</li>
+<li>所有者读写执行-组用户读执行-其他用户读执行</li>
+</ul>
+</li>
+<li>如何递归添加权限？
+<ul>
+<li><code>chmod -R a+r mydir</code></li>
+</ul>
+</li>
+<li>什么是 SUID, SGID 和 Sticky Bit (粘滞位)？
+<ul>
+<li>SUID：当普通用户执行带有 SUID 权限的可执行文件时，该进程的<strong>有效用户 ID（UID）会临时变为文件所有者的 UID</strong>。
+<ul>
+<li><code>chmod 4755 test.sh</code></li>
+</ul>
+</li>
+<li>SGID：用于文件类似SUID；用于目录则在此目录中创建的新文件，其所属组会自动继承目录的所属组。
+<ul>
+<li><code>chmod 2775 /opt/project</code></li>
+</ul>
+</li>
+<li>StickyBit：只有目录所有者、文件所有者或root才能删除目录中的文件
+<ul>
+<li><code>chmod 1777 /tmp</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何查看一个用户的UID, GID 和他属于的所有组？
+<ul>
+<li><code>id name</code></li>
+</ul>
+</li>
+<li>如何把用户 www-data 添加到 docker 组，并且不覆盖他已有的组？
+<ul>
+<li><code>usermod -aG docker www-data</code> (-a 代表 append 追加)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h2 id="linux-进阶">Linux 进阶
 </h2><p><a class="link" href="https://calendar0917.github.io/posts/%e5%be%a1%e6%9e%97-linux%e8%bf%9b%e9%98%b6/"  target="_blank" rel="noopener"
     >御林招新题：Linux 进阶</a></p>
@@ -505,6 +622,24 @@
 <li><strong>进程查看</strong>：<code>ps -A -f</code>查看所有活跃进程，通过PID（进程ID）和PPID（父进程ID）分析父子关系。</li>
 <li><strong>端口与进程处理</strong>：用<code>lsof</code>或<code>netstat</code>（搭配<code>-t/-u/-l/-p/-n</code>等选项）查找占用指定端口的进程PID；通过<code>kill -pid PID</code>强制终止进程。</li>
 </ol>
+<blockquote>
+<ul>
+<li>一个应用服务器突然响应很慢，你的排查思路是什么？
+<ol>
+<li>top/htop 看CPU/内存占用和Load Avg。</li>
+<li>free -m / vmstat 看内存/Swap。</li>
+<li>iostat -x / iotop 看磁盘I/O。</li>
+<li>ss -tnp / netstat 看网络连接数。</li>
+<li>dmesg -T 看内核/硬件有无报错。</li>
+</ol>
+</li>
+<li>如何查看某个进程打开了哪些文件？
+<ul>
+<li><code>lsof -p &lt;PID&gt;</code>。或者进入 <code>/proc/&lt;PID&gt;/fd/</code> 目录查看。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="二网络与文件系统">二、网络与文件系统
 </h3><ol>
 <li><strong>文件系统结构</strong>：采用树形结构，<code>/</code>为根目录，包含系统核心文件和目录，普通用户多为只读权限；<code>/home</code>是普通用户主目录集合，用户拥有完全操作权限。关键子目录功能：
@@ -521,6 +656,43 @@
 </li>
 <li><strong>GRUB</strong>：统一引导加载程序，负责系统启动时加载Linux内核并移交控制权，支持多系统启动选择和内核参数临时修改。</li>
 </ol>
+<blockquote>
+<ul>
+<li>
+<p>Nginx 相较 Apache 有什么优势？</p>
+<ul>
+<li>Nginx：事件驱动 (Event-driven), 异步非阻塞 (Asynchronous)。内存占用少，高并发能力强，非常适合做反向代理和静态文件服务。</li>
+<li>Apache：传统进程/线程模型 (prefork/worker)。功能模块丰富 (如 .htaccess)，但在高并发下资源消耗大。</li>
+</ul>
+</li>
+<li>
+<p>Nginx 如何实现负载均衡？</p>
+<ul>
+<li>
+<p><code>upstream backend { server 1.1.1.1; server 1.1.1.2; }</code></p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server { listen 80;
+</span></span><span class="line"><span class="cl">	server_name your-domain.com;
+</span></span><span class="line"><span class="cl">	location / { 
+</span></span><span class="line"><span class="cl">	proxy_pass http://localhost:3000;
+</span></span><span class="line"><span class="cl">	proxy_set_header Host $host; } }
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="三文件内容处理">三、文件内容处理
 </h3><ol>
 <li><strong>模式查找</strong>：<code>grep '^t' /etc/passwd</code>查找<code>/etc/passwd</code>中以<code>t</code>开头的文本行。</li>
@@ -536,12 +708,50 @@
 </li>
 <li><strong>内核模块</strong>：<code>lsmod</code>列出已加载内核模块；<code>modprobe 模块名</code>加载模块，<code>modprobe -r 模块名</code>卸载模块。如<code>dummy</code>虚拟网络设备模块，可用于网络测试、服务绑定隔离等场景。</li>
 </ol>
+<blockquote>
+<ul>
+<li>你修改了一个 <code>sshd.service</code> 的 <code>.service</code> 配置文件 (e.g. 更改了启动参数)，为什么 <code>systemctl restart sshd</code> 后不生效？
+<ul>
+<li>修改 <code>systemd</code> 的单元(unit)文件后，必须先执行 <code>systemctl daemon-reload</code> 来重载配置，然后再 <code>restart</code> 服务。</li>
+</ul>
+</li>
+<li><code>systemctl reload nginx</code> 和 <code>systemctl restart nginx</code> 有什么区别？
+<ul>
+<li>restart: &ldquo;先停后启&rdquo;。</li>
+<li>reload: &ldquo;平滑重载&rdquo;。不杀死主进程，只让主进程重读配置，并优雅地启动新的worker进程，旧的worker进程服务完当前请求后退出。服务不中断。</li>
+<li>当修改了 nginx 上游配置时(比如 nginx.conf 里 load_module 路径）或 <code>.service</code> 文件，必须 restart</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="五现代文件系统">五、现代文件系统
 </h3><p>以Btrfs为例：</p>
 <ol>
 <li><strong>创建与挂载</strong>：通过虚拟磁盘模拟分区，用<code>mkfs.btrfs</code>格式化，<code>mount</code>命令挂载到指定目录，<code>btrfs subvolume create</code>创建子卷。</li>
 <li><strong>快照与回滚</strong>：<code>btrfs subvolume snapshot -r</code>创建只读快照；修改源文件后快照内容保持不变，通过删除源子卷并基于快照重新创建实现回滚。</li>
 </ol>
+<blockquote>
+<ul>
+<li>什么是LVM？它相比传统分区的核心优势是什么？
+<ul>
+<li>LVM (Logical Volume Manager) 逻辑卷管理。它在物理磁盘(PV)和文件系统之间加了一个抽象层(VG, LV)。</li>
+<li>核心优势: 弹性伸缩。可以轻松地扩容或缩容文件系统，甚至跨越多块物理磁盘。</li>
+</ul>
+</li>
+<li>描述一下LVM扩容一个已挂载目录 (e.g. /data) 的完整步骤。
+<ul>
+<li>
+<ol>
+<li>(如有新硬盘) pvcreate /dev/sdc。</li>
+<li>vgextend vg_data /dev/sdc (VG扩容)。</li>
+<li>lvextend -L +100G /dev/vg_data/lv_data (LV扩容)。</li>
+<li>resize2fs /dev/vg_data/lv_data (文件系统扩容, 假设是ext4)。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h3 id="六系统优化与维护">六、系统优化与维护
 </h3><ol>
 <li><strong>缓存与日志管理</strong>：<code>journalctl --since &quot;10 minute ago&quot; | grep -E &quot;error|fail&quot;</code>查看指定时间内含目标关键字的系统日志；<code>journalctl --vacuum-time=7d</code>清除超过7天的系统日志。</li>
@@ -553,6 +763,73 @@
 </ul>
 </li>
 </ol>
+<blockquote>
+<ul>
+<li>内核模块内核模块通常放在哪个目录下？
+<ul>
+<li><code>/lib/modules/$(uname -r)/</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="七软件包与服务管理">七、软件包与服务管理
+</h3><ol>
+<li>安装命令的区别
+<ul>
+<li><code>dnf install &lt;软件名&gt;</code>：从系统已配置的 <strong>软件仓库（repo）</strong> 中下载并安装软件包。</li>
+<li><code>dnf localinstall &lt;本地包文件.rpm&gt;</code>：安装本地已下载的 <code>.rpm</code> 包文件</li>
+<li>无网络时自己配置镜像源：配置 <code>/etc/yum.repos.d/local.repo</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="linux-防火墙">Linux 防火墙
+</h3><p>待补充</p>
+<h2 id="服务器与-pc-硬件知识">服务器与 PC 硬件知识
+</h2><h4 id="pc-硬件基础">PC 硬件基础
+</h4><ul>
+<li>装机大致流程
+<ol>
+<li>CPU装主板 -&gt; 涂硅脂 -&gt; 装散热。</li>
+<li>内存条插主板。</li>
+<li>M.2 SSD 装主板。</li>
+<li>主板装进机箱 (固定IO挡板)。</li>
+<li>装电源，并连接主板供电、CPU供电。</li>
+<li>(如有) 装显卡，连接显卡供电。</li>
+<li>连接机箱跳线 (开机、重启、指示灯)。</li>
+<li>理线，盖侧板。</li>
+</ol>
+</li>
+</ul>
+<h4 id="服务器硬件">服务器硬件
+</h4><ul>
+<li>RAID 5:
+<ul>
+<li>至少3块盘，N-1容量，条带化+分布式奇偶校验。</li>
+<li>优点：读性能好，空间利用率高。</li>
+<li>缺点：写性能一般（有校验开销），一块盘坏后重建时性能差且风险高。</li>
+</ul>
+</li>
+<li>RAID 10:
+<ul>
+<li>(RAID 1+0)，至少4块盘。先做RAID 1镜像，再做RAID 0条带。</li>
+<li>优点：读写性能都很好，冗余性高（每组镜像坏一块盘仍可工作）。</li>
+<li>缺点：空间利用率低 (50%)。</li>
+</ul>
+</li>
+<li>服务器的 ECC 内存条：
+<ul>
+<li>能检测并纠正单位比特的内存错误。服务器追求高稳定性，内存错误可能导致数据损坏或系统崩溃，所以必须用ECC。</li>
+<li>会有一定性能开销（读写校验位），但完全值得</li>
+</ul>
+</li>
+<li>热插拔(Hot-Swap)
+<ul>
+<li>在服务器不关机的情况下，可以安全地移除或插入硬件。最常见的是热插拔硬盘和电源。</li>
+<li>物理接口(SAS/SATA)支持</li>
+<li>操作系统和RAID卡支持，允许在运行时&quot;摘除&quot;和&quot;加入&quot;设备 (e.g. echo 1 &gt; /sys/block/sda/device/delete)。</li>
+</ul>
+</li>
+</ul>
 <h2 id="shell-基础">shell 基础
 </h2><p><a class="link" href="https://calendar0917.github.io/posts/%e5%be%a1%e6%9e%97-shell%e5%85%a5%e9%97%a8/"  target="_blank" rel="noopener"
     >御林招新题：shell 入门</a></p>
@@ -651,6 +928,108 @@
 <li>遍历目录文件需用 <code>&quot;$1&quot;/*</code> 表示目录下所有内容。</li>
 <li><code>echo -n</code> 可取消默认换行，按需手动添加换行保证格式整洁。</li>
 </ul>
+<blockquote>
+<ul>
+<li>
+<p><code>.bashrc</code> 和 <code>.bash_profile</code> 的差别？</p>
+<ul>
+<li><code>.bash_profile</code>: 只在 &ldquo;Login Shell&rdquo; (登录Shell，如SSH登入) 时加载一次。</li>
+<li><code>.bashrc</code>: 在 &ldquo;Interactive Non-Login Shell&rdquo; (交互式非登录Shell，如打开新终端窗口) 时加载。</li>
+</ul>
+</li>
+<li>
+<p><code>alias</code> 是什么？</p>
+<ul>
+<li>
+<p>简化命令的配置，写入用户 <code>.bashrc</code> 等配置文件</p>
+</li>
+<li>
+<p>如果加在了 <code>.bashrc</code>，在系统SSH登入时只加载 <code>.bash_profile</code>，<code>.bash_profile</code> 需要 <code>source ~/.bashrc</code>。</p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -f ~/.bashrc <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    . ~/.bashrc
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p>脚本开头 <code>set -e</code> / <code>set - u</code></p>
+<ul>
+<li><code>set -e: &quot;Exit on Error&quot;</code>。脚本中任何命令返回非0退出码（即出错）时，立即退出。</li>
+<li><code>set -u: &quot;Unbound Variable&quot;</code>。试图使用未定义的变量时，视为错误并退出。</li>
+</ul>
+</li>
+<li>
+<p>screen 和 <code>tmux</code> 的作用？</p>
+<ul>
+<li>
+<p>会话保持：SSH断开连接后，服务器上的任务（如编译、跑脚本）不会中断。</p>
+</li>
+<li>
+<p>多路复用：在一个终端窗口中创建多个&quot;窗口&quot;和&quot;窗格&quot;，方便同时操作。</p>
+</li>
+<li>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>操作</th>
+          <th><code>screen</code> 命令 / 快捷键</th>
+          <th><code>tmux</code> 命令 / 快捷键</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>新建会话</td>
+          <td><code>screen</code> 或 <code>screen -S 会话名</code></td>
+          <td><code>tmux</code> 或 <code>tmux new -s 会话名</code></td>
+      </tr>
+      <tr>
+          <td>列出所有会话</td>
+          <td><code>screen -ls</code></td>
+          <td><code>tmux ls</code> 或 <code>tmux list-sessions</code></td>
+      </tr>
+      <tr>
+          <td>断开当前会话</td>
+          <td><code>Ctrl + a + d</code></td>
+          <td><code>Ctrl + b + d</code></td>
+      </tr>
+      <tr>
+          <td>重新连接会话</td>
+          <td><code>screen -r 会话名/ID</code></td>
+          <td><code>tmux attach -t 会话名/ID</code></td>
+      </tr>
+      <tr>
+          <td>新建窗口</td>
+          <td><code>Ctrl + a + c</code></td>
+          <td><code>Ctrl + b + c</code></td>
+      </tr>
+      <tr>
+          <td>垂直拆分面板</td>
+          <td>需额外配置</td>
+          <td><code>Ctrl + b + %</code></td>
+      </tr>
+      <tr>
+          <td>横向拆分面板</td>
+          <td>需额外配置</td>
+          <td><code>Ctrl + b + &quot;</code></td>
+      </tr>
+  </tbody>
+</table></div>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <h2 id="git版本管理">Git版本管理
 </h2><p><a class="link" href="https://calendar0917.github.io/posts/%e5%be%a1%e6%9e%97-git%e7%89%88%e6%9c%ac%e7%ae%a1%e7%90%86/"  target="_blank" rel="noopener"
     >御林招新题：Git 版本管理</a></p>
@@ -1282,7 +1661,19 @@
 
         <span>Licensed under Calendar</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Oct 25, 2025 00:00 UTC
+        </span>
+    </section></footer>
 
 
     
