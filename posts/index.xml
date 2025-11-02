@@ -6311,6 +6311,78 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
 	
 	
 &gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么内部场强为零？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;导体上的电荷可以自由移动，移动后形成电场，与外部场强相抵消&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;内部包围有电荷 q 时，导体上电荷分布？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;导体内层会感应出 -q，外层变为 Q+q。由高斯定理配合导体内场强为零，可知导体内部的 E * S = 0，故 q + -q = 0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;传导电流&#34;&gt;传导电流
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;若将导体的两端接到电源上, 导体中便有持续的电流，这种存在导体中的电流称为传导电流。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;电流密度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095303355.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251028095303355&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;欧姆定律的微分形式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095359037.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251028095359037&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;稳恒电流
+&lt;ul&gt;
+&lt;li&gt;可推导出基尔霍夫定律&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095500684.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251028095500684&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;电动势&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095617717.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251028095617717&#34;
+	
+	
+&gt;&lt;/p&gt;
 &lt;h3 id=&#34;电容器&#34;&gt;电容器
 &lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022182756902.png&#34;
 	
@@ -6322,6 +6394,14 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
 	
 	
 &gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;串并联
+&lt;ul&gt;
+&lt;li&gt;串联时电荷相等&lt;/li&gt;
+&lt;li&gt;并联时电压相等 C = C1 + …… + Cn&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;特例：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251022182817615.png&#34;
 	
