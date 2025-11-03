@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Sat, 25 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 03 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>技术杂项</title>
+        <link>https://calendar0917.github.io/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/</link>
+        <pubDate>Mon, 03 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/</guid>
+        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012175136000.png" alt="Featured image of post 技术杂项" /&gt;</description>
+        </item>
+        <item>
         <title>课内笔记</title>
         <link>https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Sat, 25 Oct 2025 00:00:00 +0000</pubDate>
@@ -38,14 +46,6 @@
         
         <guid>https://calendar0917.github.io/categories/%E7%AE%97%E6%B3%95/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251017183418489.png" alt="Featured image of post 算法" /&gt;</description>
-        </item>
-        <item>
-        <title>技术杂项</title>
-        <link>https://calendar0917.github.io/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/</link>
-        <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://calendar0917.github.io/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/</guid>
-        <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012175136000.png" alt="Featured image of post 技术杂项" /&gt;</description>
         </item>
         
     </channel>

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录CentOS7配置docker的过程">
-<title>配置docker</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="花了几天时间装好了 Arch，终于基本可以用了，记录一下过程吧">
+<title>ArchLinux 安装及初步配置</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="配置docker">
-<meta property='og:description' content="记录CentOS7配置docker的过程">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="ArchLinux 安装及初步配置">
+<meta property='og:description' content="花了几天时间装好了 Arch，终于基本可以用了，记录一下过程吧">
+<meta property='og:url' content='https://calendar0917.github.io/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-09-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-29T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="配置docker">
-<meta name="twitter:description" content="记录CentOS7配置docker的过程"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-11-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-03T00:00:00&#43;00:00'/><meta property='og:image' content='https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png' />
+<meta name="twitter:title" content="ArchLinux 安装及初步配置">
+<meta name="twitter:description" content="花了几天时间装好了 Arch，终于基本可以用了，记录一下过程吧"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png' /><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/index.json">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
 
     </head>
@@ -208,13 +209,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#查看是否已安装">查看是否已安装</a></li>
-    <li><a href="#安装依赖工具-yum">安装依赖工具 yum</a></li>
-    <li><a href="#安装docker">安装docker</a>
-      <ol>
-        <li><a href="#docker-拉取镜像源配置">docker 拉取镜像源配置</a></li>
-      </ol>
-    </li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#其他">其他</a></li>
   </ol>
 </nav>
         </div>
@@ -226,8 +223,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png" loading="lazy" alt="Featured image of post ArchLinux 安装及初步配置" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -242,12 +247,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E9%85%8D%E7%BD%AEdocker/">配置docker</a>
+            <a href="/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/">ArchLinux 安装及初步配置</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            记录CentOS7配置docker的过程
+            花了几天时间装好了 Arch，终于基本可以用了，记录一下过程吧
         </h3>
         
     </div>
@@ -268,7 +273,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Sep 29, 2025</time>
+                <time class="article-time--published">Nov 03, 2025</time>
             </div>
         
 
@@ -284,166 +289,40 @@
     <section class="article-content">
     
     
-    <h2 id="查看是否已安装">查看是否已安装
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker --version
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>若已安装：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum remove docker <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-client <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-client-latest <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-common <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-latest <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-latest-logrotate <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-logrotate <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-selinux <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-engine-selinux <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-engine <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>                  docker-ce
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="安装依赖工具-yum">安装依赖工具 yum
-</h2><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>错误：yum-config-manager：找不到命令</p>
-<p>yum -y install yum-utils</p>
+    <blockquote>
+<p>好几天没写博客了，一是期中考，二是不知道要学些什么了。网上看见推荐 Linux 系统的文章，正好试一试自己装系统。</p>
 </blockquote>
-<blockquote>
-<p>错误：更新 yum 报错</p>
-<p>sudo tee /etc/yum.repos.d/CentOS-Base.repo &laquo;-&lsquo;EOF&rsquo;
-[base]
-name=CentOS-$releasever - Base
-baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
-gpgcheck=1
-gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
-<p>[updates]
-name=CentOS-$releasever - Updates
-baseurl=http://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
-gpgcheck=1
-gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
-<p>[extras]
-name=CentOS-$releasever - Extras
-baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
-gpgcheck=1
-gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
-<p>EOF</p>
-</blockquote>
-<h2 id="安装docker">安装docker
-</h2><p>添加 docker 官方仓库</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 阿里云：</span>
-</span></span><span class="line"><span class="cl">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yum install -y docker-ce docker-ce-cli containerd.io
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>启动、设置开机自启</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl start docker
-</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> docker
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="docker-拉取镜像源配置">docker 拉取镜像源配置
-</h3><p>添加多个镜像源</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tee /etc/docker/daemon.json <span class="s">&lt;&lt;-&#39;EOF&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s">{
-</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;registry-mirrors&#34;: [
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;https://alzgoonw.mirror.aliyuncs.com&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;https://docker.m.daocloud.io&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;https://dockerhub.icu&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;https://docker.anyhub.us.kg&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;https://docker.1panel.live&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s">  ]
-</span></span></span><span class="line"><span class="cl"><span class="s">}
-</span></span></span><span class="line"><span class="cl"><span class="s">
-</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>重新加载并重启</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
-</span></span><span class="line"><span class="cl">sudo systemctl restart docker
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>测试</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull hello-world
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<h2 id="安装">安装
+</h2><p>安装花了大概一天时间，参考了 <a class="link" href="https://arch.icekylin.online/guide/rookie/basic-install"  target="_blank" rel="noopener"
+    >Arch Linux 简明指南</a>，没什么太大问题。主要是教程中的做法是将 Arch 的 boot 挂载到了 Win 里面，做下来发现 Win 的 EFi 分区已经满了……</p>
+<p>然后就是研究怎么挂载到一个新的分区，和挂载顺序有比较大关系。</p>
+<p>大体步骤是：</p>
+<ol>
+<li>Windows 当中划分出空硬盘区</li>
+<li>U盘拷贝镜像，做系统盘，把 Win 的磁盘解密</li>
+<li>进 Bios 引导安装</li>
+<li>用 cfdisk 对空闲盘进行分区，swap、boot、btrfs</li>
+<li>划分子卷，挂载分区</li>
+<li>启动！</li>
+</ol>
+<h2 id="配置">配置
+</h2><p>配置还是比较伤脑筋的，首先是适应安装工具 <strong>pacman</strong>。大概就是一个官方提供的包管理工具，需要自己换源。后续还添加了yay、paru（第三方包库，资源丰富但是没有镜像站）、flatpak（体验比较好，速度能接受）。</p>
+<p>然后是桌面环境。尝试了 gnome、hyprland、niri 以后，都感觉不太适应，还没有从 win 的操作模式转换过来。主要是各个组件都要自己配。从 waybar、swaybg，到 bluez、swaylock，有很多选择，又眼花缭乱。并且每有体系化的教学、整合，就感觉很乱。</p>
+<p>比较喜欢 niri 的操作模式，觉得比较酷，就着重配置 niri 的环境了。比较麻烦的是截图，在 firefox 试了半天，发现 firefox 不能贴图……其实截图功能也已经比较完善了，基本能和 win 一样地操作。接下来是网络，被 yay、paru 的下载速度折磨了很久，clash 的机场又不太稳定了，不知道是哪里的问题。半天才发现 shell 需要额外配置代理……但速度还是不太能用，有机会再优化一下吧，先这样。</p>
+<h2 id="其他">其他
+</h2><p>其实 Linux 也就是一个操作系统，不可能换了个系统就一劳永逸了，还是会有很多问题。算是满足自己的好奇心，去尝试一下新的可能。其实确实能感受到 Linux 的环境已经很完善了，比如现在写博客的流程，就能从 Win 复刻到 Linux 上。可能需要的就是一些解决问题的耐心。</p>
+<p>虽然把系统装好了，但是对原理没什么更多的理解，基本就是需求-碰到问题-搜索-解决问题，不能形成整体性的知识。既然装好了就试着用下去吧。</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251103202847494.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251103202847494"
+	
+	
+></p>
+
 </section>
 
 
@@ -484,19 +363,13 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
         <div class="flex article-list--tile">
             
                 
-<article class="has-image">
-    <a href="/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/">
+<article class="">
+    <a href="/posts/%E9%85%8D%E7%BD%AEdocker/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png"/>
-                
-            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">ArchLinux 安装及初步配置</h2>
+            <h2 class="article-title">配置docker</h2>
         </div>
     </a>
 </article>
