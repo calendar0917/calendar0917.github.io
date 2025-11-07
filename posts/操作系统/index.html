@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="复习笔记">
-<title>大学物理（下）</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="操作系统的学习笔记">
+<title>操作系统</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="大学物理（下）">
-<meta property='og:description' content="复习笔记">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="操作系统">
+<meta property='og:description' content="操作系统的学习笔记">
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-10-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-10-22T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="大学物理（下）">
-<meta name="twitter:description" content="复习笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-11-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-07T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="操作系统">
+<meta name="twitter:description" content="操作系统的学习笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.json">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
 
     </head>
@@ -208,28 +208,29 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#电学">电学</a>
+    <li><a href="#操作系统概述">操作系统概述</a>
       <ol>
-        <li><a href="#电场强度">电场强度</a></li>
-        <li><a href="#电通量高斯定理">电通量、高斯定理</a></li>
-        <li><a href="#电势">电势</a></li>
-        <li><a href="#导体">导体</a>
+        <li><a href="#程序和编译器">程序和编译器</a></li>
+      </ol>
+    </li>
+    <li><a href="#并发">并发</a>
+      <ol>
+        <li><a href="#多处理器编程">多处理器编程</a>
           <ol>
-            <li><a href="#传导电流">传导电流</a></li>
+            <li><a href="#原子性">原子性</a></li>
+            <li><a href="#顺序">顺序</a></li>
+            <li><a href="#可见性">可见性</a></li>
           </ol>
         </li>
-        <li><a href="#电容器">电容器</a></li>
-        <li><a href="#电解质电场能">电解质、电场能</a></li>
+        <li><a href="#理解并发程序执行">理解并发程序执行</a>
+          <ol>
+            <li><a href="#peterson-算法">Peterson 算法</a></li>
+          </ol>
+        </li>
+        <li><a href="#在多处理器上实现线程隔离">在多处理器上实现线程隔离</a></li>
       </ol>
     </li>
-    <li><a href="#磁学">磁学</a>
-      <ol>
-        <li><a href="#磁感应强度">磁感应强度</a></li>
-        <li><a href="#磁通量高斯定理">磁通量、高斯定理</a></li>
-        <li><a href="#安培力磁矩洛伦兹力">安培力、磁矩、洛伦兹力</a></li>
-        <li><a href="#磁介质磁场能">磁介质、磁场能</a></li>
-      </ol>
-    </li>
+    <li><a href="#虚拟化">虚拟化</a></li>
   </ol>
 </nav>
         </div>
@@ -257,12 +258,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/">大学物理（下）</a>
+            <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            复习笔记
+            操作系统的学习笔记
         </h3>
         
     </div>
@@ -283,7 +284,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 22, 2025</time>
+                <time class="article-time--published">Nov 07, 2025</time>
             </div>
         
 
@@ -299,465 +300,112 @@
     <section class="article-content">
     
     
-    <p>参考视频：<a class="link" href="https://www.bilibili.com/video/BV1XJCzYyEcp/?spm_id_from=333.337.search-card.all.click&amp;vd_source=f329e64c57c95b7adedc05b814353e29"  target="_blank" rel="noopener"
-    >《大学物理-电磁学》</a></p>
-<h2 id="电学">电学
-</h2><h3 id="电场强度">电场强度
-</h3><ul>
-<li>库伦定律：</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022170518198.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022170518198"
-	
-	
-></p>
+    <h2 id="操作系统概述">操作系统概述
+</h2><p>1940s 的计算机（ENIAC）：</p>
 <ul>
-<li>电场强度：</li>
+<li>逻辑门：真空电子管</li>
+<li>延迟线内存通过 “抛球” 来扩大存储空间</li>
+<li>没有操作系统！只需要执行程序即可</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022170530237.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022170530237"
-	
-	
-></p>
-<blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022170718333.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022170718333"
-	
-	
-></p>
-<p>对于圆弧来说：<code>dl = Rdθ</code></p>
-</blockquote>
-<blockquote>
+<p>1950s：</p>
 <ul>
-<li>一些结论：</li>
+<li>磁芯内存</li>
+<li>可以执行更复杂的任务，希望调用 API 而不是直接访问设备</li>
+<li>在只有一个 CPU 的情况下，需要管理多个程序执行</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171213318.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171213318"
-	
-	
-></p>
-</blockquote>
-<h3 id="电通量高斯定理">电通量、高斯定理
-</h3><ul>
-<li>电通量</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171321846.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171321846"
-	
-	
-></p>
+<p>1960s：</p>
 <ul>
-<li>静电场中高斯定理</li>
+<li>内存更大，意味着可以放多个程序到内存里</li>
+<li>需要操作系统介入，实现多程序同时运行</li>
+<li>还需要硬件变化，在多个地址隔离的程序间切换</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171356058.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171356058"
-	
-	
-></p>
-<blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171439634.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171439634"
-	
-	
-></p>
-</blockquote>
-<h3 id="电势">电势
-</h3><ul>
-<li>电势</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171535545.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171535545"
-	
-	
-></p>
+<p>1970s+：</p>
 <ul>
-<li>电势能</li>
+<li>基本现代化</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171635919.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171635919"
-	
-	
-></p>
+<h3 id="程序和编译器">程序和编译器
+</h3><p>状态机：<strong>数字逻辑电路</strong>的模拟器</p>
 <ul>
-<li>电场和电势的关系</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171726047.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171726047"
-	
-	
-></p>
-<blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171927866.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171927866"
-	
-	
-></p>
-</blockquote>
-<h3 id="导体">导体
-</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022171823961.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022171823961"
-	
-	
-></p>
-<ul>
-<li>为什么内部场强为零？</li>
-</ul>
-<blockquote>
-<p>导体上的电荷可以自由移动，移动后形成电场，与外部场强相抵消</p>
-</blockquote>
-<ul>
-<li>内部包围有电荷 q 时，导体上电荷分布？</li>
-</ul>
-<blockquote>
-<p>导体内层会感应出 -q，外层变为 Q+q。由高斯定理配合导体内场强为零，可知导体内部的 E * S = 0，故 q + -q = 0</p>
-</blockquote>
-<h4 id="传导电流">传导电流
-</h4><blockquote>
-<p>若将导体的两端接到电源上, 导体中便有持续的电流，这种存在导体中的电流称为传导电流。</p>
-</blockquote>
-<ul>
-<li>电流密度</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095303355.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251028095303355"
-	
-	
-></p>
-<ul>
-<li>欧姆定律的微分形式</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095359037.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251028095359037"
-	
-	
-></p>
-<ul>
-<li>稳恒电流
-<ul>
-<li>可推导出基尔霍夫定律</li>
-</ul>
+<li>
+<p>寄存器存储 + 运行逻辑 + 按照时间周期运行 &ndash;&gt; 状态转换</p>
+</li>
+<li>
+<p>程序就是状态机！</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095500684.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251028095500684"
-	
-	
-></p>
+<p>程序的状态有什么？</p>
 <ul>
-<li>电动势</li>
+<li>变量？全局 or 局部？</li>
+<li>函数调用、函数返回是什么？ &ndash;&gt; 栈帧的处理，调用是PUSH，返回是 POP</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251028095617717.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251028095617717"
-	
-	
-></p>
-<h3 id="电容器">电容器
-</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022182756902.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022182756902"
-	
-	
-></p>
+<p>程序 = 计算 + syscall</p>
 <ul>
-<li>串并联
+<li>加上了系统调用，将操作权交给系统。</li>
+</ul>
+<p>编译器</p>
 <ul>
-<li>串联时电荷相等</li>
-<li>并联时电压相等 C = C1 + …… + Cn</li>
+<li>优化可优化的部分，转义不可优化的部分</li>
 </ul>
-</li>
-</ul>
-<p>特例：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022182817615.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022182817615"
-	
-	
-></p>
 <blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022182927084.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022182927084"
-	
-	
-></p>
+<p>状态机的初始状态（lib-64-linux/&hellip;）等等都有定义，都建立在确定的基础上。</p>
+<p>gdb、strace、binutils 追踪</p>
 </blockquote>
-<h3 id="电解质电场能">电解质、电场能
-</h3><ul>
-<li>电介质高斯定理</li>
+<h2 id="并发">并发
+</h2><h3 id="多处理器编程">多处理器编程
+</h3><h4 id="原子性">原子性
+</h4><p>并发的基础：多线程</p>
+<ul>
+<li>线程共享内存、具有独立堆栈</li>
+<li>如何验证？ &ndash;&gt; strace……</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183119795.png"
+<p>带来的问题：</p>
+<ul>
+<li>多线程共用变量时，发生冲突</li>
+<li>基本假设不再成立：程序不再独占处理器执行</li>
+</ul>
+<p>解决：实现原子性</p>
+<ul>
+<li>将大人物切分为可以并行的小任务</li>
+<li>用 worker thread 去锁保护的队列里取任务</li>
+</ul>
+<h4 id="顺序">顺序
+</h4><p>编译器默认程序时顺序执行的，以进行优化；但是多线程时顺序不一定成立</p>
+<h4 id="可见性">可见性
+</h4><p>处理器同时也是编译器，能够同时执行一个线程的指令</p>
+<ul>
+<li>即便是汇编，也可能产生步骤乱序执行</li>
+</ul>
+<p>需要放弃对旧的“程序”的理解</p>
+<h3 id="理解并发程序执行">理解并发程序执行
+</h3><h4 id="peterson-算法">Peterson 算法
+</h4><p>举旗，两个共享变量实现并发？</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251107184802806.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20251022183119795"
+		alt="image-20251107184802806"
 	
 	
 ></p>
 <ul>
-<li>电场能</li>
+<li>用贴对方的标签来竞争</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183208273.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183208273"
-	
-	
-></p>
-<h2 id="磁学">磁学
-</h2><h3 id="磁感应强度">磁感应强度
-</h3><ul>
-<li>判断方向</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183346633.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183346633"
-	
-	
-></p>
+<p>如何证明正确性？</p>
 <ul>
-<li>毕奥萨法尔定律</li>
+<li>画状态机？枚举所有可能性</li>
+<li>PC 的含义 &ndash;&gt; 指令的步骤++</li>
+<li>用 python 来检测！选对语言</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183609069.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183609069"
-	
-	
-></p>
 <blockquote>
-<p>结论：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183630106.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183630106"
-	
-	
-></p>
+<p>py 的特性，yield</p>
+<p>只要能位系统建立模型，就能证明正确 / 找到错误</p>
+<p>将问题转化为图论问题</p>
 </blockquote>
-<ul>
-<li>安培环路定理：</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183711892.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183711892"
-	
-	
-></p>
-<blockquote>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022183817018.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022183817018"
-	
-	
-></p>
-</blockquote>
-<h3 id="磁通量高斯定理">磁通量、高斯定理
-</h3><p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184030312.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184030312"
-	
-	
-></p>
-<blockquote>
-<p>分类：</p>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184138965.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184138965"
-	
-	
-></p>
-</blockquote>
-<h3 id="安培力磁矩洛伦兹力">安培力、磁矩、洛伦兹力
-</h3><ul>
-<li>安培力</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184231717.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184231717"
-	
-	
-></p>
-<ul>
-<li>磁矩</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184416546.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184416546"
-	
-	
-></p>
-<ul>
-<li>洛伦兹力</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184541583.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184541583"
-	
-	
-></p>
-<h3 id="磁介质磁场能">磁介质、磁场能
-</h3><ul>
-<li>磁介质</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184643080.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184643080"
-	
-	
-></p>
-<ul>
-<li>磁场能量</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251022184725420.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20251022184725420"
-	
-	
-></p>
-
+<h3 id="在多处理器上实现线程隔离">在多处理器上实现线程隔离
+</h3><h2 id="虚拟化">虚拟化
+</h2>
 </section>
 
 
@@ -799,12 +447,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+    <a href="/posts/%E5%AF%86%E7%A0%81%E5%AD%A6/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">操作系统</h2>
+            <h2 class="article-title">密码学</h2>
         </div>
     </a>
 </article>
@@ -812,12 +460,12 @@
             
                 
 <article class="">
-    <a href="/posts/%E5%AF%86%E7%A0%81%E5%AD%A6/">
+    <a href="/posts/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">密码学</h2>
+            <h2 class="article-title">大学物理（下）</h2>
         </div>
     </a>
 </article>
