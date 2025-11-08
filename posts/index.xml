@@ -118,7 +118,31 @@
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;在多处理器上实现线程隔离&#34;&gt;在多处理器上实现线程隔离
 &lt;/h3&gt;&lt;h2 id=&#34;虚拟化&#34;&gt;虚拟化
-&lt;/h2&gt;</description>
+&lt;/h2&gt;&lt;h3 id=&#34;程序与进程&#34;&gt;程序与进程
+&lt;/h3&gt;&lt;p&gt;操作系统将物理计算机&lt;strong&gt;抽象&lt;/strong&gt;成虚拟计算机&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;程序是静态描述，描述所有可能的程序状态&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;运行起来成为了进程（进行中的程序）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以通过各种接口，来获取进程的各种信息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pid、ppid、工作目录……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;进程管理 API&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>Arch 问题备份</title>
@@ -242,7 +266,7 @@
 &lt;li&gt;
 &lt;p&gt;加密方案(Gen; Enc; Dec)&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Gen →K (概率性的) 密钥生成算法。&lt;/li&gt;
+&lt;li&gt;Gen ：K (概率性的) 密钥生成算法。&lt;/li&gt;
 &lt;li&gt;Enc : K x M→C 加密算法。&lt;/li&gt;
 &lt;li&gt;Dec : K x C →M 解密算法。&lt;/li&gt;
 &lt;/ul&gt;
@@ -297,6 +321,28 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;对称加密---完善保密性&#34;&gt;对称加密 - 完善保密性
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基本概念&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高熵、均匀一致、随机&lt;/li&gt;
+&lt;li&gt;现代随机数生成步骤：收集高熵数据、产生几乎独立无偏的比特串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;完善保密性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;获取密文的行为不改变敌手对所发送的实际消息的知识&lt;/li&gt;
+&lt;li&gt;密文不应泄露有关底层明文的额外信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;知识 vs 信息&lt;/p&gt;
+&lt;p&gt;信息是公开可用的，可直观获取的。
+知识是困难计算的结果，任何人都能有效获得的都不能称为知识。应用于公开可用信息的简单计算的结果不被认为是知识。应用于公共可用信息的难以计算的函数的结果是知识。&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>
