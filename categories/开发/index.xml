@@ -9,10 +9,10 @@
         <copyright>Calendar</copyright>
         <lastBuildDate>Thu, 23 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>苍穹外卖</title>
-        <link>https://calendar0917.github.io/posts/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</link>
         <pubDate>Thu, 23 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E8%8B%8D%E7%A9%B9%E5%A4%96%E5%8D%96/</guid>
         <description>&lt;h2 id=&#34;整体架构&#34;&gt;整体架构
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;参考：&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/wwwwz9/article/details/132228618&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -6025,10 +6025,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>Mybatis</title>
-        <link>https://calendar0917.github.io/posts/mybatis/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-mybatis/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/mybatis/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-mybatis/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012201626030.png" alt="Featured image of post Mybatis" /&gt;&lt;h2 id=&#34;mybatis&#34;&gt;Mybatis
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;ul&gt;
@@ -6602,10 +6602,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>SpringBoot</title>
-        <link>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-springboot%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251012171949620.png" alt="Featured image of post SpringBoot" /&gt;&lt;h2 id=&#34;springboot&#34;&gt;SpringBoot
 &lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;简介
 &lt;/h3&gt;&lt;p&gt;设计目的：&lt;strong&gt;简化Spring应用的初始搭建以及开发过程&lt;/strong&gt;&lt;/p&gt;
@@ -6910,10 +6910,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>SpringMVC</title>
-        <link>https://calendar0917.github.io/posts/springmvc/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-springmvc/</link>
         <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/springmvc/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-springmvc/</guid>
         <description>&lt;h2 id=&#34;spring-mvc&#34;&gt;Spring MVC
 &lt;/h2&gt;&lt;p&gt;主要覆盖表述层（Controller）&lt;/p&gt;
 &lt;ul&gt;
@@ -7218,10 +7218,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>Spring</title>
-        <link>https://calendar0917.github.io/posts/spring/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-spring/</link>
         <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/spring/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-spring/</guid>
         <description>&lt;h2 id=&#34;概述&#34;&gt;概述
 &lt;/h2&gt;&lt;h3 id=&#34;spring-framework-特点&#34;&gt;Spring FrameWork 特点
 &lt;/h3&gt;&lt;ul&gt;
@@ -7881,10 +7881,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>JavaWeb-Servlet</title>
-        <link>https://calendar0917.github.io/posts/javaweb-servlet/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-javaweb-servlet/</link>
         <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/javaweb-servlet/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-javaweb-servlet/</guid>
         <description>&lt;h2 id=&#34;tomcat&#34;&gt;Tomcat
 &lt;/h2&gt;&lt;p&gt;服务器容器，将服务部署（deploy）到容器内&lt;/p&gt;
 &lt;p&gt;目录结构：&lt;/p&gt;
@@ -8189,10 +8189,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>ElasticSearch</title>
-        <link>https://calendar0917.github.io/posts/elasticsearch/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-elasticsearch/</link>
         <pubDate>Sat, 04 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/elasticsearch/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-elasticsearch/</guid>
         <description>&lt;h2 id=&#34;初识&#34;&gt;初识
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -8789,10 +8789,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>MQ</title>
-        <link>https://calendar0917.github.io/posts/mq/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-mq/</link>
         <pubDate>Thu, 02 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/mq/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-mq/</guid>
         <description>&lt;h2 id=&#34;初识-mq&#34;&gt;初识 MQ
 &lt;/h2&gt;&lt;h3 id=&#34;服务调用类型&#34;&gt;服务调用类型
 &lt;/h3&gt;&lt;h4 id=&#34;同步调用&#34;&gt;同步调用
@@ -9246,10 +9246,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>网关及配置中心</title>
-        <link>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E7%BD%91%E5%85%B3%E5%8F%8A%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
         <description>&lt;h2 id=&#34;网关&#34;&gt;网关
 &lt;/h2&gt;&lt;h3 id=&#34;介绍&#34;&gt;介绍
 &lt;/h3&gt;&lt;p&gt;网络的关口，负责请求的路由、转发、身份检验。分为阻塞式、响应式。微服务将服务注册到注册中心，网关进行服务拉取返回给前端。&lt;/p&gt;
@@ -9473,10 +9473,10 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
         </item>
         <item>
         <title>微服务拆分</title>
-        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</link>
         <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86/</guid>
         <description>&lt;h2 id=&#34;为什么需要拆分&#34;&gt;为什么需要拆分？
 &lt;/h2&gt;&lt;p&gt;单体架构不适合于用户量大、开发人员多的项目
 访问资源难以分配，无法分解并发压力
@@ -9552,252 +9552,11 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
 </description>
         </item>
         <item>
-        <title>博客开发记录</title>
-        <link>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</link>
-        <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://calendar0917.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/</guid>
-        <description>&lt;h2 id=&#34;准备工作&#34;&gt;准备工作
-&lt;/h2&gt;&lt;h3 id=&#34;技术栈&#34;&gt;技术栈
-&lt;/h3&gt;&lt;h4 id=&#34;后端&#34;&gt;后端
-&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;核心框架：Spring Boot 2.x（简化配置，快速开发）&lt;/li&gt;
-&lt;li&gt;持久层：MyBatis-Plus（在 MyBatis 基础上增强，提供 CRUD 简化）&lt;/li&gt;
-&lt;li&gt;数据库：MySQL 8.0（存储博客核心数据）&lt;/li&gt;
-&lt;li&gt;缓存：Redis（缓存热门文章、用户会话等）&lt;/li&gt;
-&lt;li&gt;安全框架：Spring Security（处理认证授权）&lt;/li&gt;
-&lt;li&gt;API 文档：Swagger/OpenAPI（自动生成接口文档）&lt;/li&gt;
-&lt;li&gt;部署：Docker（容器化部署，简化环境配置）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;前端&#34;&gt;前端
-&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;基础框架：Vue 3 + Vite（轻量高效的前端框架）&lt;/li&gt;
-&lt;li&gt;UI 组件库：Element Plus（与 Vue 3 配套的组件库）&lt;/li&gt;
-&lt;li&gt;路由：Vue Router（前端路由管理）&lt;/li&gt;
-&lt;li&gt;状态管理：Pinia（Vue 3 推荐的状态管理库）&lt;/li&gt;
-&lt;li&gt;HTTP 客户端：Axios（与后端 API 交互）&lt;/li&gt;
-&lt;li&gt;Markdown 编辑器：mavon-editor（博客编辑功能）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;功能模块设计&#34;&gt;功能模块设计
-&lt;/h3&gt;&lt;h4 id=&#34;核心功能&#34;&gt;核心功能
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;用户模块&lt;/strong&gt;：注册、登录、个人信息管理&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;文章模块&lt;/strong&gt;：发布、编辑、删除、查询、分类、标签&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;评论模块&lt;/strong&gt;：文章评论、回复功能&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;分类与标签&lt;/strong&gt;：文章归类和标签管理&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;首页展示&lt;/strong&gt;：文章列表、热门推荐、最新发布&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&#34;扩展功能可选&#34;&gt;扩展功能（可选）
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;文章搜索（Elasticsearch）&lt;/li&gt;
-&lt;li&gt;阅读统计与排行榜&lt;/li&gt;
-&lt;li&gt;点赞与收藏功能&lt;/li&gt;
-&lt;li&gt;后台管理系统&lt;/li&gt;
-&lt;li&gt;图片上传（阿里云 OSS 等）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;开发步骤&#34;&gt;开发步骤
-&lt;/h3&gt;&lt;h4 id=&#34;阶段-1项目初始化与基础搭建&#34;&gt;阶段 1：项目初始化与基础搭建
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;创建 Spring Boot 后端项目，配置 MySQL 和 Redis 连接&lt;/li&gt;
-&lt;li&gt;设计数据库表结构（用户表、文章表、分类表、标签表、评论表等）&lt;/li&gt;
-&lt;li&gt;创建 Vue 前端项目，配置基础路由和组件&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&#34;阶段-2核心功能开发&#34;&gt;阶段 2：核心功能开发
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;实现用户认证授权功能&lt;/li&gt;
-&lt;li&gt;开发文章 CRUD 接口及对应的前端页面&lt;/li&gt;
-&lt;li&gt;实现分类和标签管理功能&lt;/li&gt;
-&lt;li&gt;开发评论功能&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&#34;阶段-3优化与扩展&#34;&gt;阶段 3：优化与扩展
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;添加 Redis 缓存热门数据&lt;/li&gt;
-&lt;li&gt;实现分页和排序功能&lt;/li&gt;
-&lt;li&gt;开发后台管理界面&lt;/li&gt;
-&lt;li&gt;添加搜索功能&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&#34;阶段-4部署上线&#34;&gt;阶段 4：部署上线
-&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;项目打包与测试&lt;/li&gt;
-&lt;li&gt;配置 Docker 部署环境&lt;/li&gt;
-&lt;li&gt;上线到云服务器（如阿里云、腾讯云学生机）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;数据库设计&#34;&gt;数据库设计
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 用户表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;users(id, username, password, email, avatar, create_time, update_time)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 文章表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;articles(id, title, content, summary, cover_image, user_id, view_count, 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         like_count, comment_count, status, create_time, update_time)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 分类表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;categories(id, name, description, user_id, create_time)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 标签表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tags(id, name, user_id, create_time)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 文章-标签关联表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;article_tags(article_id, tag_id)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 评论表
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;comments(id, content, article_id, user_id, parent_id, create_time)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;前端开发要点&#34;&gt;前端开发要点
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;src/
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── assets/        # 静态资源
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── components/    # 通用组件
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── router/        # 路由配置
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── store/         # 状态管理
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── services/      # API服务
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── views/         # 页面组件
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── home/      # 首页
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── article/   # 文章相关
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── user/      # 用户相关
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── admin/     # 管理后台
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── utils/         # 工具函数
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── App.vue        # 根组件
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;ol&gt;
-&lt;li&gt;核心页面：
-&lt;ul&gt;
-&lt;li&gt;首页（文章列表展示）&lt;/li&gt;
-&lt;li&gt;文章详情页&lt;/li&gt;
-&lt;li&gt;文章编辑页&lt;/li&gt;
-&lt;li&gt;登录 / 注册页&lt;/li&gt;
-&lt;li&gt;个人中心&lt;/li&gt;
-&lt;li&gt;管理后台&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;开发-day1&#34;&gt;开发 Day1
-&lt;/h2&gt;&lt;h3 id=&#34;后端基础架构&#34;&gt;后端基础架构
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251006125729533.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251006125729533&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;数据库&#34;&gt;数据库
-&lt;/h3&gt;&lt;p&gt;如上先设计了 User 表&lt;/p&gt;
-&lt;h3 id=&#34;配置&#34;&gt;配置
-&lt;/h3&gt;&lt;h4 id=&#34;swagger&#34;&gt;Swagger
-&lt;/h4&gt;&lt;p&gt;引依赖：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-boot-starter&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.0.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-swagger-ui&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.0.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;改配置类：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Configuration&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SwaggerConfig&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Bean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OpenAPI&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;customOpenAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OpenAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;你的项目名称 API文档&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;你的项目API描述&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                      &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;license&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;License&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                              &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;许可证名称&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                              &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;许可证链接&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)));&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
-        </item>
-        <item>
         <title>微服务保护及分布式事务</title>
-        <link>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</link>
         <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</guid>
         <description>&lt;h2 id=&#34;微服务保护&#34;&gt;微服务保护
 &lt;/h2&gt;&lt;p&gt;问题：&lt;/p&gt;
 &lt;ul&gt;

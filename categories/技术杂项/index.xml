@@ -9,10 +9,10 @@
         <copyright>Calendar</copyright>
         <lastBuildDate>Tue, 04 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Arch 问题备份</title>
-        <link>https://calendar0917.github.io/posts/arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/</link>
+        <link>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/</link>
         <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/</guid>
+        <guid>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/</guid>
         <description>&lt;h2 id=&#34;缩放问题&#34;&gt;缩放问题
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;原因其实是因为这些软件默认运行在XWayland下（VSCode、Spotify），有的不支持Wayland（微信）。终端运行xprop，将光标放到软件界面，如变成十字则软件运行在Xwayland。&lt;/p&gt;
@@ -25,10 +25,10 @@
         </item>
         <item>
         <title>ArchLinux 安装及初步配置</title>
-        <link>https://calendar0917.github.io/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+        <link>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
         <pubDate>Mon, 03 Nov 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+        <guid>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
         <description>&lt;img src="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png" alt="Featured image of post ArchLinux 安装及初步配置" /&gt;&lt;blockquote&gt;
 &lt;p&gt;好几天没写博客了，一是期中考，二是不知道要学些什么了。网上看见推荐 Linux 系统的文章，正好试一试自己装系统。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -66,10 +66,10 @@
         </item>
         <item>
         <title>配置docker</title>
-        <link>https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/</link>
+        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E9%85%8D%E7%BD%AEdocker/</link>
         <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/%E9%85%8D%E7%BD%AEdocker/</guid>
+        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E9%85%8D%E7%BD%AEdocker/</guid>
         <description>&lt;h2 id=&#34;查看是否已安装&#34;&gt;查看是否已安装
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
