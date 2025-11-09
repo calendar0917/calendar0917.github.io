@@ -1,0 +1,1667 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>DevOps on Calendar&#39;s Blog</title>
+        <link>https://calendar0917.github.io/categories/devops/</link>
+        <description>Recent content in DevOps on Calendar&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Calendar</copyright>
+        <lastBuildDate>Sun, 09 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/devops/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>DevOps核心服务线</title>
+        <link>https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/</link>
+        <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/</guid>
+        <description>&lt;p&gt;参考：&lt;a class=&#34;link&#34; href=&#34;https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;DevOps入门小结&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;git版本控制&#34;&gt;Git版本控制
+&lt;/h2&gt;&lt;h3 id=&#34;核心流程&#34;&gt;核心流程
+&lt;/h3&gt;&lt;h4 id=&#34;四大核心区域定义&#34;&gt;四大核心区域定义
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;工作区（Working Directory）&lt;/strong&gt;：即本地电脑中存放项目文件的实际目录，是开发者日常编写代码、修改文件的区域，文件状态分为 “未跟踪（Untracked）” 和 “已跟踪（Tracked）”。
+&lt;ul&gt;
+&lt;li&gt;未跟踪：新创建的文件，Git 未记录其任何版本信息；&lt;/li&gt;
+&lt;li&gt;已跟踪：曾通过 &lt;code&gt;git add&lt;/code&gt; 纳入版本控制的文件，包括 “已修改（Modified）”“已暂存（Staged）”“未修改（Unmodified）” 三种状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;暂存区（Staging Area/Index）&lt;/strong&gt;：是 Git 中的 “临时缓冲区”，位于 &lt;code&gt;.git&lt;/code&gt; 目录内，用于存放待提交的文件变更。通过 &lt;code&gt;git add&lt;/code&gt; 命令可将工作区的修改同步到暂存区，暂存区的内容会在执行 &lt;code&gt;git commit&lt;/code&gt; 时被提交到本地仓库。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;本地仓库（Local Repository）&lt;/strong&gt;：位于项目根目录的 &lt;code&gt;.git&lt;/code&gt; 隐藏文件夹，是 Git 存储版本历史的核心区域。包含所有提交记录、分支信息、对象数据库（存储文件内容、提交对象等），即使断开网络也能完整查看历史和管理版本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;远程仓库（Remote Repository）&lt;/strong&gt;：位于服务器（如 GitHub、GitLab、自建 Git 服务器）的共享仓库，用于团队成员同步代码、协同开发。通过 &lt;code&gt;git push&lt;/code&gt; 将本地仓库的提交推送到远程，通过 &lt;code&gt;git pull/fetch&lt;/code&gt; 从远程获取他人的提交。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;命令与状态转换&#34;&gt;命令与状态转换
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;命令&lt;/th&gt;
+          &lt;th&gt;作用&lt;/th&gt;
+          &lt;th&gt;状态转换&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git add &amp;lt;文件&amp;gt;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;将工作区修改添加到暂存区&lt;/td&gt;
+          &lt;td&gt;未跟踪 → 已暂存；已修改 → 已暂存&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git commit -m &amp;quot;备注&amp;quot;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;将暂存区内容提交到本地仓库&lt;/td&gt;
+          &lt;td&gt;已暂存 → 未修改&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git push &amp;lt;远程&amp;gt; &amp;lt;分支&amp;gt;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;本地仓库提交推送到远程仓库&lt;/td&gt;
+          &lt;td&gt;本地提交 → 远程提交&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git checkout -- &amp;lt;文件&amp;gt;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;丢弃工作区未暂存的修改&lt;/td&gt;
+          &lt;td&gt;已修改 → 未修改&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git reset HEAD &amp;lt;文件&amp;gt;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;将暂存区的修改撤回到工作区&lt;/td&gt;
+          &lt;td&gt;已暂存 → 已修改&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;协同操作&#34;&gt;协同操作
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;git fetch：仅获取，不合并&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理：从远程仓库拉取本地尚未有的提交记录，更新本地的远程跟踪分支（如 &lt;code&gt;origin/main&lt;/code&gt;），但不会修改本地当前工作分支的代码。&lt;/li&gt;
+&lt;li&gt;流程：&lt;code&gt;git fetch origin main&lt;/code&gt; → 拉取远程 &lt;code&gt;main&lt;/code&gt; 分支的新提交 → 存储到本地 &lt;code&gt;origin/main&lt;/code&gt; 分支 → 本地 &lt;code&gt;main&lt;/code&gt; 分支保持不变。&lt;/li&gt;
+&lt;li&gt;优势：可在合并前通过 &lt;code&gt;git diff main origin/main&lt;/code&gt; 查看远程提交与本地的差异，评估是否会引发冲突，更安全可控。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;git pull：获取并合并&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理：&lt;code&gt;git pull&lt;/code&gt; 本质是 &lt;code&gt;git fetch&lt;/code&gt; + &lt;code&gt;git merge&lt;/code&gt; 的组合命令，拉取远程提交后会自动将其合并到本地当前工作分支。&lt;/li&gt;
+&lt;li&gt;流程：&lt;code&gt;git pull origin main&lt;/code&gt; → 先执行 &lt;code&gt;git fetch origin main&lt;/code&gt; → 再执行 &lt;code&gt;git merge origin/main into main&lt;/code&gt; → 直接更新本地工作分支代码。&lt;/li&gt;
+&lt;li&gt;优势：操作简洁，一步完成 “获取 + 合并”，适合快速同步代码；劣势：若存在冲突，会直接进入合并冲突解决流程，新手可能难以处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;最佳实践&#34;&gt;最佳实践
+&lt;/h4&gt;&lt;p&gt;团队协作优先使用 &lt;code&gt;git fetch&lt;/code&gt; + &lt;code&gt;git merge&lt;/code&gt; 组合&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git fetch origin main  &lt;span class=&#34;c1&#34;&gt;# 获取远程新提交&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git diff main origin/main  &lt;span class=&#34;c1&#34;&gt;# 查看差异&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git merge origin/main  &lt;span class=&#34;c1&#34;&gt;# 手动合并（冲突可提前预判）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;若确认远程提交与本地无冲突（如个人分支同步），可直接用 &lt;code&gt;git pull&lt;/code&gt; 简化操作；&lt;/p&gt;
+&lt;p&gt;避免在多人协作的公共分支（如 &lt;code&gt;main&lt;/code&gt;）上直接使用 &lt;code&gt;git pull&lt;/code&gt;，建议先切换到个人分支，合并后再提交 PR/MR。&lt;/p&gt;
+&lt;h3 id=&#34;分支管理&#34;&gt;分支管理
+&lt;/h3&gt;&lt;p&gt;核心分支概念&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;主分支（main/master）&lt;/strong&gt;：存放稳定可发布的代码，通常不允许直接提交，仅通过合并其他分支更新；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;功能分支（feature/*）&lt;/strong&gt;：用于开发新功能，从主分支创建，功能完成后合并回主分支；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修复分支（hotfix/*）&lt;/strong&gt;：用于修复生产环境紧急 bug，从主分支创建，修复后同时合并回主分支和开发分支。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心命令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;创建并切换到新分支&lt;/strong&gt;：&lt;code&gt;git checkout -b &amp;lt;new_branch&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理：等价于 &lt;code&gt;git branch &amp;lt;new_branch&amp;gt;&lt;/code&gt;（创建分支） + &lt;code&gt;git checkout &amp;lt;new_branch&amp;gt;&lt;/code&gt;（切换分支）；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;合并分支&lt;/strong&gt;：&lt;code&gt;git merge &amp;lt;branch&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;原理：将指定分支的代码合并到当前所在分支；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如功能开发完成后，将 &lt;code&gt;feature/login&lt;/code&gt; 合并到 &lt;code&gt;main&lt;/code&gt; 分支：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git checkout main  &lt;span class=&#34;c1&#34;&gt;# 切换到主分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git merge feature/login  &lt;span class=&#34;c1&#34;&gt;# 合并功能分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;冲突处理：若合并时出现代码冲突（同一文件同一位置被不同修改），Git 会标记冲突文件，需手动编辑冲突内容后，执行 &lt;code&gt;git add &amp;lt;冲突文件&amp;gt;&lt;/code&gt; + &lt;code&gt;git commit&lt;/code&gt; 完成合并。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;删除分支&lt;/strong&gt;：&lt;code&gt;git branch -d &amp;lt;branch&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：删除已合并到主分支的无用分支，清理分支结构；&lt;/li&gt;
+&lt;li&gt;强制删除：若分支未合并（如废弃的功能分支），需用 &lt;code&gt;git branch -D &amp;lt;branch&amp;gt;&lt;/code&gt;（大写 D）强制删除；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;历史管理&#34;&gt;历史管理
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;git reset &amp;ndash;hard &amp;lt;commit_id&amp;gt;：本地强制回滚&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理：将本地仓库、暂存区、工作区强制重置到指定的提交版本，丢弃该版本之后的所有提交记录；&lt;/li&gt;
+&lt;li&gt;直接修改本地版本历史，操作不可逆（丢弃的提交无法通过常规命令恢复），仅适用于本地未推送的提交。&lt;/li&gt;
+&lt;li&gt;严禁在公共分支使用！！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;git revert &amp;lt;commit_id&amp;gt;：创建反向提交&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;原理：不删除原有提交记录，而是创建一个新的 “反向提交”，抵消指定提交的修改内容，保持版本历史的完整性；&lt;/li&gt;
+&lt;li&gt;修改会生成新的提交，可正常推送到远程仓库，适合撤销已推送到公共分支的错误提交。&lt;/li&gt;
+&lt;li&gt;公共分支优先使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;docker与容器化&#34;&gt;Docker与容器化
+&lt;/h2&gt;&lt;p&gt;之前的文档写得比较详细了。&lt;/p&gt;
+&lt;h2 id=&#34;网络服务和转发&#34;&gt;网络服务和转发
+&lt;/h2&gt;&lt;h3 id=&#34;nginx-反向代理配置&#34;&gt;Nginx 反向代理配置
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kn&#34;&gt;listen&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kn&#34;&gt;server_name&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;api.example.com&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 匹配 /user 开头的请求，转发到用户服务
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/user&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kn&#34;&gt;proxy_pass&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;http://user-service:3000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 可使用内网域名（需DNS或hosts解析）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kn&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;Host&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 匹配 /order 开头的请求，转发到订单服务
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/order&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kn&#34;&gt;proxy_pass&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;http://order-service:4000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kn&#34;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;Host&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 匹配静态文件（如图片、CSS），直接返回本地文件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;\.(jpg|jpeg|png|css|js)&lt;/span&gt;$ &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kn&#34;&gt;root&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/var/www/static&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 静态文件目录
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kn&#34;&gt;expires&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;1d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 缓存1天，减轻后端压力
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;内网穿透&#34;&gt;内网穿透
+&lt;/h3&gt;&lt;h4 id=&#34;ssh-反向隧道&#34;&gt;SSH 反向隧道
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;原理&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;通过 SSH 连接将内网服务的端口 “反向映射” 到公网服务器（有公网 IP），使得公网用户可通过公网服务器的指定端口访问内网服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;持久化隧道autossh&#34;&gt;持久化隧道（autossh）：
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;autossh&lt;/code&gt; 可自动检测 SSH 连接状态并重启隧道，确保稳定性：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 安装 autossh（Debian/Ubuntu）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install autossh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 启动持久化反向隧道：-M 指定监控端口，-f 后台运行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;autossh -M &lt;span class=&#34;m&#34;&gt;20000&lt;/span&gt; -fN -R 8000:localhost:8080 user@public-server-ip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：轻量需求（如个人博客、小型服务），无需额外服务端配置（仅需公网服务器支持 SSH）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;frp-的-cs-工作模式&#34;&gt;Frp 的 C/S 工作模式
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;Frp 是专门的内网穿透工具，采用客户端（frpc）/ 服务端（frps）架构，支持 TCP、UDP、HTTP 等多种协议，功能更强大。&lt;/p&gt;
+&lt;p&gt;工作原理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;服务端（frps）&lt;/strong&gt;：部署在有公网 IP 的服务器，监听客户端连接和用户访问请求。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客户端（frpc）&lt;/strong&gt;：部署在内网机器，与服务端建立长连接，将内网服务端口映射到服务端。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;配置示例：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;服务端（frps.ini）&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[common]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;bind_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;7000  # 与客户端通信的端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;vhost_http_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;8080  # HTTP 服务统一端口（可选）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;启动：&lt;code&gt;frps -c frps.ini&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;客户端（frpc.ini）&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[common]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;server_addr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;public-server-ip  # 服务端公网 IP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;server_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;7000  # 服务端 bind_port&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 映射内网 SSH 服务（22 端口）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[ssh]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;tcp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;local_ip&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;local_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;22&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;remote_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;6000  # 访问服务端 6000 端口 → 内网 22 端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 映射内网 Web 服务（8080 端口）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[web]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;http&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;local_ip&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;local_port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;8080&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;custom_domains&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;web.example.com  # 绑定域名（需 DNS 解析到服务端 IP）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;启动：&lt;code&gt;frpc -c frpc.ini&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;零配置网络&#34;&gt;零配置网络
+&lt;/h3&gt;&lt;p&gt;具体使用看以前文章，这里分析原理&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tailscale 是基于 WireGuard 协议的零配置 VPN 工具，可快速构建跨网络的私有网络（如办公室、家庭、云服务器之间），实现设备间直接通信。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;相当于让分散的网络组成一个私有网络，实现跨网直连&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;核心原理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;P2P 直连&lt;/strong&gt;：通过 STUN 协议检测设备是否可直接通信，优先建立点对点连接（无需中转服务器），速度快、延迟低。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;中继 fallback&lt;/strong&gt;：若设备位于严格 NAT 后无法直连，自动通过 Tailscale 中继服务器转发（加密传输）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;身份认证&lt;/strong&gt;：基于 Tailscale 账号系统（支持 Google、GitHub 等 OAuth 登录），设备加入网络需管理员授权，安全可控。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DNS 与子网路由&lt;/strong&gt;：自动分配虚拟 IP（如 &lt;code&gt;100.x.y.z&lt;/code&gt;），支持自定义 DNS 名称（如 &lt;code&gt;my-laptop.tailnet-name.ts.net&lt;/code&gt;），可通过子网路由暴露整个内网（如办公室网段）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优势场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;远程办公：在家访问公司内网服务器，无需复杂 VPN 配置；&lt;/li&gt;
+&lt;li&gt;多地域设备组网：云服务器（AWS / 阿里云）、本地服务器、个人电脑组成私有网络，互访无感知；&lt;/li&gt;
+&lt;li&gt;安全通信：所有流量通过 WireGuard 加密，且无需暴露公网端口。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Q:为什么普通网络下 “跨网直连” 很难？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NAT 隔离&lt;/strong&gt;：家用 / 公司路由器会给设备分配 “内网 IP”（如 &lt;code&gt;192.168.x.x&lt;/code&gt;），这些 IP 只在路由器内部有效，互联网上看不见。路由器通过 “NAT 转换” 把内网 IP 映射到唯一的公网 IP 上，但这个公网 IP 通常是动态的，且路由器会阻止外部主动访问内网设备。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;防火墙限制&lt;/strong&gt;：公司 / 家庭网络的防火墙会默认拦截陌生的外部连接，防止被攻击。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;没有统一身份&lt;/strong&gt;：两台设备不知道对方是谁，无法验证 “是否允许通信”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q:Tailscale 如何解决这些问题？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;P2P 直连：绕开 “中间商”，设备直接对话&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tailscale 优先让设备之间 “直接握手”，不用经过第三方服务器转发，速度最快。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关键技术：STUN 协议&lt;/strong&gt;STUN 协议的作用是让设备 “发现自己在互联网中的真实位置”。比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;家里的电脑会先问 Tailscale 的 STUN 服务器：“我在互联网上的地址和端口是多少？”&lt;/li&gt;
+&lt;li&gt;STUN 服务器回复：“你当前的公网 IP 是 &lt;code&gt;203.0.113.5&lt;/code&gt;，端口是 &lt;code&gt;50000&lt;/code&gt;（路由器给你分配的临时端口）。”&lt;/li&gt;
+&lt;li&gt;公司的服务器也会做同样的操作，得到自己的公网 IP 和端口。&lt;/li&gt;
+&lt;li&gt;Tailscale 再把这两个 “地址 + 端口” 告诉对方，两台设备就可以直接发送数据了（比如家里电脑直接访问公司服务器的 &lt;code&gt;203.0.113.10:50001&lt;/code&gt;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;中继 fallback：实在连不上？找 “中介” 帮忙&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果设备在 “严格的 NAT 环境” 下（比如某些公司网络、校园网），STUN 也无法让它们直连，这时 Tailscale 会自动切换到 “中继模式”。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：Tailscale 会在全球部署多台 “中继服务器（DERP 服务器）”，两台设备都先连接到同一台中继服务器，数据通过中继转发。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全性&lt;/strong&gt;：即使经过中继，数据也是端到端加密的（中继服务器看不到内容），只有通信的两台设备能解密。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;身份认证：确保 “连对人”，防止陌生人闯入&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Tailscale 用一套严格的身份体系确保只有授权设备能加入网络：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;账号绑定&lt;/strong&gt;：所有设备必须登录同一个 Tailscale 账号（支持 Google、GitHub 等账号登录），相当于 “家庭住址”，只有这个 “家庭” 的设备才能互相看到。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;授权机制&lt;/strong&gt;：新设备登录后，需要管理员在 Tailscale 后台手动 “批准” 才能加入网络（类似小区门禁，保安确认后才放行）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加密证书&lt;/strong&gt;：每台设备会生成一对加密密钥，由 Tailscale 的 “密钥服务器” 颁发证书，通信时用证书验证对方身份（确保不是伪装的设备）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;子网路由：让 “整个内网” 都加入虚拟网络&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如果你想让虚拟网络里的设备访问 “整个公司内网”（比如公司内网有 &lt;code&gt;192.168.1.x&lt;/code&gt; 网段的多台服务器），不用每台都装 Tailscale，只需：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在内网找一台 “网关设备”（比如一台服务器）安装 Tailscale，并配置 “子网路由”，告诉 Tailscale：“我能访问 &lt;code&gt;192.168.1.0/24&lt;/code&gt; 这个网段”。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其他设备（如家里的电脑）就可以通过这台网关设备访问公司内网的所有机器（如 &lt;code&gt;192.168.1.100&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Q：为什么能绕过防火墙？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因为这个连接是由 “内网设备主动发起” 的，大多数防火墙会允许 “主动发起的连接的返回数据”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;文件服务&#34;&gt;文件服务
+&lt;/h3&gt;&lt;p&gt;具体看以前文章，这里做一下整合&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;文件服务用于跨设备、跨系统共享文件，SMB/CIFS 适合 Windows 环境，SFTP 基于 SSH 更安全通用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;smbcifssambawindows-友好的文件共享&#34;&gt;SMB/CIFS（Samba）：Windows 友好的文件共享
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;Samba 实现了 SMB 协议，可让 Linux 与 Windows、macOS 无缝共享文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;核心配置（&lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[global]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   &lt;span class=&#34;na&#34;&gt;workgroup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;WORKGROUP  # 与 Windows 工作组一致
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   security = user        # 用户密码认证
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   map to guest = bad user  # 拒绝匿名访问&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;[public]  # 共享名称（Windows 中显示为 \\server\public）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   &lt;span class=&#34;na&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/var/samba/public  # 共享目录
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   browsable = yes           # 允许浏览
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   writable = yes            # 可写
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   guest ok = no             # 不允许匿名访问
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   valid users = alice bob   # 允许访问的用户&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[private]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   &lt;span class=&#34;na&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/home/alice/private
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   writable = yes
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   valid users = alice       # 仅 alice 可访问
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   create mask = 0600        # 新建文件权限
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;   directory mask = 0700     # 新建目录权限&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;用户管理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Samba 依赖系统用户，但密码独立管理：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建系统用户（若不存在）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo useradd -m alice
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 设置 Samba 密码（需输入两次）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo smbpasswd -a alice  &lt;span class=&#34;c1&#34;&gt;# -a 添加用户，-x 删除用户&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 重启 Samba 服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl restart smbd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;访问方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows：&lt;code&gt;Win + R&lt;/code&gt; 输入 &lt;code&gt;\\samba-server-ip\public&lt;/code&gt;，输入 Samba 用户名密码；&lt;/li&gt;
+&lt;li&gt;Linux：&lt;code&gt;smbclient //samba-server-ip/public -U alice&lt;/code&gt; 或挂载到本地 &lt;code&gt;mount -t cifs //server/public /mnt -o username=alice&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;sftp基于-ssh安全的文件传输&#34;&gt;SFTP（基于 SSH）：安全的文件传输
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;SFTP 是 SSH 的子协议，无需额外服务，仅需开启 SSH 服务即可使用，适合跨平台且对安全性要求高的场景。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;限制用户目录（ChrootDirectory）：&lt;/p&gt;
+&lt;p&gt;默认 SFTP 允许用户访问整个系统，通过配置可限制用户仅能访问指定目录（增强安全性）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;修改 SSH 配置（&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 注释原 Subsystem sftp /usr/lib/openssh/sftp-server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Subsystem sftp internal-sftp  &lt;span class=&#34;c1&#34;&gt;# 使用内置 SFTP 模块&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 针对 sftpuser 组的配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Match Group sftpuser
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ChrootDirectory /var/sftp/%u  &lt;span class=&#34;c1&#34;&gt;# 限制根目录（必须为 root 所有，权限 755）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ForceCommand internal-sftp    &lt;span class=&#34;c1&#34;&gt;# 强制使用 SFTP，禁止 SSH 登录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    AllowTcpForwarding no
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    X11Forwarding no
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建用户和目录：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建 sftpuser 组&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo groupadd sftpuser
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建用户（禁止登录 shell）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo useradd -m -g sftpuser -s /usr/sbin/nologin sftp_alice
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 设置密码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo passwd sftp_alice
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建 Chroot 目录（权限必须正确，否则登录失败）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mkdir -p /var/sftp/sftp_alice/upload
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown root:root /var/sftp/sftp_alice  &lt;span class=&#34;c1&#34;&gt;# 根目录必须为 root 所有&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;755&lt;/span&gt; /var/sftp/sftp_alice
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown sftp_alice:sftpuser /var/sftp/sftp_alice/upload  &lt;span class=&#34;c1&#34;&gt;# 子目录可写&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启 SSH 服务：&lt;code&gt;sudo systemctl restart sshd&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;访问方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;命令行：&lt;code&gt;sftp sftp_alice@server-ip&lt;/code&gt;（默认端口 22）；&lt;/li&gt;
+&lt;li&gt;图形工具：FileZilla、WinSCP（输入主机、端口、用户名密码）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;数据与应用&#34;&gt;数据与应用
+&lt;/h2&gt;&lt;p&gt;补充一下自动化备份&lt;/p&gt;
+&lt;h3 id=&#34;自动化备份crontab-定时任务&#34;&gt;自动化备份：&lt;code&gt;crontab&lt;/code&gt; 定时任务
+&lt;/h3&gt;&lt;p&gt;通过 Linux 的&lt;code&gt;crontab&lt;/code&gt;设置定时任务，可实现 MySQL 自动备份，避免人工操作遗漏。&lt;/p&gt;
+&lt;p&gt;（1）编写备份脚本（&lt;code&gt;mysql_backup.sh&lt;/code&gt;）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# 备份目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;BACKUP_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/data/mysql_backups&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 日期格式（如20251109）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;DATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;date +%Y%m%d&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 保留备份天数（删除7天前的备份）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;RETENTION_DAYS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建备份目录（若不存在）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p &lt;span class=&#34;nv&#34;&gt;$BACKUP_DIR&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 执行备份（单库示例，替换为实际库名和密码）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mysqldump -u root -p&lt;span class=&#34;s2&#34;&gt;&amp;#34;your_password&amp;#34;&lt;/span&gt; --databases blog --single-transaction &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gzip &amp;gt; &lt;span class=&#34;nv&#34;&gt;$BACKUP_DIR&lt;/span&gt;/blog_&lt;span class=&#34;nv&#34;&gt;$DATE&lt;/span&gt;.sql.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除过期备份&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;find &lt;span class=&#34;nv&#34;&gt;$BACKUP_DIR&lt;/span&gt; -name &lt;span class=&#34;s2&#34;&gt;&amp;#34;blog_*.sql.gz&amp;#34;&lt;/span&gt; -type f -mtime +&lt;span class=&#34;nv&#34;&gt;$RETENTION_DAYS&lt;/span&gt; -delete
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;注意：脚本中直接写密码有安全风险，建议通过&lt;code&gt;~/.my.cnf&lt;/code&gt;配置无密码登录（见下方补充）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（2）添加执行权限&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x mysql_backup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;（3）设置&lt;code&gt;crontab&lt;/code&gt;定时任务&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 编辑定时任务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;crontab -e
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 添加一行：每天凌晨3点执行备份&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; * * * /path/to/mysql_backup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;格式说明：&lt;code&gt;分 时 日 月 周 命令&lt;/code&gt;，&lt;code&gt;0 3 * * *&lt;/code&gt; 表示每天 3 点 0 分执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（4）补充：无密码登录配置（&lt;code&gt;~/.my.cnf&lt;/code&gt;）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[client]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;root&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;your_password&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;设置权限：&lt;code&gt;chmod 600 ~/.my.cnf&lt;/code&gt;，避免密码泄露。&lt;/p&gt;
+&lt;h3 id=&#34;python-后端&#34;&gt;Python 后端
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;Python 后端框架基于不同的网关协议，分为同步（WSGI）和异步（ASGI）两类&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;wsgi-与-asgi协议本质与区别&#34;&gt;WSGI 与 ASGI：协议本质与区别
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;WSGI&lt;/strong&gt;（Web Server Gateway Interface）：同步网关协议&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WSGI 是 Python Web 应用与 Web 服务器（如 Nginx、Gunicorn）之间的标准接口，定义了二者的通信规范，&lt;strong&gt;仅支持同步请求处理&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;客户端请求到达 Web 服务器（如 Nginx），转发给 WSGI 服务器（如 Gunicorn）；&lt;/li&gt;
+&lt;li&gt;WSGI 服务器为每个请求创建一个线程 / 进程，调用应用框架（如 Flask）的处理函数；&lt;/li&gt;
+&lt;li&gt;处理函数同步执行（执行期间线程 / 进程被阻塞），完成后返回响应。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;代表框架&lt;/strong&gt;：Flask、Django（默认）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;局限性&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;面对 IO 密集型任务（如数据库查询、网络请求）时，线程 / 进程会被阻塞，无法处理其他请求，并发能力有限；&lt;/li&gt;
+&lt;li&gt;不支持 WebSocket 等长连接协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;ASGI&lt;/strong&gt;（Asynchronous Server Gateway Interface）：异步网关协议&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ASGI 是 WSGI 的继任者，&lt;strong&gt;支持同步和异步请求处理&lt;/strong&gt;，专为高并发和长连接场景设计。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;基于事件循环（Event Loop）机制，用少量线程处理大量请求；&lt;/li&gt;
+&lt;li&gt;遇到 IO 操作（如等待数据库响应）时，会释放当前线程去处理其他请求，IO 完成后再回调继续执行；&lt;/li&gt;
+&lt;li&gt;原生支持 WebSocket、HTTP/2 等协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;代表框架&lt;/strong&gt;：FastAPI、Starlette、Django 3.0+（异步视图）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;处理 IO 密集型任务时，并发能力比 WSGI 高 10 倍以上；&lt;/li&gt;
+&lt;li&gt;支持长连接和异步语法，适合实时应用（如聊天、通知）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;fastapi&#34;&gt;FastAPI
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;FastAPI 是基于 ASGI 的高性能框架，原生支持异步语法和数据校验，开发效率和运行性能兼具。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;async/await&lt;/code&gt; 异步语法&lt;/p&gt;
+&lt;p&gt;用于定义异步函数，实现非阻塞 IO 操作，提升并发能力。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;基础示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;fastapi&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FastAPI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;asyncio&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;app&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FastAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 异步路由函数（用async def定义）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@app.get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/async&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;async&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;async_endpoint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 模拟IO操作（如数据库查询、网络请求）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;await&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;asyncio&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 非阻塞等待1秒（不占用线程）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;异步响应&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 同步路由函数（用def定义，兼容同步代码）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@app.get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/sync&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sync_endpoint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 同步IO操作（会阻塞线程）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;同步响应&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关键规则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用&lt;code&gt;async def&lt;/code&gt;定义的函数可使用&lt;code&gt;await&lt;/code&gt;调用其他异步函数（如异步数据库驱动&lt;code&gt;asyncpg&lt;/code&gt;）；&lt;/li&gt;
+&lt;li&gt;若调用同步 IO 函数（如&lt;code&gt;requests.get&lt;/code&gt;），需用&lt;code&gt;async def&lt;/code&gt;+ 线程池（避免阻塞事件循环）；&lt;/li&gt;
+&lt;li&gt;异步函数中&lt;strong&gt;不能有阻塞操作&lt;/strong&gt;（如&lt;code&gt;time.sleep&lt;/code&gt;），必须用&lt;code&gt;await&lt;/code&gt;调用异步版本（如&lt;code&gt;asyncio.sleep&lt;/code&gt;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pydantic 数据校验&lt;/p&gt;
+&lt;p&gt;FastAPI 依赖 Pydantic 库实现请求数据的自动校验和类型转换，确保输入数据符合预期。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例：请求体校验&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;fastapi&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FastAPI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pydantic&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BaseModel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmailStr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;app&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FastAPI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 定义数据模型（继承BaseModel）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BaseModel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;min_length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;max_length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 必传，字符串长度限制&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;le&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;120&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 可选，整数范围0-120&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;email&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmailStr&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 自动验证邮箱格式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 接收并校验请求体&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@app.post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/users/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;async&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;create_user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;用户创建成功&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;校验效果&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若请求体不符合模型（如&lt;code&gt;age=-5&lt;/code&gt;、&lt;code&gt;email=&amp;quot;invalid&amp;quot;&lt;/code&gt;），FastAPI 会自动返回 422 错误，包含详细校验信息；&lt;/li&gt;
+&lt;li&gt;支持自动类型转换（如字符串&lt;code&gt;&amp;quot;25&amp;quot;&lt;/code&gt;转为整数&lt;code&gt;25&lt;/code&gt;）；&lt;/li&gt;
+&lt;li&gt;可通过&lt;code&gt;Field&lt;/code&gt;定义额外约束（如默认值、描述、正则匹配）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;请求参数（路径参数、查询参数、请求体）校验；&lt;/li&gt;
+&lt;li&gt;响应数据格式化（确保输出结构一致）；&lt;/li&gt;
+&lt;li&gt;数据模型文档自动生成（FastAPI 的 Swagger 文档会基于 Pydantic 模型展示参数说明）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ai-与-agent&#34;&gt;AI 与 Agent
+&lt;/h2&gt;&lt;p&gt;看以前文章&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>服务器硬件、虚拟化与PVE</title>
+        <link>https://calendar0917.github.io/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/</link>
+        <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/</guid>
+        <description>&lt;h2 id=&#34;服务器硬件&#34;&gt;服务器硬件
+&lt;/h2&gt;&lt;h3 id=&#34;ecc-内存&#34;&gt;ECC 内存
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;ECC（Error-Correcting Code，纠错码）是一种具备错误检测和纠正能力的内存模块。其核心是通过在内存数据中添加额外的校验位（通常为 8 位校验位对应 64 位数据位），利用数学算法（如汉明码、海明码扩展算法）对数据传输和存储过程中的错误进行检测。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;优点&lt;/th&gt;
+          &lt;th&gt;缺点&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;数据纠错能力，保障稳定性&lt;/td&gt;
+          &lt;td&gt;成本更高（比普通非 ECC 内存贵 30%-50%）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;降低宕机风险，减少运维损失&lt;/td&gt;
+          &lt;td&gt;性能有微小损耗（校验计算占用少量内存带宽）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;支持大容量扩展，适配服务器需求&lt;/td&gt;
+          &lt;td&gt;需主板芯片组支持（普通消费级主板不兼容）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;热插拔硬盘&#34;&gt;热插拔硬盘
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;在服务器运行过程中（无需关机），可直接插入或拔出硬盘的硬件技术。其实现依赖两大核心组件&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;硬件层面&lt;/strong&gt;：硬盘接口（如 SATA、SAS、NVMe）和服务器背板支持热插拔协议，具备电源隔离和信号切换机制，确保插拔时不影响其他硬件的供电和数据传输。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;软件层面&lt;/strong&gt;：操作系统（如 Linux、Windows Server）和存储控制器驱动支持热插拔检测，当硬盘插拔时，系统可自动识别设备并完成挂载 / 卸载，避免数据丢失。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;优点&lt;/th&gt;
+          &lt;th&gt;缺点&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;在线维护，不中断业务&lt;/td&gt;
+          &lt;td&gt;硬件成本增加（需支持热插拔的硬盘、背板和控制器）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;动态扩容，适配业务增长&lt;/td&gt;
+          &lt;td&gt;对操作规范要求高（误操作可能导致数据丢失）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;减少停机损失，提升服务可用性&lt;/td&gt;
+          &lt;td&gt;需配合 RAID 使用（单独热插拔硬盘无冗余，故障时仍可能丢数据）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;raid&#34;&gt;RAID
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;RAID（Redundant Array of Independent Disks，独立磁盘冗余阵列）是将多个物理硬盘组合成一个逻辑磁盘，通过数据分布和冗余策略，实现性能提升或数据容错的技术。常见级别包括 RAID 0、1、5、10，各有不同的原理和取舍。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;RAID 0（条带化）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：将数据分割成多个块，分散存储到多个硬盘上，读写时多硬盘并行操作。例如，将 1GB 数据拆分为 4 个 256MB 块，存储到 4 块硬盘中，读取时 4 块硬盘同时传输，理论速度是单块硬盘的 4 倍。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：无冗余机制，任何一块硬盘故障都会导致全部数据丢失。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RAID 1（镜像）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：至少需要 2 块硬盘，将数据同时写入主硬盘和镜像硬盘，两块硬盘数据完全一致。读取时可从任意一块硬盘获取数据，故障时可切换到正常硬盘。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：数据冗余性强，但硬盘利用率仅 50%（2 块硬盘仅能使用 1 块的容量）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RAID 5（分布式奇偶校验）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：至少需要 3 块硬盘，将数据分散存储到所有硬盘，同时计算奇偶校验信息并分布式存储（每块硬盘都包含部分校验数据）。当单块硬盘故障时，可通过其他硬盘的数据和校验信息恢复故障数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：兼顾冗余和容量利用率（利用率 =（n-1）/n，n 为硬盘数量），但写入性能受校验计算影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;RAID 10（RAID 1+0，镜像 + 条带化）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：至少需要 4 块硬盘，先将硬盘两两组成 RAID 1 镜像对，再将多个镜像对组成 RAID 0 条带化阵列。例如，4 块硬盘分为 2 个镜像对（A1-A2、B1-B2），数据先条带化存储到 A1 和 B1，同时同步到 A2 和 B2。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：兼具 RAID 0 的高性能和 RAID 1 的高冗余，可容忍多个硬盘故障（只要每个镜像对中至少有一块硬盘正常）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;各 RAID 级别性能与取舍对比:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;RAID 级别&lt;/th&gt;
+          &lt;th&gt;读写性能&lt;/th&gt;
+          &lt;th&gt;数据冗余性&lt;/th&gt;
+          &lt;th&gt;硬盘利用率&lt;/th&gt;
+          &lt;th&gt;最少硬盘数&lt;/th&gt;
+          &lt;th&gt;适用场景&lt;/th&gt;
+          &lt;th&gt;核心缺点&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;RAID 0&lt;/td&gt;
+          &lt;td&gt;极高（并行读写）&lt;/td&gt;
+          &lt;td&gt;无（单盘故障丢数据）&lt;/td&gt;
+          &lt;td&gt;100%&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;非关键数据存储（如缓存、临时文件）&lt;/td&gt;
+          &lt;td&gt;无容错能力，风险极高&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;RAID 1&lt;/td&gt;
+          &lt;td&gt;读性能较好，写性能一般&lt;/td&gt;
+          &lt;td&gt;高（单盘故障可恢复）&lt;/td&gt;
+          &lt;td&gt;50%&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;小容量关键数据（如系统盘、数据库日志盘）&lt;/td&gt;
+          &lt;td&gt;容量利用率低，成本高&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;RAID 5&lt;/td&gt;
+          &lt;td&gt;读性能较好，写性能中等&lt;/td&gt;
+          &lt;td&gt;中（单盘故障可恢复）&lt;/td&gt;
+          &lt;td&gt;（n-1）/n&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;大容量业务数据（如文件服务器、普通数据库）&lt;/td&gt;
+          &lt;td&gt;单盘故障时读写性能下降，不支持多盘同时故障&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;RAID 10&lt;/td&gt;
+          &lt;td&gt;极高（条带化 + 镜像）&lt;/td&gt;
+          &lt;td&gt;高（多盘故障可容忍）&lt;/td&gt;
+          &lt;td&gt;50%&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;高并发关键业务（如核心数据库、金融交易系统）&lt;/td&gt;
+          &lt;td&gt;成本高，硬盘利用率低&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;带外管理&#34;&gt;带外管理
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;带外管理（Out-of-Band Management）是指不依赖服务器操作系统和网络栈，通过独立硬件和专用通道对服务器进行远程管理的技术。其中，&lt;strong&gt;IPMI（智能平台管理接口）&lt;/strong&gt; 是行业通用标准，而戴尔的 iDRAC、惠普的 iLO 则是基于 IPMI 扩展的厂商专属解决方案。它们是数据中心远程排错、运维的 “生命线”，尤其在服务器离线、系统崩溃时仍能正常工作，核心功能包括 KVM 远程控制、虚拟介质挂载等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;概念&#34;&gt;概念
+&lt;/h3&gt;&lt;h4 id=&#34;带外管理的-独立性&#34;&gt;带外管理的 “独立性”
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;硬件独立&lt;/strong&gt;：通过服务器主板上的专用管理芯片（如戴尔的 iDRAC 芯片、惠普的 iLO 芯片）实现，不占用服务器 CPU、内存资源。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络独立&lt;/strong&gt;：通常通过独立的管理网口（如标有 “iDRAC”“iLO” 的网口）连接，与服务器业务网物理隔离，即使服务器系统宕机、网络中断，仍可通过管理网访问。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;电源独立&lt;/strong&gt;：只要服务器接通电源（无需开机），带外管理模块就可工作，支持远程开机、关机、重启。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;ipmi标准化的带外管理协议&#34;&gt;IPMI：标准化的带外管理协议
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;IPMI 是由英特尔、戴尔等厂商联合制定的开放标准（目前最新版本为 IPMI 2.0），定义了管理模块与服务器硬件（CPU、内存、风扇、电源等）的通信接口。&lt;/li&gt;
+&lt;li&gt;厂商专属方案（iDRAC/iLO）均基于 IPMI 扩展，增加了图形化界面、更多硬件监控功能（如温度、电压实时监控）和高级操作（如虚拟介质、固件升级）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;具体实现&#34;&gt;具体实现
+&lt;/h3&gt;&lt;h4 id=&#34;kvm-over-ip远程控制台核心排错功能&#34;&gt;KVM Over IP：远程控制台（核心排错功能）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;功能&lt;/strong&gt;：通过网络远程获取服务器显示器、键盘、鼠标的控制权，相当于 “虚拟现场操作”，支持图形化界面（如 BIOS 设置、操作系统安装界面、蓝屏 / 黑屏故障排查）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优势&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;不依赖操作系统：即使服务器未安装系统、系统崩溃（如 Linux 内核 panic、Windows 蓝屏），仍能看到控制台输出；&lt;/li&gt;
+&lt;li&gt;低延迟：支持自适应带宽，在网络条件差时仍可流畅操作；&lt;/li&gt;
+&lt;li&gt;跨平台：通过浏览器 Web 界面或专用客户端（如 iDRAC Virtual Console）访问。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;远程安装操作系统（如在无本地光驱的情况下通过 KVM 操作安装界面）；&lt;/li&gt;
+&lt;li&gt;排查系统启动故障（如 GRUB 引导错误、BIOS 设置错误导致的开机失败）；&lt;/li&gt;
+&lt;li&gt;处理蓝屏 / 内核崩溃：直接查看错误代码和堆栈信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;虚拟介质virtual-media远程挂载-iso--文件&#34;&gt;虚拟介质（Virtual Media）：远程挂载 ISO / 文件
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：将本地电脑的 ISO 镜像、U 盘、文件夹通过网络 “映射” 为服务器的本地存储设备（如虚拟光驱、虚拟 U 盘），服务器可像访问物理介质一样读取。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持格式&lt;/strong&gt;：ISO、IMG、VHD 等，部分型号支持通过 NFS、CIFS 共享挂载网络存储中的介质。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;使用场景&lt;/em&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;远程安装操作系统：挂载系统 ISO 镜像（如 CentOS、Windows Server），通过 KVM 操作完成安装；&lt;/li&gt;
+&lt;li&gt;修复系统：挂载 PE 启动盘 ISO，修复引导或恢复数据；&lt;/li&gt;
+&lt;li&gt;传输驱动 / 工具：将驱动程序 ISO 映射为虚拟光驱，为服务器安装硬件驱动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;固件升级与配置管理&#34;&gt;固件升级与配置管理
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;固件升级&lt;/strong&gt;：远程更新服务器 BIOS、iDRAC/iLO 自身固件、RAID 卡固件等，支持断点续传和回滚机制（避免升级失败变砖）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;配置导出 / 导入&lt;/strong&gt;：将 iDRAC/iLO 的网络配置、用户权限等导出为文件，批量部署到多台服务器，简化规模化运维。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;用户权限管理&lt;/strong&gt;：支持多用户、多角色（如管理员、操作员），细粒度控制权限（如仅允许查看状态，不允许执行电源操作）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;使用步骤&#34;&gt;使用步骤
+&lt;/h3&gt;&lt;h4 id=&#34;初始配置首次使用&#34;&gt;初始配置（首次使用）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;硬件连接&lt;/strong&gt;：将服务器的 iDRAC 网口通过网线连接到管理网络（交换机或路由器），确保物理链路通畅。&lt;/li&gt;
+&lt;li&gt;获取管理 IP：
+&lt;ul&gt;
+&lt;li&gt;方法 1：服务器开机时，通过本地显示器查看 iDRAC 初始化信息（通常会显示默认 IP，如&lt;code&gt;192.168.0.120&lt;/code&gt;）；&lt;/li&gt;
+&lt;li&gt;方法 2：通过服务器主板上的 LCD 屏（部分型号支持）查看或修改 iDRAC IP；&lt;/li&gt;
+&lt;li&gt;方法 3：使用戴尔专用工具（如 OpenManage Server Administrator）在本地获取。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;登录 Web 界面&lt;/strong&gt;：在浏览器中输入 iDRAC IP，使用默认账号密码（如&lt;code&gt;root/calvin&lt;/code&gt;）登录，首次登录需强制修改密码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;远程-kvm-操作步骤&#34;&gt;远程 KVM 操作步骤
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;登录 iDRAC Web 界面，进入「Overview → Server → Console/Media」；&lt;/li&gt;
+&lt;li&gt;点击「Launch Virtual Console」，下载并运行 Java 插件或 HTML5 客户端（现代 iDRAC 支持无插件 HTML5 模式）；&lt;/li&gt;
+&lt;li&gt;客户端启动后，即可看到服务器的实时控制台画面，通过本地键盘鼠标远程操作（支持快捷键，如&lt;code&gt;Ctrl+Alt+Del&lt;/code&gt;）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;虚拟介质挂载-iso-步骤&#34;&gt;虚拟介质挂载 ISO 步骤
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;在 iDRAC Web 界面的「Console/Media」页面，切换到「Virtual Media」标签；&lt;/li&gt;
+&lt;li&gt;点击「Attach」，选择本地电脑中的 ISO 文件（或输入网络共享路径）；&lt;/li&gt;
+&lt;li&gt;勾选「Auto-attach on next connection」，确保服务器能识别虚拟介质；&lt;/li&gt;
+&lt;li&gt;进入 KVM 控制台，重启服务器并按对应快捷键（如 F11）进入启动菜单，选择虚拟光驱作为启动项，即可从 ISO 启动。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;命令行管理&#34;&gt;命令行管理
+&lt;/h4&gt;&lt;p&gt;除 Web 界面外，可通过&lt;code&gt;ipmitool&lt;/code&gt;工具（基于 IPMI 协议）命令行操作，适合自动化脚本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 安装ipmitool（Linux）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install ipmitool  &lt;span class=&#34;c1&#34;&gt;# Debian/Ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo yum install ipmitool  &lt;span class=&#34;c1&#34;&gt;# CentOS/RHEL&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 远程连接iDRAC（需开启IPMI Over LAN）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ipmitool -H 192.168.0.120 -U root -P password power status  &lt;span class=&#34;c1&#34;&gt;# 查看电源状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ipmitool -H 192.168.0.120 -U root -P password power reset   &lt;span class=&#34;c1&#34;&gt;# 远程重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ipmitool -H 192.168.0.120 -U root -P password sensor list   &lt;span class=&#34;c1&#34;&gt;# 查看传感器状态（温度、风扇等）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;pve虚拟化&#34;&gt;PVE虚拟化
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Proxmox VE（简称 PVE）是一款基于 Debian 的开源虚拟化管理平台，整合了 KVM 全虚拟化、LXC 容器技术及集群管理功能&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;kvm全虚拟化与-lxc容器的优劣及选型&#34;&gt;KVM（全虚拟化）与 LXC（容器）的优劣及选型
+&lt;/h3&gt;&lt;p&gt;PVE 同时支持 KVM 和 LXC 两种虚拟化方案，二者底层技术原理不同，适用场景各有侧重。&lt;/p&gt;
+&lt;h4 id=&#34;kvm全虚拟化与-lxc容器的优劣及选型-1&#34;&gt;KVM（全虚拟化）与 LXC（容器）的优劣及选型
+&lt;/h4&gt;&lt;p&gt;KVM（全虚拟化）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本质&lt;/strong&gt;：基于 Linux 内核的虚拟化模块，通过硬件辅助虚拟化技术（如 Intel VT-x、AMD-V），为虚拟机（VM）模拟完整的硬件环境（CPU、内存、硬盘、网卡等），虚拟机中可安装任意操作系统（如 Windows、Linux、FreeBSD）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隔离性&lt;/strong&gt;：虚拟机与宿主机、虚拟机之间完全隔离，拥有独立的内核空间，一个 VM 故障不会影响其他 VM 或宿主机。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;LXC（容器虚拟化）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本质&lt;/strong&gt;：基于 Linux 内核的容器技术，通过 namespace（命名空间）实现资源隔离，通过 cgroup（控制组）实现资源限制，容器共享宿主机的 Linux 内核，仅封装应用及依赖环境。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;轻量性&lt;/strong&gt;：无需模拟硬件和运行独立内核，启动速度快、资源占用低，可在单台宿主机上部署大量容器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;优劣对比&#34;&gt;优劣对比
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;维度&lt;/th&gt;
+          &lt;th&gt;KVM（全虚拟化）&lt;/th&gt;
+          &lt;th&gt;LXC（容器）&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;资源占用&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;高（需分配独立硬件资源，存在虚拟化开销）&lt;/td&gt;
+          &lt;td&gt;低（共享内核，几乎无虚拟化开销）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;启动速度&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;慢（需加载完整操作系统，通常分钟级）&lt;/td&gt;
+          &lt;td&gt;快（直接启动应用，秒级甚至毫秒级）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;隔离性&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;强（独立内核，硬件级隔离）&lt;/td&gt;
+          &lt;td&gt;弱（共享内核，依赖内核 namespace 隔离，存在逃逸风险）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;系统兼容性&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;高（支持任意操作系统）&lt;/td&gt;
+          &lt;td&gt;低（仅支持与宿主机内核兼容的 Linux 发行版）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;管理复杂度&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;高（需配置完整硬件参数、网络、存储）&lt;/td&gt;
+          &lt;td&gt;低（简化的资源配置，依赖宿主机基础设施）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;硬件穿透&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;支持（可直接映射 GPU、USB 设备等）&lt;/td&gt;
+          &lt;td&gt;有限（需宿主机内核支持，部分设备无法直接穿透）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;优先选 KVM 的场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;需运行 Windows 等非 Linux 操作系统；&lt;/li&gt;
+&lt;li&gt;对隔离性和安全性要求高（如运行多租户应用、核心业务系统）；&lt;/li&gt;
+&lt;li&gt;需要硬件设备穿透（如 GPU 虚拟化用于 AI 计算、USB 加密狗）；&lt;/li&gt;
+&lt;li&gt;应用对内核版本敏感，需独立内核环境。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优先选 LXC 的场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;运行 Linux 轻量应用（如 Web 服务、API 接口、脚本程序）；&lt;/li&gt;
+&lt;li&gt;追求高密度部署（如单台服务器部署数十个应用实例）；&lt;/li&gt;
+&lt;li&gt;对启动速度和资源利用率要求高（如微服务架构、临时测试环境）；&lt;/li&gt;
+&lt;li&gt;简化运维，降低管理成本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;快照snapshot与备份backup的区别&#34;&gt;快照（Snapshot）与备份（Backup）的区别
+&lt;/h3&gt;&lt;h4 id=&#34;快照&#34;&gt;快照
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;快照是对虚拟机 / 容器在某一时刻的系统状态（包括内存数据、磁盘数据、配置信息）的瞬时记录。基于写时复制（Copy-on-Write, CoW）技术实现:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快照创建后，原始数据被冻结，后续修改操作会写入新的存储块；&lt;/li&gt;
+&lt;li&gt;回滚时，丢弃修改的存储块，恢复到快照创建时的原始状态，过程快速（秒级）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;：创建和回滚速度快，不占用大量即时存储（仅记录修改数据），适合临时测试、软件升级等场景的快速故障恢复。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;局限&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;依赖原始存储，若原始存储损坏，快照也会失效；&lt;/li&gt;
+&lt;li&gt;长期保留快照会导致存储性能下降（需跟踪大量修改块）；&lt;/li&gt;
+&lt;li&gt;部分存储类型（如 RAW 格式磁盘）不支持内存快照，仅能记录磁盘数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;软件升级、补丁安装前创建快照，若升级失败可快速回滚；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;临时测试新应用，测试完成后通过快照恢复环境；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;短期故障恢复（如误操作导致的配置错误）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;备份&#34;&gt;备份
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;备份是将虚拟机 / 容器的完整数据（磁盘镜像、配置文件）复制到本地其他存储或异地存储的过程，支持全量备份和增量备份：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全量备份：复制全部数据，占用空间大但恢复速度快；&lt;/li&gt;
+&lt;li&gt;增量备份：仅复制上次备份后修改的数据，占用空间小但恢复时需依赖全量备份和后续增量备份链。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;：数据独立于原始存储，支持异地存储，可应对原始存储损坏、机房灾难等严重故障，是容灾的核心手段。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;局限&lt;/strong&gt;：创建和恢复速度慢（需传输大量数据），占用额外存储资源，增量备份恢复时依赖备份链完整性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;长期数据归档（如按天 / 周 / 月定期备份）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;异地容灾（将备份数据存储到不同机房或云存储）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;严重故障恢复（如硬盘损坏、病毒攻击导致的数据丢失）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;集群基于-corosync-与共享存储的高可用架构&#34;&gt;集群：基于 Corosync 与共享存储的高可用架构
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;PVE 集群的核心目标是实现虚拟资源的高可用（HA），避免单点故障导致业务中断，其运行依赖 Corosync 集群通信协议、共享存储及 “法定人数” 机制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;核心组件&#34;&gt;核心组件
+&lt;/h4&gt;&lt;p&gt;Corosync：集群通信与故障检测&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：作为集群的 “神经中枢”，负责节点间的心跳检测、状态同步和资源调度指令传输。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作机制&lt;/strong&gt;：通过多播或单播方式在集群节点间发送心跳包（默认每 2 秒一次），若某节点超时未响应，Corosync 判定其故障，触发资源迁移。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可靠性保障&lt;/strong&gt;：支持冗余通信链路，避免因单条网络故障导致的节点误判。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;共享存储：资源统一调度的基础&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：集群中所有节点需访问统一的共享存储（如 Ceph、GlusterFS、iSCSI、NFS），确保虚拟机 / 容器的磁盘数据在节点间可共享。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;必要性&lt;/strong&gt;：当故障节点上的虚拟资源迁移到正常节点时，新节点需从共享存储中读取数据，避免数据不一致。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;常见方案&lt;/strong&gt;：中小企业常用 iSCSI 或 NFS（部署简单），大规模集群优先选 Ceph（分布式存储，高可用且可扩展）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;法定人数quorum防止脑裂的关键机制&#34;&gt;法定人数（Quorum）：防止脑裂的关键机制
+&lt;/h4&gt;&lt;p&gt;脑裂问题的成因:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当集群网络分区（如&lt;strong&gt;交换机故障&lt;/strong&gt;导致节点分为两组），每组节点都认为对方故障，若两组都继续运行虚拟资源，会导致数据写入冲突（如同一虚拟机在两组节点同时运行），即 “脑裂”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;法定人数机制原理:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;法定人数定义&lt;/strong&gt;：集群正常运行所需的最小节点数量，计算公式为 &lt;code&gt;Quorum = (总节点数 / 2) + 1&lt;/code&gt;（向上取整）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;工作逻辑&lt;/strong&gt;：当集群网络分区后，仅节点数量达到或超过法定人数的分区可继续提供服务，另一分区会自动停止所有虚拟资源，避免脑裂。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;针对偶数节点集群（如 4 节点），可添加 QDevice（独立的轻量节点，不运行业务资源），其作用是在网络分区时提供 “额外投票权”，避免集群因双方节点数相等而暂停服务。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;适用场景与局限&#34;&gt;适用场景与局限
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：运行核心业务（如数据库、ERP 系统），对业务连续性要求高，需避免单点故障。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;局限&lt;/strong&gt;：部署复杂度高（需配置共享存储、集群网络），硬件成本增加，小规模非关键业务集群性价比低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;存储&#34;&gt;存储
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;LVM-Thin 是 PVE 中常用的精简置备存储方案，通过动态分配存储资源提升利用率，但需警惕 “超售” 带来的风险。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;lvm-thin-核心原理&#34;&gt;LVM-Thin 核心原理
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;精简配置&lt;/strong&gt;（Thin Provisioning）&lt;/p&gt;
+&lt;p&gt;与传统 LVM（厚置备）不同，LVM-Thin 创建虚拟磁盘时，仅分配 “逻辑容量”，而非立即占用实际物理存储，只有当虚拟机 / 容器写入数据时，才会动态占用物理空间。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;示例：创建 2 个各 100GB 的 LVM-Thin 虚拟磁盘，若实际仅写入 20GB 数据，总占用物理空间为 20GB，而非 200GB。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;关键组件&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Thin Pool&lt;/strong&gt;：精简存储池，是 LVM-Thin 的核心，所有虚拟磁盘的动态空间均从池中分配。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;元数据（Metadata）&lt;/strong&gt;：记录 Thin Pool 中空间的分配状态，确保数据写入时不冲突。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;提升存储利用率&lt;/strong&gt;：避免传统厚置备中 “分配未使用” 的空间浪费，适合存储需求波动大的场景（如测试环境、弹性业务）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简化容量规划&lt;/strong&gt;：无需提前精确预估每个虚拟资源的存储需求，可按需动态扩展（只要 Thin Pool 有剩余空间）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;支持快照功能&lt;/strong&gt;：LVM-Thin 原生支持快照，且快照创建速度快、占用空间小，与 PVE 的快照功能完美兼容。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;超售-风险与应对措施&#34;&gt;“超售” 风险与应对措施
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;超售风险的成因&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于 LVM-Thin 允许逻辑容量总和超过物理存储容量（即 “超售”），若多个虚拟资源&lt;strong&gt;同时写入&lt;/strong&gt;大量数据，会导致 Thin Pool 空间耗尽，进而引发虚拟机卡死、数据写入失败甚至数据损坏。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;风险应对措施&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;合理规划超售比例&lt;/strong&gt;：根据业务实际写入量控制超售比例（建议不超过 2:1），避免过度超售。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;启用空间监控与告警&lt;/strong&gt;：在 PVE 中设置 Thin Pool 空间阈值告警（如剩余空间低于 20% 时触发告警），及时扩容或清理无用数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定期清理快照&lt;/strong&gt;：长期保留的快照会占用 Thin Pool 空间，需定期删除无用快照。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;避免存储密集型应用&lt;/strong&gt;：不建议在 LVM-Thin 上运行数据库、日志存储等高频写入的存储密集型应用，优先使用厚置备或分布式存储。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>御林服务器的初步认识</title>
+        <link>https://calendar0917.github.io/posts/devops-%E5%BE%A1%E6%9E%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/</link>
+        <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/devops-%E5%BE%A1%E6%9E%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/</guid>
+        <description>&lt;h2 id=&#34;知识补充&#34;&gt;知识补充
+&lt;/h2&gt;&lt;h3 id=&#34;pve-sdn-的核心概念&#34;&gt;PVE SDN 的核心概念
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tailscale.com/kb/1130/lxc-unprivileged#providing-access-for-proxmox-6-and-earlier&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LXC使用tailscale注意事项&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;非特权 LXC 容器的 root 用户（uid 0）会映射到宿主机的普通用户，安全性更高，但默认没有 Tailscale 所需的网络资源权限。&lt;/li&gt;
+&lt;li&gt;Tailscale 通过 UDP 数据包封装隧道，无需内核模块，但必须访问 &lt;code&gt;/dev/tun&lt;/code&gt; 设备 —— 这是非特权容器默认不提供的。所以需要给 LXC 容器开放 /dev/tun 访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;具体操作&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;根据 Proxmox 版本不同，配置方式略有差异，但核心命令一致：&lt;/p&gt;
+&lt;p&gt;适用 Proxmox 7 及以上（cgroup2 环境）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;找到目标 LXC 容器的配置文件：路径为 &lt;code&gt;/etc/pve/lxc/[容器ID].conf&lt;/code&gt;（比如容器 ID 是 112，文件就是 112.conf）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在配置文件中添加以下 2 行：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lxc.cgroup2.devices.allow: c 10:200 rwm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;重启容器：已运行的容器需先关机再启动，配置才会生效。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;后续操作：容器内安装 Tailscale Linux 包，即可正常使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;适用 Proxmox 6 及更早（cgroup 环境）&lt;/p&gt;
+&lt;p&gt;配置命令与 Proxmox 7 类似，仅需将 &lt;code&gt;cgroup2&lt;/code&gt; 改为 &lt;code&gt;cgroup&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lxc.cgroup.devices.allow: c 10:200 rwm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其余步骤（重启容器、安装 Tailscale）一致。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Proxmox VE 的 SDN 功能通过 “Zone（区域）- VNet（虚拟网络）- Subnet（子网）” 三层模型实现网络虚拟化，核心目标是为虚拟机 / 容器提供隔离的网络环境，同时支持灵活的地址管理、DHCP 服务和地址转换（SNAT）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Zone&lt;/strong&gt;：最高级别的隔离单元，定义网络的基础类型（此处均为&lt;code&gt;simple&lt;/code&gt;类型，即简单隔离模式，适用于单机或小规模集群）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;VNet&lt;/strong&gt;：绑定到 Zone 的虚拟网络，作为子网的载体，实现不同网络的逻辑隔离。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Subnet&lt;/strong&gt;：VNet 下的 IP 地址段，包含网关、DHCP 地址池、SNAT 开关等配置，直接为虚拟机分配网络资源。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;子网&#34;&gt;子网
+&lt;/h4&gt;&lt;p&gt;子网就像一个 “小区”，里面有很多 “房子”（IP 地址）。每个子网都有一个固定的 “地址范围”，比如配置中的 &lt;code&gt;10.22.0.0/24&lt;/code&gt; 或 &lt;code&gt;10.33.0.0/16&lt;/code&gt;，这串数字定义了这个 “小区” 里有多少个可用的 IP 地址。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例子：&lt;code&gt;10.22.0.0/24&lt;/code&gt; 表示这个子网的 IP 地址从 &lt;code&gt;10.22.0.1&lt;/code&gt; 到 &lt;code&gt;10.22.0.254&lt;/code&gt;（共 254 个地址），适合设备数量较少的场景。&lt;/li&gt;
+&lt;li&gt;例子：&lt;code&gt;10.33.0.0/16&lt;/code&gt; 表示从 &lt;code&gt;10.33.0.1&lt;/code&gt; 到 &lt;code&gt;10.33.255.254&lt;/code&gt;（共 65534 个地址），适合设备数量多的场景。&lt;/li&gt;
+&lt;li&gt;常用的 IP 地址是 &lt;strong&gt;32 位二进制数&lt;/strong&gt;,0/16 表示前十六位，即&lt;code&gt;10.33&lt;/code&gt;不变&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;为什么需要子网？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果所有设备都用同一个大网段，就像一个超级大的小区，找设备、管理设备会很麻烦，还容易冲突。子网通过 “分区” 让网络更有序，比如 R730 的 &lt;code&gt;vnet1&lt;/code&gt; 和 &lt;code&gt;vnet2&lt;/code&gt; 分别用两个子网，避免了 IP 地址混乱。&lt;/p&gt;
+&lt;h4 id=&#34;网关&#34;&gt;网关
+&lt;/h4&gt;&lt;p&gt;网关是子网的 “大门”，是一个特殊的 IP 地址（比如 &lt;code&gt;10.22.0.1&lt;/code&gt;），负责子网内的设备和外部网络（其他子网或互联网）之间的通信。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;比如：&lt;code&gt;vnet1&lt;/code&gt; 子网的设备（IP 可能是 &lt;code&gt;10.22.0.100&lt;/code&gt;）要访问 &lt;code&gt;vnet2&lt;/code&gt; 子网的设备（IP 可能是 &lt;code&gt;10.33.1.100&lt;/code&gt;），必须通过各自的网关（&lt;code&gt;10.22.0.1&lt;/code&gt; 和 &lt;code&gt;10.33.0.1&lt;/code&gt;）转发数据。&lt;/li&gt;
+&lt;li&gt;如果设备要访问互联网，也必须通过网关 “出门”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;网关的作用：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;没有网关，子网就是一个 “孤岛”，里面的设备只能互相通信，无法连接外部。配置中的每个子网都指定了网关（如 &lt;code&gt;G: 10.22.0.1&lt;/code&gt;），就是为了让子网能和外界互通。&lt;/p&gt;
+&lt;h4 id=&#34;dchp&#34;&gt;DCHP
+&lt;/h4&gt;&lt;p&gt;DHCP（动态主机配置协议）就像一个 “门牌号管理员”，当子网里新增设备（比如虚拟机）时，它会自动分配一个 IP 地址（从预设的地址池里选），不用人工手动设置。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例子：R730 的 &lt;code&gt;vnet1&lt;/code&gt; 子网中，DHCP 地址池是 &lt;code&gt;10.22.0.100 - 10.22.0.200&lt;/code&gt;，表示新设备接入时，会自动拿到这个范围内的 IP（比如 &lt;code&gt;10.22.0.101&lt;/code&gt;、&lt;code&gt;10.22.0.150&lt;/code&gt; 等）。&lt;/li&gt;
+&lt;li&gt;好处：避免人工分配 IP 时的冲突（比如两个人同时用 &lt;code&gt;10.22.0.10&lt;/code&gt;），减少管理成本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;snat&#34;&gt;SNAT
+&lt;/h4&gt;&lt;p&gt;SNAT（源网络地址转换）可以理解为子网的 “共用身份证”。子网内的设备没有直接连接互联网的 “公网 IP”，当它们要访问互联网时，网关会把设备的 “私网 IP”（如 &lt;code&gt;10.22.0.100&lt;/code&gt;）转换成网关自己的 “公网 IP”，相当于用网关的身份去访问外部，回来的数据再转回去。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例子：&lt;code&gt;vnet1&lt;/code&gt; 启用 SNAT 后，子网内的虚拟机（IP &lt;code&gt;10.22.0.100&lt;/code&gt;）访问百度时，百度看到的不是 &lt;code&gt;10.22.0.100&lt;/code&gt;，而是服务器 R730 的公网 IP（比如 &lt;code&gt;192.168.31.45&lt;/code&gt; 对应的公网地址）。&lt;/li&gt;
+&lt;li&gt;好处：不需要给每个设备分配公网 IP（公网 IP 有限且贵），通过网关 “共用” 一个公网 IP 即可访问外部。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;为什么配置中都启用 SNAT？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因为这些子网用的是 “私网 IP”（&lt;code&gt;10.x.x.x&lt;/code&gt; 是内网专用地址，不能直接访问互联网），必须通过 SNAT 转换才能和互联网通信，所以 R730 和 R510 的所有子网都开启了 SNAT。&lt;/p&gt;
+&lt;h4 id=&#34;&#34;&gt;
+&lt;/h4&gt;&lt;h4 id=&#34;vnet&#34;&gt;VNet
+&lt;/h4&gt;&lt;p&gt;VNet（虚拟网络）是一个 “逻辑上的独立网络”，就像在物理服务器上划分出的 “虚拟网线”，不同 VNet 之间默认是隔离的（不能直接通信），即使它们在同一个物理服务器上。&lt;/p&gt;
+&lt;p&gt;作用：隔离不同的服务（比如 “新服务” 用 &lt;code&gt;vnet1&lt;/code&gt;，“测试服务” 用 &lt;code&gt;vnet2&lt;/code&gt;），提高安全性，避免互相干扰。&lt;/p&gt;
+&lt;h4 id=&#34;zone&#34;&gt;Zone
+&lt;/h4&gt;&lt;p&gt;Zone 是 VNet 的 “容器”，可以包含多个 VNet，定义了这些 VNet 的基础网络规则（比如用什么技术隔离、用什么工具分配 IP 等）。配置中的 Zone 类型都是 &lt;code&gt;simple&lt;/code&gt;（简单模式），适合单机或小规模场景。&lt;/p&gt;
+&lt;h2 id=&#34;pve-sdn布局&#34;&gt;PVE SDN布局
+&lt;/h2&gt;&lt;h3 id=&#34;r730&#34;&gt;R730
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Zone: zone111 (simple)
+&lt;ul&gt;
+&lt;li&gt;VNet 1: vnet1 ‑&amp;gt; zone111
+&lt;ul&gt;
+&lt;li&gt;Subnet: 10.22.0.0/24 (G: 10.22.0.1)&lt;/li&gt;
+&lt;li&gt;SNAT: 启用&lt;/li&gt;
+&lt;li&gt;DHCP: 10.22.0.100 ‑ 10.22.0.200&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;VNet 2: vnet2 ‑&amp;gt; zone111
+&lt;ul&gt;
+&lt;li&gt;Subnet: 10.33.0.0/16 (G: 10.33.0.1)&lt;/li&gt;
+&lt;li&gt;SNAT: 启用&lt;/li&gt;
+&lt;li&gt;DHCP: 10.33.1.100 ‑ 10.33.1.200&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;/etc/pve/sdn/.running-config&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;controllers&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;zones&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone111&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dnsmasq&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;simple&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;ipam&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pve&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;subnets&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone111-10.33.0.0-16&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp-range&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.33.1.100,end-address=10.33.1.200&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gateway&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.33.0.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;snat&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone111-10.22.0.0-24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp-range&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.22.0.100,end-address=10.22.0.200&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gateway&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.22.0.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;snat&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnets&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;zone111&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;zone111&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;r510&#34;&gt;R510
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Zone 1: recuit24 (simple)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VNet: recuit24 → 10.222.0.0/16（网关：10.222.0.1），SNAT: 启用&lt;/li&gt;
+&lt;li&gt;DHCP地址池：10.222.0.1 ~ 10.222.0.124&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Zone 2: SIMP (simple)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VNet: VNSimp24 → 10.10.77.0/24（网关：10.10.77.1），SNAT: 启用&lt;/li&gt;
+&lt;li&gt;DHCP地址池：10.10.77.100 ~ 10.10.77.200、10.10.77.202 ~ 10.10.77.234&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Zone 3: SimpNew (simple)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VNet: SIMPSIMP → 10.10.33.0/24（网关：10.10.33.1），SNAT: 启用&lt;/li&gt;
+&lt;li&gt;DHCP地址池：10.10.33.100 ~ 10.10.33.200&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;74
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;/etc/pve/sdn/.running-config&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnets&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;SIMPSIMP&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;SimpNew&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;recuit24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;recuit24&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;VNSimp24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;zone&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;SIMP&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;subnets&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;SIMP-10.10.77.0-24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp-range&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.10.77.100,end-address=10.10.77.200&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.10.77.202,end-address=10.10.77.234&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gateway&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.10.77.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;VNSimp24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;snat&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;SimpNew-10.10.33.0-24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;SIMPSIMP&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gateway&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.10.33.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp-range&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.10.33.100,end-address=10.10.33.200&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;snat&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;recuit24-10.222.0.0-16&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;subnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp-range&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;s2&#34;&gt;&amp;#34;start-address=10.222.0.1,end-address=10.222.0.124&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;vnet&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;recuit24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;gateway&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.222.0.1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;snat&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;controllers&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;zones&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;ids&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;SIMP&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;simple&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dnsmasq&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;ipam&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pve&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;recuit24&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;ipam&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pve&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dnsmasq&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;simple&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;SimpNew&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;ipam&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pve&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;dhcp&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dnsmasq&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;simple&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

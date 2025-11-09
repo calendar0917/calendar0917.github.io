@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习记录">
+<title>DevOps核心服务线</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="DevOps核心服务线">
+<meta property='og:description' content="学习记录">
+<meta property='og:url' content='https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术杂项' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="DevOps核心服务线">
+<meta name="twitter:description" content="学习记录"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#git版本控制">Git版本控制</a>
+      <ol>
+        <li><a href="#核心流程">核心流程</a>
+          <ol>
+            <li><a href="#四大核心区域定义">四大核心区域定义</a></li>
+            <li><a href="#命令与状态转换">命令与状态转换</a></li>
+          </ol>
+        </li>
+        <li><a href="#协同操作">协同操作</a>
+          <ol>
+            <li><a href="#最佳实践">最佳实践</a></li>
+          </ol>
+        </li>
+        <li><a href="#分支管理">分支管理</a></li>
+        <li><a href="#历史管理">历史管理</a></li>
+      </ol>
+    </li>
+    <li><a href="#docker与容器化">Docker与容器化</a></li>
+    <li><a href="#网络服务和转发">网络服务和转发</a>
+      <ol>
+        <li><a href="#nginx-反向代理配置">Nginx 反向代理配置</a></li>
+        <li><a href="#内网穿透">内网穿透</a>
+          <ol>
+            <li><a href="#ssh-反向隧道">SSH 反向隧道</a></li>
+            <li><a href="#持久化隧道autossh">持久化隧道（autossh）：</a></li>
+            <li><a href="#frp-的-cs-工作模式">Frp 的 C/S 工作模式</a></li>
+          </ol>
+        </li>
+        <li><a href="#零配置网络">零配置网络</a></li>
+        <li><a href="#文件服务">文件服务</a>
+          <ol>
+            <li><a href="#smbcifssambawindows-友好的文件共享">SMB/CIFS（Samba）：Windows 友好的文件共享</a></li>
+            <li><a href="#sftp基于-ssh安全的文件传输">SFTP（基于 SSH）：安全的文件传输</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#数据与应用">数据与应用</a>
+      <ol>
+        <li><a href="#自动化备份crontab-定时任务">自动化备份：<code>crontab</code> 定时任务</a></li>
+        <li><a href="#python-后端">Python 后端</a>
+          <ol>
+            <li><a href="#wsgi-与-asgi协议本质与区别">WSGI 与 ASGI：协议本质与区别</a></li>
+            <li><a href="#fastapi">FastAPI</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#ai-与-agent">AI 与 Agent</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/devops/" >
+                DevOps
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/">DevOps核心服务线</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习记录
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>参考：<a class="link" href="https://calendar0917.github.io/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/"  target="_blank" rel="noopener"
+    >DevOps入门小结</a></p>
+<h2 id="git版本控制">Git版本控制
+</h2><h3 id="核心流程">核心流程
+</h3><h4 id="四大核心区域定义">四大核心区域定义
+</h4><ol>
+<li><strong>工作区（Working Directory）</strong>：即本地电脑中存放项目文件的实际目录，是开发者日常编写代码、修改文件的区域，文件状态分为 “未跟踪（Untracked）” 和 “已跟踪（Tracked）”。
+<ul>
+<li>未跟踪：新创建的文件，Git 未记录其任何版本信息；</li>
+<li>已跟踪：曾通过 <code>git add</code> 纳入版本控制的文件，包括 “已修改（Modified）”“已暂存（Staged）”“未修改（Unmodified）” 三种状态。</li>
+</ul>
+</li>
+<li><strong>暂存区（Staging Area/Index）</strong>：是 Git 中的 “临时缓冲区”，位于 <code>.git</code> 目录内，用于存放待提交的文件变更。通过 <code>git add</code> 命令可将工作区的修改同步到暂存区，暂存区的内容会在执行 <code>git commit</code> 时被提交到本地仓库。</li>
+<li><strong>本地仓库（Local Repository）</strong>：位于项目根目录的 <code>.git</code> 隐藏文件夹，是 Git 存储版本历史的核心区域。包含所有提交记录、分支信息、对象数据库（存储文件内容、提交对象等），即使断开网络也能完整查看历史和管理版本。</li>
+<li><strong>远程仓库（Remote Repository）</strong>：位于服务器（如 GitHub、GitLab、自建 Git 服务器）的共享仓库，用于团队成员同步代码、协同开发。通过 <code>git push</code> 将本地仓库的提交推送到远程，通过 <code>git pull/fetch</code> 从远程获取他人的提交。</li>
+</ol>
+<h4 id="命令与状态转换">命令与状态转换
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>命令</th>
+          <th>作用</th>
+          <th>状态转换</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>git add &lt;文件&gt;</code></td>
+          <td>将工作区修改添加到暂存区</td>
+          <td>未跟踪 → 已暂存；已修改 → 已暂存</td>
+      </tr>
+      <tr>
+          <td><code>git commit -m &quot;备注&quot;</code></td>
+          <td>将暂存区内容提交到本地仓库</td>
+          <td>已暂存 → 未修改</td>
+      </tr>
+      <tr>
+          <td><code>git push &lt;远程&gt; &lt;分支&gt;</code></td>
+          <td>本地仓库提交推送到远程仓库</td>
+          <td>本地提交 → 远程提交</td>
+      </tr>
+      <tr>
+          <td><code>git checkout -- &lt;文件&gt;</code></td>
+          <td>丢弃工作区未暂存的修改</td>
+          <td>已修改 → 未修改</td>
+      </tr>
+      <tr>
+          <td><code>git reset HEAD &lt;文件&gt;</code></td>
+          <td>将暂存区的修改撤回到工作区</td>
+          <td>已暂存 → 已修改</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="协同操作">协同操作
+</h3><p><strong>git fetch：仅获取，不合并</strong></p>
+<ul>
+<li>原理：从远程仓库拉取本地尚未有的提交记录，更新本地的远程跟踪分支（如 <code>origin/main</code>），但不会修改本地当前工作分支的代码。</li>
+<li>流程：<code>git fetch origin main</code> → 拉取远程 <code>main</code> 分支的新提交 → 存储到本地 <code>origin/main</code> 分支 → 本地 <code>main</code> 分支保持不变。</li>
+<li>优势：可在合并前通过 <code>git diff main origin/main</code> 查看远程提交与本地的差异，评估是否会引发冲突，更安全可控。</li>
+</ul>
+<p><strong>git pull：获取并合并</strong></p>
+<ul>
+<li>原理：<code>git pull</code> 本质是 <code>git fetch</code> + <code>git merge</code> 的组合命令，拉取远程提交后会自动将其合并到本地当前工作分支。</li>
+<li>流程：<code>git pull origin main</code> → 先执行 <code>git fetch origin main</code> → 再执行 <code>git merge origin/main into main</code> → 直接更新本地工作分支代码。</li>
+<li>优势：操作简洁，一步完成 “获取 + 合并”，适合快速同步代码；劣势：若存在冲突，会直接进入合并冲突解决流程，新手可能难以处理。</li>
+</ul>
+<h4 id="最佳实践">最佳实践
+</h4><p>团队协作优先使用 <code>git fetch</code> + <code>git merge</code> 组合</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git fetch origin main  <span class="c1"># 获取远程新提交</span>
+</span></span><span class="line"><span class="cl">git diff main origin/main  <span class="c1"># 查看差异</span>
+</span></span><span class="line"><span class="cl">git merge origin/main  <span class="c1"># 手动合并（冲突可提前预判）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若确认远程提交与本地无冲突（如个人分支同步），可直接用 <code>git pull</code> 简化操作；</p>
+<p>避免在多人协作的公共分支（如 <code>main</code>）上直接使用 <code>git pull</code>，建议先切换到个人分支，合并后再提交 PR/MR。</p>
+<h3 id="分支管理">分支管理
+</h3><p>核心分支概念</p>
+<ul>
+<li><strong>主分支（main/master）</strong>：存放稳定可发布的代码，通常不允许直接提交，仅通过合并其他分支更新；</li>
+<li><strong>功能分支（feature/*）</strong>：用于开发新功能，从主分支创建，功能完成后合并回主分支；</li>
+<li><strong>修复分支（hotfix/*）</strong>：用于修复生产环境紧急 bug，从主分支创建，修复后同时合并回主分支和开发分支。</li>
+</ul>
+<p>核心命令：</p>
+<ul>
+<li>
+<p><strong>创建并切换到新分支</strong>：<code>git checkout -b &lt;new_branch&gt;</code></p>
+<ul>
+<li>原理：等价于 <code>git branch &lt;new_branch&gt;</code>（创建分支） + <code>git checkout &lt;new_branch&gt;</code>（切换分支）；</li>
+</ul>
+</li>
+<li>
+<p><strong>合并分支</strong>：<code>git merge &lt;branch&gt;</code></p>
+<ul>
+<li>
+<p>原理：将指定分支的代码合并到当前所在分支；</p>
+</li>
+<li>
+<p>如功能开发完成后，将 <code>feature/login</code> 合并到 <code>main</code> 分支：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git checkout main  <span class="c1"># 切换到主分支</span>
+</span></span><span class="line"><span class="cl">git merge feature/login  <span class="c1"># 合并功能分支</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>冲突处理：若合并时出现代码冲突（同一文件同一位置被不同修改），Git 会标记冲突文件，需手动编辑冲突内容后，执行 <code>git add &lt;冲突文件&gt;</code> + <code>git commit</code> 完成合并。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>删除分支</strong>：<code>git branch -d &lt;branch&gt;</code></p>
+<ul>
+<li>作用：删除已合并到主分支的无用分支，清理分支结构；</li>
+<li>强制删除：若分支未合并（如废弃的功能分支），需用 <code>git branch -D &lt;branch&gt;</code>（大写 D）强制删除；</li>
+</ul>
+</li>
+</ul>
+<h3 id="历史管理">历史管理
+</h3><p><strong>git reset &ndash;hard &lt;commit_id&gt;：本地强制回滚</strong></p>
+<ul>
+<li>原理：将本地仓库、暂存区、工作区强制重置到指定的提交版本，丢弃该版本之后的所有提交记录；</li>
+<li>直接修改本地版本历史，操作不可逆（丢弃的提交无法通过常规命令恢复），仅适用于本地未推送的提交。</li>
+<li>严禁在公共分支使用！！</li>
+</ul>
+<p><strong>git revert &lt;commit_id&gt;：创建反向提交</strong></p>
+<ul>
+<li>原理：不删除原有提交记录，而是创建一个新的 “反向提交”，抵消指定提交的修改内容，保持版本历史的完整性；</li>
+<li>修改会生成新的提交，可正常推送到远程仓库，适合撤销已推送到公共分支的错误提交。</li>
+<li>公共分支优先使用</li>
+</ul>
+<h2 id="docker与容器化">Docker与容器化
+</h2><p>之前的文档写得比较详细了。</p>
+<h2 id="网络服务和转发">网络服务和转发
+</h2><h3 id="nginx-反向代理配置">Nginx 反向代理配置
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server_name</span> <span class="s">api.example.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 匹配 /user 开头的请求，转发到用户服务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="s">/user</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_pass</span> <span class="s">http://user-service:3000</span><span class="p">;</span>  <span class="c1"># 可使用内网域名（需DNS或hosts解析）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 匹配 /order 开头的请求，转发到订单服务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="s">/order</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_pass</span> <span class="s">http://order-service:4000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 匹配静态文件（如图片、CSS），直接返回本地文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">\.(jpg|jpeg|png|css|js)</span>$ <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">root</span> <span class="s">/var/www/static</span><span class="p">;</span>  <span class="c1"># 静态文件目录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kn">expires</span> <span class="s">1d</span><span class="p">;</span>  <span class="c1"># 缓存1天，减轻后端压力
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="内网穿透">内网穿透
+</h3><h4 id="ssh-反向隧道">SSH 反向隧道
+</h4><blockquote>
+<p><strong>原理</strong>：</p>
+<p>通过 SSH 连接将内网服务的端口 “反向映射” 到公网服务器（有公网 IP），使得公网用户可通过公网服务器的指定端口访问内网服务。</p>
+</blockquote>
+<h4 id="持久化隧道autossh">持久化隧道（autossh）：
+</h4><p><code>autossh</code> 可自动检测 SSH 连接状态并重启隧道，确保稳定性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装 autossh（Debian/Ubuntu）</span>
+</span></span><span class="line"><span class="cl">sudo apt install autossh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动持久化反向隧道：-M 指定监控端口，-f 后台运行</span>
+</span></span><span class="line"><span class="cl">autossh -M <span class="m">20000</span> -fN -R 8000:localhost:8080 user@public-server-ip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>适用场景</strong>：轻量需求（如个人博客、小型服务），无需额外服务端配置（仅需公网服务器支持 SSH）。</li>
+</ul>
+<h4 id="frp-的-cs-工作模式">Frp 的 C/S 工作模式
+</h4><blockquote>
+<p>Frp 是专门的内网穿透工具，采用客户端（frpc）/ 服务端（frps）架构，支持 TCP、UDP、HTTP 等多种协议，功能更强大。</p>
+<p>工作原理：</p>
+<ul>
+<li><strong>服务端（frps）</strong>：部署在有公网 IP 的服务器，监听客户端连接和用户访问请求。</li>
+<li><strong>客户端（frpc）</strong>：部署在内网机器，与服务端建立长连接，将内网服务端口映射到服务端。</li>
+</ul>
+</blockquote>
+<p>配置示例：</p>
+<ol>
+<li>
+<p><strong>服务端（frps.ini）</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[common]</span>
+</span></span><span class="line"><span class="cl"><span class="na">bind_port</span> <span class="o">=</span> <span class="s">7000  # 与客户端通信的端口</span>
+</span></span><span class="line"><span class="cl"><span class="na">vhost_http_port</span> <span class="o">=</span> <span class="s">8080  # HTTP 服务统一端口（可选）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动：<code>frps -c frps.ini</code></p>
+</li>
+<li>
+<p><strong>客户端（frpc.ini）</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[common]</span>
+</span></span><span class="line"><span class="cl"><span class="na">server_addr</span> <span class="o">=</span> <span class="s">public-server-ip  # 服务端公网 IP</span>
+</span></span><span class="line"><span class="cl"><span class="na">server_port</span> <span class="o">=</span> <span class="s">7000  # 服务端 bind_port</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 映射内网 SSH 服务（22 端口）</span>
+</span></span><span class="line"><span class="cl"><span class="k">[ssh]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">tcp</span>
+</span></span><span class="line"><span class="cl"><span class="na">local_ip</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="na">local_port</span> <span class="o">=</span> <span class="s">22</span>
+</span></span><span class="line"><span class="cl"><span class="na">remote_port</span> <span class="o">=</span> <span class="s">6000  # 访问服务端 6000 端口 → 内网 22 端口</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 映射内网 Web 服务（8080 端口）</span>
+</span></span><span class="line"><span class="cl"><span class="k">[web]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">http</span>
+</span></span><span class="line"><span class="cl"><span class="na">local_ip</span> <span class="o">=</span> <span class="s">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="na">local_port</span> <span class="o">=</span> <span class="s">8080</span>
+</span></span><span class="line"><span class="cl"><span class="na">custom_domains</span> <span class="o">=</span> <span class="s">web.example.com  # 绑定域名（需 DNS 解析到服务端 IP）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动：<code>frpc -c frpc.ini</code></p>
+</li>
+</ol>
+<h3 id="零配置网络">零配置网络
+</h3><p>具体使用看以前文章，这里分析原理</p>
+<blockquote>
+<p>Tailscale 是基于 WireGuard 协议的零配置 VPN 工具，可快速构建跨网络的私有网络（如办公室、家庭、云服务器之间），实现设备间直接通信。</p>
+<blockquote>
+<p>相当于让分散的网络组成一个私有网络，实现跨网直连</p>
+</blockquote>
+<p>核心原理：</p>
+<ul>
+<li><strong>P2P 直连</strong>：通过 STUN 协议检测设备是否可直接通信，优先建立点对点连接（无需中转服务器），速度快、延迟低。</li>
+<li><strong>中继 fallback</strong>：若设备位于严格 NAT 后无法直连，自动通过 Tailscale 中继服务器转发（加密传输）。</li>
+<li><strong>身份认证</strong>：基于 Tailscale 账号系统（支持 Google、GitHub 等 OAuth 登录），设备加入网络需管理员授权，安全可控。</li>
+<li><strong>DNS 与子网路由</strong>：自动分配虚拟 IP（如 <code>100.x.y.z</code>），支持自定义 DNS 名称（如 <code>my-laptop.tailnet-name.ts.net</code>），可通过子网路由暴露整个内网（如办公室网段）。</li>
+</ul>
+<p>优势场景：</p>
+<ul>
+<li>远程办公：在家访问公司内网服务器，无需复杂 VPN 配置；</li>
+<li>多地域设备组网：云服务器（AWS / 阿里云）、本地服务器、个人电脑组成私有网络，互访无感知；</li>
+<li>安全通信：所有流量通过 WireGuard 加密，且无需暴露公网端口。</li>
+</ul>
+</blockquote>
+<p>Q:为什么普通网络下 “跨网直连” 很难？</p>
+<ul>
+<li><strong>NAT 隔离</strong>：家用 / 公司路由器会给设备分配 “内网 IP”（如 <code>192.168.x.x</code>），这些 IP 只在路由器内部有效，互联网上看不见。路由器通过 “NAT 转换” 把内网 IP 映射到唯一的公网 IP 上，但这个公网 IP 通常是动态的，且路由器会阻止外部主动访问内网设备。</li>
+<li><strong>防火墙限制</strong>：公司 / 家庭网络的防火墙会默认拦截陌生的外部连接，防止被攻击。</li>
+<li><strong>没有统一身份</strong>：两台设备不知道对方是谁，无法验证 “是否允许通信”。</li>
+</ul>
+<p>Q:Tailscale 如何解决这些问题？</p>
+<ul>
+<li>
+<p>P2P 直连：绕开 “中间商”，设备直接对话</p>
+</li>
+<li>
+<p>Tailscale 优先让设备之间 “直接握手”，不用经过第三方服务器转发，速度最快。</p>
+</li>
+<li>
+<p><strong>关键技术：STUN 协议</strong>STUN 协议的作用是让设备 “发现自己在互联网中的真实位置”。比如：</p>
+<ul>
+<li>家里的电脑会先问 Tailscale 的 STUN 服务器：“我在互联网上的地址和端口是多少？”</li>
+<li>STUN 服务器回复：“你当前的公网 IP 是 <code>203.0.113.5</code>，端口是 <code>50000</code>（路由器给你分配的临时端口）。”</li>
+<li>公司的服务器也会做同样的操作，得到自己的公网 IP 和端口。</li>
+<li>Tailscale 再把这两个 “地址 + 端口” 告诉对方，两台设备就可以直接发送数据了（比如家里电脑直接访问公司服务器的 <code>203.0.113.10:50001</code>）。</li>
+</ul>
+</li>
+<li>
+<p><strong>中继 fallback：实在连不上？找 “中介” 帮忙</strong></p>
+<p>如果设备在 “严格的 NAT 环境” 下（比如某些公司网络、校园网），STUN 也无法让它们直连，这时 Tailscale 会自动切换到 “中继模式”。</p>
+<ul>
+<li><strong>原理</strong>：Tailscale 会在全球部署多台 “中继服务器（DERP 服务器）”，两台设备都先连接到同一台中继服务器，数据通过中继转发。</li>
+<li><strong>安全性</strong>：即使经过中继，数据也是端到端加密的（中继服务器看不到内容），只有通信的两台设备能解密。</li>
+</ul>
+</li>
+<li>
+<p><strong>身份认证：确保 “连对人”，防止陌生人闯入</strong></p>
+<p>Tailscale 用一套严格的身份体系确保只有授权设备能加入网络：</p>
+<ul>
+<li><strong>账号绑定</strong>：所有设备必须登录同一个 Tailscale 账号（支持 Google、GitHub 等账号登录），相当于 “家庭住址”，只有这个 “家庭” 的设备才能互相看到。</li>
+<li><strong>授权机制</strong>：新设备登录后，需要管理员在 Tailscale 后台手动 “批准” 才能加入网络（类似小区门禁，保安确认后才放行）。</li>
+<li><strong>加密证书</strong>：每台设备会生成一对加密密钥，由 Tailscale 的 “密钥服务器” 颁发证书，通信时用证书验证对方身份（确保不是伪装的设备）。</li>
+</ul>
+</li>
+<li>
+<p><strong>子网路由：让 “整个内网” 都加入虚拟网络</strong></p>
+<ul>
+<li>
+<p>如果你想让虚拟网络里的设备访问 “整个公司内网”（比如公司内网有 <code>192.168.1.x</code> 网段的多台服务器），不用每台都装 Tailscale，只需：</p>
+</li>
+<li>
+<p>在内网找一台 “网关设备”（比如一台服务器）安装 Tailscale，并配置 “子网路由”，告诉 Tailscale：“我能访问 <code>192.168.1.0/24</code> 这个网段”。</p>
+</li>
+<li>
+<p>其他设备（如家里的电脑）就可以通过这台网关设备访问公司内网的所有机器（如 <code>192.168.1.100</code>）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Q：为什么能绕过防火墙？</p>
+<ul>
+<li>因为这个连接是由 “内网设备主动发起” 的，大多数防火墙会允许 “主动发起的连接的返回数据”。</li>
+</ul>
+<h3 id="文件服务">文件服务
+</h3><p>具体看以前文章，这里做一下整合</p>
+<blockquote>
+<p>文件服务用于跨设备、跨系统共享文件，SMB/CIFS 适合 Windows 环境，SFTP 基于 SSH 更安全通用。</p>
+</blockquote>
+<h4 id="smbcifssambawindows-友好的文件共享">SMB/CIFS（Samba）：Windows 友好的文件共享
+</h4><blockquote>
+<p>Samba 实现了 SMB 协议，可让 Linux 与 Windows、macOS 无缝共享文件。</p>
+</blockquote>
+<p>核心配置（<code>/etc/samba/smb.conf</code>）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[global]</span>
+</span></span><span class="line"><span class="cl">   <span class="na">workgroup</span> <span class="o">=</span> <span class="s">WORKGROUP  # 与 Windows 工作组一致
+</span></span></span><span class="line"><span class="cl"><span class="s">   security = user        # 用户密码认证
+</span></span></span><span class="line"><span class="cl"><span class="s">   map to guest = bad user  # 拒绝匿名访问</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">[public]  # 共享名称（Windows 中显示为 \\server\public）</span>
+</span></span><span class="line"><span class="cl">   <span class="na">path</span> <span class="o">=</span> <span class="s">/var/samba/public  # 共享目录
+</span></span></span><span class="line"><span class="cl"><span class="s">   browsable = yes           # 允许浏览
+</span></span></span><span class="line"><span class="cl"><span class="s">   writable = yes            # 可写
+</span></span></span><span class="line"><span class="cl"><span class="s">   guest ok = no             # 不允许匿名访问
+</span></span></span><span class="line"><span class="cl"><span class="s">   valid users = alice bob   # 允许访问的用户</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[private]</span>
+</span></span><span class="line"><span class="cl">   <span class="na">path</span> <span class="o">=</span> <span class="s">/home/alice/private
+</span></span></span><span class="line"><span class="cl"><span class="s">   writable = yes
+</span></span></span><span class="line"><span class="cl"><span class="s">   valid users = alice       # 仅 alice 可访问
+</span></span></span><span class="line"><span class="cl"><span class="s">   create mask = 0600        # 新建文件权限
+</span></span></span><span class="line"><span class="cl"><span class="s">   directory mask = 0700     # 新建目录权限</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用户管理：</p>
+<ul>
+<li>Samba 依赖系统用户，但密码独立管理：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建系统用户（若不存在）</span>
+</span></span><span class="line"><span class="cl">sudo useradd -m alice
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置 Samba 密码（需输入两次）</span>
+</span></span><span class="line"><span class="cl">sudo smbpasswd -a alice  <span class="c1"># -a 添加用户，-x 删除用户</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启 Samba 服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl restart smbd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问方式：</p>
+<ul>
+<li>Windows：<code>Win + R</code> 输入 <code>\\samba-server-ip\public</code>，输入 Samba 用户名密码；</li>
+<li>Linux：<code>smbclient //samba-server-ip/public -U alice</code> 或挂载到本地 <code>mount -t cifs //server/public /mnt -o username=alice</code>。</li>
+</ul>
+<h4 id="sftp基于-ssh安全的文件传输">SFTP（基于 SSH）：安全的文件传输
+</h4><blockquote>
+<p>SFTP 是 SSH 的子协议，无需额外服务，仅需开启 SSH 服务即可使用，适合跨平台且对安全性要求高的场景。</p>
+</blockquote>
+<p>限制用户目录（ChrootDirectory）：</p>
+<p>默认 SFTP 允许用户访问整个系统，通过配置可限制用户仅能访问指定目录（增强安全性）：</p>
+<ol>
+<li>
+<p>修改 SSH 配置（<code>/etc/ssh/sshd_config</code>）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 注释原 Subsystem sftp /usr/lib/openssh/sftp-server</span>
+</span></span><span class="line"><span class="cl">Subsystem sftp internal-sftp  <span class="c1"># 使用内置 SFTP 模块</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 针对 sftpuser 组的配置</span>
+</span></span><span class="line"><span class="cl">Match Group sftpuser
+</span></span><span class="line"><span class="cl">    ChrootDirectory /var/sftp/%u  <span class="c1"># 限制根目录（必须为 root 所有，权限 755）</span>
+</span></span><span class="line"><span class="cl">    ForceCommand internal-sftp    <span class="c1"># 强制使用 SFTP，禁止 SSH 登录</span>
+</span></span><span class="line"><span class="cl">    AllowTcpForwarding no
+</span></span><span class="line"><span class="cl">    X11Forwarding no
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建用户和目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建 sftpuser 组</span>
+</span></span><span class="line"><span class="cl">sudo groupadd sftpuser
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建用户（禁止登录 shell）</span>
+</span></span><span class="line"><span class="cl">sudo useradd -m -g sftpuser -s /usr/sbin/nologin sftp_alice
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置密码</span>
+</span></span><span class="line"><span class="cl">sudo passwd sftp_alice
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 Chroot 目录（权限必须正确，否则登录失败）</span>
+</span></span><span class="line"><span class="cl">sudo mkdir -p /var/sftp/sftp_alice/upload
+</span></span><span class="line"><span class="cl">sudo chown root:root /var/sftp/sftp_alice  <span class="c1"># 根目录必须为 root 所有</span>
+</span></span><span class="line"><span class="cl">sudo chmod <span class="m">755</span> /var/sftp/sftp_alice
+</span></span><span class="line"><span class="cl">sudo chown sftp_alice:sftpuser /var/sftp/sftp_alice/upload  <span class="c1"># 子目录可写</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>重启 SSH 服务：<code>sudo systemctl restart sshd</code></p>
+</li>
+</ol>
+<p>访问方式：</p>
+<ul>
+<li>命令行：<code>sftp sftp_alice@server-ip</code>（默认端口 22）；</li>
+<li>图形工具：FileZilla、WinSCP（输入主机、端口、用户名密码）。</li>
+</ul>
+<h2 id="数据与应用">数据与应用
+</h2><p>补充一下自动化备份</p>
+<h3 id="自动化备份crontab-定时任务">自动化备份：<code>crontab</code> 定时任务
+</h3><p>通过 Linux 的<code>crontab</code>设置定时任务，可实现 MySQL 自动备份，避免人工操作遗漏。</p>
+<p>（1）编写备份脚本（<code>mysql_backup.sh</code>）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># 备份目录</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&#34;/data/mysql_backups&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 日期格式（如20251109）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date +%Y%m%d<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 保留备份天数（删除7天前的备份）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RETENTION_DAYS</span><span class="o">=</span><span class="m">7</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建备份目录（若不存在）</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$BACKUP_DIR</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行备份（单库示例，替换为实际库名和密码）</span>
+</span></span><span class="line"><span class="cl">mysqldump -u root -p<span class="s2">&#34;your_password&#34;</span> --databases blog --single-transaction <span class="p">|</span> gzip &gt; <span class="nv">$BACKUP_DIR</span>/blog_<span class="nv">$DATE</span>.sql.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除过期备份</span>
+</span></span><span class="line"><span class="cl">find <span class="nv">$BACKUP_DIR</span> -name <span class="s2">&#34;blog_*.sql.gz&#34;</span> -type f -mtime +<span class="nv">$RETENTION_DAYS</span> -delete
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注意：脚本中直接写密码有安全风险，建议通过<code>~/.my.cnf</code>配置无密码登录（见下方补充）。</li>
+</ul>
+<p>（2）添加执行权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x mysql_backup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>（3）设置<code>crontab</code>定时任务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 编辑定时任务</span>
+</span></span><span class="line"><span class="cl">crontab -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加一行：每天凌晨3点执行备份</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">3</span> * * * /path/to/mysql_backup.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>格式说明：<code>分 时 日 月 周 命令</code>，<code>0 3 * * *</code> 表示每天 3 点 0 分执行。</li>
+</ul>
+<p>（4）补充：无密码登录配置（<code>~/.my.cnf</code>）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[client]</span>
+</span></span><span class="line"><span class="cl"><span class="na">user</span><span class="o">=</span><span class="s">root</span>
+</span></span><span class="line"><span class="cl"><span class="na">password</span><span class="o">=</span><span class="s">your_password</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置权限：<code>chmod 600 ~/.my.cnf</code>，避免密码泄露。</p>
+<h3 id="python-后端">Python 后端
+</h3><blockquote>
+<p>Python 后端框架基于不同的网关协议，分为同步（WSGI）和异步（ASGI）两类</p>
+</blockquote>
+<h4 id="wsgi-与-asgi协议本质与区别">WSGI 与 ASGI：协议本质与区别
+</h4><p><strong>WSGI</strong>（Web Server Gateway Interface）：同步网关协议</p>
+<ul>
+<li>WSGI 是 Python Web 应用与 Web 服务器（如 Nginx、Gunicorn）之间的标准接口，定义了二者的通信规范，<strong>仅支持同步请求处理</strong>。</li>
+<li><strong>工作原理</strong>：
+<ul>
+<li>客户端请求到达 Web 服务器（如 Nginx），转发给 WSGI 服务器（如 Gunicorn）；</li>
+<li>WSGI 服务器为每个请求创建一个线程 / 进程，调用应用框架（如 Flask）的处理函数；</li>
+<li>处理函数同步执行（执行期间线程 / 进程被阻塞），完成后返回响应。</li>
+</ul>
+</li>
+<li><strong>代表框架</strong>：Flask、Django（默认）。</li>
+<li><strong>局限性</strong>：
+<ul>
+<li>面对 IO 密集型任务（如数据库查询、网络请求）时，线程 / 进程会被阻塞，无法处理其他请求，并发能力有限；</li>
+<li>不支持 WebSocket 等长连接协议。</li>
+</ul>
+</li>
+</ul>
+<p><strong>ASGI</strong>（Asynchronous Server Gateway Interface）：异步网关协议</p>
+<ul>
+<li>ASGI 是 WSGI 的继任者，<strong>支持同步和异步请求处理</strong>，专为高并发和长连接场景设计。</li>
+<li><strong>工作原理</strong>：
+<ul>
+<li>基于事件循环（Event Loop）机制，用少量线程处理大量请求；</li>
+<li>遇到 IO 操作（如等待数据库响应）时，会释放当前线程去处理其他请求，IO 完成后再回调继续执行；</li>
+<li>原生支持 WebSocket、HTTP/2 等协议。</li>
+</ul>
+</li>
+<li><strong>代表框架</strong>：FastAPI、Starlette、Django 3.0+（异步视图）。</li>
+<li><strong>优势</strong>：
+<ul>
+<li>处理 IO 密集型任务时，并发能力比 WSGI 高 10 倍以上；</li>
+<li>支持长连接和异步语法，适合实时应用（如聊天、通知）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="fastapi">FastAPI
+</h4><blockquote>
+<p>FastAPI 是基于 ASGI 的高性能框架，原生支持异步语法和数据校验，开发效率和运行性能兼具。</p>
+</blockquote>
+<p><code>async/await</code> 异步语法</p>
+<p>用于定义异步函数，实现非阻塞 IO 操作，提升并发能力。</p>
+<ul>
+<li>
+<p><strong>基础示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">asyncio</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 异步路由函数（用async def定义）</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/async&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">async_endpoint</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 模拟IO操作（如数据库查询、网络请求）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 非阻塞等待1秒（不占用线程）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;异步响应&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同步路由函数（用def定义，兼容同步代码）</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/sync&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sync_endpoint</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 同步IO操作（会阻塞线程）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;同步响应&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>关键规则</strong>：</p>
+<ul>
+<li>用<code>async def</code>定义的函数可使用<code>await</code>调用其他异步函数（如异步数据库驱动<code>asyncpg</code>）；</li>
+<li>若调用同步 IO 函数（如<code>requests.get</code>），需用<code>async def</code>+ 线程池（避免阻塞事件循环）；</li>
+<li>异步函数中<strong>不能有阻塞操作</strong>（如<code>time.sleep</code>），必须用<code>await</code>调用异步版本（如<code>asyncio.sleep</code>）。</li>
+</ul>
+</li>
+</ul>
+<p>Pydantic 数据校验</p>
+<p>FastAPI 依赖 Pydantic 库实现请求数据的自动校验和类型转换，确保输入数据符合预期。</p>
+<ul>
+<li>
+<p><strong>示例：请求体校验</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">Field</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义数据模型（继承BaseModel）</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># 必传，字符串长度限制</span>
+</span></span><span class="line"><span class="cl">    <span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>  <span class="c1"># 可选，整数范围0-120</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span><span class="p">:</span> <span class="n">EmailStr</span>  <span class="c1"># 自动验证邮箱格式</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 接收并校验请求体</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/users/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;user&#34;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">dict</span><span class="p">(),</span> <span class="s2">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;用户创建成功&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>校验效果</strong>：</p>
+<ul>
+<li>若请求体不符合模型（如<code>age=-5</code>、<code>email=&quot;invalid&quot;</code>），FastAPI 会自动返回 422 错误，包含详细校验信息；</li>
+<li>支持自动类型转换（如字符串<code>&quot;25&quot;</code>转为整数<code>25</code>）；</li>
+<li>可通过<code>Field</code>定义额外约束（如默认值、描述、正则匹配）。</li>
+</ul>
+</li>
+<li>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>请求参数（路径参数、查询参数、请求体）校验；</li>
+<li>响应数据格式化（确保输出结构一致）；</li>
+<li>数据模型文档自动生成（FastAPI 的 Swagger 文档会基于 Pydantic 模型展示参数说明）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ai-与-agent">AI 与 Agent
+</h2><p>看以前文章</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/">技术杂项</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/devops-%E5%BE%A1%E6%9E%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林服务器的初步认识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">服务器硬件、虚拟化与PVE</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>

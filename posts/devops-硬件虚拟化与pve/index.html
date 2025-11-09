@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="DevOps的入门笔记">
+<title>服务器硬件、虚拟化与PVE</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="服务器硬件、虚拟化与PVE">
+<meta property='og:description' content="DevOps的入门笔记">
+<meta property='og:url' content='https://calendar0917.github.io/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术杂项' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="服务器硬件、虚拟化与PVE">
+<meta name="twitter:description" content="DevOps的入门笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#服务器硬件">服务器硬件</a>
+      <ol>
+        <li><a href="#ecc-内存">ECC 内存</a></li>
+        <li><a href="#热插拔硬盘">热插拔硬盘</a></li>
+        <li><a href="#raid">RAID</a></li>
+      </ol>
+    </li>
+    <li><a href="#带外管理">带外管理</a>
+      <ol>
+        <li><a href="#概念">概念</a>
+          <ol>
+            <li><a href="#带外管理的-独立性">带外管理的 “独立性”</a></li>
+            <li><a href="#ipmi标准化的带外管理协议">IPMI：标准化的带外管理协议</a></li>
+          </ol>
+        </li>
+        <li><a href="#具体实现">具体实现</a>
+          <ol>
+            <li><a href="#kvm-over-ip远程控制台核心排错功能">KVM Over IP：远程控制台（核心排错功能）</a></li>
+            <li><a href="#虚拟介质virtual-media远程挂载-iso--文件">虚拟介质（Virtual Media）：远程挂载 ISO / 文件</a></li>
+            <li><a href="#固件升级与配置管理">固件升级与配置管理</a></li>
+          </ol>
+        </li>
+        <li><a href="#使用步骤">使用步骤</a>
+          <ol>
+            <li><a href="#初始配置首次使用">初始配置（首次使用）</a></li>
+            <li><a href="#远程-kvm-操作步骤">远程 KVM 操作步骤</a></li>
+            <li><a href="#虚拟介质挂载-iso-步骤">虚拟介质挂载 ISO 步骤</a></li>
+            <li><a href="#命令行管理">命令行管理</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#pve虚拟化">PVE虚拟化</a>
+      <ol>
+        <li><a href="#kvm全虚拟化与-lxc容器的优劣及选型">KVM（全虚拟化）与 LXC（容器）的优劣及选型</a>
+          <ol>
+            <li><a href="#kvm全虚拟化与-lxc容器的优劣及选型-1">KVM（全虚拟化）与 LXC（容器）的优劣及选型</a></li>
+            <li><a href="#优劣对比">优劣对比</a></li>
+          </ol>
+        </li>
+        <li><a href="#快照snapshot与备份backup的区别">快照（Snapshot）与备份（Backup）的区别</a>
+          <ol>
+            <li><a href="#快照">快照</a></li>
+            <li><a href="#备份">备份</a></li>
+          </ol>
+        </li>
+        <li><a href="#集群基于-corosync-与共享存储的高可用架构">集群：基于 Corosync 与共享存储的高可用架构</a>
+          <ol>
+            <li><a href="#核心组件">核心组件</a></li>
+            <li><a href="#法定人数quorum防止脑裂的关键机制">法定人数（Quorum）：防止脑裂的关键机制</a></li>
+            <li><a href="#适用场景与局限">适用场景与局限</a></li>
+          </ol>
+        </li>
+        <li><a href="#存储">存储</a>
+          <ol>
+            <li><a href="#lvm-thin-核心原理">LVM-Thin 核心原理</a></li>
+            <li><a href="#超售-风险与应对措施">“超售” 风险与应对措施</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/devops/" >
+                DevOps
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/devops-%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8Epve/">服务器硬件、虚拟化与PVE</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            DevOps的入门笔记
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 09, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="服务器硬件">服务器硬件
+</h2><h3 id="ecc-内存">ECC 内存
+</h3><blockquote>
+<p>ECC（Error-Correcting Code，纠错码）是一种具备错误检测和纠正能力的内存模块。其核心是通过在内存数据中添加额外的校验位（通常为 8 位校验位对应 64 位数据位），利用数学算法（如汉明码、海明码扩展算法）对数据传输和存储过程中的错误进行检测。</p>
+</blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>优点</th>
+          <th>缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>数据纠错能力，保障稳定性</td>
+          <td>成本更高（比普通非 ECC 内存贵 30%-50%）</td>
+      </tr>
+      <tr>
+          <td>降低宕机风险，减少运维损失</td>
+          <td>性能有微小损耗（校验计算占用少量内存带宽）</td>
+      </tr>
+      <tr>
+          <td>支持大容量扩展，适配服务器需求</td>
+          <td>需主板芯片组支持（普通消费级主板不兼容）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="热插拔硬盘">热插拔硬盘
+</h3><blockquote>
+<p>在服务器运行过程中（无需关机），可直接插入或拔出硬盘的硬件技术。其实现依赖两大核心组件</p>
+<ol>
+<li><strong>硬件层面</strong>：硬盘接口（如 SATA、SAS、NVMe）和服务器背板支持热插拔协议，具备电源隔离和信号切换机制，确保插拔时不影响其他硬件的供电和数据传输。</li>
+<li><strong>软件层面</strong>：操作系统（如 Linux、Windows Server）和存储控制器驱动支持热插拔检测，当硬盘插拔时，系统可自动识别设备并完成挂载 / 卸载，避免数据丢失。</li>
+</ol>
+</blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>优点</th>
+          <th>缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>在线维护，不中断业务</td>
+          <td>硬件成本增加（需支持热插拔的硬盘、背板和控制器）</td>
+      </tr>
+      <tr>
+          <td>动态扩容，适配业务增长</td>
+          <td>对操作规范要求高（误操作可能导致数据丢失）</td>
+      </tr>
+      <tr>
+          <td>减少停机损失，提升服务可用性</td>
+          <td>需配合 RAID 使用（单独热插拔硬盘无冗余，故障时仍可能丢数据）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="raid">RAID
+</h3><blockquote>
+<p>RAID（Redundant Array of Independent Disks，独立磁盘冗余阵列）是将多个物理硬盘组合成一个逻辑磁盘，通过数据分布和冗余策略，实现性能提升或数据容错的技术。常见级别包括 RAID 0、1、5、10，各有不同的原理和取舍。</p>
+</blockquote>
+<p>RAID 0（条带化）</p>
+<ul>
+<li><strong>原理</strong>：将数据分割成多个块，分散存储到多个硬盘上，读写时多硬盘并行操作。例如，将 1GB 数据拆分为 4 个 256MB 块，存储到 4 块硬盘中，读取时 4 块硬盘同时传输，理论速度是单块硬盘的 4 倍。</li>
+<li><strong>特点</strong>：无冗余机制，任何一块硬盘故障都会导致全部数据丢失。</li>
+</ul>
+<p>RAID 1（镜像）</p>
+<ul>
+<li><strong>原理</strong>：至少需要 2 块硬盘，将数据同时写入主硬盘和镜像硬盘，两块硬盘数据完全一致。读取时可从任意一块硬盘获取数据，故障时可切换到正常硬盘。</li>
+<li><strong>特点</strong>：数据冗余性强，但硬盘利用率仅 50%（2 块硬盘仅能使用 1 块的容量）。</li>
+</ul>
+<p>RAID 5（分布式奇偶校验）</p>
+<ul>
+<li><strong>原理</strong>：至少需要 3 块硬盘，将数据分散存储到所有硬盘，同时计算奇偶校验信息并分布式存储（每块硬盘都包含部分校验数据）。当单块硬盘故障时，可通过其他硬盘的数据和校验信息恢复故障数据。</li>
+<li><strong>特点</strong>：兼顾冗余和容量利用率（利用率 =（n-1）/n，n 为硬盘数量），但写入性能受校验计算影响。</li>
+</ul>
+<p>RAID 10（RAID 1+0，镜像 + 条带化）</p>
+<ul>
+<li><strong>原理</strong>：至少需要 4 块硬盘，先将硬盘两两组成 RAID 1 镜像对，再将多个镜像对组成 RAID 0 条带化阵列。例如，4 块硬盘分为 2 个镜像对（A1-A2、B1-B2），数据先条带化存储到 A1 和 B1，同时同步到 A2 和 B2。</li>
+<li><strong>特点</strong>：兼具 RAID 0 的高性能和 RAID 1 的高冗余，可容忍多个硬盘故障（只要每个镜像对中至少有一块硬盘正常）。</li>
+</ul>
+<p>各 RAID 级别性能与取舍对比:</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>RAID 级别</th>
+          <th>读写性能</th>
+          <th>数据冗余性</th>
+          <th>硬盘利用率</th>
+          <th>最少硬盘数</th>
+          <th>适用场景</th>
+          <th>核心缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>RAID 0</td>
+          <td>极高（并行读写）</td>
+          <td>无（单盘故障丢数据）</td>
+          <td>100%</td>
+          <td>2</td>
+          <td>非关键数据存储（如缓存、临时文件）</td>
+          <td>无容错能力，风险极高</td>
+      </tr>
+      <tr>
+          <td>RAID 1</td>
+          <td>读性能较好，写性能一般</td>
+          <td>高（单盘故障可恢复）</td>
+          <td>50%</td>
+          <td>2</td>
+          <td>小容量关键数据（如系统盘、数据库日志盘）</td>
+          <td>容量利用率低，成本高</td>
+      </tr>
+      <tr>
+          <td>RAID 5</td>
+          <td>读性能较好，写性能中等</td>
+          <td>中（单盘故障可恢复）</td>
+          <td>（n-1）/n</td>
+          <td>3</td>
+          <td>大容量业务数据（如文件服务器、普通数据库）</td>
+          <td>单盘故障时读写性能下降，不支持多盘同时故障</td>
+      </tr>
+      <tr>
+          <td>RAID 10</td>
+          <td>极高（条带化 + 镜像）</td>
+          <td>高（多盘故障可容忍）</td>
+          <td>50%</td>
+          <td>4</td>
+          <td>高并发关键业务（如核心数据库、金融交易系统）</td>
+          <td>成本高，硬盘利用率低</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="带外管理">带外管理
+</h2><blockquote>
+<p>带外管理（Out-of-Band Management）是指不依赖服务器操作系统和网络栈，通过独立硬件和专用通道对服务器进行远程管理的技术。其中，<strong>IPMI（智能平台管理接口）</strong> 是行业通用标准，而戴尔的 iDRAC、惠普的 iLO 则是基于 IPMI 扩展的厂商专属解决方案。它们是数据中心远程排错、运维的 “生命线”，尤其在服务器离线、系统崩溃时仍能正常工作，核心功能包括 KVM 远程控制、虚拟介质挂载等。</p>
+</blockquote>
+<h3 id="概念">概念
+</h3><h4 id="带外管理的-独立性">带外管理的 “独立性”
+</h4><ul>
+<li><strong>硬件独立</strong>：通过服务器主板上的专用管理芯片（如戴尔的 iDRAC 芯片、惠普的 iLO 芯片）实现，不占用服务器 CPU、内存资源。</li>
+<li><strong>网络独立</strong>：通常通过独立的管理网口（如标有 “iDRAC”“iLO” 的网口）连接，与服务器业务网物理隔离，即使服务器系统宕机、网络中断，仍可通过管理网访问。</li>
+<li><strong>电源独立</strong>：只要服务器接通电源（无需开机），带外管理模块就可工作，支持远程开机、关机、重启。</li>
+</ul>
+<h4 id="ipmi标准化的带外管理协议">IPMI：标准化的带外管理协议
+</h4><ul>
+<li>IPMI 是由英特尔、戴尔等厂商联合制定的开放标准（目前最新版本为 IPMI 2.0），定义了管理模块与服务器硬件（CPU、内存、风扇、电源等）的通信接口。</li>
+<li>厂商专属方案（iDRAC/iLO）均基于 IPMI 扩展，增加了图形化界面、更多硬件监控功能（如温度、电压实时监控）和高级操作（如虚拟介质、固件升级）。</li>
+</ul>
+<h3 id="具体实现">具体实现
+</h3><h4 id="kvm-over-ip远程控制台核心排错功能">KVM Over IP：远程控制台（核心排错功能）
+</h4><ul>
+<li><strong>功能</strong>：通过网络远程获取服务器显示器、键盘、鼠标的控制权，相当于 “虚拟现场操作”，支持图形化界面（如 BIOS 设置、操作系统安装界面、蓝屏 / 黑屏故障排查）。</li>
+<li><strong>优势</strong>：
+<ul>
+<li>不依赖操作系统：即使服务器未安装系统、系统崩溃（如 Linux 内核 panic、Windows 蓝屏），仍能看到控制台输出；</li>
+<li>低延迟：支持自适应带宽，在网络条件差时仍可流畅操作；</li>
+<li>跨平台：通过浏览器 Web 界面或专用客户端（如 iDRAC Virtual Console）访问。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>远程安装操作系统（如在无本地光驱的情况下通过 KVM 操作安装界面）；</li>
+<li>排查系统启动故障（如 GRUB 引导错误、BIOS 设置错误导致的开机失败）；</li>
+<li>处理蓝屏 / 内核崩溃：直接查看错误代码和堆栈信息。</li>
+</ul>
+</li>
+</ul>
+<h4 id="虚拟介质virtual-media远程挂载-iso--文件">虚拟介质（Virtual Media）：远程挂载 ISO / 文件
+</h4><ul>
+<li>
+<p><strong>功能</strong>：将本地电脑的 ISO 镜像、U 盘、文件夹通过网络 “映射” 为服务器的本地存储设备（如虚拟光驱、虚拟 U 盘），服务器可像访问物理介质一样读取。</p>
+</li>
+<li>
+<p><strong>支持格式</strong>：ISO、IMG、VHD 等，部分型号支持通过 NFS、CIFS 共享挂载网络存储中的介质。</p>
+<p><em>使用场景</em>：</p>
+<ul>
+<li>远程安装操作系统：挂载系统 ISO 镜像（如 CentOS、Windows Server），通过 KVM 操作完成安装；</li>
+<li>修复系统：挂载 PE 启动盘 ISO，修复引导或恢复数据；</li>
+<li>传输驱动 / 工具：将驱动程序 ISO 映射为虚拟光驱，为服务器安装硬件驱动。</li>
+</ul>
+</li>
+</ul>
+<h4 id="固件升级与配置管理">固件升级与配置管理
+</h4><ul>
+<li><strong>固件升级</strong>：远程更新服务器 BIOS、iDRAC/iLO 自身固件、RAID 卡固件等，支持断点续传和回滚机制（避免升级失败变砖）。</li>
+<li><strong>配置导出 / 导入</strong>：将 iDRAC/iLO 的网络配置、用户权限等导出为文件，批量部署到多台服务器，简化规模化运维。</li>
+<li><strong>用户权限管理</strong>：支持多用户、多角色（如管理员、操作员），细粒度控制权限（如仅允许查看状态，不允许执行电源操作）。</li>
+</ul>
+<h3 id="使用步骤">使用步骤
+</h3><h4 id="初始配置首次使用">初始配置（首次使用）
+</h4><ul>
+<li><strong>硬件连接</strong>：将服务器的 iDRAC 网口通过网线连接到管理网络（交换机或路由器），确保物理链路通畅。</li>
+<li>获取管理 IP：
+<ul>
+<li>方法 1：服务器开机时，通过本地显示器查看 iDRAC 初始化信息（通常会显示默认 IP，如<code>192.168.0.120</code>）；</li>
+<li>方法 2：通过服务器主板上的 LCD 屏（部分型号支持）查看或修改 iDRAC IP；</li>
+<li>方法 3：使用戴尔专用工具（如 OpenManage Server Administrator）在本地获取。</li>
+</ul>
+</li>
+<li><strong>登录 Web 界面</strong>：在浏览器中输入 iDRAC IP，使用默认账号密码（如<code>root/calvin</code>）登录，首次登录需强制修改密码。</li>
+</ul>
+<h4 id="远程-kvm-操作步骤">远程 KVM 操作步骤
+</h4><ol>
+<li>登录 iDRAC Web 界面，进入「Overview → Server → Console/Media」；</li>
+<li>点击「Launch Virtual Console」，下载并运行 Java 插件或 HTML5 客户端（现代 iDRAC 支持无插件 HTML5 模式）；</li>
+<li>客户端启动后，即可看到服务器的实时控制台画面，通过本地键盘鼠标远程操作（支持快捷键，如<code>Ctrl+Alt+Del</code>）。</li>
+</ol>
+<h4 id="虚拟介质挂载-iso-步骤">虚拟介质挂载 ISO 步骤
+</h4><ol>
+<li>在 iDRAC Web 界面的「Console/Media」页面，切换到「Virtual Media」标签；</li>
+<li>点击「Attach」，选择本地电脑中的 ISO 文件（或输入网络共享路径）；</li>
+<li>勾选「Auto-attach on next connection」，确保服务器能识别虚拟介质；</li>
+<li>进入 KVM 控制台，重启服务器并按对应快捷键（如 F11）进入启动菜单，选择虚拟光驱作为启动项，即可从 ISO 启动。</li>
+</ol>
+<h4 id="命令行管理">命令行管理
+</h4><p>除 Web 界面外，可通过<code>ipmitool</code>工具（基于 IPMI 协议）命令行操作，适合自动化脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装ipmitool（Linux）</span>
+</span></span><span class="line"><span class="cl">sudo apt install ipmitool  <span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo yum install ipmitool  <span class="c1"># CentOS/RHEL</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 远程连接iDRAC（需开启IPMI Over LAN）</span>
+</span></span><span class="line"><span class="cl">ipmitool -H 192.168.0.120 -U root -P password power status  <span class="c1"># 查看电源状态</span>
+</span></span><span class="line"><span class="cl">ipmitool -H 192.168.0.120 -U root -P password power reset   <span class="c1"># 远程重启</span>
+</span></span><span class="line"><span class="cl">ipmitool -H 192.168.0.120 -U root -P password sensor list   <span class="c1"># 查看传感器状态（温度、风扇等）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="pve虚拟化">PVE虚拟化
+</h2><blockquote>
+<p>Proxmox VE（简称 PVE）是一款基于 Debian 的开源虚拟化管理平台，整合了 KVM 全虚拟化、LXC 容器技术及集群管理功能</p>
+</blockquote>
+<h3 id="kvm全虚拟化与-lxc容器的优劣及选型">KVM（全虚拟化）与 LXC（容器）的优劣及选型
+</h3><p>PVE 同时支持 KVM 和 LXC 两种虚拟化方案，二者底层技术原理不同，适用场景各有侧重。</p>
+<h4 id="kvm全虚拟化与-lxc容器的优劣及选型-1">KVM（全虚拟化）与 LXC（容器）的优劣及选型
+</h4><p>KVM（全虚拟化）</p>
+<ul>
+<li><strong>本质</strong>：基于 Linux 内核的虚拟化模块，通过硬件辅助虚拟化技术（如 Intel VT-x、AMD-V），为虚拟机（VM）模拟完整的硬件环境（CPU、内存、硬盘、网卡等），虚拟机中可安装任意操作系统（如 Windows、Linux、FreeBSD）。</li>
+<li><strong>隔离性</strong>：虚拟机与宿主机、虚拟机之间完全隔离，拥有独立的内核空间，一个 VM 故障不会影响其他 VM 或宿主机。</li>
+</ul>
+<p>LXC（容器虚拟化）</p>
+<ul>
+<li><strong>本质</strong>：基于 Linux 内核的容器技术，通过 namespace（命名空间）实现资源隔离，通过 cgroup（控制组）实现资源限制，容器共享宿主机的 Linux 内核，仅封装应用及依赖环境。</li>
+<li><strong>轻量性</strong>：无需模拟硬件和运行独立内核，启动速度快、资源占用低，可在单台宿主机上部署大量容器。</li>
+</ul>
+<h4 id="优劣对比">优劣对比
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>KVM（全虚拟化）</th>
+          <th>LXC（容器）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>资源占用</strong></td>
+          <td>高（需分配独立硬件资源，存在虚拟化开销）</td>
+          <td>低（共享内核，几乎无虚拟化开销）</td>
+      </tr>
+      <tr>
+          <td><strong>启动速度</strong></td>
+          <td>慢（需加载完整操作系统，通常分钟级）</td>
+          <td>快（直接启动应用，秒级甚至毫秒级）</td>
+      </tr>
+      <tr>
+          <td><strong>隔离性</strong></td>
+          <td>强（独立内核，硬件级隔离）</td>
+          <td>弱（共享内核，依赖内核 namespace 隔离，存在逃逸风险）</td>
+      </tr>
+      <tr>
+          <td><strong>系统兼容性</strong></td>
+          <td>高（支持任意操作系统）</td>
+          <td>低（仅支持与宿主机内核兼容的 Linux 发行版）</td>
+      </tr>
+      <tr>
+          <td><strong>管理复杂度</strong></td>
+          <td>高（需配置完整硬件参数、网络、存储）</td>
+          <td>低（简化的资源配置，依赖宿主机基础设施）</td>
+      </tr>
+      <tr>
+          <td><strong>硬件穿透</strong></td>
+          <td>支持（可直接映射 GPU、USB 设备等）</td>
+          <td>有限（需宿主机内核支持，部分设备无法直接穿透）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>优先选 KVM 的场景</p>
+<ul>
+<li>需运行 Windows 等非 Linux 操作系统；</li>
+<li>对隔离性和安全性要求高（如运行多租户应用、核心业务系统）；</li>
+<li>需要硬件设备穿透（如 GPU 虚拟化用于 AI 计算、USB 加密狗）；</li>
+<li>应用对内核版本敏感，需独立内核环境。</li>
+</ul>
+<p>优先选 LXC 的场景</p>
+<ul>
+<li>运行 Linux 轻量应用（如 Web 服务、API 接口、脚本程序）；</li>
+<li>追求高密度部署（如单台服务器部署数十个应用实例）；</li>
+<li>对启动速度和资源利用率要求高（如微服务架构、临时测试环境）；</li>
+<li>简化运维，降低管理成本。</li>
+</ul>
+<h3 id="快照snapshot与备份backup的区别">快照（Snapshot）与备份（Backup）的区别
+</h3><h4 id="快照">快照
+</h4><blockquote>
+<p>快照是对虚拟机 / 容器在某一时刻的系统状态（包括内存数据、磁盘数据、配置信息）的瞬时记录。基于写时复制（Copy-on-Write, CoW）技术实现:</p>
+<ul>
+<li>快照创建后，原始数据被冻结，后续修改操作会写入新的存储块；</li>
+<li>回滚时，丢弃修改的存储块，恢复到快照创建时的原始状态，过程快速（秒级）</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p><strong>优势</strong>：创建和回滚速度快，不占用大量即时存储（仅记录修改数据），适合临时测试、软件升级等场景的快速故障恢复。</p>
+</li>
+<li>
+<p><strong>局限</strong>：</p>
+<ul>
+<li>依赖原始存储，若原始存储损坏，快照也会失效；</li>
+<li>长期保留快照会导致存储性能下降（需跟踪大量修改块）；</li>
+<li>部分存储类型（如 RAW 格式磁盘）不支持内存快照，仅能记录磁盘数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>适用场景</strong></p>
+<ul>
+<li>
+<p>软件升级、补丁安装前创建快照，若升级失败可快速回滚；</p>
+</li>
+<li>
+<p>临时测试新应用，测试完成后通过快照恢复环境；</p>
+</li>
+<li>
+<p>短期故障恢复（如误操作导致的配置错误）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="备份">备份
+</h4><blockquote>
+<p>备份是将虚拟机 / 容器的完整数据（磁盘镜像、配置文件）复制到本地其他存储或异地存储的过程，支持全量备份和增量备份：</p>
+<ul>
+<li>全量备份：复制全部数据，占用空间大但恢复速度快；</li>
+<li>增量备份：仅复制上次备份后修改的数据，占用空间小但恢复时需依赖全量备份和后续增量备份链。</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p><strong>优势</strong>：数据独立于原始存储，支持异地存储，可应对原始存储损坏、机房灾难等严重故障，是容灾的核心手段。</p>
+</li>
+<li>
+<p><strong>局限</strong>：创建和恢复速度慢（需传输大量数据），占用额外存储资源，增量备份恢复时依赖备份链完整性。</p>
+</li>
+<li>
+<p><strong>适用场景</strong>:</p>
+<ul>
+<li>
+<p>长期数据归档（如按天 / 周 / 月定期备份）；</p>
+</li>
+<li>
+<p>异地容灾（将备份数据存储到不同机房或云存储）；</p>
+</li>
+<li>
+<p>严重故障恢复（如硬盘损坏、病毒攻击导致的数据丢失）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="集群基于-corosync-与共享存储的高可用架构">集群：基于 Corosync 与共享存储的高可用架构
+</h3><blockquote>
+<p>PVE 集群的核心目标是实现虚拟资源的高可用（HA），避免单点故障导致业务中断，其运行依赖 Corosync 集群通信协议、共享存储及 “法定人数” 机制。</p>
+</blockquote>
+<h4 id="核心组件">核心组件
+</h4><p>Corosync：集群通信与故障检测</p>
+<ul>
+<li><strong>作用</strong>：作为集群的 “神经中枢”，负责节点间的心跳检测、状态同步和资源调度指令传输。</li>
+<li><strong>工作机制</strong>：通过多播或单播方式在集群节点间发送心跳包（默认每 2 秒一次），若某节点超时未响应，Corosync 判定其故障，触发资源迁移。</li>
+<li><strong>可靠性保障</strong>：支持冗余通信链路，避免因单条网络故障导致的节点误判。</li>
+</ul>
+<p>共享存储：资源统一调度的基础</p>
+<ul>
+<li><strong>作用</strong>：集群中所有节点需访问统一的共享存储（如 Ceph、GlusterFS、iSCSI、NFS），确保虚拟机 / 容器的磁盘数据在节点间可共享。</li>
+<li><strong>必要性</strong>：当故障节点上的虚拟资源迁移到正常节点时，新节点需从共享存储中读取数据，避免数据不一致。</li>
+<li><strong>常见方案</strong>：中小企业常用 iSCSI 或 NFS（部署简单），大规模集群优先选 Ceph（分布式存储，高可用且可扩展）。</li>
+</ul>
+<h4 id="法定人数quorum防止脑裂的关键机制">法定人数（Quorum）：防止脑裂的关键机制
+</h4><p>脑裂问题的成因:</p>
+<ul>
+<li>当集群网络分区（如<strong>交换机故障</strong>导致节点分为两组），每组节点都认为对方故障，若两组都继续运行虚拟资源，会导致数据写入冲突（如同一虚拟机在两组节点同时运行），即 “脑裂”。</li>
+</ul>
+<p>法定人数机制原理:</p>
+<ul>
+<li>
+<p><strong>法定人数定义</strong>：集群正常运行所需的最小节点数量，计算公式为 <code>Quorum = (总节点数 / 2) + 1</code>（向上取整）。</p>
+</li>
+<li>
+<p><strong>工作逻辑</strong>：当集群网络分区后，仅节点数量达到或超过法定人数的分区可继续提供服务，另一分区会自动停止所有虚拟资源，避免脑裂。</p>
+</li>
+<li>
+<p>针对偶数节点集群（如 4 节点），可添加 QDevice（独立的轻量节点，不运行业务资源），其作用是在网络分区时提供 “额外投票权”，避免集群因双方节点数相等而暂停服务。</p>
+</li>
+</ul>
+<h4 id="适用场景与局限">适用场景与局限
+</h4><ul>
+<li><strong>适用场景</strong>：运行核心业务（如数据库、ERP 系统），对业务连续性要求高，需避免单点故障。</li>
+<li><strong>局限</strong>：部署复杂度高（需配置共享存储、集群网络），硬件成本增加，小规模非关键业务集群性价比低。</li>
+</ul>
+<h3 id="存储">存储
+</h3><blockquote>
+<p>LVM-Thin 是 PVE 中常用的精简置备存储方案，通过动态分配存储资源提升利用率，但需警惕 “超售” 带来的风险。</p>
+</blockquote>
+<h4 id="lvm-thin-核心原理">LVM-Thin 核心原理
+</h4><p><strong>精简配置</strong>（Thin Provisioning）</p>
+<p>与传统 LVM（厚置备）不同，LVM-Thin 创建虚拟磁盘时，仅分配 “逻辑容量”，而非立即占用实际物理存储，只有当虚拟机 / 容器写入数据时，才会动态占用物理空间。</p>
+<ul>
+<li>示例：创建 2 个各 100GB 的 LVM-Thin 虚拟磁盘，若实际仅写入 20GB 数据，总占用物理空间为 20GB，而非 200GB。</li>
+</ul>
+<p><strong>关键组件</strong></p>
+<ul>
+<li><strong>Thin Pool</strong>：精简存储池，是 LVM-Thin 的核心，所有虚拟磁盘的动态空间均从池中分配。</li>
+<li><strong>元数据（Metadata）</strong>：记录 Thin Pool 中空间的分配状态，确保数据写入时不冲突。</li>
+</ul>
+<p><strong>优势</strong></p>
+<ol>
+<li><strong>提升存储利用率</strong>：避免传统厚置备中 “分配未使用” 的空间浪费，适合存储需求波动大的场景（如测试环境、弹性业务）。</li>
+<li><strong>简化容量规划</strong>：无需提前精确预估每个虚拟资源的存储需求，可按需动态扩展（只要 Thin Pool 有剩余空间）。</li>
+<li><strong>支持快照功能</strong>：LVM-Thin 原生支持快照，且快照创建速度快、占用空间小，与 PVE 的快照功能完美兼容。</li>
+</ol>
+<h4 id="超售-风险与应对措施">“超售” 风险与应对措施
+</h4><p><strong>超售风险的成因</strong></p>
+<p>由于 LVM-Thin 允许逻辑容量总和超过物理存储容量（即 “超售”），若多个虚拟资源<strong>同时写入</strong>大量数据，会导致 Thin Pool 空间耗尽，进而引发虚拟机卡死、数据写入失败甚至数据损坏。</p>
+<p><strong>风险应对措施</strong></p>
+<ul>
+<li><strong>合理规划超售比例</strong>：根据业务实际写入量控制超售比例（建议不超过 2:1），避免过度超售。</li>
+<li><strong>启用空间监控与告警</strong>：在 PVE 中设置 Thin Pool 空间阈值告警（如剩余空间低于 20% 时触发告警），及时扩容或清理无用数据。</li>
+<li><strong>定期清理快照</strong>：长期保留的快照会占用 Thin Pool 空间，需定期删除无用快照。</li>
+<li><strong>避免存储密集型应用</strong>：不建议在 LVM-Thin 上运行数据库、日志存储等高频写入的存储密集型应用，优先使用厚置备或分布式存储。</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/">技术杂项</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DevOps核心服务线</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/devops-%E5%BE%A1%E6%9E%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林服务器的初步认识</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>

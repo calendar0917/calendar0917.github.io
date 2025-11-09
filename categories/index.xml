@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Fri, 07 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 09 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>DevOps</title>
+        <link>https://calendar0917.github.io/categories/devops/</link>
+        <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/categories/devops/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>课内笔记</title>
         <link>https://calendar0917.github.io/categories/%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
