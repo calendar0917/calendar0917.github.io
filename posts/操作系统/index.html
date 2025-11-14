@@ -4,15 +4,15 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="操作系统的学习笔记">
 <title>操作系统</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
 
 <link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="操作系统">
 <meta property='og:description' content="操作系统的学习笔记">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:url' content='https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='笔记' /><meta property='article:published_time' content='2025-11-07T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-07T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="操作系统">
-<meta name="twitter:description" content="操作系统的学习笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.json">
+<meta name="twitter:description" content="操作系统的学习笔记"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.json">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
 
     </head>
@@ -232,7 +232,13 @@
     </li>
     <li><a href="#虚拟化">虚拟化</a>
       <ol>
-        <li><a href="#程序与进程">程序与进程</a></li>
+        <li><a href="#程序和进程">程序和进程</a></li>
+        <li><a href="#进程状态机管理">进程（状态机）管理</a></li>
+        <li><a href="#进程的地址空间">进程的地址空间</a></li>
+        <li><a href="#访问操作系统对象">访问操作系统对象</a></li>
+        <li><a href="#终端和-unix-shell">终端和 UNIX shell</a></li>
+        <li><a href="#c-标准库和实现">C 标准库和实现</a></li>
+        <li><a href="#可执行文件">可执行文件</a></li>
       </ol>
     </li>
   </ol>
@@ -262,7 +268,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
         </h2>
     
         
@@ -409,29 +415,413 @@
 </blockquote>
 <h3 id="在多处理器上实现线程隔离">在多处理器上实现线程隔离
 </h3><h2 id="虚拟化">虚拟化
-</h2><h3 id="程序与进程">程序与进程
-</h3><p>操作系统将物理计算机<strong>抽象</strong>成虚拟计算机</p>
+</h2><ul>
+<li>把物理计算机 “抽象” 成 “虚拟计算机”
+<ul>
+<li>程序好像独占计算机运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="程序和进程">程序和进程
+</h3><ul>
+<li>程序是状态机的静态描述
+<ul>
+<li>描述了所有可能的程序状态</li>
+<li>程序 (动态) 运行起来，就成了<strong>进程</strong> (进行中的程序)</li>
+<li>可以使用文件 API (“everything is a file”) 访问当前进程的 ID、状态信息、命令行参数和工作目录等元数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程状态机管理">进程（状态机）管理
+</h3><p>操作系统 = 状态机的管理者</p>
 <ul>
 <li>
-<p>程序是静态描述，描述所有可能的程序状态</p>
-<ul>
-<li>
-<p>运行起来成为了进程（进行中的程序）</p>
+<p>创建状态机：spawn(path, argv)</p>
 </li>
 <li>
-<p>可以通过各种接口，来获取进程的各种信息</p>
+<p>销毁状态机: _exit()</p>
+</li>
+<li>
+<p>复制状态机: fork()</p>
 <ul>
-<li>pid、ppid、工作目录……</li>
+<li><strong>完整复制</strong>状态机；新创建的状态机返回值为 0，执行 fork() 的进程会返回子进程的进程号。</li>
+<li>pritf 的输出机制，输出到缓冲区</li>
+</ul>
+</li>
+<li>
+<p>复位状态机: execve()</p>
+<ul>
+<li>参数 path、argv、evnp</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>windows 与 Unix 管理进程的 API 不同</p>
+</blockquote>
+<h3 id="进程的地址空间">进程的地址空间
+</h3><p><strong>进程的初始状态</strong></p>
+<ul>
+<li>
+<p>寄存器</p>
+<ul>
+<li>
+<p>ABI 中规定了 initial state</p>
+</li>
+<li>
+<p>只规定了部分寄存器和栈 (argv 和 envp 中的字符串保存在栈中)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>内存</p>
+<ul>
+<li>Binary 中指定的 PT_LOAD 段
+<ul>
+<li>内存是分成 “一段一段” 的</li>
+<li>每一段有访问权限 (rwx)</li>
+</ul>
+</li>
+<li>只有<strong>ELF 文件里声明的</strong>内存和一些操作系统分配的内存
+<ul>
+<li>任何其他指针的访问都是非法的</li>
+<li>所以需要能够动态分配！</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>进程的地址空间管理</strong></p>
+<ul>
+<li>
+<p>在状态机状态上增加/删除/修改一段可访问的内存</p>
+<ul>
+<li>
+<p>MAP_ANONYMOUS: 匿名 (申请) 内存</p>
+</li>
+<li>
+<p>fd: 把文件 “搬到” 进程地址空间中 (例子：加载器)</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">off_t</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">munmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 修改映射权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">mprotect</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>可以用 pmap 命令查看进程的地址空间</p>
+</li>
+<li>
+<p>瞬间完成内存分配</p>
+<ul>
+<li>mmap/munmap 为 malloc/free 提供了机制</li>
+<li>libc 的大 malloc 会直接调用一次 mmap 实现</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>pmap</code> 命令通过读取 <code>/proc/[pid]/maps</code> 和 <code>/proc/[pid]/smaps</code> 文件来获取进程的内存映射信息。Linux 内核将这些信息以文本形式暴露在 <code>/proc</code> 文件系统中，<code>pmap</code> 通过解析这些文件实现功能，而无需直接调用特定的系统调用。</p>
+</blockquote>
+<p>入侵地址空间</p>
+<ul>
+<li>gdb 的实现原理，可以任意观测、修改程序状态</li>
+</ul>
+<blockquote>
+<p>小时候用的游戏修改器，需要多次读取数据，筛选后修改。原理就是监控游戏的整块内存。</p>
+</blockquote>
+<h3 id="访问操作系统对象">访问操作系统对象
+</h3><blockquote>
+<p>先回顾一下操作系统创建的流程：一开始只有一个进程，然后通过 fork 产生出子进程，接着用 execve 来替换子进程为目标进程，再用 mmap 来分配空间</p>
+</blockquote>
+<p><strong>文件描述符</strong></p>
+<ul>
+<li>
+<p>是指向操作系统对象的 “指针”——系统调用通过这个指针 (fd) 确定进程希望访问操作系统中的哪个对象。我们有 open, close, read/write, lseek, dup 管理文件描述符。</p>
+<ul>
+<li>对象的访问都需要指针
+<ul>
+<li>open, close, read/write (解引用), lseek (指针内赋值/运算), dup (指针间赋值)</li>
+</ul>
+</li>
+<li>在 fork 的时候，文件描述符继承吗？
+<ul>
+<li>继承（UNIX中），方便但是危险</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p>进程管理 API</p>
+<p>&ldquo;文件&rdquo;：有名字的数据对象，Everything is a file</p>
+</li>
+</ul>
+<p><strong>操作系统中的对象</strong></p>
 <ul>
-<li></li>
+<li>真实的设备
+<ul>
+<li>/dev/sda</li>
 </ul>
 </li>
+<li>虚拟的设备（文件）
+<ul>
+<li>/dev/urandom，/dev/null，并没有实际文件，但是操作系统为它们实现了特别的read、write操作</li>
+</ul>
+</li>
+<li>管道：特殊的文件流
+<ul>
+<li>读口支持 read，写口支持 write</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>整合起来，就是所有的基础知识：</p>
+<p><strong>进程管理</strong></p>
+<ul>
+<li>fork, execve, waitpid, exit</li>
+</ul>
+<p><strong>内存管理</strong></p>
+<ul>
+<li>mmap, munmap, mprotect, msync</li>
+</ul>
+<p><strong>文件管理</strong></p>
+<ul>
+<li>open, close, read, write, lseek, dup</li>
+</ul>
+</blockquote>
+<p>一切皆文件的利弊：</p>
+<ul>
+<li>一套 API 可以访问所有对象,便捷
+<ul>
+<li>一切都可以 | grep</li>
+</ul>
+</li>
+<li>但是涉及多义性、复杂项目下不便、耦合度高、高速设备不友好&hellip;</li>
+</ul>
+<h3 id="终端和-unix-shell">终端和 UNIX shell
+</h3><blockquote>
+<p>终端的历史，其实就是直接控制硬件（打字机、繁重而昂贵的操作系统）的输入 - 输出互动的窗口</p>
+<p>今天则用伪终端（Pseudo Terminal）来模拟</p>
+</blockquote>
+<p><strong>用户登录的起点</strong></p>
+<ul>
+<li>系统启动 (内核 → init → getty)</li>
+<li>远程登录 (sshd → fork → openpty)
+<ul>
+<li>stdin, stdout, stderr 都会指向分配的终端</li>
+</ul>
+</li>
+<li>vscode (fork → openpty)</li>
+</ul>
+<p><strong>login 程序继承分配的终端</strong></p>
+<ul>
+<li>(是的，login 是一个程序)</li>
+<li>fork() 会继承文件描述符 (指针)
+<ul>
+<li>因此，子进程也会指向同一个终端</li>
+</ul>
+</li>
+</ul>
+<p><strong>终端的机制</strong></p>
+<ul>
+<li>怎么确定要控制的是那个终端/进程？（比如Ctrl + C）</li>
+<li>只管传输字符 &ndash;&gt; 由操作系统来决定如何对“当前”进程采取行动</li>
+<li>历史遗留问题，局限性：无法预知软件的未来
+<ul>
+<li>要做的是进行抽象，不要在把高层“意图”翻译成低层“规程”上花费脑力和时间</li>
+</ul>
+</li>
+</ul>
+<p><strong>Shell</strong>编程</p>
+<ul>
+<li>基于文本替换的极简编程语言！
+<ul>
+<li>预处理: <code>$()</code>, <code>&lt;()</code></li>
+<li>重定向: <code>cmd &gt; file &lt; file 2&gt; /dev/null</code></li>
+<li>顺序结构: <code>cmd1; cmd2</code>, <code>cmd1 &amp;&amp; cmd2</code>, <code>cmd1 || cmd2</code></li>
+<li>管道:<code>cmd1 | cmd2</code>
+<ul>
+<li>这些<strong>命令</strong>被翻译成<strong>系统调用</strong>序列 (open, dup, pipe, fork, execve, waitpid, &hellip;)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="c-标准库和实现">C 标准库和实现
+</h3><blockquote>
+<p>API 的设计有一个有趣的原则：“非必要不实现” (“机制与策略分离”、“最小完备性原则”)：但凡应用程序能自己搞定的功能，操作系统就不需要提供——在一定程度上，这样的设计能防止 “包揽一切” 导致代码膨胀，甚至在长期演化的过程中成为历史的包袱。</p>
+</blockquote>
+<ul>
+<li>
+<p>C 是一种 “高级汇编语言”</p>
+<ul>
+<li>作为对比，C++ 更<strong>好用</strong>，但也更<strong>难移植</strong></li>
+</ul>
+</li>
+<li>
+<p>系统调用的一层 “浅封装”</p>
+</li>
+<li>
+<p>libc</p>
+<ul>
+<li>大部分可以用 C 语言本身实现</li>
+<li>少部分需要一些 “底层支持”
+<ul>
+<li>例子：体系结构相关的内联汇编</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>“最小完备性原则” 和 “机制策略分离” 的反面教材</p>
+<ul>
+<li>“每一个 malloc 在任何可能路径上都必有一次配对的 free，且之后不再使用”</li>
+<li>在复杂系统里太难保证了</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>脱离 workload 做优化就是耍流氓</p>
+<ul>
+<li>在开始考虑性能之前，理解你需要考虑什么样的性能</li>
+</ul>
+</blockquote>
+<h3 id="可执行文件">可执行文件
+</h3><p><strong>是什么</strong></p>
+<blockquote>
+<p>ELF 是 Executable and Linkable Format 的缩写，是 Linux 系统上的一种可执行文件格式。</p>
+</blockquote>
+<ul>
+<li>一个操作系统中的对象 (文件)</li>
+<li>一个字节序列 (我们可以把它当字符串编辑)</li>
+<li>一个描述了状态机初始状态的<strong>数据结构</strong></li>
+</ul>
+<p><strong>需要什么</strong></p>
+<ul>
+<li>一个头 (类似 7f 45 4c 46; 这是一个 jg 71)</li>
+<li>一段 Trampoline Code (PIC)
+<ul>
+<li>操作系统会给一个文件描述符 (指向文件本身)</li>
+<li>这段代码直接执行 hardcoded mmap</li>
+</ul>
+</li>
+<li>(就能实现 “加载” 的功能)</li>
+</ul>
+<p><strong>反思</strong></p>
+<ul>
+<li>
+<p>ELF 不是一个人类友好的 “状态机数据结构描述”</p>
+<ul>
+<li>
+<p>为了性能，彻底<strong>违背了可读</strong> (“信息局部性”) 原则</p>
+</li>
+<li>
+<p>Crash (SIGSEGV, SIGABRT, SIGILL, &hellip;) 时会做 core dump</p>
+<ul>
+<li>
+<p><strong><code>ulimit -c unlimited</code></strong>：启用 Core Dump 的命令（或设一个合理的大小限制），确保程序崩溃时能生成 Core 文件</p>
+</li>
+<li>
+<p>适合于 production systems</p>
+</li>
+<li>
+<p>通过设置 core dump size，我们可以在程序发生 core dump 时保存到文件系统，并且在后续使用 gdb 调试它,但是 GDB 无法基于它继续执行</p>
+</li>
+<li>
+<p>用 CRIU （Checkpoint/Restore In Userspace）解决</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>自己设计可执行文件？</p>
+<p>满足回归链接和加载中的核心概念：<strong>代码、符号、重定位</strong>，就可以了</p>
+</blockquote>
+<p><strong>生成可执行文件地过程</strong></p>
+<ol>
+<li>
+<p>源代码 (.c) → 源代码 (.i)</p>
+<ul>
+<li>
+<p>Ctrl-C &amp; Ctrl-V (#include)</p>
+</li>
+<li>
+<p>字符串替换</p>
+</li>
+<li>
+<p>今天：我们有<a class="link" href="https://doc.rust-lang.org/reference/procedural-macros.html"  target="_blank" rel="noopener"
+    >过程宏</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>源代码 (.i) → 汇编代码 (.s)</p>
+<ul>
+<li>
+<p>“高级状态机” 到 “低级状态机” 的翻译</p>
+</li>
+<li>
+<p>最终生成带标注的指令序列</p>
+</li>
+<li>
+<p>汇编代码 (.s) → 目标文件 (.o)</p>
+<ul>
+<li>文件 = sections (.text, .data, .rodata.str.1, &hellip;)
+<ul>
+<li>对于 ELF，每个 section 有它的权限、内存对齐等信息</li>
+</ul>
+</li>
+<li>section 中的三要素
+<ul>
+<li><strong>代码</strong> (字节序列)</li>
+<li><strong>符号</strong>：标记 “当前” 的位置</li>
+<li>重定位：暂时不能确定的数值 (链接时确定)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>多个目标文件 (.o) → 可执行文件 (a.out)</p>
+<ul>
+<li>合并所有的 sections
+<ul>
+<li>分别合并 .text, .data, .bss 中的代码</li>
+<li>把 sections “平铺” 成字节序列</li>
+<li>确定所有符号的位置</li>
+<li>解析全部重定位</li>
+</ul>
+</li>
+<li>得到一个<strong>可执行文件</strong></li>
+</ul>
+</li>
+<li>
+<p>最后，把字节序列搬到内存，执行</p>
+</li>
+</ol>
+<p><strong>操作系统和加载器</strong></p>
+<p>execve(path, argv, envp)</p>
+<ul>
+<li>操作系统内核解析 path、完成加载</li>
+<li><code>#</code> 注释的作用 -&gt; 指示解释器路径</li>
 </ul>
 
 </section>
@@ -475,7 +865,7 @@
             
                 
 <article class="">
-    <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+    <a href="/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
         
         
 
