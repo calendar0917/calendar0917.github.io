@@ -260,6 +260,17 @@
         </li>
       </ol>
     </li>
+    <li><a href="#图和贪心算法">图和贪心算法</a>
+      <ol>
+        <li><a href="#贪心">贪心</a></li>
+        <li><a href="#图">图</a>
+          <ol>
+            <li><a href="#存储结构">存储结构</a></li>
+            <li><a href="#图的遍历">图的遍历</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -907,6 +918,105 @@
 	
 	
 ></p>
+<h2 id="图和贪心算法">图和贪心算法
+</h2><h3 id="贪心">贪心
+</h3><blockquote>
+<p>顾名思义，贪心算法总是作出在当前看来最好的选择。也就是说贪心算法并不从整体最优考虑，它所作出的选择只是在某种意义上的局部最优选择。当然，希望贪心算法得到的最终结果也是整体最优的。</p>
+</blockquote>
+<p>例：活动安排问题</p>
+<ul>
+<li>将输入的活动按结束时间的非降序排列，只需 O(n) 即可</li>
+</ul>
+<p>当一个问题的最优解包含其子问题的最优解时，称此问题具有<strong>最优子结构</strong>性质。问题的最优子结构性质是该问题可用贪心算法求解的关键特征。证明需用归纳证明。</p>
+<p>例：0-1 背包问题</p>
+<p>贪心不适用，应该比较选择 / 不选择该物品导致的最优方案</p>
+<p>例：多机调度问题</p>
+<h3 id="图">图
+</h3><blockquote>
+<p>图G是由两个集合 V(G) 和 E(G) 组成的,记为G=(V,E)其中：V(G)是顶点的非空有限集、E(G)是边的有限集合，边是顶点的无序对或有序对</p>
+</blockquote>
+<p>还有一些基本概念，这里略过，参考离散数学</p>
+<h4 id="存储结构">存储结构
+</h4><h5 id="顺序结构">顺序结构
+</h5><p><strong>邻接矩阵</strong>：表示顶点间关系的矩阵，即点*点的矩阵，若两点间有边相连，则标记为 1（或者有权值）</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119113908302.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119113908302"
+	
+	
+></p>
+<p><strong>关联矩阵</strong>：表示顶点与边的关联关系，即点*边的矩阵，边的两顶点记为 1 或 -1</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114214398.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119114214398"
+	
+	
+></p>
+<h5 id="链式存储-4">链式存储
+</h5><p><strong>邻接表</strong>：为图中每个顶点建立一个单链表，第 i 个单链表中的结点表示依附于顶点V的边（有向图中指以V为尾的弧）。即每条边对应一个非头节点，由头指向尾（反过来就是<strong>逆邻接表</strong>）</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114405412.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119114405412"
+	
+	
+></p>
+<p><strong>十字链表</strong>：节点间以弧尾相同连接，包含弧尾、弧头位置以及弧尾弧头相同的下一条弧。</p>
+<p>定义：<img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114640071.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119114640071"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114709034.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119114709034"
+	
+	
+></p>
+<blockquote>
+<p>注意一下弧头和弧尾的区分</p>
+</blockquote>
+<p><strong>无向图邻接多重表</strong>：节点间以顶点相同互相连接</p>
+<p>定义：</p>
+<p><img src="https://raw.githubusercontent.com/calendar0917/images/master/image-20251119115152427.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20251119115152427"
+	
+	
+></p>
+<h4 id="图的遍历">图的遍历
+</h4><p>深度优先（DFS）</p>
+<ul>
+<li>方法：从图的某一顶点Vo出发，访问此顶点，然后依次从Vo的未被访问的邻接点出发，深度优先遍历图直至图中有和V0相通的顶点都被访问到；若此时图中尚有顶点未被访问，则另选图中一个未被访问的顶点作起点，重复上述过程，直至图中所有顶点都被访问为止</li>
+</ul>
+<p>广度优先（BFS）</p>
+<ul>
+<li>方法：从图的某一顶点Vo出发，访问此顶点后，依次访问V0的各个未曾访问过的邻接点：然后分别从这些邻接点出发，广度优先遍历图，直至图中所有已被访问的顶点的邻接点都被访问到；若此时图中尚有顶点未被访问，则另选图中一个未被访问的顶点作起点，重复上迷过程，直至图中所有顶点都被访问为止</li>
+</ul>
 
 </section>
 
@@ -949,7 +1059,7 @@
             
                 
 <article class="">
-    <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+    <a href="/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
         
         
 
@@ -962,7 +1072,7 @@
             
                 
 <article class="">
-    <a href="/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+    <a href="/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
         
         
 

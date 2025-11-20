@@ -7,7 +7,156 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Sun, 09 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 15 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Burp靶场：Server-side vulnerabilities</title>
+        <link>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/</link>
+        <pubDate>Fri, 14 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/</guid>
+        <description>&lt;h2 id=&#34;path-traversal-路径穿越&#34;&gt;Path traversal 路径穿越
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;路径遍历（又称目录遍历）漏洞允许攻击者读取运行应用程序的服务器上的任意文件，可能包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用程序代码与数据&lt;/li&gt;
+&lt;li&gt;后端系统的凭证信息&lt;/li&gt;
+&lt;li&gt;敏感的操作系统文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在某些情况下，攻击者还可能向服务器的任意文件写入内容，进而修改应用程序数据或行为，最终完全控制服务器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;img src=&amp;quot;/loadImage?filename=218.png&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;网站中有这样一个链接，如果在 Linux 系统中，一般 218.png 储存在 &lt;code&gt;/var/www/images/218.png&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;想要测试路径穿越，就用：&lt;code&gt;https://insecure-website.com/loadImage?filename=../../../etc/passwd&lt;/code&gt; 来读取&lt;/p&gt;
+&lt;p&gt;如果是 Windows，改用：&lt;code&gt;https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini &lt;/code&gt; 即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;比较简单，是一个商城页面，和上面类似。注意不能直接在浏览器访问，不然会被当成图片解析&lt;/p&gt;
+&lt;h2 id=&#34;acess-control-访问控制&#34;&gt;Acess Control 访问控制
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在 Web 应用场景中，访问控制依赖于身份验证（Authentication）和会话管理（Session Management）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;身份验证：确认用户是否为其声称的身份（即 “验明正身”）。&lt;/li&gt;
+&lt;li&gt;会话管理：识别后续哪些 HTTP 请求来自同一用户。&lt;/li&gt;
+&lt;li&gt;访问控制：判定该用户是否被允许执行其尝试的操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;访问控制失效（Broken Access Controls）是常见且通常具有严重危害的安全漏洞。访问控制的设计与管理是一个复杂的动态问题 —— 需将业务、组织及合规约束融入技术实现中。由于访问控制的设计决策需人工制定，因此出错风险较高。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;垂直权限提升
+&lt;ul&gt;
+&lt;li&gt;若用户能够访问其无权限访问的功能，则构成垂直权限提升。例如，非管理员用户若能访问可删除用户账户的管理页面，即属于垂直权限提升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;未受保护的路径&#34;&gt;未受保护的路径
+&lt;/h3&gt;&lt;p&gt;最基础的纵向越权，源于应用对敏感功能完全未加保护。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;举例：某网站的敏感功能（如&lt;code&gt;https://insecure-website.com/admin&lt;/code&gt;），可能被所有用户访问，而非仅限管理员。这类管理 URL 可能通过&lt;code&gt;robots.txt&lt;/code&gt;等途径泄露，即便未公开，攻击者也可能用字典攻击猜解到位置。&lt;/li&gt;
+&lt;li&gt;可能通过 js 代码泄露&lt;/li&gt;
+&lt;li&gt;判定是否为管理员的参数在路径里
+&lt;ul&gt;
+&lt;li&gt;或者 cookie 等地方&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Lab1&lt;/strong&gt; robots.txt 泄露&lt;/p&gt;
+&lt;p&gt;先看下 /robot&lt;strong&gt;s&lt;/strong&gt;.txt，找到不可访问的路径，访问即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; js 泄露&lt;/p&gt;
+&lt;p&gt;看 js 代码，找到泄露的路径&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab3&lt;/strong&gt; cookie 泄露&lt;/p&gt;
+&lt;p&gt;进到 /login,发现不能注册。进到 /admin,发现不是管理员看不了。回到 /login 随便填，抓包看一下，发现 cookie 里泄露了 &lt;code&gt;Admin = false&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不知道哪里出了问题，没有看到 cookie 里有 Admin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;水平越权&#34;&gt;水平越权
+&lt;/h3&gt;&lt;p&gt;发生在某用户能违规读取其他用户的信息时&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; userid 泄露&lt;/p&gt;
+&lt;p&gt;在 user 的 blog 路径中可以看到 uid，然后在 myaccount 的地址中更换 uid 即可。&lt;/p&gt;
+&lt;h3 id=&#34;垂直越权&#34;&gt;垂直越权
+&lt;/h3&gt;&lt;p&gt;用户可以通过更改已知路径，从而访问、修改 admin 的信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 访问 admin&lt;/p&gt;
+&lt;p&gt;其实是 administrator……&lt;/p&gt;
+&lt;p&gt;登录已有账号后，抓包主页，改 id 为 administrator，就可以看到回显的密码，登录即可。&lt;/p&gt;
+&lt;h2 id=&#34;身份验证漏洞&#34;&gt;身份验证漏洞
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;身份验证是确认用户身份真实性的过程。授权则涉及验证用户是否被允许执行特定操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;暴力破解&#34;&gt;暴力破解
+&lt;/h3&gt;&lt;p&gt;暴力破解并非总是单纯地对用户名和密码进行完全随机的猜测。攻击者还能&lt;strong&gt;结合基本逻辑或公开可得的知识&lt;/strong&gt;，对暴力破解攻击进行精细调整，从而做出更具&lt;strong&gt;针对性的猜测&lt;/strong&gt;。只有密码认证的网站容易被如此攻击。&lt;/p&gt;
+&lt;p&gt;可以看 user 的主页，抓包的返回信息等内容；可以通过已知的用户名来枚举未知用户名；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt;1 Intruder 的使用&lt;/p&gt;
+&lt;p&gt;题目给了 username 和 password，直接用 intruder 爆破就可以了。&lt;/p&gt;
+&lt;p&gt;Tips：非必要情况下，先用 Sniper 限定范围效率更高。&lt;/p&gt;
+&lt;p&gt;这里补充一下 intruder 的模式：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;需求场景&lt;/th&gt;
+          &lt;th&gt;选哪个模式&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;测多个参数，逐个参数灌 Payload&lt;/td&gt;
+          &lt;td&gt;Sniper&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数同时灌&lt;strong&gt;相同&lt;/strong&gt; Payload&lt;/td&gt;
+          &lt;td&gt;Battering ram&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数一一&lt;strong&gt;对应灌不同&lt;/strong&gt; Payload&lt;/td&gt;
+          &lt;td&gt;Pitchfork&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数的 Payload &lt;strong&gt;全组合&lt;/strong&gt;测试&lt;/td&gt;
+          &lt;td&gt;Cluster bomb&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; 二次验证无效&lt;/p&gt;
+&lt;p&gt;比较奇怪的题，没有想到二次认证是没用的……登录已给的账户后，可以在邮箱中接收到验证码，然后登录。记下 URL，然后登录另一个给的账号（没有给邮箱），在验证界面直接跳转 URL，就可以到主页了。限制条件有点多，没什么用？&lt;/p&gt;
+&lt;h2 id=&#34;ssrf-服务端请求伪造&#34;&gt;SSRF 服务端请求伪造
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;服务器端请求伪造是一种网络安全漏洞，允许攻击者诱使服务器端应用程序向非预期位置发送请求。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可能会被用来对内网服务发送请求，导致信息泄露。&lt;/p&gt;
+&lt;p&gt;比如本来用于请求后端指定信息的 URL：&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1&lt;/code&gt; ，可以被利用为 &lt;code&gt;stockApi=http://localhost/admin&lt;/code&gt; ,由于是内网发出的请求，所以不会被按规则拦截。&lt;/p&gt;
+&lt;p&gt;漏洞成因：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;访问控制为额外组件，对后端请求不做拦截&lt;/li&gt;
+&lt;li&gt;为 admin 的遗失留后门，所有本地 user 都可以访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; SSRF&lt;/p&gt;
+&lt;p&gt;先找注入点，在查询时，出现了 stockApi，改成 &lt;code&gt;http://localhost/admin&lt;/code&gt; 测试，成功，删除即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 本地IP扫描&lt;/p&gt;
+&lt;p&gt;还是上一题的注入点，但是本地的 admin IP 和 stockApi 的 IP 不同了，所以扫描 192.168.0.X:8080/admin,找到异常 IP&lt;/p&gt;
+&lt;h2 id=&#34;文件上传&#34;&gt;文件上传
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;有时候上传一个文件本身已经很危险了，如果再加上让这个文件执行呢……&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;漏洞成因：&lt;/p&gt;
+&lt;p&gt;网站通常不会对用户上传文件完全无限制，但开发者所做的文件上传验证常存在缺陷或易被绕过：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;黑名单机制可能遗漏危险文件类型，或未考虑文件扩展名解析差异；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;依赖可被攻击者（通过Burp等工具）篡改的文件属性进行类型校验；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;验证措施在网站的多主机、多目录间应用不一致，存在可被利用的漏洞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WebShell：上传到网站上的，使攻击者获得几乎对网站所有控制权的文件，常见形式类似：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Lab1&lt;/strong&gt; 普通的文件上传&lt;/p&gt;
+&lt;p&gt;上传了 &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; 后访问，改一下 cmd 读取密码就可以了。结果 echo + cat 了两遍……有回显时不需要外层的 echo。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; MIME 绕过&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>DevOps核心服务线</title>
         <link>https://calendar0917.github.io/posts/devops-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E7%BA%BF/</link>
         <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
@@ -2189,7 +2338,8 @@
         <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
         
         <guid>https://calendar0917.github.io/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
-        <description>&lt;h2 id=&#34;操作系统概述&#34;&gt;操作系统概述
+        <description>&lt;p&gt;参考：https://jyywiki.cn/OS/&lt;/p&gt;
+&lt;h2 id=&#34;操作系统概述&#34;&gt;操作系统概述
 &lt;/h2&gt;&lt;p&gt;1940s 的计算机（ENIAC）：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;逻辑门：真空电子管&lt;/li&gt;
@@ -2294,29 +2444,412 @@
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;在多处理器上实现线程隔离&#34;&gt;在多处理器上实现线程隔离
 &lt;/h3&gt;&lt;h2 id=&#34;虚拟化&#34;&gt;虚拟化
-&lt;/h2&gt;&lt;h3 id=&#34;程序与进程&#34;&gt;程序与进程
-&lt;/h3&gt;&lt;p&gt;操作系统将物理计算机&lt;strong&gt;抽象&lt;/strong&gt;成虚拟计算机&lt;/p&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;程序和进程&#34;&gt;程序和进程
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;程序是状态机的静态描述
+&lt;ul&gt;
+&lt;li&gt;描述了所有可能的程序状态&lt;/li&gt;
+&lt;li&gt;程序 (动态) 运行起来，就成了&lt;strong&gt;进程&lt;/strong&gt; (进行中的程序)&lt;/li&gt;
+&lt;li&gt;可以使用文件 API (“everything is a file”) 访问当前进程的 ID、状态信息、命令行参数和工作目录等元数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;进程状态机管理&#34;&gt;进程（状态机）管理
+&lt;/h3&gt;&lt;p&gt;操作系统 = 状态机的管理者&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建状态机：spawn(path, argv)&lt;/li&gt;
+&lt;li&gt;销毁状态机: _exit()&lt;/li&gt;
+&lt;li&gt;复制状态机: fork()
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;完整复制&lt;/strong&gt;状态机；新创建的状态机返回值为 0，执行 fork() 的进程会返回子进程的进程号。&lt;/li&gt;
+&lt;li&gt;pritf 的输出机制，输出到缓冲区&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;复位状态机: execve()
+&lt;ul&gt;
+&lt;li&gt;参数 path、argv、evnp&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;windows 与 Unix 管理进程的 API 不同&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;进程的地址空间&#34;&gt;进程的地址空间
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;进程的初始状态&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;程序是静态描述，描述所有可能的程序状态&lt;/p&gt;
+&lt;p&gt;寄存器&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;运行起来成为了进程（进行中的程序）&lt;/p&gt;
+&lt;li&gt;ABI 中规定了 initial state&lt;/li&gt;
+&lt;li&gt;只规定了部分寄存器和栈 (argv 和 envp 中的字符串保存在栈中)&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;可以通过各种接口，来获取进程的各种信息&lt;/p&gt;
+&lt;p&gt;内存&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;pid、ppid、工作目录……&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Binary 中指定的 PT_LOAD 段&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内存是分成 “一段一段” 的&lt;/li&gt;
+&lt;li&gt;每一段有访问权限 (rwx)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;只有&lt;/p&gt;
+&lt;p&gt;ELF 文件里声明的&lt;/p&gt;
+&lt;p&gt;内存和一些操作系统分配的内存&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任何其他指针的访问都是非法的&lt;/li&gt;
+&lt;li&gt;所以需要能够动态分配！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;进程的地址空间管理&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在状态机状态上增加/删除/修改一段可访问的内存
+&lt;ul&gt;
+&lt;li&gt;MAP_ANONYMOUS: 匿名 (申请) 内存&lt;/li&gt;
+&lt;li&gt;fd: 把文件 “搬到” 进程地址空间中 (例子：加载器)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 映射
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;mmap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;prot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;off_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;munmap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 修改映射权限
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;mprotect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;prot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;可以用 pmap 命令查看进程的地址空间&lt;/li&gt;
+&lt;li&gt;瞬间完成内存分配
+&lt;ul&gt;
+&lt;li&gt;mmap/munmap 为 malloc/free 提供了机制&lt;/li&gt;
+&lt;li&gt;libc 的大 malloc 会直接调用一次 mmap 实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;pmap&lt;/code&gt; 命令通过读取 &lt;code&gt;/proc/[pid]/maps&lt;/code&gt; 和 &lt;code&gt;/proc/[pid]/smaps&lt;/code&gt; 文件来获取进程的内存映射信息。Linux 内核将这些信息以文本形式暴露在 &lt;code&gt;/proc&lt;/code&gt; 文件系统中，&lt;code&gt;pmap&lt;/code&gt; 通过解析这些文件实现功能，而无需直接调用特定的系统调用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;入侵地址空间&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;gdb 的实现原理，可以任意观测、修改程序状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;小时候用的游戏修改器，需要多次读取数据，筛选后修改。原理就是监控游戏的整块内存。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;访问操作系统对象&#34;&gt;访问操作系统对象
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;先回顾一下操作系统创建的流程：一开始只有一个进程，然后通过 fork 产生出子进程，接着用 execve 来替换子进程为目标进程，再用 mmap 来分配空间&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;文件描述符&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是指向操作系统对象的 “指针”——系统调用通过这个指针 (fd) 确定进程希望访问操作系统中的哪个对象。我们有 open, close, read/write, lseek, dup 管理文件描述符。
+&lt;ul&gt;
+&lt;li&gt;对象的访问都需要指针
+&lt;ul&gt;
+&lt;li&gt;open, close, read/write (解引用), lseek (指针内赋值/运算), dup (指针间赋值)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;在 fork 的时候，文件描述符继承吗？
+&lt;ul&gt;
+&lt;li&gt;继承（UNIX中），方便但是危险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;“文件”：有名字的数据对象，Everything is a file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;操作系统中的对象&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;真实的设备
+&lt;ul&gt;
+&lt;li&gt;/dev/sda&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;虚拟的设备（文件）
+&lt;ul&gt;
+&lt;li&gt;/dev/urandom，/dev/null，并没有实际文件，但是操作系统为它们实现了特别的read、write操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;管道：特殊的文件流
+&lt;ul&gt;
+&lt;li&gt;读口支持 read，写口支持 write&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;整合起来，就是所有的基础知识：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;进程管理&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fork, execve, waitpid, exit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;内存管理&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mmap, munmap, mprotect, msync&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;文件管理&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;open, close, read, write, lseek, dup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一切皆文件的利弊：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一套 API 可以访问所有对象,便捷
+&lt;ul&gt;
+&lt;li&gt;一切都可以 | grep&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;但是涉及多义性、复杂项目下不便、耦合度高、高速设备不友好…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;终端和-unix-shell&#34;&gt;终端和 UNIX shell
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;终端的历史，其实就是直接控制硬件（打字机、繁重而昂贵的操作系统）的输入 - 输出互动的窗口&lt;/p&gt;
+&lt;p&gt;今天则用伪终端（Pseudo Terminal）来模拟&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;用户登录的起点&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统启动 (内核 → init → getty)&lt;/li&gt;
+&lt;li&gt;远程登录 (sshd → fork → openpty)
+&lt;ul&gt;
+&lt;li&gt;stdin, stdout, stderr 都会指向分配的终端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;vscode (fork → openpty)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;login 程序继承分配的终端&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(是的，login 是一个程序)&lt;/li&gt;
+&lt;li&gt;fork() 会继承文件描述符 (指针)
+&lt;ul&gt;
+&lt;li&gt;因此，子进程也会指向同一个终端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;终端的机制&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;怎么确定要控制的是那个终端/进程？（比如Ctrl + C）&lt;/li&gt;
+&lt;li&gt;只管传输字符 –&amp;gt; 由操作系统来决定如何对“当前”进程采取行动&lt;/li&gt;
+&lt;li&gt;历史遗留问题，局限性：无法预知软件的未来
+&lt;ul&gt;
+&lt;li&gt;要做的是进行抽象，不要在把高层“意图”翻译成低层“规程”上花费脑力和时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Shell&lt;/strong&gt;编程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基于文本替换的极简编程语言！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;预处理: &lt;code&gt;$()&lt;/code&gt;, &lt;code&gt;&amp;lt;()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重定向: &lt;code&gt;cmd &amp;gt; file &amp;lt; file 2&amp;gt; /dev/null&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;顺序结构: &lt;code&gt;cmd1; cmd2&lt;/code&gt;, &lt;code&gt;cmd1 &amp;amp;&amp;amp; cmd2&lt;/code&gt;, &lt;code&gt;cmd1 || cmd2&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;管道:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmd1 | cmd2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;这些&lt;strong&gt;命令&lt;/strong&gt;被翻译成&lt;strong&gt;系统调用&lt;/strong&gt;序列 (open, dup, pipe, fork, execve, waitpid, …)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;c-标准库和实现&#34;&gt;C 标准库和实现
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;API 的设计有一个有趣的原则：“非必要不实现” (“机制与策略分离”、“最小完备性原则”)：但凡应用程序能自己搞定的功能，操作系统就不需要提供——在一定程度上，这样的设计能防止 “包揽一切” 导致代码膨胀，甚至在长期演化的过程中成为历史的包袱。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;C 是一种 “高级汇编语言”
+&lt;ul&gt;
+&lt;li&gt;作为对比，C++ 更&lt;strong&gt;好用&lt;/strong&gt;，但也更&lt;strong&gt;难移植&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;系统调用的一层 “浅封装”&lt;/li&gt;
+&lt;li&gt;libc
+&lt;ul&gt;
+&lt;li&gt;大部分可以用 C 语言本身实现&lt;/li&gt;
+&lt;li&gt;少部分需要一些 “底层支持”
+&lt;ul&gt;
+&lt;li&gt;例子：体系结构相关的内联汇编&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;“最小完备性原则” 和 “机制策略分离” 的反面教材
+&lt;ul&gt;
+&lt;li&gt;“每一个 malloc 在任何可能路径上都必有一次配对的 free，且之后不再使用”&lt;/li&gt;
+&lt;li&gt;在复杂系统里太难保证了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;脱离 workload 做优化就是耍流氓&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在开始考虑性能之前，理解你需要考虑什么样的性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;可执行文件&#34;&gt;可执行文件
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ELF 是 Executable and Linkable Format 的缩写，是 Linux 系统上的一种可执行文件格式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;一个操作系统中的对象 (文件)&lt;/li&gt;
+&lt;li&gt;一个字节序列 (我们可以把它当字符串编辑)&lt;/li&gt;
+&lt;li&gt;一个描述了状态机初始状态的&lt;strong&gt;数据结构&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;需要什么&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个头 (类似 7f 45 4c 46; 这是一个 jg 71)&lt;/li&gt;
+&lt;li&gt;一段 Trampoline Code (PIC)
+&lt;ul&gt;
+&lt;li&gt;操作系统会给一个文件描述符 (指向文件本身)&lt;/li&gt;
+&lt;li&gt;这段代码直接执行 hardcoded mmap&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;(就能实现 “加载” 的功能)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;反思&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ELF 不是一个人类友好的 “状态机数据结构描述”
+&lt;ul&gt;
+&lt;li&gt;为了性能，彻底&lt;strong&gt;违背了可读&lt;/strong&gt; (“信息局部性”) 原则&lt;/li&gt;
+&lt;li&gt;Crash (SIGSEGV, SIGABRT, SIGILL, …) 时会做 core dump
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;ulimit -c unlimited&lt;/code&gt;&lt;/strong&gt;：启用 Core Dump 的命令（或设一个合理的大小限制），确保程序崩溃时能生成 Core 文件&lt;/li&gt;
+&lt;li&gt;适合于 production systems&lt;/li&gt;
+&lt;li&gt;通过设置 core dump size，我们可以在程序发生 core dump 时保存到文件系统，并且在后续使用 gdb 调试它,但是 GDB 无法基于它继续执行&lt;/li&gt;
+&lt;li&gt;用 CRIU （Checkpoint/Restore In Userspace）解决&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自己设计可执行文件？&lt;/p&gt;
+&lt;p&gt;满足回归链接和加载中的核心概念：&lt;strong&gt;代码、符号、重定位&lt;/strong&gt;，就可以了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;生成可执行文件地过程&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;源代码 (.c) → 源代码 (.i)
+&lt;ul&gt;
+&lt;li&gt;Ctrl-C &amp;amp; Ctrl-V (#include)&lt;/li&gt;
+&lt;li&gt;字符串替换&lt;/li&gt;
+&lt;li&gt;今天：我们有&lt;a class=&#34;link&#34; href=&#34;https://doc.rust-lang.org/reference/procedural-macros.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;过程宏&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;源代码 (.i) → 汇编代码 (.s)
+&lt;ul&gt;
+&lt;li&gt;“高级状态机” 到 “低级状态机” 的翻译&lt;/li&gt;
+&lt;li&gt;最终生成带标注的指令序列&lt;/li&gt;
+&lt;li&gt;汇编代码 (.s) → 目标文件 (.o)
+&lt;ul&gt;
+&lt;li&gt;文件 = sections (.text, .data, .rodata.str.1, …)
+&lt;ul&gt;
+&lt;li&gt;对于 ELF，每个 section 有它的权限、内存对齐等信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;section 中的三要素
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;代码&lt;/strong&gt; (字节序列)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;符号&lt;/strong&gt;：标记 “当前” 的位置&lt;/li&gt;
+&lt;li&gt;重定位：暂时不能确定的数值 (链接时确定)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;多个目标文件 (.o) → 可执行文件 (a.out)
+&lt;ul&gt;
+&lt;li&gt;合并所有的 sections
+&lt;ul&gt;
+&lt;li&gt;分别合并 .text, .data, .bss 中的代码&lt;/li&gt;
+&lt;li&gt;把 sections “平铺” 成字节序列&lt;/li&gt;
+&lt;li&gt;确定所有符号的位置&lt;/li&gt;
+&lt;li&gt;解析全部重定位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;得到一个&lt;strong&gt;可执行文件&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;最后，把字节序列搬到内存，执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;操作系统和加载器&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;execve(path, argv, envp)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;操作系统内核解析 path、完成加载&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;#&lt;/code&gt; 注释的作用 -&amp;gt; 指示解释器路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;链接和加载&#34;&gt;链接和加载
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;当开发者希望把库函数和应用程序 “分离” 开，但又希望库函数可以被调用，此时就需要动态链接&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;动态链接：机制&lt;/p&gt;
+&lt;h1 id=&#34;&#34;&gt;
+&lt;/h1&gt;&lt;p&gt;实现运行库和应用代码分离&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;应用之间的库共享&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每个程序都需要 glibc&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;但系统里只需要&lt;/p&gt;
+&lt;p&gt;一个副本&lt;/p&gt;
+&lt;p&gt;就可以了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是的，我们可以用 ldd 命令查看&lt;/li&gt;
+&lt;li&gt;运行库和应用代码还可以分别独立升级&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;进程管理 API&lt;/p&gt;
+&lt;p&gt;大型项目的分解&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;改一行代码不用重新链接 2GB 的文件&lt;/li&gt;
+&lt;li&gt;libjvm.so, libart.so, &amp;hellip;共享库文件&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;只读方式 mmap 同一个文件，物理内存中只有一个副本&lt;/strong&gt;，分页的机制，使得内存的处理更灵活，无需多个物理副本&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;问题：怎么判断是否需要链接进来共享库？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;动态链接的本质是 “运行时绑定地址”，&lt;code&gt;PLT/GOT&lt;/code&gt; 是实现这一逻辑的底层表；环境变量 &lt;code&gt;LD_PRELOAD&lt;/code&gt; 则是利用动态链接的加载顺序，实现库的 “运行时替换”（加入本地的库）。&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
@@ -2497,8 +3030,9 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;对称加密---完善保密性&#34;&gt;对称加密 - 完善保密性
-&lt;/h2&gt;&lt;ul&gt;
+&lt;h2 id=&#34;对称加密&#34;&gt;对称加密
+&lt;/h2&gt;&lt;h3 id=&#34;完善保密性&#34;&gt;完善保密性
+&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;基本概念&lt;/p&gt;
 &lt;ul&gt;
@@ -2514,11 +3048,103 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251115084315412.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251115084315412&#34;
+	
+	
+&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;知识 vs 信息&lt;/p&gt;
 &lt;p&gt;信息是公开可用的，可直观获取的。
 知识是困难计算的结果，任何人都能有效获得的都不能称为知识。应用于公开可用信息的简单计算的结果不被认为是知识。应用于公共可用信息的难以计算的函数的结果是知识。&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;h3 id=&#34;&#34;&gt;
+&lt;/h3&gt;&lt;h3 id=&#34;流密码和分组密码&#34;&gt;流密码和分组密码
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;在实际中，PRG是使用流密码&lt;strong&gt;实例化&lt;/strong&gt;的。&lt;/li&gt;
+&lt;li&gt;PRP是使用分组密码进行&lt;strong&gt;实例化&lt;/strong&gt;的。实际上，PRP也被称为分组密码。&lt;/li&gt;
+&lt;li&gt;但是 Block cipher 不是一种加密方案&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;流密码&#34;&gt;流密码
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251115085905004.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251115085905004&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251115090331493.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251115090331493&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;大致就是切分明文串来加密，密钥流是用单密钥随机产生的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;两种操作模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步模式
+&lt;ul&gt;
+&lt;li&gt;有状态，消息按顺序接收、加密&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;异步模式
+&lt;ul&gt;
+&lt;li&gt;无状态，每个块密钥流独立&lt;/li&gt;
+&lt;li&gt;每个密钥流独立生成（有自己的生成器）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251115091250140.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251115091250140&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;设计原则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;混淆原则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使密钥和密文之间的依赖关系尽可能模糊。即使敌手获取了一些&lt;strong&gt;密文的统计特性&lt;/strong&gt;,也无法推测密钥。常使用代替方法实现混淆。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;扩散原则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使明文和密文的关系变得尽可能的复杂,即密文中的每 一位&lt;strong&gt;受明文中的许多位的影响&lt;/strong&gt;。常使用置换方法实现扩散&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;乘积密码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;也叫迭代密码,通过轮函数的多次迭代,对数据重复迭代操作,实现扩散与混淆&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分组密码的迭代方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;代换-置换SP网络(substitution-permutation)-Feistel网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -10252,6 +10878,105 @@ Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接
 	
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;图和贪心算法&#34;&gt;图和贪心算法
+&lt;/h2&gt;&lt;h3 id=&#34;贪心&#34;&gt;贪心
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;顾名思义，贪心算法总是作出在当前看来最好的选择。也就是说贪心算法并不从整体最优考虑，它所作出的选择只是在某种意义上的局部最优选择。当然，希望贪心算法得到的最终结果也是整体最优的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：活动安排问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将输入的活动按结束时间的非降序排列，只需 O(n) 即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当一个问题的最优解包含其子问题的最优解时，称此问题具有&lt;strong&gt;最优子结构&lt;/strong&gt;性质。问题的最优子结构性质是该问题可用贪心算法求解的关键特征。证明需用归纳证明。&lt;/p&gt;
+&lt;p&gt;例：0-1 背包问题&lt;/p&gt;
+&lt;p&gt;贪心不适用，应该比较选择 / 不选择该物品导致的最优方案&lt;/p&gt;
+&lt;p&gt;例：多机调度问题&lt;/p&gt;
+&lt;h3 id=&#34;图&#34;&gt;图
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;图G是由两个集合 V(G) 和 E(G) 组成的,记为G=(V,E)其中：V(G)是顶点的非空有限集、E(G)是边的有限集合，边是顶点的无序对或有序对&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;还有一些基本概念，这里略过，参考离散数学&lt;/p&gt;
+&lt;h4 id=&#34;存储结构&#34;&gt;存储结构
+&lt;/h4&gt;&lt;h5 id=&#34;顺序结构&#34;&gt;顺序结构
+&lt;/h5&gt;&lt;p&gt;&lt;strong&gt;邻接矩阵&lt;/strong&gt;：表示顶点间关系的矩阵，即点*点的矩阵，若两点间有边相连，则标记为 1（或者有权值）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119113908302.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119113908302&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关联矩阵&lt;/strong&gt;：表示顶点与边的关联关系，即点*边的矩阵，边的两顶点记为 1 或 -1&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114214398.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119114214398&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h5 id=&#34;链式存储-4&#34;&gt;链式存储
+&lt;/h5&gt;&lt;p&gt;&lt;strong&gt;邻接表&lt;/strong&gt;：为图中每个顶点建立一个单链表，第 i 个单链表中的结点表示依附于顶点V的边（有向图中指以V为尾的弧）。即每条边对应一个非头节点，由头指向尾（反过来就是&lt;strong&gt;逆邻接表&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114405412.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119114405412&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;十字链表&lt;/strong&gt;：节点间以弧尾相同连接，包含弧尾、弧头位置以及弧尾弧头相同的下一条弧。&lt;/p&gt;
+&lt;p&gt;定义：&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114640071.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119114640071&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119114709034.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119114709034&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意一下弧头和弧尾的区分&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;无向图邻接多重表&lt;/strong&gt;：节点间以顶点相同互相连接&lt;/p&gt;
+&lt;p&gt;定义：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/calendar0917/images/master/image-20251119115152427.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251119115152427&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;图的遍历&#34;&gt;图的遍历
+&lt;/h4&gt;&lt;p&gt;深度优先（DFS）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;方法：从图的某一顶点Vo出发，访问此顶点，然后依次从Vo的未被访问的邻接点出发，深度优先遍历图直至图中有和V0相通的顶点都被访问到；若此时图中尚有顶点未被访问，则另选图中一个未被访问的顶点作起点，重复上述过程，直至图中所有顶点都被访问为止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;广度优先（BFS）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;方法：从图的某一顶点Vo出发，访问此顶点后，依次访问V0的各个未曾访问过的邻接点：然后分别从这些邻接点出发，广度优先遍历图，直至图中所有已被访问的顶点的邻接点都被访问到；若此时图中尚有顶点未被访问，则另选图中一个未被访问的顶点作起点，重复上迷过程，直至图中所有顶点都被访问为止&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -24304,8 +25029,7 @@ multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB&lt;/p&gt;
         
         <guid>https://calendar0917.github.io/posts/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
         <description>&lt;hr&gt;
-&lt;h2 id=&#34;tags-笔记&#34;&gt;tags: [&amp;ldquo;笔记&amp;rdquo;]
-&lt;/h2&gt;&lt;h2 id=&#34;第一章-计算机系统概述&#34;&gt;第一章 计算机系统概述
+&lt;h2 id=&#34;第一章-计算机系统概述&#34;&gt;第一章 计算机系统概述
 &lt;/h2&gt;&lt;h3 id=&#34;计算机系统的发展&#34;&gt;计算机系统的发展
 &lt;/h3&gt;&lt;p&gt;计算机系统 = 硬件 + 软件&lt;/p&gt;
 &lt;h4 id=&#34;软件&#34;&gt;软件
@@ -26100,7 +26824,7 @@ multi             1.0.0     e9c0c0a489a8   35 minutes ago      148MB&lt;/p&gt;
 =======&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;tags-笔记-1&#34;&gt;title: &amp;ldquo;计算机组成原理&amp;rdquo;
+&lt;h2 id=&#34;tags-笔记&#34;&gt;title: &amp;ldquo;计算机组成原理&amp;rdquo;
 subtitle: &amp;ldquo;王道课程笔记&amp;rdquo;
 summary: &amp;ldquo;计算机组成原理课程的笔记&amp;rdquo;
 description: &amp;ldquo;计算机组成原理课程的笔记&amp;rdquo;
@@ -29180,12 +29904,13 @@ tags: [&amp;ldquo;笔记&amp;rdquo;]
         </item>
         <item>
         <title>配置docker</title>
-        <link>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E9%85%8D%E7%BD%AEdocker/</link>
+        <link>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-%E9%85%8D%E7%BD%AEdocker/</link>
         <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://calendar0917.github.io/posts/java%E5%BC%80%E5%8F%91-%E9%85%8D%E7%BD%AEdocker/</guid>
-        <description>&lt;h2 id=&#34;查看是否已安装&#34;&gt;查看是否已安装
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+        <guid>https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-%E9%85%8D%E7%BD%AEdocker/</guid>
+        <description>&lt;h2 id=&#34;centos7&#34;&gt;CentOS7
+&lt;/h2&gt;&lt;h3 id=&#34;查看是否已安装&#34;&gt;查看是否已安装
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
@@ -29222,8 +29947,8 @@ tags: [&amp;ldquo;笔记&amp;rdquo;]
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;                  docker-ce
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;安装依赖工具-yum&#34;&gt;安装依赖工具 yum
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;/div&gt;&lt;h3 id=&#34;安装依赖工具-yum&#34;&gt;安装依赖工具 yum
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
@@ -29255,8 +29980,8 @@ gpgcheck=1
 gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
 &lt;p&gt;EOF&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;安装docker&#34;&gt;安装docker
-&lt;/h2&gt;&lt;p&gt;添加 docker 官方仓库&lt;/p&gt;
+&lt;h3 id=&#34;安装docker&#34;&gt;安装docker
+&lt;/h3&gt;&lt;p&gt;添加 docker 官方仓库&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -29291,8 +30016,8 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; docker
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;docker-拉取镜像源配置&#34;&gt;docker 拉取镜像源配置
-&lt;/h3&gt;&lt;p&gt;添加多个镜像源&lt;/p&gt;
+&lt;/div&gt;&lt;h4 id=&#34;docker-拉取镜像源配置&#34;&gt;docker 拉取镜像源配置
+&lt;/h4&gt;&lt;p&gt;添加多个镜像源&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -29343,7 +30068,113 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull hello-world
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;h2 id=&#34;ubuntu&#34;&gt;Ubuntu
+&lt;/h2&gt;&lt;h3 id=&#34;删除无效的密钥文件&#34;&gt;删除无效的密钥文件
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f /etc/apt/trusted.gpg.d/docker.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;更换方式获取-docker-gpg-密钥&#34;&gt;更换方式获取 Docker GPG 密钥
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;替换-docker-源为国内镜像&#34;&gt;替换 Docker 源为国内镜像
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 删除原有Docker源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f /etc/apt/sources.list.d/docker.list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 添加阿里云Docker源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; stable&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;更新源并安装-docker&#34;&gt;更新源并安装 Docker
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt update &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt install -y docker-ce docker-ce-cli containerd.io
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;docker-配置&#34;&gt;docker 配置
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start docker
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;添加多个镜像源&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tee /etc/docker/daemon.json &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;-&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  &amp;#34;registry-mirrors&amp;#34;: [
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;    &amp;#34;https://alzgoonw.mirror.aliyuncs.com&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;    &amp;#34;https://docker.m.daocloud.io&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;    &amp;#34;https://dockerhub.icu&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;    &amp;#34;https://docker.anyhub.us.kg&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;    &amp;#34;https://docker.1panel.live&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  ]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;重新加载并重启&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl daemon-reload
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl restart docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;测试&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;&#34;&gt;
+&lt;/h2&gt;</description>
         </item>
         <item>
         <title>微服务保护及分布式事务</title>

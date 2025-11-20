@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录使用时遇到的各种问题，方便复查">
-<title>Arch 问题备份</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录学习和题解">
+<title>Burp靶场：Server-side vulnerabilities</title>
 
-<link rel='canonical' href='https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/'>
+<link rel='canonical' href='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/'>
 
-<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="Arch 问题备份">
-<meta property='og:description' content="记录使用时遇到的各种问题，方便复查">
-<meta property='og:url' content='https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/'>
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="Burp靶场：Server-side vulnerabilities">
+<meta property='og:description' content="记录学习和题解">
+<meta property='og:url' content='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/'>
 <meta property='og:site_name' content='Calendar&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='技术' /><meta property='article:published_time' content='2025-11-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-04T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Arch 问题备份">
-<meta name="twitter:description" content="记录使用时遇到的各种问题，方便复查"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Burp靶场' /><meta property='article:published_time' content='2025-11-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Burp靶场：Server-side vulnerabilities">
+<meta name="twitter:description" content="记录学习和题解"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/index.json">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
 
     </head>
@@ -208,11 +208,21 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#缩放问题">缩放问题</a>
+    <li><a href="#path-traversal-路径穿越">Path traversal 路径穿越</a></li>
+    <li><a href="#acess-control-访问控制">Acess Control 访问控制</a>
       <ol>
-        <li><a href="#解决方法">解决方法</a></li>
+        <li><a href="#未受保护的路径">未受保护的路径</a></li>
+        <li><a href="#水平越权">水平越权</a></li>
+        <li><a href="#垂直越权">垂直越权</a></li>
       </ol>
     </li>
+    <li><a href="#身份验证漏洞">身份验证漏洞</a>
+      <ol>
+        <li><a href="#暴力破解">暴力破解</a></li>
+      </ol>
+    </li>
+    <li><a href="#ssrf-服务端请求伪造">SSRF 服务端请求伪造</a></li>
+    <li><a href="#文件上传">文件上传</a></li>
   </ol>
 </nav>
         </div>
@@ -231,8 +241,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9/" style="background-color: #549813; color: #fff;">
-                技术杂项
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
             </a>
         
     </header>
@@ -240,12 +250,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-arch%E9%97%AE%E9%A2%98%E5%A4%87%E4%BB%BD/">Arch 问题备份</a>
+            <a href="/posts/burp%E9%9D%B6%E5%9C%BA-server-side/">Burp靶场：Server-side vulnerabilities</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            记录使用时遇到的各种问题，方便复查
+            记录学习和题解
         </h3>
         
     </div>
@@ -266,7 +276,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 04, 2025</time>
+                <time class="article-time--published">Nov 14, 2025</time>
             </div>
         
 
@@ -282,14 +292,147 @@
     <section class="article-content">
     
     
-    <h2 id="缩放问题">缩放问题
+    <h2 id="path-traversal-路径穿越">Path traversal 路径穿越
 </h2><blockquote>
-<p>原因其实是因为这些软件默认运行在XWayland下（VSCode、Spotify），有的不支持Wayland（微信）。终端运行xprop，将光标放到软件界面，如变成十字则软件运行在Xwayland。</p>
+<p>路径遍历（又称目录遍历）漏洞允许攻击者读取运行应用程序的服务器上的任意文件，可能包括：</p>
+<ul>
+<li>应用程序代码与数据</li>
+<li>后端系统的凭证信息</li>
+<li>敏感的操作系统文件</li>
+</ul>
+<p>在某些情况下，攻击者还可能向服务器的任意文件写入内容，进而修改应用程序数据或行为，最终完全控制服务器。</p>
 </blockquote>
-<h3 id="解决方法">解决方法
-</h3><p>参考：<a class="link" href="https://taosky.org/story/gnome-wayland/#:~:text=%E9%92%88%E5%AF%B9%E7%BC%A9%E6%94%BE%E6%A8%A1%E7%B3%8A%E9%97%AE%E9%A2%98%EF%BC%8C%E7%9B%AE%E5%89%8D%E6%9C%80%E5%A5%BD%E7%9A%84%E6%96%B9%E6%B3%95%E5%B0%B1%E6%98%AF%E4%B8%8D%E8%BF%9B%E8%A1%8C%E5%88%86%E6%95%B0%E7%BC%A9%E6%94%BE%EF%BC%8C%E8%80%8C%E6%98%AF%E9%80%9A%E8%BF%87%E6%95%B4%E6%95%B0%E7%BC%A9%E6%94%BE%2B%E5%AD%97%E6%94%BE%E5%A4%A7%E4%BD%93%E7%9A%84%E6%96%B9%E5%BC%8F%E8%B0%83%E6%95%B4%EF%BC%88%E8%AF%95%E8%BF%87%E6%89%93%E5%88%86%E6%95%B0%E7%BC%A9%E6%94%BE%E8%A1%A5%E4%B8%81%EF%BC%8C%E4%BC%9A%E6%9C%89%E8%BE%93%E5%85%A5%E6%B3%95%E5%81%8F%E7%A7%BB%E7%9A%84BUG%EF%BC%8C%E4%B8%94%E4%B8%8D%E8%83%BD%E5%92%8C%E8%BE%93%E5%85%A5%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%A1%A5%E4%B8%81%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8%EF%BC%89%20%E5%B0%86%E7%BC%A9%E6%94%BE%E8%B0%83%E6%95%B4%E4%B8%BA100%25%EF%BC%8C%E5%AE%89%E8%A3%85,gnome-tweaks%EF%BC%8C%E8%B0%83%E6%95%B4%E5%AD%97%E4%BD%93%E7%BC%A9%E6%94%BE%E6%AF%94%E4%BE%8B%EF%BC%88%E5%A6%821.25%EF%BC%89%EF%BC%8CGDM%E7%99%BB%E5%BD%95%E9%A1%B5%E7%9A%84%E5%AD%97%E4%BD%93%E7%BC%A9%E6%94%BE%E5%8F%AF%E5%AE%89%E8%A3%85%20gdm-settings%20%E8%B0%83%E6%95%B4%E3%80%82"  target="_blank" rel="noopener"
-    >Gnome(Wayland)相关问题</a></p>
-<p>针对缩放模糊问题，目前最好的方法就是不进行分数缩放，而是通过整数缩放+字放大体的方式调整</p>
+<p><strong>示例</strong></p>
+<p><code>&lt;img src=&quot;/loadImage?filename=218.png&quot;&gt;</code></p>
+<p>网站中有这样一个链接，如果在 Linux 系统中，一般 218.png 储存在 <code>/var/www/images/218.png</code></p>
+<p>想要测试路径穿越，就用：<code>https://insecure-website.com/loadImage?filename=../../../etc/passwd</code> 来读取</p>
+<p>如果是 Windows，改用：<code>https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini </code> 即可</p>
+<p><strong>Lab</strong></p>
+<p>比较简单，是一个商城页面，和上面类似。注意不能直接在浏览器访问，不然会被当成图片解析</p>
+<h2 id="acess-control-访问控制">Acess Control 访问控制
+</h2><blockquote>
+<p>在 Web 应用场景中，访问控制依赖于身份验证（Authentication）和会话管理（Session Management）：</p>
+<ul>
+<li>身份验证：确认用户是否为其声称的身份（即 “验明正身”）。</li>
+<li>会话管理：识别后续哪些 HTTP 请求来自同一用户。</li>
+<li>访问控制：判定该用户是否被允许执行其尝试的操作。</li>
+</ul>
+<p>访问控制失效（Broken Access Controls）是常见且通常具有严重危害的安全漏洞。访问控制的设计与管理是一个复杂的动态问题 —— 需将业务、组织及合规约束融入技术实现中。由于访问控制的设计决策需人工制定，因此出错风险较高。</p>
+</blockquote>
+<ul>
+<li>垂直权限提升
+<ul>
+<li>若用户能够访问其无权限访问的功能，则构成垂直权限提升。例如，非管理员用户若能访问可删除用户账户的管理页面，即属于垂直权限提升。</li>
+</ul>
+</li>
+</ul>
+<h3 id="未受保护的路径">未受保护的路径
+</h3><p>最基础的纵向越权，源于应用对敏感功能完全未加保护。</p>
+<ul>
+<li>举例：某网站的敏感功能（如<code>https://insecure-website.com/admin</code>），可能被所有用户访问，而非仅限管理员。这类管理 URL 可能通过<code>robots.txt</code>等途径泄露，即便未公开，攻击者也可能用字典攻击猜解到位置。</li>
+<li>可能通过 js 代码泄露</li>
+<li>判定是否为管理员的参数在路径里
+<ul>
+<li>或者 cookie 等地方</li>
+</ul>
+</li>
+</ul>
+<p><strong>Lab1</strong> robots.txt 泄露</p>
+<p>先看下 /robot<strong>s</strong>.txt，找到不可访问的路径，访问即可</p>
+<p><strong>Lab2</strong> js 泄露</p>
+<p>看 js 代码，找到泄露的路径</p>
+<p><strong>Lab3</strong> cookie 泄露</p>
+<p>进到 /login,发现不能注册。进到 /admin,发现不是管理员看不了。回到 /login 随便填，抓包看一下，发现 cookie 里泄露了 <code>Admin = false</code></p>
+<blockquote>
+<p>不知道哪里出了问题，没有看到 cookie 里有 Admin</p>
+</blockquote>
+<h3 id="水平越权">水平越权
+</h3><p>发生在某用户能违规读取其他用户的信息时</p>
+<p><strong>Lab</strong> userid 泄露</p>
+<p>在 user 的 blog 路径中可以看到 uid，然后在 myaccount 的地址中更换 uid 即可。</p>
+<h3 id="垂直越权">垂直越权
+</h3><p>用户可以通过更改已知路径，从而访问、修改 admin 的信息。</p>
+<p><strong>Lab</strong> 访问 admin</p>
+<p>其实是 administrator……</p>
+<p>登录已有账号后，抓包主页，改 id 为 administrator，就可以看到回显的密码，登录即可。</p>
+<h2 id="身份验证漏洞">身份验证漏洞
+</h2><blockquote>
+<p>身份验证是确认用户身份真实性的过程。授权则涉及验证用户是否被允许执行特定操作。</p>
+</blockquote>
+<h3 id="暴力破解">暴力破解
+</h3><p>暴力破解并非总是单纯地对用户名和密码进行完全随机的猜测。攻击者还能<strong>结合基本逻辑或公开可得的知识</strong>，对暴力破解攻击进行精细调整，从而做出更具<strong>针对性的猜测</strong>。只有密码认证的网站容易被如此攻击。</p>
+<p>可以看 user 的主页，抓包的返回信息等内容；可以通过已知的用户名来枚举未知用户名；</p>
+<p><strong>Lab</strong>1 Intruder 的使用</p>
+<p>题目给了 username 和 password，直接用 intruder 爆破就可以了。</p>
+<p>Tips：非必要情况下，先用 Sniper 限定范围效率更高。</p>
+<p>这里补充一下 intruder 的模式：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>需求场景</th>
+          <th>选哪个模式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>测多个参数，逐个参数灌 Payload</td>
+          <td>Sniper</td>
+      </tr>
+      <tr>
+          <td>多个参数同时灌<strong>相同</strong> Payload</td>
+          <td>Battering ram</td>
+      </tr>
+      <tr>
+          <td>多个参数一一<strong>对应灌不同</strong> Payload</td>
+          <td>Pitchfork</td>
+      </tr>
+      <tr>
+          <td>多个参数的 Payload <strong>全组合</strong>测试</td>
+          <td>Cluster bomb</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>Lab2</strong> 二次验证无效</p>
+<p>比较奇怪的题，没有想到二次认证是没用的……登录已给的账户后，可以在邮箱中接收到验证码，然后登录。记下 URL，然后登录另一个给的账号（没有给邮箱），在验证界面直接跳转 URL，就可以到主页了。限制条件有点多，没什么用？</p>
+<h2 id="ssrf-服务端请求伪造">SSRF 服务端请求伪造
+</h2><blockquote>
+<p>服务器端请求伪造是一种网络安全漏洞，允许攻击者诱使服务器端应用程序向非预期位置发送请求。</p>
+</blockquote>
+<p>可能会被用来对内网服务发送请求，导致信息泄露。</p>
+<p>比如本来用于请求后端指定信息的 URL：<code>stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1</code> ，可以被利用为 <code>stockApi=http://localhost/admin</code> ,由于是内网发出的请求，所以不会被按规则拦截。</p>
+<p>漏洞成因：</p>
+<ul>
+<li>访问控制为额外组件，对后端请求不做拦截</li>
+<li>为 admin 的遗失留后门，所有本地 user 都可以访问</li>
+</ul>
+<p><strong>Lab</strong> SSRF</p>
+<p>先找注入点，在查询时，出现了 stockApi，改成 <code>http://localhost/admin</code> 测试，成功，删除即可</p>
+<p><strong>Lab</strong> 本地IP扫描</p>
+<p>还是上一题的注入点，但是本地的 admin IP 和 stockApi 的 IP 不同了，所以扫描 192.168.0.X:8080/admin,找到异常 IP</p>
+<h2 id="文件上传">文件上传
+</h2><blockquote>
+<p>有时候上传一个文件本身已经很危险了，如果再加上让这个文件执行呢……</p>
+</blockquote>
+<p>漏洞成因：</p>
+<p>网站通常不会对用户上传文件完全无限制，但开发者所做的文件上传验证常存在缺陷或易被绕过：</p>
+<ul>
+<li>
+<p>黑名单机制可能遗漏危险文件类型，或未考虑文件扩展名解析差异；</p>
+</li>
+<li>
+<p>依赖可被攻击者（通过Burp等工具）篡改的文件属性进行类型校验；</p>
+</li>
+<li>
+<p>验证措施在网站的多主机、多目录间应用不一致，存在可被利用的漏洞。</p>
+</li>
+</ul>
+<blockquote>
+<p>WebShell：上传到网站上的，使攻击者获得几乎对网站所有控制权的文件，常见形式类似：</p>
+<p><code>&lt;?php echo system($_GET['command']); ?&gt;</code></p>
+</blockquote>
+<p><strong>Lab1</strong> 普通的文件上传</p>
+<p>上传了 <code>&lt;?php echo system($_GET['command']); ?&gt;</code> 后访问，改一下 cmd 读取密码就可以了。结果 echo + cat 了两遍……有回显时不需要外层的 echo。</p>
+<p><strong>Lab2</strong> MIME 绕过</p>
 
 </section>
 
@@ -298,7 +441,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+            <a href="/tags/burp%E9%9D%B6%E5%9C%BA/">Burp靶场</a>
         
     </section>
 
@@ -331,19 +474,32 @@
         <div class="flex article-list--tile">
             
                 
+<article class="">
+    <a href="/posts/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-php/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">代码审计-PHP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
 <article class="has-image">
-    <a href="/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-archlinux%E5%88%9D%E4%BD%93%E9%AA%8C/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/">
         
         
             <div class="article-image">
                 
-                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251103190835625.png"/>
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">ArchLinux 安装及初步配置</h2>
+            <h2 class="article-title">御林-DevOps入门小结</h2>
         </div>
     </a>
 </article>
@@ -351,12 +507,44 @@
             
                 
 <article class="">
-    <a href="/posts/%E6%8A%80%E6%9C%AF%E6%9D%82%E9%A1%B9-%E9%85%8D%E7%BD%AEdocker/">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-agent%E4%B8%93%E9%A2%98/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">配置docker</h2>
+            <h2 class="article-title">御林招新题：Agent 专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Homepage</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：MySQL专题</h2>
         </div>
     </a>
 </article>

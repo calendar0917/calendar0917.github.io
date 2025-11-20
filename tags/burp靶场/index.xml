@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Burp靶场 on Calendar&#39;s Blog</title>
+        <link>https://calendar0917.github.io/tags/burp%E9%9D%B6%E5%9C%BA/</link>
+        <description>Recent content in Burp靶场 on Calendar&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Calendar</copyright>
+        <lastBuildDate>Fri, 14 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/tags/burp%E9%9D%B6%E5%9C%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Burp靶场：Server-side vulnerabilities</title>
+        <link>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/</link>
+        <pubDate>Fri, 14 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-server-side/</guid>
+        <description>&lt;h2 id=&#34;path-traversal-路径穿越&#34;&gt;Path traversal 路径穿越
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;路径遍历（又称目录遍历）漏洞允许攻击者读取运行应用程序的服务器上的任意文件，可能包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用程序代码与数据&lt;/li&gt;
+&lt;li&gt;后端系统的凭证信息&lt;/li&gt;
+&lt;li&gt;敏感的操作系统文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在某些情况下，攻击者还可能向服务器的任意文件写入内容，进而修改应用程序数据或行为，最终完全控制服务器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;img src=&amp;quot;/loadImage?filename=218.png&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;网站中有这样一个链接，如果在 Linux 系统中，一般 218.png 储存在 &lt;code&gt;/var/www/images/218.png&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;想要测试路径穿越，就用：&lt;code&gt;https://insecure-website.com/loadImage?filename=../../../etc/passwd&lt;/code&gt; 来读取&lt;/p&gt;
+&lt;p&gt;如果是 Windows，改用：&lt;code&gt;https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini &lt;/code&gt; 即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;比较简单，是一个商城页面，和上面类似。注意不能直接在浏览器访问，不然会被当成图片解析&lt;/p&gt;
+&lt;h2 id=&#34;acess-control-访问控制&#34;&gt;Acess Control 访问控制
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在 Web 应用场景中，访问控制依赖于身份验证（Authentication）和会话管理（Session Management）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;身份验证：确认用户是否为其声称的身份（即 “验明正身”）。&lt;/li&gt;
+&lt;li&gt;会话管理：识别后续哪些 HTTP 请求来自同一用户。&lt;/li&gt;
+&lt;li&gt;访问控制：判定该用户是否被允许执行其尝试的操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;访问控制失效（Broken Access Controls）是常见且通常具有严重危害的安全漏洞。访问控制的设计与管理是一个复杂的动态问题 —— 需将业务、组织及合规约束融入技术实现中。由于访问控制的设计决策需人工制定，因此出错风险较高。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;垂直权限提升
+&lt;ul&gt;
+&lt;li&gt;若用户能够访问其无权限访问的功能，则构成垂直权限提升。例如，非管理员用户若能访问可删除用户账户的管理页面，即属于垂直权限提升。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;未受保护的路径&#34;&gt;未受保护的路径
+&lt;/h3&gt;&lt;p&gt;最基础的纵向越权，源于应用对敏感功能完全未加保护。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;举例：某网站的敏感功能（如&lt;code&gt;https://insecure-website.com/admin&lt;/code&gt;），可能被所有用户访问，而非仅限管理员。这类管理 URL 可能通过&lt;code&gt;robots.txt&lt;/code&gt;等途径泄露，即便未公开，攻击者也可能用字典攻击猜解到位置。&lt;/li&gt;
+&lt;li&gt;可能通过 js 代码泄露&lt;/li&gt;
+&lt;li&gt;判定是否为管理员的参数在路径里
+&lt;ul&gt;
+&lt;li&gt;或者 cookie 等地方&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Lab1&lt;/strong&gt; robots.txt 泄露&lt;/p&gt;
+&lt;p&gt;先看下 /robot&lt;strong&gt;s&lt;/strong&gt;.txt，找到不可访问的路径，访问即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; js 泄露&lt;/p&gt;
+&lt;p&gt;看 js 代码，找到泄露的路径&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab3&lt;/strong&gt; cookie 泄露&lt;/p&gt;
+&lt;p&gt;进到 /login,发现不能注册。进到 /admin,发现不是管理员看不了。回到 /login 随便填，抓包看一下，发现 cookie 里泄露了 &lt;code&gt;Admin = false&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不知道哪里出了问题，没有看到 cookie 里有 Admin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;水平越权&#34;&gt;水平越权
+&lt;/h3&gt;&lt;p&gt;发生在某用户能违规读取其他用户的信息时&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; userid 泄露&lt;/p&gt;
+&lt;p&gt;在 user 的 blog 路径中可以看到 uid，然后在 myaccount 的地址中更换 uid 即可。&lt;/p&gt;
+&lt;h3 id=&#34;垂直越权&#34;&gt;垂直越权
+&lt;/h3&gt;&lt;p&gt;用户可以通过更改已知路径，从而访问、修改 admin 的信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 访问 admin&lt;/p&gt;
+&lt;p&gt;其实是 administrator……&lt;/p&gt;
+&lt;p&gt;登录已有账号后，抓包主页，改 id 为 administrator，就可以看到回显的密码，登录即可。&lt;/p&gt;
+&lt;h2 id=&#34;身份验证漏洞&#34;&gt;身份验证漏洞
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;身份验证是确认用户身份真实性的过程。授权则涉及验证用户是否被允许执行特定操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;暴力破解&#34;&gt;暴力破解
+&lt;/h3&gt;&lt;p&gt;暴力破解并非总是单纯地对用户名和密码进行完全随机的猜测。攻击者还能&lt;strong&gt;结合基本逻辑或公开可得的知识&lt;/strong&gt;，对暴力破解攻击进行精细调整，从而做出更具&lt;strong&gt;针对性的猜测&lt;/strong&gt;。只有密码认证的网站容易被如此攻击。&lt;/p&gt;
+&lt;p&gt;可以看 user 的主页，抓包的返回信息等内容；可以通过已知的用户名来枚举未知用户名；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt;1 Intruder 的使用&lt;/p&gt;
+&lt;p&gt;题目给了 username 和 password，直接用 intruder 爆破就可以了。&lt;/p&gt;
+&lt;p&gt;Tips：非必要情况下，先用 Sniper 限定范围效率更高。&lt;/p&gt;
+&lt;p&gt;这里补充一下 intruder 的模式：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;需求场景&lt;/th&gt;
+          &lt;th&gt;选哪个模式&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;测多个参数，逐个参数灌 Payload&lt;/td&gt;
+          &lt;td&gt;Sniper&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数同时灌&lt;strong&gt;相同&lt;/strong&gt; Payload&lt;/td&gt;
+          &lt;td&gt;Battering ram&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数一一&lt;strong&gt;对应灌不同&lt;/strong&gt; Payload&lt;/td&gt;
+          &lt;td&gt;Pitchfork&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个参数的 Payload &lt;strong&gt;全组合&lt;/strong&gt;测试&lt;/td&gt;
+          &lt;td&gt;Cluster bomb&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; 二次验证无效&lt;/p&gt;
+&lt;p&gt;比较奇怪的题，没有想到二次认证是没用的……登录已给的账户后，可以在邮箱中接收到验证码，然后登录。记下 URL，然后登录另一个给的账号（没有给邮箱），在验证界面直接跳转 URL，就可以到主页了。限制条件有点多，没什么用？&lt;/p&gt;
+&lt;h2 id=&#34;ssrf-服务端请求伪造&#34;&gt;SSRF 服务端请求伪造
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;服务器端请求伪造是一种网络安全漏洞，允许攻击者诱使服务器端应用程序向非预期位置发送请求。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可能会被用来对内网服务发送请求，导致信息泄露。&lt;/p&gt;
+&lt;p&gt;比如本来用于请求后端指定信息的 URL：&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1&lt;/code&gt; ，可以被利用为 &lt;code&gt;stockApi=http://localhost/admin&lt;/code&gt; ,由于是内网发出的请求，所以不会被按规则拦截。&lt;/p&gt;
+&lt;p&gt;漏洞成因：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;访问控制为额外组件，对后端请求不做拦截&lt;/li&gt;
+&lt;li&gt;为 admin 的遗失留后门，所有本地 user 都可以访问&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; SSRF&lt;/p&gt;
+&lt;p&gt;先找注入点，在查询时，出现了 stockApi，改成 &lt;code&gt;http://localhost/admin&lt;/code&gt; 测试，成功，删除即可&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 本地IP扫描&lt;/p&gt;
+&lt;p&gt;还是上一题的注入点，但是本地的 admin IP 和 stockApi 的 IP 不同了，所以扫描 192.168.0.X:8080/admin,找到异常 IP&lt;/p&gt;
+&lt;h2 id=&#34;文件上传&#34;&gt;文件上传
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;有时候上传一个文件本身已经很危险了，如果再加上让这个文件执行呢……&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;漏洞成因：&lt;/p&gt;
+&lt;p&gt;网站通常不会对用户上传文件完全无限制，但开发者所做的文件上传验证常存在缺陷或易被绕过：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;黑名单机制可能遗漏危险文件类型，或未考虑文件扩展名解析差异；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;依赖可被攻击者（通过Burp等工具）篡改的文件属性进行类型校验；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;验证措施在网站的多主机、多目录间应用不一致，存在可被利用的漏洞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WebShell：上传到网站上的，使攻击者获得几乎对网站所有控制权的文件，常见形式类似：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Lab1&lt;/strong&gt; 普通的文件上传&lt;/p&gt;
+&lt;p&gt;上传了 &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; 后访问，改一下 cmd 读取密码就可以了。结果 echo + cat 了两遍……有回显时不需要外层的 echo。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; MIME 绕过&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
