@@ -231,7 +231,8 @@
         <li><a href="#docker-配置">docker 配置</a></li>
       </ol>
     </li>
-    <li></li>
+    <li><a href="#配置-clash">配置 clash</a></li>
+    <li><a href="#lxc-中使用-docker">LXC 中使用 docker</a></li>
   </ol>
 </nav>
         </div>
@@ -515,7 +516,8 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
 </span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> docker
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>添加多个镜像源</p>
+</div><p>添加多个[镜像源](<a class="link" href="https://toolshu.com/docker-mirror"  target="_blank" rel="noopener"
+    >国内可用 Docker 镜像源 - 长期维护更新 | 解决 Docker Hub 拉取慢/失败 - 土薯在线工具</a>)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -566,8 +568,51 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7</p>
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull hello-world
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="">
-</h2>
+</div><h2 id="配置-clash">配置 clash
+</h2><p>克隆安装脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone --branch master --depth <span class="m">1</span> https://github.com/nelvko/clash-for-linux-install.git <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   <span class="o">&amp;&amp;</span> <span class="nb">cd</span> clash-for-linux-install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   <span class="o">&amp;&amp;</span> sudo bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查安装状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clashctl status
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>获取 Web 控制台地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clashctl ui
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其他</p>
+<p>Tun模式：<code>clashctl tun on</code></p>
+<p>docker 的代理需要额外配置</p>
+<h2 id="lxc-中使用-docker">LXC 中使用 docker
+</h2><p>参考：<a class="link" href="https://forum.proxmox.com/threads/docker-inside-lxc-net-ipv4-ip_unprivileged_port_start-error.175437/"  target="_blank" rel="noopener"
+    >SOLVED - Docker inside LXC (net.ipv4.ip_unprivileged_port_start error) | Proxmox Support Forum</a></p>
+<p>可能在启动时会有问题，要找指定版本！</p>
+<p>版本选择依据</p>
+<ol>
+<li><strong>避开有 bug 的版本</strong>：论坛明确 <code>1.7.28-2</code> 及更高版本（如 <code>1.7.29-1</code>、<code>2.1.5-1</code>）会触发 LXC 中 Docker 修改 <code>net.ipv4.ip_unprivileged_port_start</code> 的权限错误，必须选择<strong>低于 1.7.28-2</strong> 的版本。</li>
+<li><strong>选择最接近的稳定版本</strong>：<code>1.7.28-1~ubuntu.24.04~noble</code> 是 <code>1.7.28-2</code> 的前一个版本，仅差小版本修复，功能完整且无该兼容性 bug，比更旧的 <code>1.7.27-1</code>/<code>1.7.26-1</code> 更推荐（减少版本回退带来的其他兼容性问题）。</li>
+</ol>
+
 </section>
 
 
