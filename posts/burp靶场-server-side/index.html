@@ -223,6 +223,8 @@
     </li>
     <li><a href="#ssrf-服务端请求伪造">SSRF 服务端请求伪造</a></li>
     <li><a href="#文件上传">文件上传</a></li>
+    <li><a href="#命令注入">命令注入</a></li>
+    <li><a href="#sql注入">SQL注入</a></li>
   </ol>
 </nav>
         </div>
@@ -433,6 +435,74 @@
 <p><strong>Lab1</strong> 普通的文件上传</p>
 <p>上传了 <code>&lt;?php echo system($_GET['command']); ?&gt;</code> 后访问，改一下 cmd 读取密码就可以了。结果 echo + cat 了两遍……有回显时不需要外层的 echo。</p>
 <p><strong>Lab2</strong> MIME 绕过</p>
+<p>改一下 MIME 类型就可以了</p>
+<h2 id="命令注入">命令注入
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>命令用途</th>
+          <th>Linux 命令</th>
+          <th>Windows 命令</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>当前用户名</td>
+          <td>whoami</td>
+          <td>whoami</td>
+      </tr>
+      <tr>
+          <td>操作系统信息</td>
+          <td>uname -a</td>
+          <td>ver</td>
+      </tr>
+      <tr>
+          <td>网络配置</td>
+          <td>ifconfig</td>
+          <td>ipconfig /all</td>
+      </tr>
+      <tr>
+          <td>网络连接情况</td>
+          <td>netstat -an</td>
+          <td>netstat -an</td>
+      </tr>
+      <tr>
+          <td>正在运行的进程</td>
+          <td>ps -ef</td>
+          <td>tasklist</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>在注入的命令后添加额外的命令分隔符 <code>&amp;</code> 很有用，因为它能将注入的命令与注入点之后的内容分开，用于测试注入点。</p>
+<p><strong>Lab</strong> 命令注入</p>
+<p>找到的注入点是 <code>productId=2&amp;storeId=1</code></p>
+<p>先尝试最常用的命令分隔符，优先级一般是：<code>|</code> &gt; <code>;</code> &gt; <code>&amp;</code> &gt; <code>&amp;&amp;</code> &gt; <code>||</code></p>
+<p>于是 payload 为：<code>productId=2&amp;storeId=1|whoami</code></p>
+<h2 id="sql注入">SQL注入
+</h2><p>手动检测 SQL 注入，需对应用的每个输入点进行系统性测试，通常要提交这些内容：</p>
+<ul>
+<li>单引号<code>'</code>，观察是否出现错误或异常；</li>
+<li>能让输入点返回原值 / 不同值的 SQL 语法，看应用响应是否有规律差异；</li>
+<li><code>OR 1=1</code>、<code>OR 1=2</code>这类布尔条件，观察响应变化；</li>
+<li>会触发 SQL 查询延迟的载荷，对比响应耗时差异；</li>
+<li>能触发带外网络交互的 OAST 载荷，同时监控交互情况。</li>
+</ul>
+<p>另外，用 Burp Scanner 可以快速、可靠地发现大部分 SQL 注入漏洞。</p>
+<p><code>--</code> 是注释符，后面的语句会被省略</p>
+<blockquote>
+<p>使用 <code>OR 1=1</code> 时要小心，如果时删除或更新语句，会造成觉察不到的错误。</p>
+</blockquote>
+<p><strong>Lab</strong> SQL闭合</p>
+<p>题目给的语句：<code>SELECT * FROM products WHERE category = 'Gifts' AND released = 1</code></p>
+<p>注入点：<code>/filter?category=Clothing%2c+shoes+and+accessories</code></p>
+<p>先把查询的拼进去，就是：<code>...WHERE category = 'Clothing &lt;...&gt;' AND released = 1 </code> ,然后再想怎么注入。</p>
+<p>把引号闭合，再把后面的 and 注释掉，payload 为：<code>'+OR+1=1--</code></p>
+<blockquote>
+<p>在 URL 中，<strong>空格</strong>不能直接传输（会被解析为参数分隔符），因此需要用<code>+</code>或<code>%20</code>做 URL 编码，后端接收到后会自动解码为空格。</p>
+</blockquote>
+<p><strong>Lab</strong> 用户名-密码校验</p>
+<p>password payload:<code>' OR 1=1--</code></p>
+<p>注意，如果要注入在 username 的话，也可以</p>
 
 </section>
 
@@ -472,6 +542,19 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Burp靶场：SQL注入</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
@@ -532,19 +615,6 @@
 
         <div class="article-details">
             <h2 class="article-title">御林招新题：Homepage</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E5%BE%A1%E6%9E%97-mysql%E4%B8%93%E9%A2%98/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">御林招新题：MySQL专题</h2>
         </div>
     </a>
 </article>

