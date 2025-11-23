@@ -229,6 +229,21 @@
         <li><a href="#r510">R510</a></li>
       </ol>
     </li>
+    <li><a href="#24-年的招新平台架构">24 年的招新平台架构</a>
+      <ol>
+        <li><a href="#核心架构pve角色映射">核心架构（PVE角色映射）</a></li>
+        <li><a href="#部署步骤">部署步骤</a>
+          <ol>
+            <li><a href="#公网vm">公网VM</a></li>
+            <li><a href="#内网核心vm核心部署">内网核心VM（核心部署）</a></li>
+            <li><a href="#docker-vm">Docker VM</a></li>
+            <li><a href="#静态题目vmlxc">静态题目VM/LXC</a></li>
+          </ol>
+        </li>
+        <li><a href="#核心流量链路">核心流量链路</a></li>
+        <li><a href="#关键配置验证要点">关键配置/验证要点</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -691,7 +706,90 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h2 id="24-年的招新平台架构">24 年的招新平台架构
+</h2><h3 id="核心架构pve角色映射">核心架构（PVE角色映射）
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>架构分层</th>
+          <th>PVE角色</th>
+          <th>核心功能</th>
+          <th>网络配置</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>公网入口</td>
+          <td>公网VM（有公网IP）</td>
+          <td>流量转发+反向代理打通内网访问</td>
+          <td>公网IP，开放80端口</td>
+      </tr>
+      <tr>
+          <td>核心调度</td>
+          <td>内网核心VM（内网IP）</td>
+          <td>流量分发+容器管理+数据库存储</td>
+          <td>内网IP（如192.168.1.100）</td>
+      </tr>
+      <tr>
+          <td>动态题目运行</td>
+          <td>Docker VM（内网IP）</td>
+          <td>运行Docker容器+接收容器管理指令</td>
+          <td>内网IP（如192.168.1.101）</td>
+      </tr>
+      <tr>
+          <td>静态题目运行</td>
+          <td>静态题目VM/LXC</td>
+          <td>运行静态题目服务（Web/PWN等）</td>
+          <td>内网IP（如192.168.1.103）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="部署步骤">部署步骤
+</h3><h4 id="公网vm">公网VM
+</h4><ul>
+<li>安装：nginx + autossh</li>
+<li>nginx配置：监听80端口，转发所有请求到本地9000端口（传递Host/用户IP）</li>
+<li>autossh配置：<code>autossh -M 23333 -NR 9000:192.168.1.100:9000 root@内网核心VMIP</code>（反向代理到内网核心VM:9000）</li>
+<li>关键：免密SSH登录内网核心VM，设置autossh开机自启</li>
+</ul>
+<h4 id="内网核心vm核心部署">内网核心VM（核心部署）
+</h4><ul>
+<li>依赖：Python3 + requests + flask + sqlite3</li>
+<li>部署文件：<code>listener.py</code>（9000端口）、<code>docker-manager.py</code>（9001端口）、<code>db.py</code>、<code>ctf.db</code>（初始化3表：prob/docker/container）</li>
+<li>配置要点：
+<ul>
+<li>listener.py：监听0.0.0.0:9000，正则匹配子域名（静态3位数字/动态随机字符）</li>
+<li>docker-manager.py：监听0.0.0.0:9001，关联数据库+调用Docker VM接口</li>
+</ul>
+</li>
+<li>启动：创建systemd服务，设置开机自启（确保9000/9001端口监听）</li>
+</ul>
+<h4 id="docker-vm">Docker VM
+</h4><ul>
+<li>安装：Docker引擎 + <code>docker-listener.py</code>（9000端口）</li>
+<li>配置：<code>docker-listener.py</code>监听0.0.0.0:9000，接收容器启停指令</li>
+<li>测试：<code>docker run hello-world</code>验证Docker可用性，设置服务开机自启</li>
+</ul>
+<h4 id="静态题目vmlxc">静态题目VM/LXC
+</h4><ul>
+<li>部署：运行静态题目服务（如Web开80端口、PWN开9999端口）</li>
+<li>配置：内网核心VM的<code>ctf.db</code>中插入题目记录（id+IP+端口）</li>
+</ul>
+<h3 id="核心流量链路">核心流量链路
+</h3><ol>
+<li>用户请求→公网VM:80→nginx转发到本地9000端口</li>
+<li>autossh反向代理→内网核心VM:9000（静态）/9001（容器管理）</li>
+<li>静态题目：listener.py查询<code>prob</code>表→转发到静态题目VM端口</li>
+<li>动态题目：docker-manager.py调用Docker VM:9000→启动容器→listener.py查询<code>container</code>表→转发到容器映射端口</li>
+</ol>
+<h3 id="关键配置验证要点">关键配置/验证要点
+</h3><ul>
+<li>网络：所有内网VM在同一网段，开放必要端口（9000/9001/容器端口）</li>
+<li>自启：所有服务（nginx/autossh/listener/docker-manager/docker-listener）均设置systemd开机自启</li>
+<li>数据库：<code>ctf.db</code>需初始化3表，静态题目/动态模板需手动插入记录</li>
+<li>排查：用<code>systemctl status 服务名</code>查状态，<code>netstat -tulpn</code>查端口监听，确保免密SSH/容器端口可访问</li>
+</ul>
+
 </section>
 
 

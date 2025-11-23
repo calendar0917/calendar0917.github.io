@@ -1927,7 +1927,90 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;h2 id=&#34;24-年的招新平台架构&#34;&gt;24 年的招新平台架构
+&lt;/h2&gt;&lt;h3 id=&#34;核心架构pve角色映射&#34;&gt;核心架构（PVE角色映射）
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;架构分层&lt;/th&gt;
+          &lt;th&gt;PVE角色&lt;/th&gt;
+          &lt;th&gt;核心功能&lt;/th&gt;
+          &lt;th&gt;网络配置&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;公网入口&lt;/td&gt;
+          &lt;td&gt;公网VM（有公网IP）&lt;/td&gt;
+          &lt;td&gt;流量转发+反向代理打通内网访问&lt;/td&gt;
+          &lt;td&gt;公网IP，开放80端口&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;核心调度&lt;/td&gt;
+          &lt;td&gt;内网核心VM（内网IP）&lt;/td&gt;
+          &lt;td&gt;流量分发+容器管理+数据库存储&lt;/td&gt;
+          &lt;td&gt;内网IP（如192.168.1.100）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;动态题目运行&lt;/td&gt;
+          &lt;td&gt;Docker VM（内网IP）&lt;/td&gt;
+          &lt;td&gt;运行Docker容器+接收容器管理指令&lt;/td&gt;
+          &lt;td&gt;内网IP（如192.168.1.101）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;静态题目运行&lt;/td&gt;
+          &lt;td&gt;静态题目VM/LXC&lt;/td&gt;
+          &lt;td&gt;运行静态题目服务（Web/PWN等）&lt;/td&gt;
+          &lt;td&gt;内网IP（如192.168.1.103）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;部署步骤&#34;&gt;部署步骤
+&lt;/h3&gt;&lt;h4 id=&#34;公网vm&#34;&gt;公网VM
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;安装：nginx + autossh&lt;/li&gt;
+&lt;li&gt;nginx配置：监听80端口，转发所有请求到本地9000端口（传递Host/用户IP）&lt;/li&gt;
+&lt;li&gt;autossh配置：&lt;code&gt;autossh -M 23333 -NR 9000:192.168.1.100:9000 root@内网核心VMIP&lt;/code&gt;（反向代理到内网核心VM:9000）&lt;/li&gt;
+&lt;li&gt;关键：免密SSH登录内网核心VM，设置autossh开机自启&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;内网核心vm核心部署&#34;&gt;内网核心VM（核心部署）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;依赖：Python3 + requests + flask + sqlite3&lt;/li&gt;
+&lt;li&gt;部署文件：&lt;code&gt;listener.py&lt;/code&gt;（9000端口）、&lt;code&gt;docker-manager.py&lt;/code&gt;（9001端口）、&lt;code&gt;db.py&lt;/code&gt;、&lt;code&gt;ctf.db&lt;/code&gt;（初始化3表：prob/docker/container）&lt;/li&gt;
+&lt;li&gt;配置要点：
+&lt;ul&gt;
+&lt;li&gt;listener.py：监听0.0.0.0:9000，正则匹配子域名（静态3位数字/动态随机字符）&lt;/li&gt;
+&lt;li&gt;docker-manager.py：监听0.0.0.0:9001，关联数据库+调用Docker VM接口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;启动：创建systemd服务，设置开机自启（确保9000/9001端口监听）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;docker-vm&#34;&gt;Docker VM
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;安装：Docker引擎 + &lt;code&gt;docker-listener.py&lt;/code&gt;（9000端口）&lt;/li&gt;
+&lt;li&gt;配置：&lt;code&gt;docker-listener.py&lt;/code&gt;监听0.0.0.0:9000，接收容器启停指令&lt;/li&gt;
+&lt;li&gt;测试：&lt;code&gt;docker run hello-world&lt;/code&gt;验证Docker可用性，设置服务开机自启&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;静态题目vmlxc&#34;&gt;静态题目VM/LXC
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;部署：运行静态题目服务（如Web开80端口、PWN开9999端口）&lt;/li&gt;
+&lt;li&gt;配置：内网核心VM的&lt;code&gt;ctf.db&lt;/code&gt;中插入题目记录（id+IP+端口）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心流量链路&#34;&gt;核心流量链路
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;用户请求→公网VM:80→nginx转发到本地9000端口&lt;/li&gt;
+&lt;li&gt;autossh反向代理→内网核心VM:9000（静态）/9001（容器管理）&lt;/li&gt;
+&lt;li&gt;静态题目：listener.py查询&lt;code&gt;prob&lt;/code&gt;表→转发到静态题目VM端口&lt;/li&gt;
+&lt;li&gt;动态题目：docker-manager.py调用Docker VM:9000→启动容器→listener.py查询&lt;code&gt;container&lt;/code&gt;表→转发到容器映射端口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;关键配置验证要点&#34;&gt;关键配置/验证要点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;网络：所有内网VM在同一网段，开放必要端口（9000/9001/容器端口）&lt;/li&gt;
+&lt;li&gt;自启：所有服务（nginx/autossh/listener/docker-manager/docker-listener）均设置systemd开机自启&lt;/li&gt;
+&lt;li&gt;数据库：&lt;code&gt;ctf.db&lt;/code&gt;需初始化3表，静态题目/动态模板需手动插入记录&lt;/li&gt;
+&lt;li&gt;排查：用&lt;code&gt;systemctl status 服务名&lt;/code&gt;查状态，&lt;code&gt;netstat -tulpn&lt;/code&gt;查端口监听，确保免密SSH/容器端口可访问&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         
     </channel>
