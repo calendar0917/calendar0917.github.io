@@ -1,0 +1,52 @@
+baseURL: "https://calendar0917.github.io/"
+languageCode: "zh-cn"
+title: "calendar"
+theme:
+  - PaperMod
+
+enableRobotsTXT: true
+
+params:
+  env: production
+  author: "calendar"
+  description: "Personal notes, projects, and things I care about."
+
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowBreadCrumbs: false
+
+  homeInfoParams:
+    Title: "Hi, I'm calendar."
+    Content: >
+      I work on ...,
+      Currently interested in ...
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/calendar0917"
+
+menu:
+  main:
+    - identifier: notes
+      name: Notes
+      url: /notes/
+      weight: 10
+
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 20
+
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
+
+caches:
+  images:
+    dir: :cacheDir/images
